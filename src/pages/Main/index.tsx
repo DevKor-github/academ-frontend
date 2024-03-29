@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Box, Typography } from '@mui/material';
+import { Box, TextField, Typography } from '@mui/material';
 
 import { User } from '../../models/user';
 
@@ -11,8 +11,8 @@ export function MainPage() {
    */
   const [user, setUser] = useState<User>({
     id: 0,
-    firstName: '이웹',
-    lastName: '케',
+    firstName: ',,',
+    lastName: ',,',
     age: 21,
   });
 
@@ -70,13 +70,12 @@ export function MainPage() {
   return (
     <Box paddingX={3} paddingY={5}>
       <Box>
-        <Typography variant="h4">사용자 정보</Typography>
+        <Typography variant="h4">강의명으로 검색해보세요</Typography>
       </Box>
       <Box height={40} />
+      <TextField></TextField>
       <Box>
         <Typography variant="h6">이름: {user.firstName}</Typography>
-        <Typography variant="h6">성: {user.lastName}</Typography>
-        <Typography variant="h6">나이: {user.age}</Typography>
       </Box>
     </Box>
   );
