@@ -6,24 +6,38 @@
 
 import { useNavigate } from 'react-router-dom';
 import Box from '@mui/material/Box';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import { Typography } from '@mui/material';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-// import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
+import { VStack } from '../VStack';
+import Spacer from '../Spacer';
+import { Button } from '../Button';
+import { useSessionId } from '../../contexts/SessionIdContext';
 
 export default function TopNav() {
   const navigate = useNavigate();
 
+  const { sessionId } = useSessionId();
+
   return (
-    <Box sx={{ width: '100%', height: '10%' }}>
-      <BottomNavigation showLabels sx={{ height: '100%', backgroundColor: 'aliceblue' }}>
-        <Typography>서비스 이름</Typography>
-        <BottomNavigationAction label="내 정보" icon={<AccountCircleIcon />} onClick={() => navigate('/')} />
-        <BottomNavigationAction label="로그인" icon={<PersonAddIcon />} onClick={() => navigate('/login')} />
-        <BottomNavigationAction label="회원가입" icon={<PersonAddIcon />} onClick={() => navigate('/login')} />
-      </BottomNavigation>
+    <Box
+      sx={{ width: '100%', height: '30px', backgroundColor: 'aliceblue', display: 'flex', justifyContent: 'center' }}
+    >
+      <VStack>
+        <Button label="서비스 이름" onClick={() => navigate('/')} />
+      </VStack>
+      <Spacer x={10} />
+      <VStack>
+        <Button label="시간표" onClick={() => navigate('/timetable')} />
+        <Button label="강의추천" onClick={() => navigate('/curation')} />
+        <Button label="마이페이지" onClick={() => navigate('/mypage')} />
+      </VStack>
+      <Spacer x={10} />
+      <VStack>
+        {sessionId ? (
+          <Button label="로그아웃" onClick={() => navigate('/logout')} />
+        ) : (
+          <Button label="로그인/회원가입" onClick={() => navigate('/login')} />
+        )}
+      </VStack>
     </Box>
   );
 }

@@ -5,6 +5,7 @@ import TopNav from '../TopNavigation';
 interface LayoutProps {
   children: React.ReactNode;
 }
+
 export function Layout({ children }: LayoutProps) {
   return (
     <Box>

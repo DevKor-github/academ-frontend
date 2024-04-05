@@ -1,0 +1,17 @@
+.primary {
+    display: flex; /* Ensures that the element can be sized and rounded */
+    border-radius: 5%; /* Makes the element round */
+    background-color: transparent; /* Sets a transparent background */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    padding: 10px; /* Adjust padding as needed */
+    border: 0px solid #007bff; /* Example border - change color as needed */
+    cursor: pointer; /* Changes cursor to pointer to indicate it's clickable */
+  }
+  
+  .primary:hover {
+    background-color: rgba(0, 123, 255, 0.1); /* Slightly changes background color on hover */
+  }
+
+  .blocking {
+    display: block;
+  }
