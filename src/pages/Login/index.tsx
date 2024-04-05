@@ -31,11 +31,10 @@ export function LoginPage() {
         },
       });
 
-      console.log(response);
-
       if (response.status === 200) {
         window.alert('로그인이 완료되었습니다.');
         setSessionId('sesssionId from backend server');
+
         navigate('/');
       }
     } catch (e) {
