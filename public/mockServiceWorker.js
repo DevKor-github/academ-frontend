@@ -92,6 +92,14 @@ self.addEventListener('message', async function (event) {
 self.addEventListener('fetch', function (event) {
   const { request } = event
 
+  if (event.request.url.endsWith('/api/login')) {
+    event.respondWith(
+      new Response(JSON.stringify({ message: 'This is a fake response!' }), {
+        headers: { 'Content-Type': 'application/json' },
+      })
+    );
+  }
+
   // Bypass navigation requests.
   if (request.mode === 'navigate') {
     return
