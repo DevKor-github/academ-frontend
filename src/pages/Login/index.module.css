@@ -1,0 +1,31 @@
+
+
+.container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh;
+    background-color: #EEEEEE;
+}
+
+.modal {
+    padding : 40px 40px 40px 40px;
+    border-radius: 12px;
+    border:solid #DDDDDD 1px;
+    background-color: #FFFFFF; /* Change the color as needed */
+}
+
+
+@media (prefers-color-scheme: dark) {
+
+    .container {
+        background-color: #111111;
+    }
+    
+    .modal {
+        border:solid #333333 1px;
+        background-color: #222222; /* Change the color as needed */
+    }
+
+    
+}
