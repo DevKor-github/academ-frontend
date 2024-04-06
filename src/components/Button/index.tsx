@@ -15,9 +15,10 @@ interface ButtonProps {
   [key: string]: unknown;
 }
 
-export function Button({ label, ...restProps }: ButtonProps) {
+export function Button({ label, icon, ...restProps }: ButtonProps) {
   return (
-    <button className={styles.primary} {...restProps}>
+    <button className={styles.primary} style={{ alignItems: 'center', color: 'inherit' }} {...restProps}>
+      {icon && <img src={icon} style={{ aspectRatio: 1, height: '24px', width: 'auto' }} />}
       {label}
     </button>
   );
