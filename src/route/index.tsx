@@ -9,27 +9,23 @@ import { LogoutPage } from '../pages/Logout';
 import { LoginPage } from '../pages/Login';
 import { ErrorPage } from '../pages/Error';
 import { CurationPage } from '../pages/Curation';
-import { Layout } from '../components/Layout';
-
-// function RouteComponent1() {
-//   return (
-//     <Routes>
-//       <Route path="/" element={<MainPage />} />
-//       <Route path="/login" element={<LoginPage />} />
-//       <Route path="/logout" element={<LogoutPage />} />
-//       <Route path="/register" element={<RegisterPage />} />
-//       <Route path="/search" element={<SearchPage />} />
-//       <Route path="/curation" element={<SearchPage />} />
-//       <Route path="*" element={<ErrorPage code="HTTP 404 Error" />} />
-//     </Routes>
-//   );
-// }
+import { Layout, Modallike } from '../components';
 
 export function RouteComponent() {
   return (
     <Routes>
-      <Route path="/login" element={<LoginPage />} />
       <Route path="/" element={<MainPage />} />
+      <Route
+        element={
+          <Modallike>
+            <Outlet />
+          </Modallike>
+        }
+      >
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/logout" element={<LogoutPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+      </Route>
       <Route
         element={
           <Layout>
@@ -37,15 +33,21 @@ export function RouteComponent() {
           </Layout>
         }
       >
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/logout" element={<LogoutPage />} />
-        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/notice" element={<ErrorPage />} />
         <Route path="/search" element={<SearchPage />} />
         <Route path="/curation" element={<CurationPage />} />
         <Route path="/mypage" element={<UserMyPage />} />
         <Route path="/timetable" element={<TimetablePage />} />
+        <Route path="/lecture" element={<ErrorPage />} />
       </Route>
-      <Route path="*" element={<ErrorPage />} />
+      <Route
+        path="*"
+        element={
+          <Modallike>
+            <ErrorPage />
+          </Modallike>
+        }
+      />
     </Routes>
   );
 }
