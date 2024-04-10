@@ -1,13 +1,15 @@
-import { Box, TextField, Typography, Button } from '@mui/material';
+import { Box, TextField, Typography } from '@mui/material';
 
-import { TopNav } from '../../components/TopNavigation';
+import { TopNav, Footer, HStack, Button, VStack } from '../../components';
 
 export function MainPage() {
   return (
-    <Box width={'100%'} position="absolute" top="0">
-      <TopNav overlap={true} />
-      <Box sx={{ width: '100%', position: 'absolute', top: 0 }}>
-        <Box width={'100%'} height={'500px'} sx={{ backgroundColor: '#AAAAAA' }}></Box>
+    <HStack>
+      <Box width={'100%'} position="absolute" top="0">
+        <TopNav overlap />
+        <Box width={'100%'} height={'500px'} sx={{ backgroundColor: '#AAAAAA', position: 'absolute', top: 0 }}></Box>
+      </Box>
+      <Box sx={{ width: '100%', position: 'relative', top: '500px' }}>
         <Box
           paddingX={3}
           paddingY={5}
@@ -17,14 +19,16 @@ export function MainPage() {
           alignItems={'center'}
           position="relative"
         >
-          <Box>
+          <HStack>
             <Typography variant="h4">강의명으로 검색해보세요</Typography>
-          </Box>
-          <Box>
-            <TextField></TextField> <Button>검색</Button>
-          </Box>
+            <Typography variant="h6">e.g., Lorem Ipsum, Lorem Ipsum</Typography>
+            <VStack>
+              <TextField></TextField> <Button>검색</Button>
+            </VStack>
+          </HStack>
         </Box>
       </Box>
-    </Box>
+      <Footer />
+    </HStack>
   );
 }

@@ -1,15 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-import { Box, Button, Stack, TextField, ToggleButton, IconButton } from '@mui/material';
+import { TextField, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { useSessionId } from '../../contexts/SessionIdContext';
-import { VStack } from '../../components/VStack';
-import Spacer from '../../components/Spacer';
-import { HStack } from '../../components/HStack';
-
-import styles from './index.module.css';
+import { Spacer, VStack, HStack, Checkbox, A, Button } from '../../components';
 
 export function LoginPage() {
   const [input, setInput] = useState({
@@ -48,40 +44,27 @@ export function LoginPage() {
   }
 
   return (
-    <Box className={styles.container}>
-      <Box className={styles.modal}>
-        <HStack>
-          <VStack>
-            <Spacer />
-            <IconButton onClick={() => navigate(-1)}>
-              <CloseIcon></CloseIcon>
-            </IconButton>
-          </VStack>
-
-          <HStack>
-            <TextField required id="id" label="ID" onChange={handleInput} />
-            <TextField required id="firstName" type="password" label="비밀번호" onChange={handleInput} />
-          </HStack>
-          <Stack spacing={3} direction="row" justifyContent={'center'}>
-            <ToggleButton value="check" selected={saveLoginInfo} onClick={() => setSaveLoginInfo(!saveLoginInfo)}>
-              로그인 정보 저장
-            </ToggleButton>
-            <Spacer />
-            <Button variant="contained" color="primary" onClick={handleLogin}>
-              비밀번호 찾기
-            </Button>
-          </Stack>
-          <Button variant="contained" color="primary" onClick={handleLogin}>
-            로그인
-          </Button>
-          <VStack>
-            아이디가 없으신가요?
-            <Button variant="contained" color="primary" onClick={() => navigate('./register')}>
-              회원가입
-            </Button>
-          </VStack>
-        </HStack>
-      </Box>
-    </Box>
+    <HStack type="left" gap="10px">
+      <VStack>
+        <Spacer />
+        <IconButton onClick={() => navigate(-1)}>
+          <CloseIcon></CloseIcon>
+        </IconButton>
+      </VStack>
+      <HStack gap="10px">
+        <TextField required id="id" label="ID" onChange={handleInput} />
+        <TextField required id="firstName" type="password" label="비밀번호" onChange={handleInput} />
+      </HStack>
+      <VStack>
+        <Checkbox value={saveLoginInfo} onClick={() => setSaveLoginInfo(!saveLoginInfo)} label="로그인 정보 저장" />
+        <Spacer />
+        <A href="/login/find-password">비밀번호 찾기</A>
+      </VStack>
+      <Button style="primary" accnet="0" variant="contained" color="primary" onClick={handleLogin}>
+        로그인
+      </Button>
+      아이디가 없으신가요?
+      <A href="/register">회원가입</A>
+    </HStack>
   );
 }
