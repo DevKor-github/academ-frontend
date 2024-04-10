@@ -1,0 +1,13 @@
+
+.gradient {
+    background : linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0) 100%);
+}
+
+.line {
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.bar {
+    margin-left: 40px;
+    margin-right: 40px;
+}
