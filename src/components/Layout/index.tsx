@@ -1,6 +1,6 @@
-import { Box } from '@mui/material';
-
-import { TopNav } from '../TopNavigation';
+import TopNav from '../Topnav';
+import HStack from '../HStack';
+import Footer from '../Footer';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,11 +8,10 @@ interface LayoutProps {
 
 export function Layout({ children }: LayoutProps) {
   return (
-    <Box>
+    <HStack>
       <TopNav />
-      <Box display={'flex'} justifyContent={'center'}>
-        {children}
-      </Box>
-    </Box>
+      <HStack>{children}</HStack>
+      <Footer />
+    </HStack>
   );
 }

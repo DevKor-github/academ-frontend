@@ -3,23 +3,36 @@
 import styles from './index.module.css';
 
 interface ButtonProps {
-  label: string;
+  children: React.ReactNode;
+
+  disabled?: boolean;
   icon?: string;
-  primary?: void;
-  secondary?: void;
-  success?: void;
-  warning?: void;
-  danger?: void;
-  outline?: void;
-  rounded?: void;
+  style?: 'primary' | 'outline';
+  accent?: '-1' | '0' | '1';
+
   [key: string]: unknown;
 }
 
-export function Button({ label, icon, ...restProps }: ButtonProps) {
+export default function Button({
+  style = 'primary',
+  accent = '0',
+  disabled,
+  children,
+  icon,
+  ...restProps
+}: ButtonProps) {
   return (
-    <button className={styles.primary} style={{ alignItems: 'center', color: 'inherit' }} {...restProps}>
+    <button
+      tabIndex={0}
+      className={`${styles.shared} ${style === 'primary' ? styles.primary : styles.outline}
+
+      ${styles[`accent${accent}`]}
+      
+      ${disabled ? styles.disabled : styles.enabled}`}
+      {...restProps}
+    >
       {icon && <img src={icon} style={{ aspectRatio: 1, height: '24px', width: 'auto' }} />}
-      {label}
+      {children}
     </button>
   );
 }
