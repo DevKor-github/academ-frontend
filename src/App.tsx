@@ -3,9 +3,8 @@ import { ThemeProvider, createTheme } from '@mui/material';
 
 import { RouteComponent } from './route';
 import { SessionIdProvider } from './contexts/SessionIdContext';
-import { Layout } from './components/Layout';
 
-import './App.css';
+import './App.css'; // App.css is a "global module"
 
 const theme = createTheme({
   typography: {
@@ -13,19 +12,12 @@ const theme = createTheme({
   },
 });
 
-/**
- * BrowserRouter : 브라우저의 주소를 관리하는 Provider
- * Layout : 페이지의 레이아웃을 담당하는 컴포넌트입니다
- * RouteComponent : 페이지의 라우팅을 담당하는 컴포넌트
- */
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <SessionIdProvider>
         <BrowserRouter>
-          <Layout>
-            <RouteComponent />
-          </Layout>
+          <RouteComponent />
         </BrowserRouter>
       </SessionIdProvider>
     </ThemeProvider>

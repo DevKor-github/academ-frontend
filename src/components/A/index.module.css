@@ -1,0 +1,9 @@
+.red {
+  color : #dc143c;
+  text-decoration: none;
+  transition: all 0.1s ease;
+}
+.red:hover {
+  filter: brightness(1.2);
+  text-decoration: underline;
+}
