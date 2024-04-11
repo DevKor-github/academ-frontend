@@ -12,9 +12,13 @@
   padding: 10px; /* Adjust padding as needed */
 
 }
+
+.shared:focus {
+  opacity: 0.5;
+}
+
 .shared:hover {
   opacity: 0.5;
-
 }
 
 .selected {

@@ -26,7 +26,7 @@ export default function TopnavButton({ selected, href, children, icon, pill, ...
       }}
       {...restProps}
     >
-      <div
+      <button
         tabIndex={0}
         className={`${styles.shared} ${pill ? styles.pill : styles.primary} ${
           selected ? styles.selected : styles.unselected
@@ -35,7 +35,7 @@ export default function TopnavButton({ selected, href, children, icon, pill, ...
       >
         {icon && <img src={icon} style={{ aspectRatio: 1, height: '18pt', width: 'auto', marginRight: '5px' }} />}
         <span>{children}</span>
-      </div>
+      </button>
     </a>
   );
 }

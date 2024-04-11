@@ -9,23 +9,25 @@ import { useSessionId } from '../../contexts/SessionIdContext';
 import styles from './index.module.css';
 
 interface TopNavProps {
-  overlap?: boolean;
+  withImage?: boolean;
 }
 
-export default function TopNav({ overlap }: TopNavProps) {
+export default function TopNav({ withImage: overlap }: TopNavProps) {
   const { sessionId } = useSessionId();
   const location = useLocation();
 
   const getLoc = (loc: { pathname: string }) => loc.pathname.split('/')[1];
 
-  return (
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  const Topbar = ({ overlap }: { overlap?: boolean }) => (
     <Box
       className={`${overlap ? styles.gradient : ''}`}
       sx={{
         width: '100%',
         height: '72px',
         zIndex: overlap ? 100 : 0,
-        position: 'relative',
+        position: overlap ? 'absoulte' : 'relative',
+        top: 0,
         display: 'flex',
         alignItems: 'center',
       }}
@@ -78,5 +80,13 @@ export default function TopNav({ overlap }: TopNavProps) {
         </VStack>
       </Box>
     </Box>
+  );
+
+  return overlap ? (
+    <Box width={'100%'} height={'500px'} sx={{ backgroundColor: '#AAAAAA', position: 'relative', top: 0 }}>
+      <Topbar overlap={overlap} />
+    </Box>
+  ) : (
+    <Topbar overlap={overlap} />
   );
 }

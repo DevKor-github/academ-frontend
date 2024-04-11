@@ -4,12 +4,9 @@ import { TopNav, Footer, HStack, Button, VStack } from '../../components';
 
 export function MainPage() {
   return (
-    <HStack>
-      <Box width={'100%'} position="absolute" top="0">
-        <TopNav overlap />
-        <Box width={'100%'} height={'500px'} sx={{ backgroundColor: '#AAAAAA', position: 'absolute', top: 0 }}></Box>
-      </Box>
-      <Box sx={{ width: '100%', position: 'relative', top: '500px' }}>
+    <div style={{ display: 'grid', gridTemplateRows: '1fr auto', minHeight: '100vh' }}>
+      <TopNav withImage />
+      <Box sx={{ width: '100%' }}>
         <Box
           paddingX={3}
           paddingY={5}
@@ -26,9 +23,72 @@ export function MainPage() {
               <TextField></TextField> <Button>검색</Button>
             </VStack>
           </HStack>
+          <HStack>
+            <Typography variant="h4">강의명으로 검색해보세요</Typography>
+            <Typography variant="h6">e.g., Lorem Ipsum, Lorem Ipsum</Typography>
+            <VStack>
+              <TextField></TextField> <Button>검색</Button>
+            </VStack>
+          </HStack>
+          <HStack>
+            <Typography variant="h4">강의명으로 검색해보세요</Typography>
+            <Typography variant="h6">e.g., Lorem Ipsum, Lorem Ipsum</Typography>
+            <VStack>
+              <TextField></TextField> <Button>검색</Button>
+            </VStack>
+          </HStack>{' '}
+          <HStack>
+            <Typography variant="h4">강의명으로 검색해보세요</Typography>
+            <Typography variant="h6">e.g., Lorem Ipsum, Lorem Ipsum</Typography>
+            <VStack>
+              <TextField></TextField> <Button>검색</Button>
+            </VStack>
+          </HStack>{' '}
+          <HStack>
+            <Typography variant="h4">강의명으로 검색해보세요</Typography>
+            <Typography variant="h6">e.g., Lorem Ipsum, Lorem Ipsum</Typography>
+            <VStack>
+              <TextField></TextField> <Button>검색</Button>
+            </VStack>
+          </HStack>{' '}
+          <HStack>
+            <Typography variant="h4">강의명으로 검색해보세요</Typography>
+            <Typography variant="h6">e.g., Lorem Ipsum, Lorem Ipsum</Typography>
+            <VStack>
+              <TextField></TextField> <Button>검색</Button>
+            </VStack>
+          </HStack>{' '}
+          <HStack>
+            <Typography variant="h4">강의명으로 검색해보세요</Typography>
+            <Typography variant="h6">e.g., Lorem Ipsum, Lorem Ipsum</Typography>
+            <VStack>
+              <TextField></TextField> <Button>검색</Button>
+            </VStack>
+          </HStack>{' '}
+          <HStack>
+            <Typography variant="h4">강의명으로 검색해보세요</Typography>
+            <Typography variant="h6">e.g., Lorem Ipsum, Lorem Ipsum</Typography>
+            <VStack>
+              <TextField></TextField> <Button>검색</Button>
+            </VStack>
+          </HStack>{' '}
+          <HStack>
+            <Typography variant="h4">강의명으로 검색해보세요</Typography>
+            <Typography variant="h6">e.g., Lorem Ipsum, Lorem Ipsum</Typography>
+            <VStack>
+              <TextField></TextField> <Button>검색</Button>
+            </VStack>
+          </HStack>{' '}
+          <HStack>
+            <Typography variant="h4">강의명으로 검색해보세요</Typography>
+            <Typography variant="h6">e.g., Lorem Ipsum, Lorem Ipsum</Typography>
+            <VStack>
+              <TextField></TextField> <Button>검색</Button>
+            </VStack>
+          </HStack>
         </Box>
       </Box>
       <Footer />
-    </HStack>
+    </div>
   );
 }
