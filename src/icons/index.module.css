@@ -1,0 +1,11 @@
+svg {
+  stroke: black;
+}
+
+@media (prefers-color-scheme: dark) {
+  svg {
+    stroke: white;
+  }
+
+  
+}

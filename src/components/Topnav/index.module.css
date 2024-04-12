@@ -3,11 +3,71 @@
     background : linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0) 100%);
 }
 
+.overlap {
+    color: white;
+    stroke: white;
+}
+
 .line {
+    color: black; /*#7a7a7a;*/
     border-bottom: 1px solid #dbdbdb;
 }
 
-.bar {
-    margin-left: 40px;
-    margin-right: 40px;
+@media (prefers-color-scheme: dark) {
+    .line {
+        color: #dbdbdb;
+        border-bottom: 1px solid #424242;
+    }
+    
+}
+
+.strategy {
+    align-items:center ;
+    justify-content: space-between;
+}
+.logoStrategy { 
+
+    width: fit-content;
+    justify-content: center;  /* 노상관 */
+     align-items: center;
+     
+}
+
+
+.small {
+    display: none;
+}
+.big {
+    display: block;
+}
+
+@media ( max-width: 720px ) {
+    .strategy {
+        align-items:start ;
+        justify-content: start;
+
+
+    }
+    .small {
+        display: block;
+
+    }
+    .big {
+        display: none;
+    }
+
+    .logoStrategy { 
+        height: 0px; /* height of the content */
+        padding-top: 36px; 
+        padding-bottom: 36px;
+        width: 100%;
+        justify-content: space-between;
+         align-items: center;
+    }
+  }
+  
+  
+.pad {
+    padding-left: 40px;
+    padding-right: 40px;
 }

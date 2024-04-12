@@ -19,8 +19,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   border: none;
-  padding: 10px;
-  font-size:large;
+  padding: 8px;
 }
 
 .shared.enabled:hover {

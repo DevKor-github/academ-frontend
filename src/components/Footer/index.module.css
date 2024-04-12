@@ -11,3 +11,9 @@ footer {
   margin: 0px 40px;
   border-top: solid 1px #dbdbdb;
 }
+
+@media (prefers-color-scheme: dark) {
+  .padding {
+      border-top: 1px solid #424242;
+  }
+}
