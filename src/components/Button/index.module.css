@@ -27,6 +27,10 @@
   box-shadow: 0px 4px 8px rgb(from var(--accent) r g b / 0.5);
 }
 
+.shared.enabled:focus {
+  box-shadow: 0px 4px 8px rgb(from var(--accent) r g b / 0.5);
+}
+
 .enabled.outline {
   color: var(--accent);
   border: solid 1px var(--accent);
@@ -43,6 +47,11 @@
   color: white;
   background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2));
 }
+.enabled.primary:focus {
+  color: white;
+  background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2));
+}
+
 
 .enabled.primary {
   color: white;
