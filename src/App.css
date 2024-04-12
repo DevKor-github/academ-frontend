@@ -1,4 +1,19 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+  
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrap {
+    flex: 1;
+}
+
 a {
     text-decoration: none;
     color: inherit;
 }
+
