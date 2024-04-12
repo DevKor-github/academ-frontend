@@ -4,17 +4,19 @@ import styles from './index.module.css';
 
 interface AProps {
   abstract?: boolean;
+  style?: 'monotone' | 'accent';
   href: string;
   children: React.ReactNode;
   [key: string]: unknown;
 }
 
-export default function A({ abstract, href, children, ...restProps }: AProps) {
+export default function A({ style = 'accent', abstract, href, children, ...restProps }: AProps) {
   const navigate = useNavigate();
 
   return (
     <a
-      className={abstract ? '' : styles.red}
+      // eslint-disable-next-line no-nested-ternary
+      className={abstract ? '' : style === 'accent' ? styles.red : styles.monotone}
       href={href}
       onClick={(e) => {
         if (!e.metaKey && !e.ctrlKey) {
