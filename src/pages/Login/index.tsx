@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-import { TextField, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import { IconButton } from '@mui/material';
 
+import { CloseIcon, LeftIcon } from '../../icons';
 import { useSessionId } from '../../contexts/SessionIdContext';
-import { Spacer, VStack, HStack, Checkbox, A, Button } from '../../components';
+import { Spacer, VStack, HStack, Toggle, A, Button, Input } from '../../components';
 
 export function LoginPage() {
   const [input, setInput] = useState({
@@ -48,15 +48,16 @@ export function LoginPage() {
       <VStack>
         <Spacer />
         <IconButton onClick={() => navigate(-1)}>
-          <CloseIcon></CloseIcon>
+          <CloseIcon />
+          <LeftIcon />
         </IconButton>
       </VStack>
       <HStack gap="10px">
-        <TextField required id="id" label="ID" onChange={handleInput} />
-        <TextField required id="firstName" type="password" label="비밀번호" onChange={handleInput} />
+        <Input required id="id" label="ID" onChange={handleInput} />
+        <Input required id="firstName" type="password" label="비밀번호" onChange={handleInput} />
       </HStack>
       <VStack>
-        <Checkbox value={saveLoginInfo} onClick={() => setSaveLoginInfo(!saveLoginInfo)} label="로그인 정보 저장" />
+        <Toggle value={saveLoginInfo} onClick={() => setSaveLoginInfo(!saveLoginInfo)} label="로그인 정보 저장" />
         <Spacer />
         <A href="/login/find-password">비밀번호 찾기</A>
       </VStack>

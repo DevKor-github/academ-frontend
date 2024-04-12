@@ -3,7 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Box, Divider, Stack, TextField, Typography } from '@mui/material';
 
-import { HStack, Progress, Button } from '../../components';
+import { HStack, Progress, Button, VStack, Spacer } from '../../components';
 
 /**
  * 유저 생성 페이지입니다.
@@ -47,12 +47,9 @@ export function RegisterPage() {
     }
   }
 
-  const page0 = (
+  const desc = ['고려대학교 이메일로 학생 인증을 해주세요', '', '고려대학교 이메일로 학생 인증을 해주세요'];
+  const pages = [
     <HStack>
-      <Box marginBottom={4} textAlign={'left'}>
-        <Typography variant="h4">환영합니다!</Typography>
-        <Typography variant="h6">고려대학교 이메일로 학생 인증을 해주세요</Typography>
-      </Box>
       <Box>
         <Box marginY={2}>
           <Divider />
@@ -68,19 +65,24 @@ export function RegisterPage() {
           </Button>
         </Stack>
       </Box>
-    </HStack>
-  );
+    </HStack>,
+  ];
 
   return (
     <HStack>
+      <Box marginBottom={4} textAlign={'left'}>
+        <Typography variant="h4">환영합니다!</Typography>
+        <Typography variant="h6">{desc[rate]}</Typography>
+      </Box>
       <Progress rate={rate / 5}></Progress>
-      {rate === 0 ? page0 : ''}
+      {pages[rate]}
       <Box paddingY={6}>
-        <Stack spacing={3} direction="row" justifyContent={'center'}>
+        <VStack>
+          <Spacer />
           <Button style="outline" variant="contained" color="primary" onClick={() => setRate(rate + 1)}>
             다음
           </Button>
-        </Stack>
+        </VStack>
       </Box>
     </HStack>
   );
