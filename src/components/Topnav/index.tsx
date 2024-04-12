@@ -1,55 +1,120 @@
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 
 import VStack from '../VStack';
-import TopnavButton from '../TopnavButton';
+import Typography from '../Typography';
 import Spacer from '../Spacer';
+import AdaptiveStack from '../AdaptiveStack';
 import { useSessionId } from '../../contexts/SessionIdContext';
 
 import styles from './index.module.css';
+import buttonStyles from './button.module.css';
 
-interface TopNavProps {
-  withImage?: boolean;
+interface TopnavBlankButtonProps {
+  className?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  children: React.ReactNode;
+  icon?: string;
+  pill?: boolean;
+  selected?: boolean;
+  [key: string]: unknown;
 }
 
-export default function TopNav({ withImage: overlap }: TopNavProps) {
+interface TopnavButtonProps {
+  href: string;
+  children: React.ReactNode;
+  icon?: string;
+  pill?: boolean;
+  selected?: boolean;
+  [key: string]: unknown;
+}
+function TopnavBlankButton({ selected, children, icon, pill, onClick, className }: TopnavBlankButtonProps) {
+  return (
+    <span className={className}>
+      <button
+        // tabIndex={0}
+        className={`${buttonStyles.shared} ${pill ? buttonStyles.pill : buttonStyles.primary} ${
+          selected ? buttonStyles.selected : buttonStyles.unselected
+        }`}
+        onClick={onClick}
+      >
+        {icon && <img src={icon} style={{ aspectRatio: 1, height: '18pt', width: 'auto', marginRight: '5px' }} />}
+        <Typography variant="t4">{children}</Typography>
+      </button>
+    </span>
+  );
+}
+
+function TopnavButton({ selected, href, children, icon, pill, ...restProps }: TopnavButtonProps) {
+  const navigate = useNavigate();
+
+  return (
+    <a
+      href={href}
+      onClick={(e) => {
+        if (!e.metaKey && !e.ctrlKey) {
+          e.preventDefault();
+          navigate(href);
+        }
+      }}
+      {...restProps}
+    >
+      <span
+        // tabIndex={0}
+        className={`${buttonStyles.shared} ${pill ? buttonStyles.pill : buttonStyles.primary} ${
+          selected ? buttonStyles.selected : buttonStyles.unselected
+        }`}
+      >
+        {icon && <img src={icon} style={{ aspectRatio: 1, height: '18pt', width: 'auto', marginRight: '5px' }} />}
+        <Typography variant="t4">{children}</Typography>
+      </span>
+    </a>
+  );
+}
+export default function TopNav() {
   const { sessionId } = useSessionId();
   const location = useLocation();
 
+  const [spreaded, setSpreaded] = useState(false);
+
   const getLoc = (loc: { pathname: string }) => loc.pathname.split('/')[1];
+
+  const overlap = location.pathname === '/';
 
   // eslint-disable-next-line @typescript-eslint/no-shadow
   const Topbar = ({ overlap }: { overlap?: boolean }) => (
     <Box
-      className={`${overlap ? styles.gradient : ''}`}
+      className={`${styles.pad}`}
       sx={{
         width: '100%',
-        height: '72px',
-        zIndex: overlap ? 100 : 0,
         position: overlap ? 'absoulte' : 'relative',
         top: 0,
-        display: 'flex',
-        alignItems: 'center',
       }}
     >
-      <Box
-        className={`${overlap ? '' : styles.line} ${styles.bar}`}
-        sx={{
+      <AdaptiveStack
+        className={`${overlap ? styles.overlap : styles.line} ${styles.strategy}`}
+        style={{
           display: 'flex',
+          height: spreaded ? 'fit-content' : '72px',
           width: '100%',
-          height: '100%',
-          position: 'relative',
-          alignItems: 'center',
-          color: overlap ? 'white' : 'black',
+          overflow: 'hidden',
+          transition: 'all 0.2s ease',
         }}
       >
-        <VStack>
+        <VStack className={styles.logoStrategy} style={{ height: '72px' }}>
           <TopnavButton icon="./logo512.png" href="/">
             Academ
           </TopnavButton>
+          <TopnavBlankButton className={styles.small} onClick={() => setSpreaded(!spreaded)}>
+            {spreaded ? '접기' : '메뉴'}
+          </TopnavBlankButton>
+          <TopnavButton pill href={sessionId ? '/logout' : '/login'} className={styles.small}>
+            {sessionId ? '로그아웃' : '로그인'}
+          </TopnavButton>
         </VStack>
-        <Spacer x={20} />
-        <VStack gap="10px">
+
+        <AdaptiveStack vGap="10px" hGap="4px" className={styles.strategy}>
           <TopnavButton selected={getLoc(location) === 'notice'} href="/notice">
             공지사항
           </TopnavButton>
@@ -65,28 +130,35 @@ export default function TopNav({ withImage: overlap }: TopNavProps) {
           <TopnavButton selected={getLoc(location) === 'lecture'} href="/lecture">
             강의 목록
           </TopnavButton>
-        </VStack>
-        <Spacer x={20} />
-        <VStack>
-          {sessionId ? (
-            <TopnavButton pill href="/logout">
-              로그아웃
-            </TopnavButton>
-          ) : (
-            <TopnavButton pill href="/login">
-              로그인/회원가입
-            </TopnavButton>
-          )}
-        </VStack>
-      </Box>
+          <Spacer />
+        </AdaptiveStack>
+
+        <AdaptiveStack>
+          <TopnavButton pill href={sessionId ? '/logout' : '/login'} className={styles.big}>
+            {sessionId ? '로그아웃' : '로그인'}
+          </TopnavButton>
+        </AdaptiveStack>
+      </AdaptiveStack>
     </Box>
   );
 
   return overlap ? (
-    <Box width={'100%'} height={'500px'} sx={{ backgroundColor: '#AAAAAA', position: 'relative', top: 0 }}>
-      <Topbar overlap={overlap} />
+    <Box
+      width={'100%'}
+      height={'500px'}
+      sx={{ backgroundImage: 'url(/samplebanner.png)', position: 'relative', top: 0 }}
+    >
+      <Box
+        className={overlap ? styles.gradient : ''}
+        width={'100%'}
+        height={spreaded ? '500px' : '144px'}
+        top={0}
+        sx={{ position: 'absolute', top: 0 }}
+      >
+        <Topbar overlap={overlap} />
+      </Box>
     </Box>
   ) : (
-    <Topbar overlap={overlap} />
+    <Topbar />
   );
 }

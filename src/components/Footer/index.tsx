@@ -1,5 +1,5 @@
-import VStack from '../VStack';
 import Spacer from '../Spacer';
+import AdaptiveStack from '../AdaptiveStack';
 import A from '../A';
 
 import styles from './index.module.css';
@@ -7,8 +7,8 @@ import styles from './index.module.css';
 export default function Footer() {
   return (
     <footer>
-      <VStack className={styles.padding}>
-        <VStack>
+      <AdaptiveStack className={`${styles.padding}`} hGap="10px">
+        <AdaptiveStack vGap="20px" hGap="20px">
           Logo Name
           <A style="monotone" href="/policy">
             이용약관
@@ -19,10 +19,10 @@ export default function Footer() {
           <A style="monotone" href="/policy">
             Lorem
           </A>
-        </VStack>
+        </AdaptiveStack>
         <Spacer />
-        <VStack>Copyright ⓒ 2024 Academ. all rights reserved</VStack>
-      </VStack>
+        <AdaptiveStack>Copyright ⓒ 2024 Academ. all rights reserved</AdaptiveStack>
+      </AdaptiveStack>
     </footer>
   );
 }

@@ -1,16 +1,21 @@
 import TopNav from '../Topnav';
-// import HStack from '../HStack';
+import HStack from '../HStack';
 import Footer from '../Footer';
+
+// import styles from './index.module.css';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
-export function Layout({ children }: LayoutProps) {
+export default function Layout({ children }: LayoutProps) {
   return (
-    <div style={{ display: 'grid', gridTemplateRows: '1fr auto', minHeight: '100vh' }}>
+    <div style={{ display: 'grid', gridTemplateRows: 'auto 1fr auto', minHeight: '100vh' }}>
       <TopNav />
-      <div style={{ flex: 1 }}>{children}</div>
+      <HStack style={{ margin: '40px' }}>
+        {children}
+        {children}
+      </HStack>
       <Footer />
     </div>
   );

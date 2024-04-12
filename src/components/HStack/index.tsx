@@ -1,23 +1,24 @@
-interface HStackProps {
+interface HStackProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
-  type?: 'left' | 'right' | 'strech';
+  type?: 'left' | 'right' | 'strech' | 'center';
   gap?: string | number;
   children: React.ReactNode;
+  style?: React.CSSProperties;
 }
 
-export default function HStack({ className, type = 'strech', gap, children }: HStackProps) {
-  return (
-    <div
-      className={className || ''}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
+export default function HStack({ className, type = 'strech', gap, children, style }: HStackProps) {
+  const combinedStyle: React.CSSProperties = {
+    ...style,
+    ...{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: type,
+      rowGap: gap,
+    },
+  };
 
-        // eslint-disable-next-line no-nested-ternary
-        alignItems: type,
-        rowGap: gap,
-      }}
-    >
+  return (
+    <div className={className || ''} style={combinedStyle}>
       {children}
     </div>
   );

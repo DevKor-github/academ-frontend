@@ -1,5 +1,7 @@
 // import { Box } from '@mui/material';
 
+import Typography from '../Typography';
+
 import styles from './index.module.css';
 
 interface ButtonProps {
@@ -12,7 +14,6 @@ interface ButtonProps {
 
   [key: string]: unknown;
 }
-
 export default function Button({
   style = 'primary',
   accent = '0',
@@ -32,7 +33,7 @@ export default function Button({
       {...restProps}
     >
       {icon && <img src={icon} style={{ aspectRatio: 1, height: '24px', width: 'auto' }} />}
-      {children}
+      <Typography variant="t5">{children}</Typography>
     </button>
   );
 }

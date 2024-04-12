@@ -1,11 +1,11 @@
-interface CheckboxProps {
+interface ToggleProps {
   value: boolean;
   label: string;
   onClick: () => unknown;
   [key: string]: unknown;
 }
 
-export default function Checkbox({ value, label, ...restProps }: CheckboxProps) {
+export default function Toggle({ value, label, ...restProps }: ToggleProps) {
   return (
     <button
       tabIndex={0}
