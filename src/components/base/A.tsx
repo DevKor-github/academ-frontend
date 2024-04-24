@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import styles from './index.module.css';
+import styles from './A.module.css';
 
 interface AProps {
   abstract?: boolean;

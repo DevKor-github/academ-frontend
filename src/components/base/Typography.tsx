@@ -7,7 +7,7 @@ const fontSize = {
   t1: '32px',
   t2: '28px',
   t3: '24px',
-  t4: '20x',
+  t4: '20px',
   t5: '16px',
   t6: '12px',
 };

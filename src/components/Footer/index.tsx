@@ -1,6 +1,6 @@
 import Spacer from '../Spacer';
-import AdaptiveStack from '../AdaptiveStack';
-import A from '../A';
+import AdaptiveStack from '../base/AdaptiveStack';
+import A from '../base/A';
 
 import styles from './index.module.css';
 

@@ -1,3 +1,66 @@
+  
+.menu {
+  display: none;
+  padding: 18px 0px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  cursor: pointer; 
+  font-size: medium;
+}
+
+.compact {
+  height: 72px;
+  display: flex;
+  /* border: 1px solid cyan; */
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.menulist {
+  flex-wrap: nowrap;
+}
+  
+  
+@media (max-width: 720px) {
+
+  .menu {
+    display: block; /* ensure it’s visible if previously hidden */
+  }
+
+  .compact {
+      height: 36px;
+  }
+
+  .menulist {
+    flex-wrap: wrap;
+  }
+}
+
+
+.container {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .item {
+    display: flex;
+    height: 72px;
+    /* border: 1px solid cyan; */
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+  
+
 
 .gradient {
     background : linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0) 100%);
@@ -5,7 +68,6 @@
 
 .overlap {
     color: white;
-    stroke: white;
 }
 
 .line {
@@ -19,55 +81,4 @@
         border-bottom: 1px solid #424242;
     }
     
-}
-
-.strategy {
-    align-items:center ;
-    justify-content: space-between;
-}
-.logoStrategy { 
-
-    width: fit-content;
-    justify-content: center;  /* 노상관 */
-     align-items: center;
-     
-}
-
-
-.small {
-    display: none;
-}
-.big {
-    display: block;
-}
-
-@media ( max-width: 720px ) {
-    .strategy {
-        align-items:start ;
-        justify-content: start;
-
-
-    }
-    .small {
-        display: block;
-
-    }
-    .big {
-        display: none;
-    }
-
-    .logoStrategy { 
-        height: 0px; /* height of the content */
-        padding-top: 36px; 
-        padding-bottom: 36px;
-        width: 100%;
-        justify-content: space-between;
-         align-items: center;
-    }
-  }
-  
-  
-.pad {
-    padding-left: 40px;
-    padding-right: 40px;
 }

@@ -1,6 +1,6 @@
 import './index.module.css';
 
-import Typography from '../Typography';
+import Typography from '../base/Typography';
 
 interface InputProp extends React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   label: string;

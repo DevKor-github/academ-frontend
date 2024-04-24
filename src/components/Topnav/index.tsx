@@ -2,10 +2,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
 
-import VStack from '../VStack';
-import Typography from '../Typography';
-import Spacer from '../Spacer';
-import AdaptiveStack from '../AdaptiveStack';
+import Typography from '../base/Typography';
+import { VStack } from '../base/Stack';
+import AdaptiveStack from '../base/AdaptiveStack';
 import { useSessionId } from '../../contexts/SessionIdContext';
 
 import styles from './index.module.css';
@@ -15,7 +14,6 @@ interface TopnavBlankButtonProps {
   className?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   children: React.ReactNode;
-  icon?: string;
   pill?: boolean;
   selected?: boolean;
   [key: string]: unknown;
@@ -26,23 +24,20 @@ interface TopnavButtonProps {
   children: React.ReactNode;
   icon?: string;
   pill?: boolean;
-  selected?: boolean;
   [key: string]: unknown;
 }
-function TopnavBlankButton({ selected, children, icon, pill, onClick, className }: TopnavBlankButtonProps) {
+function TopnavBlankButton({ selected, children, pill, onClick, className, ...restProps }: TopnavBlankButtonProps) {
   return (
-    <span className={className}>
-      <button
+    <a className={`${className}`}>
+      <span
         // tabIndex={0}
-        className={`${buttonStyles.shared} ${pill ? buttonStyles.pill : buttonStyles.primary} ${
-          selected ? buttonStyles.selected : buttonStyles.unselected
-        }`}
+        className={`${buttonStyles.primary} ${buttonStyles.unselected} ${buttonStyles.shared}`}
         onClick={onClick}
+        {...restProps}
       >
-        {icon && <img src={icon} style={{ aspectRatio: 1, height: '18pt', width: 'auto', marginRight: '5px' }} />}
-        <Typography variant="t4">{children}</Typography>
-      </button>
-    </span>
+        <Typography variant="t5">{children}</Typography>
+      </span>
+    </a>
   );
 }
 
@@ -67,80 +62,88 @@ function TopnavButton({ selected, href, children, icon, pill, ...restProps }: To
         }`}
       >
         {icon && <img src={icon} style={{ aspectRatio: 1, height: '18pt', width: 'auto', marginRight: '5px' }} />}
-        <Typography variant="t4">{children}</Typography>
+        <Typography variant="t5">{children}</Typography>
       </span>
     </a>
   );
 }
-export default function TopNav() {
+
+function TopNavInner({
+  overlap,
+  spreadedState: { spreaded, setSpreaded },
+}: {
+  overlap?: boolean;
+  spreadedState: { spreaded: boolean; setSpreaded: React.Dispatch<React.SetStateAction<boolean>> };
+}) {
   const { sessionId } = useSessionId();
   const location = useLocation();
-
-  const [spreaded, setSpreaded] = useState(false);
-
   const getLoc = (loc: { pathname: string }) => loc.pathname.split('/')[1];
 
-  const overlap = location.pathname === '/';
-
   // eslint-disable-next-line @typescript-eslint/no-shadow
-  const Topbar = ({ overlap }: { overlap?: boolean }) => (
-    <Box
-      className={`${styles.pad}`}
-      sx={{
+  return (
+    <div
+      className={`${styles.container} ${overlap ? styles.overlap : styles.line}`}
+      style={{
+        display: 'flex',
+        height: 'auto',
         width: '100%',
-        position: overlap ? 'absoulte' : 'relative',
-        top: 0,
+        overflow: 'hidden',
       }}
     >
+      <VStack className={`${styles.item}`}>
+        <TopnavButton icon="/logo512.png" href="/">
+          Academ
+        </TopnavButton>
+      </VStack>
+
       <AdaptiveStack
-        className={`${overlap ? styles.overlap : styles.line} ${styles.strategy}`}
         style={{
           display: 'flex',
-          height: spreaded ? 'fit-content' : '72px',
-          width: '100%',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'start',
+          height: spreaded ? '160px' : '72px',
           overflow: 'hidden',
           transition: 'all 0.2s ease',
         }}
       >
-        <VStack className={styles.logoStrategy} style={{ height: '72px' }}>
-          <TopnavButton icon="./logo512.png" href="/">
-            Academ
-          </TopnavButton>
-          <TopnavBlankButton className={styles.small} onClick={() => setSpreaded(!spreaded)}>
-            {spreaded ? '접기' : '메뉴'}
-          </TopnavBlankButton>
-          <TopnavButton pill href={sessionId ? '/logout' : '/login'} className={styles.small}>
-            {sessionId ? '로그아웃' : '로그인'}
-          </TopnavButton>
-        </VStack>
+        <TopnavBlankButton className={`${styles.menu}`} onClick={() => setSpreaded(!spreaded)}>
+          {spreaded ? '접기' : '메뉴'}
+        </TopnavBlankButton>
 
-        <AdaptiveStack vGap="10px" hGap="4px" className={styles.strategy}>
-          <TopnavButton selected={getLoc(location) === 'notice'} href="/notice">
+        <VStack className={styles.menulist} gap="10px">
+          <TopnavButton className={`${styles.compact}`} selected={getLoc(location) === 'notice'} href="/notice">
             공지사항
           </TopnavButton>
-          <TopnavButton selected={getLoc(location) === 'timetable'} href="/timetable">
+          <TopnavButton className={`${styles.compact}`} selected={getLoc(location) === 'timetable'} href="/timetable">
             시간표
           </TopnavButton>
-          <TopnavButton selected={getLoc(location) === 'curation'} href="/curation">
+          <TopnavButton className={`${styles.compact}`} selected={getLoc(location) === 'curation'} href="/curation">
             강의 추천
           </TopnavButton>
-          <TopnavButton selected={getLoc(location) === 'mypage'} href="/mypage">
+          <TopnavButton className={`${styles.compact}`} selected={getLoc(location) === 'mypage'} href="/mypage">
             마이페이지
           </TopnavButton>
-          <TopnavButton selected={getLoc(location) === 'lecture'} href="/lecture">
+          <TopnavButton className={`${styles.compact}`} selected={getLoc(location) === 'lecture'} href="/lecture">
             강의 목록
           </TopnavButton>
-          <Spacer />
-        </AdaptiveStack>
-
-        <AdaptiveStack>
-          <TopnavButton pill href={sessionId ? '/logout' : '/login'} className={styles.big}>
-            {sessionId ? '로그아웃' : '로그인'}
-          </TopnavButton>
-        </AdaptiveStack>
+        </VStack>
       </AdaptiveStack>
-    </Box>
+
+      <AdaptiveStack className={`${styles.item}`}>
+        <TopnavButton pill href={sessionId ? '/logout' : '/login'}>
+          {sessionId ? '로그아웃' : '로그인'}
+        </TopnavButton>
+      </AdaptiveStack>
+    </div>
   );
+}
+export default function TopNav() {
+  const location = useLocation();
+
+  const overlap = location.pathname === '/';
+
+  const [spreaded, setSpreaded] = useState(false);
 
   return overlap ? (
     <Box
@@ -148,17 +151,11 @@ export default function TopNav() {
       height={'500px'}
       sx={{ backgroundImage: 'url(/samplebanner.png)', position: 'relative', top: 0 }}
     >
-      <Box
-        className={overlap ? styles.gradient : ''}
-        width={'100%'}
-        height={spreaded ? '500px' : '144px'}
-        top={0}
-        sx={{ position: 'absolute', top: 0 }}
-      >
-        <Topbar overlap={overlap} />
+      <Box className={styles.gradient} width={'100%'} height={'144px'} top={0} sx={{ position: 'absolute', top: 0 }}>
+        <TopNavInner overlap={overlap} spreadedState={{ spreaded, setSpreaded }} />
       </Box>
     </Box>
   ) : (
-    <Topbar />
+    <TopNavInner spreadedState={{ spreaded, setSpreaded }} />
   );
 }

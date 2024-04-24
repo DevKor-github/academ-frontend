@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { Button, HStack, Spacer, VStack, Typography } from '../../components';
+import { Button, HStack, Spacer, VStack, Typography } from '../components';
 
 interface ErrorPageProps {
   code?: number | string;

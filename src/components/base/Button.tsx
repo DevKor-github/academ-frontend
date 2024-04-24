@@ -1,8 +1,7 @@
 // import { Box } from '@mui/material';
 
-import Typography from '../Typography';
-
-import styles from './index.module.css';
+import Typography from './Typography';
+import styles from './Button.module.css';
 
 interface ButtonProps {
   children: React.ReactNode;
