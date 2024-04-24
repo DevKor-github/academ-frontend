@@ -2,11 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 
 import { CloseIcon, LeftIcon } from '../../icons';
 import { useSessionId } from '../../contexts/SessionIdContext';
-import { Spacer, VStack, HStack, Checkbox, A, Button, Textfield } from '../../components';
+import { Spacer, VStack, HStack, Toggle, A, Button, Textfield } from '../../components';
 
 export function LoginPage() {
   const [input, setInput] = useState({
