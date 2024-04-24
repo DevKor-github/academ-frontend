@@ -4,6 +4,7 @@ import axios from 'axios';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 
+import { CloseIcon, LeftIcon } from '../../icons';
 import { useSessionId } from '../../contexts/SessionIdContext';
 import { Spacer, VStack, HStack, Checkbox, A, Button, Textfield } from '../../components';
 
@@ -50,7 +51,8 @@ export function LoginPage() {
       <VStack>
         <Spacer />
         <IconButton onClick={() => navigate(-1)}>
-          <CloseIcon></CloseIcon>
+          <CloseIcon />
+          <LeftIcon />
         </IconButton>
       </VStack>
       <HStack gap="10px">
@@ -66,7 +68,7 @@ export function LoginPage() {
         />
       </HStack>
       <VStack>
-        <Checkbox value={saveLoginInfo} onClick={() => setSaveLoginInfo(!saveLoginInfo)} label="로그인 정보 저장" />
+        <Toggle value={saveLoginInfo} onClick={() => setSaveLoginInfo(!saveLoginInfo)} label="로그인 정보 저장" />
         <Spacer />
         <A href="/login/find-password">비밀번호 찾기</A>
       </VStack>

@@ -19,11 +19,14 @@
   cursor: pointer;
   transition: all 0.2s ease;
   border: none;
-  padding: 10px;
-  font-size:large;
+  padding: 8px;
 }
 
 .shared.enabled:hover {
+  box-shadow: 0px 4px 8px rgb(from var(--accent) r g b / 0.5);
+}
+
+.shared.enabled:focus {
   box-shadow: 0px 4px 8px rgb(from var(--accent) r g b / 0.5);
 }
 
@@ -43,6 +46,11 @@
   color: white;
   background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2));
 }
+.enabled.primary:focus {
+  color: white;
+  background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2));
+}
+
 
 .enabled.primary {
   color: white;

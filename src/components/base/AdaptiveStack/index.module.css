@@ -1,0 +1,11 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  color: 'inherit'
+}
+
+@media ( max-width: 720px ) {
+  .main {
+    flex-direction: column;
+  }
+}

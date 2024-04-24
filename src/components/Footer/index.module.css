@@ -1,7 +1,8 @@
 footer {
-  position: absolute;
-  bottom: 0;
+  position: relative;
+  /* bottom: 0; */
   width: 100%;
+  font-size: small;
   /* height: 2.5rem;            Footer height */
 }
 
@@ -9,4 +10,10 @@ footer {
   padding: 40px 20px;
   margin: 0px 40px;
   border-top: solid 1px #dbdbdb;
+}
+
+@media (prefers-color-scheme: dark) {
+  .padding {
+      border-top: 1px solid #424242;
+  }
 }

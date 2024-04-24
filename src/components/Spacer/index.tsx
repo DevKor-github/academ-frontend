@@ -13,7 +13,7 @@ const Spacer: React.FC<Props> = ({ x, y, basis, ...restProps }) => {
     <Box
       data-testid="Spacer"
       flexBasis={basis ? theme.spacing(basis) : undefined}
-      flexGrow={1}
+      flexGrow={2}
       flexShrink={0}
       {...restProps}
     />

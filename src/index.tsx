@@ -6,6 +6,7 @@ import './index.css';
 
 // src/index.tsx
 if (process.env.NODE_ENV === 'development' && 'serviceWorker' in navigator) {
+  console.log('dev mode - trying MSW');
   window.addEventListener('load', () => {
     navigator.serviceWorker
       .register('mockServiceWorker.js')

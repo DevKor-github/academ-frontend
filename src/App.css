@@ -1,4 +1,27 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    accent-color: #a51330;
+}
+  
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (prefers-color-scheme: dark) {
+    html  {
+        background-color: #181818;
+        color: white;
+    }
+}
+/* 
+.content-wrap {
+    flex: 1;
+} */
+
 a {
     text-decoration: none;
     color: inherit;
 }
+

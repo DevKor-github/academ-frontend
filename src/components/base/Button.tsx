@@ -1,6 +1,7 @@
 // import { Box } from '@mui/material';
 
-import styles from './index.module.css';
+import Typography from './Typography';
+import styles from './Button.module.css';
 
 interface ButtonProps {
   children: React.ReactNode;
@@ -12,7 +13,6 @@ interface ButtonProps {
 
   [key: string]: unknown;
 }
-
 export default function Button({
   style = 'primary',
   accent = '0',
@@ -32,7 +32,7 @@ export default function Button({
       {...restProps}
     >
       {icon && <img src={icon} style={{ aspectRatio: 1, height: '24px', width: 'auto' }} />}
-      {children}
+      <Typography variant="t5">{children}</Typography>
     </button>
   );
 }

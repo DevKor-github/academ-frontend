@@ -1,0 +1,15 @@
+input {
+  /* margin: 20px; */
+  padding: 10px;
+  color: black;
+  background-color: white;
+  accent-color: red;
+  border-radius: 8px;
+  border: none;
+  border-inline: none;
+  transition: all 0.2s ease;
+}
+
+input:focus {
+  border-inline: solid red 1px;
+}
