@@ -19,24 +19,12 @@ export function RouteComponent() {
     <Routes>
       <Route
         element={
-          <Modallike>
-            <Outlet />
-          </Modallike>
-        }
-      >
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/logout" element={<LogoutPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-      </Route>
-      <Route
-        element={
           <Layout>
             <Outlet />
           </Layout>
         }
       >
         <Route path="/" element={<MainPage />} />
-
         <Route path="/notice" element={<ErrorPage />} />
         <Route path="/curation" element={<CurationPage />} />
         <Route path="/mypage" element={<UserMyPage />} />
@@ -45,14 +33,19 @@ export function RouteComponent() {
 
         <Route path="/lecture" element={<LecturesPage />} />
       </Route>
+
       <Route
-        path="*"
         element={
           <Modallike>
-            <ErrorPage />
+            <Outlet />
           </Modallike>
         }
-      />
+      >
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/logout" element={<LogoutPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Route>
     </Routes>
   );
 }
