@@ -2,10 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 import { CloseIcon, LeftIcon } from '../../icons';
 import { useSessionId } from '../../contexts/SessionIdContext';
-import { Spacer, VStack, HStack, Toggle, A, Button, Input } from '../../components';
+import { Spacer, VStack, HStack, Checkbox, A, Button, Textfield } from '../../components';
 
 export function LoginPage() {
   const [input, setInput] = useState({
@@ -17,6 +18,7 @@ export function LoginPage() {
   const { setSessionId } = useSessionId();
 
   const [saveLoginInfo, setSaveLoginInfo] = useState(false);
+  const [loginError, setLoginError] = useState(false);
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     setInput({
@@ -40,6 +42,7 @@ export function LoginPage() {
       }
     } catch (e) {
       window.alert('로그인에 실패했습니다.');
+      setLoginError(true);
     }
   }
 
@@ -53,8 +56,16 @@ export function LoginPage() {
         </IconButton>
       </VStack>
       <HStack gap="10px">
-        <Input required id="id" label="ID" onChange={handleInput} />
-        <Input required id="firstName" type="password" label="비밀번호" onChange={handleInput} />
+        <Textfield id="id" placeholder="이메일을 입력해주세요" onChange={handleInput} value={input.id} />
+        <Textfield
+          id="password"
+          type="password"
+          placeholder="비밀번호를 입력해주세요"
+          onChange={handleInput}
+          errorMessage="비밀번호가 일치하지 않습니다."
+          value={input.password}
+          isError={loginError}
+        />
       </HStack>
       <VStack>
         <Toggle value={saveLoginInfo} onClick={() => setSaveLoginInfo(!saveLoginInfo)} label="로그인 정보 저장" />

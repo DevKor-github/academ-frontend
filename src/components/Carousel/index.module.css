@@ -1,0 +1,34 @@
+/* Carousel.css */
+
+.carousel {
+  overflow: hidden; /* 넘치는 컨텐츠를 숨기기 위해 */
+  position: relative;
+}
+
+.carousel-slide {
+  display: flex; /* Flex 컨테이너로 설정하여 컨텐츠를 가로로 배열합니다 */
+  transition: transform 0.5s ease; /* 슬라이드 애니메이션을 적용합니다 */
+}
+
+.carousel-slide > div {
+  flex: 0 0 100%; /* 각 슬라이드를 가로로 정렬합니다 */
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: gray;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.pagination span.active {
+  background-color: black;
+}
