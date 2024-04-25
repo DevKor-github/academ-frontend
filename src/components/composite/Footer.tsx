@@ -2,22 +2,19 @@ import Spacer from '../Spacer';
 import AdaptiveStack from '../base/AdaptiveStack';
 import A from '../base/A';
 
-import styles from './index.module.css';
+import styles from './Footer.module.css';
 
 export default function Footer() {
   return (
     <footer>
       <AdaptiveStack className={`${styles.padding}`} hGap="10px">
         <AdaptiveStack vGap="20px" hGap="20px">
-          Logo Name
+          Academ
           <A style="monotone" href="/policy">
             이용약관
           </A>
           <A style="monotone" href="/policy">
             제보 및 신고
-          </A>
-          <A style="monotone" href="/policy">
-            Lorem
           </A>
         </AdaptiveStack>
         <Spacer />

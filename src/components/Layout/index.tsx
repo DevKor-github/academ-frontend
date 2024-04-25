@@ -1,5 +1,5 @@
 import TopNav from '../Topnav';
-import Footer from '../Footer';
+import Footer from '../composite/Footer';
 
 // import styles from './index.module.css';
 
