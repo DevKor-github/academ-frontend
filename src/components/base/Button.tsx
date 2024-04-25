@@ -5,33 +5,24 @@ import styles from './Button.module.css';
 
 interface ButtonProps {
   children: React.ReactNode;
-
   disabled?: boolean;
-  icon?: string;
-  style?: 'primary' | 'outline';
+  style?: 'filled' | 'outline' | 'blank';
   accent?: '-1' | '0' | '1';
 
   [key: string]: unknown;
 }
-export default function Button({
-  style = 'primary',
-  accent = '0',
-  disabled,
-  children,
-  icon,
-  ...restProps
-}: ButtonProps) {
+
+export default function Button({ style = 'filled', accent = '0', disabled, children, ...restProps }: ButtonProps) {
   return (
     <button
       tabIndex={0}
-      className={`${styles.shared} ${style === 'primary' ? styles.primary : styles.outline}
+      className={`${styles.shared} ${styles[style]}
 
       ${styles[`accent${accent}`]}
       
       ${disabled ? styles.disabled : styles.enabled}`}
       {...restProps}
     >
-      {icon && <img src={icon} style={{ aspectRatio: 1, height: '24px', width: 'auto' }} />}
       <Typography variant="t5">{children}</Typography>
     </button>
   );

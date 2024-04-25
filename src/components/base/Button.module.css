@@ -22,18 +22,26 @@
   padding: 8px;
 }
 
-.shared.enabled:hover {
-  box-shadow: 0px 4px 8px rgb(from var(--accent) r g b / 0.5);
+.shared.blank:hover {
+  opacity: 0.5;
 }
 
-.shared.enabled:focus {
-  box-shadow: 0px 4px 8px rgb(from var(--accent) r g b / 0.5);
+.shared.outline:focus {
+  box-shadow: 0px 4px 8px rgb(from #dc143c r g b / 0.5);
+} 
+
+ .shared.outline:hover {
+  box-shadow: 0px 4px 8px rgb(from #dc143c r g b / 0.5);
 }
+
+.shared.outline:focus {
+  box-shadow: 0px 4px 8px rgb(from #dc143c r g b / 0.5);
+} 
 
 .enabled.outline {
-  color: var(--accent);
-  border: solid 1px var(--accent);
-  background: rgb(from var(--accent) r g b / 0.02);
+  color: #dc143c;
+  border: solid 1px #dc143c;
+  background: rgb(from #dc143c r g b / 0.01);
 }
 
 .disabled.outline {
@@ -42,24 +50,29 @@
   background: #dbdbdb05;
 }
 
-.enabled.primary:hover {
-  color: white;
-  background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2));
+.enabled.filled:hover {
+  background: #e65a76;
+  box-shadow: 0px 2px 4px #e65a76;
+  /* background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2)); */
 }
-.enabled.primary:focus {
+.enabled.filled:active {
+  background-color: #a51330;
+  /* background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2)); */
+}
+.enabled.filled:focus {
   color: white;
-  background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2));
+  background-color: #a51330;
+  /* background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2)); */
 }
 
-
-.enabled.primary {
+.enabled.filled {
   color: white;
   border: none;
-  background: var(--accent);
+  background: #dc143c;
 }
 
-.disabled.primary {
-  background: #dbdbdb; /* Sets a transparent background */
+.disabled.filled {
+  background: #dbdbdb
 }
 
 .disabled {
