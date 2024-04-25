@@ -1,7 +1,7 @@
 interface ToggleProps {
   value: boolean;
   label: string;
-  onClick: () => unknown;
+  onClick: (event: never) => unknown;
   [key: string]: unknown;
 }
 

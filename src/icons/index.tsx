@@ -1,6 +1,9 @@
 import styles from './index.module.css';
 
-type SizeProp = { width?: string; height?: string };
+interface SizeProp extends React.SVGProps<SVGSVGElement> {
+  width?: string;
+  height?: string;
+}
 
 function guard(x: string | undefined): string {
   return x || '72px';
@@ -26,24 +29,35 @@ export const LeftIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export const DownIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg className={styles.line} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" {...props}>
+export const DownIcon = ({ width, height, ...props }: SizeProp) => (
+  <svg
+    className={styles.line}
+    xmlns="http://www.w3.org/2000/svg"
+    width={guard(width)}
+    height={guard(height)}
+    viewBox="0 0 24 24"
+    {...props}
+  >
     <path d="M6 9l6 6 6-6" fill="none" stroke-width="2" />
   </svg>
 );
 
-export const UpIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg className={styles.line} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" {...props}>
+export const UpIcon = ({ width, height, ...props }: SizeProp) => (
+  <svg
+    className={styles.line}
+    xmlns="http://www.w3.org/2000/svg"
+    width={guard(width)}
+    height={guard(height)}
+    viewBox="0 0 24 24"
+    {...props}
+  >
     <path d="M6 15l6-6 6 6" fill="none" stroke-width="2" />
   </svg>
 );
 
 export const StarIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg height="100" width="100" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-    <polygon
-      fill="currentColor"
-      points="12,17.27 18.18,21 16.54,13.97 22,9.24 14.81,8.63 12,2 9.19,8.63 2,9.24 7.46,13.97 5.82,21 12,17.27"
-    />
+  <svg height="100" width="100" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <polygon points="12,17.27 18.18,21 16.54,13.97 22,9.24 14.81,8.63 12,2 9.19,8.63 2,9.24 7.46,13.97 5.82,21 12,17.27" />
   </svg>
 );
 
@@ -108,6 +122,6 @@ export const LogoIconBig = () => (
 
 export const BookmarkIcon = ({ height, width }: SizeProp) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={guard(width)} height={guard(height)}>
-    <path d="M6 2h12a2 2 0 0 1 2 2v18l-8-3-8 3V4a2 2 0 0 1 2-2z" fill="currentColor" />
+    <path d="M6 2h12a2 2 0 0 1 2 2v18l-8-3-8 3V4a2 2 0 0 1 2-2z" fill="inherit" />
   </svg>
 );

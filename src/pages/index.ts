@@ -2,6 +2,7 @@ import { UserMyPage } from './UserMy';
 import { TimetablePage } from './Timetable';
 import { SearchPage } from './Search';
 import { RegisterPage } from './Register';
+import NoticePage from './Notice';
 import { MainPage } from './Main';
 import { LogoutPage } from './Logout';
 import { LoginPage } from './Login';
@@ -22,4 +23,5 @@ export {
   LecturesPage,
   UserMyPage,
   MainPage,
+  NoticePage,
 };

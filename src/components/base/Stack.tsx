@@ -9,13 +9,13 @@ interface HStackProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLD
 
 export function HStack({ className, type = 'strech', gap, children, style, ...restProps }: HStackProps) {
   const combinedStyle: React.CSSProperties = {
-    ...style,
     ...{
       display: 'flex',
       flexDirection: 'column',
       alignItems: type,
       rowGap: gap,
     },
+    ...style,
   };
 
   return (
@@ -35,9 +35,8 @@ interface VStackProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLD
 
 export function VStack({ style, className, gap, children, ...restProps }: VStackProps) {
   const combinedStyle: React.CSSProperties = {
+    ...{ display: 'flex', flexDirection: 'row', columnGap: gap, rowGap: gap, color: 'inherit' },
     ...style,
-
-    ...{ display: 'flex', flexDirection: 'row', columnGap: gap, color: 'inherit' },
   };
 
   return (

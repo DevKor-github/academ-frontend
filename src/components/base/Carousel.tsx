@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import styles from './index.module.css';
+import styles from './Carousel.module.css';
 
 interface CarouselProps {
   children: React.ReactNode[];
