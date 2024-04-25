@@ -4,9 +4,10 @@ interface HStackProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLD
   gap?: string | number;
   children: React.ReactNode;
   style?: React.CSSProperties;
+  [key: string]: unknown;
 }
 
-export function HStack({ className, type = 'strech', gap, children, style }: HStackProps) {
+export function HStack({ className, type = 'strech', gap, children, style, ...restProps }: HStackProps) {
   const combinedStyle: React.CSSProperties = {
     ...style,
     ...{
@@ -18,7 +19,7 @@ export function HStack({ className, type = 'strech', gap, children, style }: HSt
   };
 
   return (
-    <div className={className || ''} style={combinedStyle}>
+    <div className={className || ''} style={combinedStyle} {...restProps}>
       {children}
     </div>
   );
@@ -29,9 +30,10 @@ interface VStackProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLD
   gap?: string | number;
   children: React.ReactNode;
   style?: React.CSSProperties;
+  [key: string]: unknown;
 }
 
-export function VStack({ style, className, gap, children }: VStackProps) {
+export function VStack({ style, className, gap, children, ...restProps }: VStackProps) {
   const combinedStyle: React.CSSProperties = {
     ...style,
 
@@ -39,7 +41,7 @@ export function VStack({ style, className, gap, children }: VStackProps) {
   };
 
   return (
-    <div className={className || ''} style={combinedStyle}>
+    <div className={className || ''} style={combinedStyle} {...restProps}>
       {children}
     </div>
   );
