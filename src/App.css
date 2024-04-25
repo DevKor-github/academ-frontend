@@ -4,6 +4,12 @@ html, body {
     accent-color: #a51330;
 }
   
+body :focus {
+    /* outline-color: #a5133077; */
+    outline: #a5133077 solid 3px;
+    /* outline-offset: 10px; */
+}
+
 body {
     display: flex;
     flex-direction: column;
