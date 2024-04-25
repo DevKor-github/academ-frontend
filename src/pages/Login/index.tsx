@@ -3,8 +3,9 @@ import { useState } from 'react';
 import axios from 'axios';
 
 import { CloseIcon } from '../../icons';
+import { ignore } from '../../helper';
 import { useSessionId } from '../../contexts/SessionIdContext';
-import { Spacer, VStack, HStack, Toggle, A, Button, Textfield } from '../../components';
+import { Spacer, VStack, HStack, Toggle, A, Button, Input, TextField } from '../../components';
 
 export function LoginPage() {
   const [input, setInput] = useState({
@@ -24,6 +25,8 @@ export function LoginPage() {
       [event.target.id]: event.target.value,
     });
   }
+
+  ignore(Input, loginError);
 
   async function handleLogin() {
     try {
@@ -45,35 +48,54 @@ export function LoginPage() {
   }
 
   return (
-    <HStack type="left" gap="10px">
+    <HStack type="left" gap="16px">
       <VStack>
         <Spacer />
         <Button style="blank" onClick={() => navigate(-1)}>
           <CloseIcon width="24px" height="24px" />
         </Button>
       </VStack>
-      <HStack gap="10px">
-        <Textfield id="id" placeholder="이메일을 입력해주세요" onChange={handleInput} value={input.id} />
-        <Textfield
-          id="password"
-          type="password"
-          placeholder="비밀번호를 입력해주세요"
-          onChange={handleInput}
-          errorMessage="비밀번호가 일치하지 않습니다."
-          value={input.password}
-          isError={loginError}
+
+      <form
+        method="post"
+        action="/login/api"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleLogin();
+        }}
+      >
+        <HStack gap="8px">
+          <TextField required id="id" placeholder="example@korea.ac.kr" onChange={handleInput} value={input.id} />
+          <TextField
+            required
+            id="password"
+            type="password"
+            placeholder="비밀번호"
+            onChange={handleInput}
+            errorMessage={loginError ? '이메일 주소 또는 비밀번호가 일치하지 않습니다.' : ''}
+            value={input.password}
+          />
+          <Button type="submit" style="filled" accnet="0" variant="contained" color="primary">
+            로그인
+          </Button>
+        </HStack>
+      </form>
+      <VStack style={{ justifyContent: 'space-between' }}>
+        <Toggle
+          value={saveLoginInfo}
+          onClick={(event: React.FormEvent<HTMLDivElement>) => {
+            event.stopPropagation();
+            setSaveLoginInfo(!saveLoginInfo);
+          }}
+          label="로그인 정보 저장"
         />
-      </HStack>
-      <VStack>
-        <Toggle value={saveLoginInfo} onClick={() => setSaveLoginInfo(!saveLoginInfo)} label="로그인 정보 저장" />
-        <Spacer />
         <A href="/login/find-password">비밀번호 찾기</A>
       </VStack>
-      <Button style="filled" accnet="0" variant="contained" color="primary" onClick={handleLogin}>
-        로그인
-      </Button>
-      아이디가 없으신가요?
-      <A href="/register">회원가입</A>
+
+      <VStack style={{ justifyContent: 'space-between' }}>
+        아이디가 없으신가요?
+        <A href="/register">회원가입</A>
+      </VStack>
     </HStack>
   );
 }

@@ -15,6 +15,7 @@ const BasicInfoView: React.FC<Record<string, never>> = () => {
         alignItems: 'center',
         flexWrap: 'wrap',
       }}
+      gap="24px"
     >
       <div
         style={{
@@ -23,7 +24,6 @@ const BasicInfoView: React.FC<Record<string, never>> = () => {
           aspectRatio: 1,
           borderRadius: '52px',
           background: '#d9d9d9',
-          marginRight: '20px',
         }}
       />
       <HStack gap="10px">
@@ -99,15 +99,19 @@ function ReviewView() {
         padding: '32px',
         border: '1px solid #b7b7b7',
         borderRadius: '20px',
+        // flexWrap: 'wrap',
+        gap: '24px',
       }}
     >
       <VStack
         gap="20px"
         style={{
-          minWidth: 'fit-content',
+          minWidth: '96px',
           alignItems: 'center',
+          justifyContent: 'center',
           padding: '0px 16px 0px 0px',
           borderRight: '1px solid #b7b7b7',
+          flexWrap: 'wrap',
         }}
       >
         <VStack
@@ -115,9 +119,10 @@ function ReviewView() {
           style={{
             minWidth: 'fit-content',
             alignItems: 'center',
+            fill: 'var(--accent)',
           }}
         >
-          <StarIcon style={{ width: '24px', height: '24px', aspectRatio: 1, color: '#dc143c', stroke: 'none' }} />
+          <StarIcon width="24px" height="24px" />
           <Typography variant="t1" children="5.0" />
         </VStack>
         <HStack gap="8px">
@@ -139,8 +144,16 @@ function ReviewView() {
           </VStack>
         </HStack>
       </VStack>
-      <HStack style={{ padding: '0px 0px 0px 16px' }}>
-        <VStack style={{ flexWrap: 'nowrap', overflow: 'hidden', height: 'min-content' }}>
+      <HStack gap="8px">
+        {/* style={{ padding: '0px 0px 0px 16px' }} */}
+        <VStack
+          style={{
+            overflow: 'hidden',
+            height: 'min-content',
+            flexWrap: 'wrap',
+            gap: '4px',
+          }}
+        >
           {/* <span>닉네임 양양쥐 작성일 2024/04/19</span> */}
           <Tag children="친절한" />
           <Tag children="친절한" />
@@ -152,13 +165,10 @@ function ReviewView() {
           <Tag children="친절한" />
           <Tag children="친절한" />
         </VStack>
-        <VStack>
-          작성내용
-          <HStack>
-            아주 좋은강의였습니다 교수님이 매우 착하십니다 난이도도 낮아서 크게 스트레스 받지않을거같네요!
-            과제에대해서한가지팁을드..
-          </HStack>
-        </VStack>
+        <Typography variant="t5" style={{ lineHeight: '150%' }}>
+          <span style={{ color: 'grey' }}>작성내용</span> 아주 좋은강의였습니다 교수님이 매우 착하십니다 난이도도 낮아서
+          크게 스트레스 받지않을거같네요! 과제에대해서한가지팁을드..
+        </Typography>
       </HStack>
     </VStack>
   );

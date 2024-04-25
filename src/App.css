@@ -1,25 +1,24 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    accent-color: #a51330;
-}
-  
-body :focus {
-    /* outline-color: #a5133077; */
-    outline: #a5133077 solid 3px;
-    /* outline-offset: 10px; */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  accent-color: #a51330;
+  word-break: keep-all;
 }
 
+:root {
+  --accent: #dc143c;
+}
 body {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (prefers-color-scheme: dark) {
-    html  {
-        background-color: #181818;
-        color: white;
-    }
+  html {
+    background-color: #181818;
+    color: white;
+  }
 }
 /* 
 .content-wrap {
@@ -27,7 +26,6 @@ body {
 } */
 
 a {
-    text-decoration: none;
-    color: inherit;
+  text-decoration: none;
+  color: inherit;
 }
-
