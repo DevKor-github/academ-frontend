@@ -6,7 +6,7 @@ import Layout from './Layout';
 import Input from './Input';
 import Typography from './base/Typography';
 import Toggle from './base/Toggle';
-import Textfield from './base/Textfield';
+import TextField from './base/TextField';
 import Tag from './base/Tag';
 import { HStack, VStack } from './base/Stack';
 import Carousel from './base/Carousel';
@@ -26,7 +26,7 @@ export {
   Modallike,
   Layout,
   Progress,
-  Textfield,
+  TextField,
   Input,
   AdaptiveStack,
   Typography,

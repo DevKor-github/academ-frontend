@@ -1,18 +1,20 @@
+import Typography from '../Typography';
+
 import styles from './index.module.css';
 
-interface TextfieldProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLInputElement>, HTMLInputElement> {
+interface TextFieldProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   id: string;
   type?: 'text' | 'password';
   placeholder?: string;
   value: string;
   name?: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  isError?: boolean;
   errorMessage?: string;
   subMessage?: string;
+  required?: boolean;
 }
 
-const Textfield: React.FC<TextfieldProps> = ({
+const TextField = ({
   id,
   type,
   name,
@@ -20,26 +22,32 @@ const Textfield: React.FC<TextfieldProps> = ({
   placeholder,
   onChange,
   onKeyDown,
-  isError,
   errorMessage,
   subMessage,
-}: TextfieldProps) => {
+  required,
+  ...restProps
+}: TextFieldProps) => {
   return (
     <div className={styles['text-field-container']}>
-      <input
-        id={id}
-        type={type}
-        name={name}
-        value={value}
-        placeholder={placeholder}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-        className={`${styles['text-field-input']} ${isError && type === 'password' ? styles.invalid : ''}`}
-      />
-      {isError === true && errorMessage && <div className={styles['error-message']}>{errorMessage}</div>}
-      {subMessage && <div className={styles['error-message']}>{subMessage}</div>}
+      <Typography variant="t4">
+        <input
+          id={id}
+          type={type}
+          name={name}
+          value={value}
+          placeholder={placeholder}
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          required={required}
+          className={`${styles['text-field-input']} ${errorMessage && type === 'password' ? styles.invalid : ''}`}
+          {...restProps}
+        />
+
+        {errorMessage && <div className={styles['error-message']}>{errorMessage}</div>}
+        {subMessage && <div className={styles['error-message']}>{subMessage}</div>}
+      </Typography>
     </div>
   );
 };
 
-export default Textfield;
+export default TextField;

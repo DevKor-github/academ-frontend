@@ -12,13 +12,22 @@ interface ButtonProps {
   [key: string]: unknown;
 }
 
-export default function Button({ style = 'filled', accent = '0', disabled, children, ...restProps }: ButtonProps) {
+export default function Button({
+  style = 'filled',
+  accent = '0',
+  disabled,
+  children,
+  className,
+  ...restProps
+}: ButtonProps) {
   return (
     <button
       tabIndex={0}
       className={`${styles.shared} ${styles[style]}
 
       ${styles[`accent${accent}`]}
+
+      ${className}
       
       ${disabled ? styles.disabled : styles.enabled}`}
       {...restProps}
