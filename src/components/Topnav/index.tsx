@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from '../base/Typography';
 import { VStack } from '../base/Stack';
 import AdaptiveStack from '../base/AdaptiveStack';
+import { LogoIcon } from '../../icons';
 import { useSessionId } from '../../contexts/SessionIdContext';
 
 import styles from './index.module.css';
@@ -22,7 +23,7 @@ interface TopnavBlankButtonProps {
 interface TopnavButtonProps {
   href: string;
   children: React.ReactNode;
-  icon?: string;
+  icon?: React.ReactNode;
   pill?: boolean;
   [key: string]: unknown;
 }
@@ -60,14 +61,14 @@ function TopnavButton({ selected, href, children, icon, pill, ...restProps }: To
         className={`${buttonStyles.shared} ${pill ? buttonStyles.pill : buttonStyles.primary} ${
           selected ? buttonStyles.selected : buttonStyles.unselected
         }`}
+        style={{ gap: '8px' }}
       >
-        {icon && <img src={icon} style={{ aspectRatio: 1, height: '18pt', width: 'auto', marginRight: '5px' }} />}
+        {icon}
         <Typography variant="t5">{children}</Typography>
       </span>
     </a>
   );
 }
-
 function TopNavInner({
   overlap,
   spreadedState: { spreaded, setSpreaded },
@@ -91,7 +92,7 @@ function TopNavInner({
       }}
     >
       <VStack className={`${styles.item}`}>
-        <TopnavButton icon="/logo512.png" href="/">
+        <TopnavButton icon={<LogoIcon />} href="/">
           Academ
         </TopnavButton>
       </VStack>
@@ -151,11 +152,19 @@ export default function TopNav() {
       height={'500px'}
       sx={{ backgroundImage: 'url(/samplebanner.png)', position: 'relative', top: 0 }}
     >
-      <Box className={styles.gradient} width={'100%'} height={'144px'} top={0} sx={{ position: 'absolute', top: 0 }}>
+      <Box
+        className={styles.gradient}
+        width={'100%'}
+        height={'144px'}
+        top={0}
+        sx={{ position: 'absolute', top: 0, padding: '0px 40px' }}
+      >
         <TopNavInner overlap={overlap} spreadedState={{ spreaded, setSpreaded }} />
       </Box>
     </Box>
   ) : (
-    <TopNavInner spreadedState={{ spreaded, setSpreaded }} />
+    <Box sx={{ padding: '0px 40px' }}>
+      <TopNavInner spreadedState={{ spreaded, setSpreaded }} />
+    </Box>
   );
 }
