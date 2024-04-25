@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-import { IconButton } from '@mui/material';
 
-import { CloseIcon, LeftIcon } from '../../icons';
+import { CloseIcon } from '../../icons';
 import { useSessionId } from '../../contexts/SessionIdContext';
 import { Spacer, VStack, HStack, Toggle, A, Button, Textfield } from '../../components';
 
@@ -49,10 +48,9 @@ export function LoginPage() {
     <HStack type="left" gap="10px">
       <VStack>
         <Spacer />
-        <IconButton onClick={() => navigate(-1)}>
-          <CloseIcon />
-          <LeftIcon />
-        </IconButton>
+        <Button style="blank" onClick={() => navigate(-1)}>
+          <CloseIcon width="24px" height="24px" />
+        </Button>
       </VStack>
       <HStack gap="10px">
         <Textfield id="id" placeholder="이메일을 입력해주세요" onChange={handleInput} value={input.id} />
@@ -71,7 +69,7 @@ export function LoginPage() {
         <Spacer />
         <A href="/login/find-password">비밀번호 찾기</A>
       </VStack>
-      <Button style="primary" accnet="0" variant="contained" color="primary" onClick={handleLogin}>
+      <Button style="filled" accnet="0" variant="contained" color="primary" onClick={handleLogin}>
         로그인
       </Button>
       아이디가 없으신가요?
