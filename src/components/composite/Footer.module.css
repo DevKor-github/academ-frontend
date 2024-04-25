@@ -1,0 +1,19 @@
+footer {
+  position: relative;
+  /* bottom: 0; */
+  width: 100%;
+  font-size: small;
+  /* height: 2.5rem;            Footer height */
+}
+
+.padding {
+  padding: 40px 20px;
+  margin: 0px 40px;
+  border-top: solid 1px #dbdbdb;
+}
+
+@media (prefers-color-scheme: dark) {
+  .padding {
+      border-top: 1px solid #424242;
+  }
+}

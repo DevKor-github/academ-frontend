@@ -1,0 +1,80 @@
+
+.accent-1 {
+  --accent: #e65a76;
+}
+
+.accent0 {
+  --accent: #dc143c;
+}
+
+.accent1 {
+  --accent: #a51330;
+}
+
+.shared {
+  border-radius: 8px;
+  align-items: 'center';
+  color: 'inherit';
+  background: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  padding: 8px;
+}
+
+.shared.blank:hover {
+  opacity: 0.5;
+}
+
+.shared.outline:focus {
+  box-shadow: 0px 4px 8px rgb(from #dc143c r g b / 0.5);
+} 
+
+ .shared.outline:hover {
+  box-shadow: 0px 4px 8px rgb(from #dc143c r g b / 0.5);
+}
+
+.shared.outline:focus {
+  box-shadow: 0px 4px 8px rgb(from #dc143c r g b / 0.5);
+} 
+
+.enabled.outline {
+  color: #dc143c;
+  border: solid 1px #dc143c;
+  background: rgb(from #dc143c r g b / 0.01);
+}
+
+.disabled.outline {
+  color: #dbdbdb;
+  border: solid 1px #dbdbdb;
+  background: #dbdbdb05;
+}
+
+.enabled.filled:hover {
+  background: #e65a76;
+  box-shadow: 0px 2px 4px #e65a76;
+  /* background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2)); */
+}
+.enabled.filled:active {
+  background-color: #a51330;
+  /* background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2)); */
+}
+.enabled.filled:focus {
+  color: white;
+  background-color: #a51330;
+  /* background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2)); */
+}
+
+.enabled.filled {
+  color: white;
+  border: none;
+  background: #dc143c;
+}
+
+.disabled.filled {
+  background: #dbdbdb
+}
+
+.disabled {
+  cursor:not-allowed;
+}

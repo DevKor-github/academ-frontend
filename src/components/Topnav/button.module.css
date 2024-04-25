@@ -1,0 +1,61 @@
+.shared {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+
+
+  border: none; /* Example border - change color as needed */
+  cursor: pointer; /* Changes cursor to pointer to indicate it's clickable */
+  font-size: medium;
+  transition: opacity 0.2s ease; /* Smooth transition for hover effect */
+  opacity: 1;
+  padding: 10px; /* Adjust padding as needed */
+
+}
+
+.shared:focus {
+  opacity: 0.5;
+}
+
+.shared:hover {
+  opacity: 0.5;
+}
+
+.selected {
+  color: #dc143c;
+}
+
+@media (prefers-color-scheme: dark) {
+  .unselected.pill {
+    color: black;
+  }
+  
+  .pill {
+    border-radius: 100ch; /* Makes the element round */
+    background: white; /* Sets a transparent background */
+  }
+}
+
+
+.unselected.primary {
+  color: inherit;
+}
+
+.unselected.pill {
+  color: black;
+}
+
+
+.pill {
+  border-radius: 100ch; /* Makes the element round */
+  background: white; /* Sets a transparent background */
+}
+
+.primary {
+  background: none; /* Sets a transparent background */
+}
+
+.blocking {
+  display: block;
+}

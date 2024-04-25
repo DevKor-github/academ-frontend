@@ -1,11 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
-import { TextField, IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 
+import { CloseIcon } from '../../icons';
 import { useSessionId } from '../../contexts/SessionIdContext';
-import { Spacer, VStack, HStack, Checkbox, A, Button } from '../../components';
+import { Spacer, VStack, HStack, Toggle, A, Button, Textfield } from '../../components';
 
 export function LoginPage() {
   const [input, setInput] = useState({
@@ -17,6 +16,7 @@ export function LoginPage() {
   const { setSessionId } = useSessionId();
 
   const [saveLoginInfo, setSaveLoginInfo] = useState(false);
+  const [loginError, setLoginError] = useState(false);
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     setInput({
@@ -40,6 +40,7 @@ export function LoginPage() {
       }
     } catch (e) {
       window.alert('로그인에 실패했습니다.');
+      setLoginError(true);
     }
   }
 
@@ -47,20 +48,28 @@ export function LoginPage() {
     <HStack type="left" gap="10px">
       <VStack>
         <Spacer />
-        <IconButton onClick={() => navigate(-1)}>
-          <CloseIcon></CloseIcon>
-        </IconButton>
+        <Button style="blank" onClick={() => navigate(-1)}>
+          <CloseIcon width="24px" height="24px" />
+        </Button>
       </VStack>
       <HStack gap="10px">
-        <TextField required id="id" label="ID" onChange={handleInput} />
-        <TextField required id="firstName" type="password" label="비밀번호" onChange={handleInput} />
+        <Textfield id="id" placeholder="이메일을 입력해주세요" onChange={handleInput} value={input.id} />
+        <Textfield
+          id="password"
+          type="password"
+          placeholder="비밀번호를 입력해주세요"
+          onChange={handleInput}
+          errorMessage="비밀번호가 일치하지 않습니다."
+          value={input.password}
+          isError={loginError}
+        />
       </HStack>
       <VStack>
-        <Checkbox value={saveLoginInfo} onClick={() => setSaveLoginInfo(!saveLoginInfo)} label="로그인 정보 저장" />
+        <Toggle value={saveLoginInfo} onClick={() => setSaveLoginInfo(!saveLoginInfo)} label="로그인 정보 저장" />
         <Spacer />
         <A href="/login/find-password">비밀번호 찾기</A>
       </VStack>
-      <Button style="primary" accnet="0" variant="contained" color="primary" onClick={handleLogin}>
+      <Button style="filled" accnet="0" variant="contained" color="primary" onClick={handleLogin}>
         로그인
       </Button>
       아이디가 없으신가요?
