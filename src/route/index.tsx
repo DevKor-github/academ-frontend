@@ -11,6 +11,7 @@ import {
   MainPage,
   LecturesPage,
   RegisterPage,
+  NoticePage,
 } from '../pages';
 import { Layout, Modallike } from '../components';
 
@@ -25,7 +26,7 @@ export function RouteComponent() {
         }
       >
         <Route path="/" element={<MainPage />} />
-        <Route path="/notice" element={<ErrorPage />} />
+        <Route path="/notice" element={<NoticePage />} />
         <Route path="/curation" element={<CurationPage />} />
         <Route path="/mypage" element={<UserMyPage />} />
         <Route path="/timetable" element={<TimetablePage />} />
