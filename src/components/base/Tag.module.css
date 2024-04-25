@@ -10,8 +10,10 @@
   justify-content: center;
   padding-inline: 10px;
 }
-/* @media (prefers-color-scheme: dark) {
-  .back {
-    background-color: #dbdbdb;
+
+@media (prefers-color-scheme: dark) {
+  .tag {
+    background-color: #0b0b0b;
+    color: #969696;
   }
-} */
+}
