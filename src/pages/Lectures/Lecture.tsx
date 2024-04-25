@@ -3,17 +3,17 @@ import { useParams } from 'react-router-dom';
 import { StarIcon } from '../../icons';
 import { HStack, VStack, Tag, Typography, Progress } from '../../components';
 
-import styles from './index.module.css';
+import styles from './common.module.css';
 
 const BasicInfoView: React.FC<Record<string, never>> = () => {
   return (
     <VStack
+      className={styles.borderBottom}
       style={{
         margin: '160px 40px 0px 40px',
         padding: '0px 0px 60px 0px',
         alignItems: 'center',
         flexWrap: 'wrap',
-        borderBottom: '1px solid #d4d4d4',
       }}
     >
       <div
@@ -168,7 +168,7 @@ function ReviewsView() {
   const reviews = ['a', 'b'];
 
   return (
-    <HStack className={styles.ReviewView} style={{ padding: '40px', flexGrow: 1 }}>
+    <HStack className={styles.results}>
       <VStack style={{ justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="t3">강의평 목록</Typography>
         <Typography variant="t6">최신순 등록순</Typography>
