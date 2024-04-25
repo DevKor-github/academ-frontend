@@ -1,6 +1,5 @@
-import Typography from '../Typography';
-
-import styles from './index.module.css';
+import Typography from './Typography';
+import styles from './TextField.module.css';
 
 interface TextFieldProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLInputElement>, HTMLInputElement> {
   id: string;
