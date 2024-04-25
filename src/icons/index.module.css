@@ -1,11 +1,13 @@
-svg {
+svg.fill  {
+  stroke: none;
+}
+
+svg.line {
   stroke: black;
 }
 
 @media (prefers-color-scheme: dark) {
-  svg {
+  svg.line  {
     stroke: white;
   }
-
-  
 }
