@@ -1,4 +1,3 @@
-
 .accent-1 {
   --accent: #e65a76;
 }
@@ -12,6 +11,9 @@
 }
 
 .shared {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 8px;
   align-items: 'center';
   color: 'inherit';
@@ -28,15 +30,15 @@
 
 .shared.outline:focus {
   box-shadow: 0px 4px 8px rgb(from #dc143c r g b / 0.5);
-} 
+}
 
- .shared.outline:hover {
+.shared.outline:hover {
   box-shadow: 0px 4px 8px rgb(from #dc143c r g b / 0.5);
 }
 
 .shared.outline:focus {
   box-shadow: 0px 4px 8px rgb(from #dc143c r g b / 0.5);
-} 
+}
 
 .enabled.outline {
   color: #dc143c;
@@ -72,9 +74,9 @@
 }
 
 .disabled.filled {
-  background: #dbdbdb
+  background: #dbdbdb;
 }
 
 .disabled {
-  cursor:not-allowed;
+  cursor: not-allowed;
 }
