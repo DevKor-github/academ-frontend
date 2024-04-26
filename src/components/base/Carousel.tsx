@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
+import { HStack } from './Stack';
 import styles from './Carousel.module.css';
 
 interface CarouselProps {
   children: React.ReactNode[];
+  style?: React.CSSProperties;
+  className?: string;
 }
 
-export default function Carousel({ children }: CarouselProps) {
+export default function Carousel({ className, style, children }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToSlide = (index: number) => {
@@ -21,17 +24,24 @@ export default function Carousel({ children }: CarouselProps) {
   }, []);
 
   return (
-    <div className={styles.carousel}>
-      <div className={styles['carousel-slide']} style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-        {children.map((child, index) => (
-          <div key={index}>{child}</div>
-        ))}
+    <HStack style={{ position: 'relative' }}>
+      <div className={`${styles.carousel} ${className}`} style={style}>
+        <div
+          className={styles['carousel-slide']}
+          style={{ transform: `translateX(-${currentIndex * 100}%)`, height: '480px' }}
+        >
+          {children.map((child, index) => (
+            <div style={{ width: '100%', overflow: 'hidden' }} key={index}>
+              {child}
+            </div>
+          ))}
+        </div>
       </div>
-      <div className={styles.pagination}>
+      <div className={styles.pagination} style={{ marginTop: '440px', zIndex: 2 }}>
         {children.map((_, index) => (
           <span key={index} className={index === currentIndex ? styles.active : ''} onClick={() => goToSlide(index)} />
         ))}
       </div>
-    </div>
+    </HStack>
   );
 }
