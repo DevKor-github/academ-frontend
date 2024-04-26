@@ -2,11 +2,11 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
-import { CloseIcon } from '../../icons';
+import { CloseIcon, LogoIcon } from '../../icons';
 import { ignore } from '../../helper';
 import { useSessionId } from '../../contexts/SessionIdContext';
 import { triggerWhenRendered } from '../../contexts/RenderTriggerContext';
-import { Spacer, VStack, HStack, Toggle, A, Button, Input, TextField } from '../../components';
+import { VStack, HStack, Toggle, A, Button, Input, TextField } from '../../components';
 
 export function LoginPage() {
   const [input, setInput] = useState({
@@ -51,11 +51,15 @@ export function LoginPage() {
   }
 
   return (
-    <HStack type="left" gap="16px">
-      <VStack>
-        <Spacer />
+    <HStack type="left" gap="32px">
+      <VStack style={{ justifyContent: 'space-between' }}>
+        <Button style="blank" onClick={() => navigate('/')}>
+          <VStack gap="4px" style={{ justifyContent: 'center', alignItems: 'center' }}>
+            <LogoIcon /> Academ
+          </VStack>
+        </Button>
         <Button style="blank" onClick={() => navigate(-1)}>
-          <CloseIcon width="24px" height="24px" />
+          <CloseIcon width="16px" height="16px" />
         </Button>
       </VStack>
 
@@ -83,22 +87,24 @@ export function LoginPage() {
           </Button>
         </HStack>
       </form>
-      <VStack style={{ justifyContent: 'space-between' }}>
-        <Toggle
-          value={saveLoginInfo}
-          onClick={(event: React.FormEvent<HTMLDivElement>) => {
-            event.stopPropagation();
-            setSaveLoginInfo(!saveLoginInfo);
-          }}
-          label="로그인 정보 저장"
-        />
-        <A href="/login/find-password">비밀번호 찾기</A>
-      </VStack>
 
-      <VStack style={{ justifyContent: 'space-between' }}>
-        아이디가 없으신가요?
-        <A href="/register">회원가입</A>
-      </VStack>
+      <HStack gap="8px">
+        <VStack style={{ justifyContent: 'space-between' }}>
+          <Toggle
+            value={saveLoginInfo}
+            onClick={(event: React.FormEvent<HTMLDivElement>) => {
+              event.stopPropagation();
+              setSaveLoginInfo(!saveLoginInfo);
+            }}
+            label="로그인 정보 저장"
+          />
+          <A href="/login/find-password">비밀번호 찾기</A>
+        </VStack>
+        <VStack style={{ justifyContent: 'space-between' }}>
+          아이디가 없으신가요?
+          <A href="/register">회원가입</A>
+        </VStack>
+      </HStack>
     </HStack>
   );
 }

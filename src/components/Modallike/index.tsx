@@ -23,7 +23,7 @@ export default function Modallike({ children }: ModallikeProps) {
       modalRef.current.style.width = '';
       modalRef.current.style.height = '';
       setWidth(ref.current.getBoundingClientRect().width + 82);
-      setHeight(ref.current.getBoundingClientRect().height + 82);
+      setHeight(ref.current.getBoundingClientRect().height + 80);
       modalRef.current.style.width = prevWidth;
       modalRef.current.style.height = prevHeight;
       modalRef.current.getBoundingClientRect(); // never ever delete this line (intended)
@@ -33,7 +33,7 @@ export default function Modallike({ children }: ModallikeProps) {
   return (
     <div className={styles.container}>
       <div ref={modalRef} className={styles.modal} style={{ width, height }}>
-        <div ref={ref} style={{ width: 'fit-content', height: 'fit-content' }}>
+        <div ref={ref} style={{ width: 'fit-content', height: 'fit-content', margin: '40px 40px 40px 40px' }}>
           {children}
         </div>
       </div>

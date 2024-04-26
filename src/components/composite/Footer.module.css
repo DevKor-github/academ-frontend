@@ -7,13 +7,12 @@ footer {
 }
 
 .padding {
+  border-top: solid 1px hsl(0, 0%, 86%);
   padding: 40px 20px;
-  margin: 0px 40px;
-  border-top: solid 1px #dbdbdb;
 }
 
 @media (prefers-color-scheme: dark) {
   .padding {
-      border-top: 1px solid #424242;
+    border-top: 1px solid #424242;
   }
 }

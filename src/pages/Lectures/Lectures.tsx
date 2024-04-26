@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { Course, sampleCourse } from '../../models/course';
+import GlobalStyles from '../../Global.module.css';
 import { SearchForm } from '../../components/composite';
 import { HStack, VStack, Typography } from '../../components';
 
@@ -14,38 +15,36 @@ const SearchTopView = ({ query }: { query: string }) => {
       gap="20px"
       className={styles.borderBottom}
       style={{
-        margin: '110px 40px 0px 40px',
-        padding: '0px 0px 110px 0px',
+        padding: '110px 40px 110px 40px',
         alignItems: 'center',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
       }}
     >
-      <Typography variant="t3">
+      <Typography variant="t3" style={{ wordBreak: 'break-word' }}>
         <Typography variant="t1" children={`"${query}"`}></Typography> 강의 검색 결과
       </Typography>
 
-      <SearchForm defaultValue={query} />
+      <SearchForm className={lecturesStyles.searchForm} defaultValue={query} />
     </VStack>
   ) : (
     <VStack
       className={styles.borderBottom}
       style={{
-        margin: '110px 40px 0px 40px',
-        padding: '0px 0px 110px 0px',
+        padding: '110px 40px 110px 40px',
         alignItems: 'center',
         flexWrap: 'wrap',
         justifyContent: 'center',
       }}
     >
-      <SearchForm defaultValue={query} />
+      <SearchForm className={lecturesStyles.searchForm} defaultValue={query} />
     </VStack>
   );
 };
 
 const SearchResultsView = ({ results }: { results: Course[] | null }) => {
   return results && results.length ? (
-    <HStack className={styles.results}>
+    <HStack className={`${styles.results} ${GlobalStyles.metacontainer}`}>
       <div className={lecturesStyles.container}>
         {results.map((course) => (
           <SingleSearchResultView course={course} />

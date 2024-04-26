@@ -8,14 +8,21 @@ import { MagnifyIcon } from '../../icons';
 import styles from './SearchForm.module.css';
 
 interface SearchFormProp {
+  className?: string;
   defaultValue?: string;
+  style?: React.CSSProperties;
 }
 
-export default function SearchForm({ defaultValue }: SearchFormProp) {
+export default function SearchForm({ className, defaultValue, style }: SearchFormProp) {
   const [query, setQuery] = useState(defaultValue || '');
 
+  const combinedStyle = {
+    ...style,
+    ...{ padding: '20px 0px' },
+  };
+
   return (
-    <form method="get" action="/lecture" style={{ padding: '20px 0px' }}>
+    <form className={className} method="get" action="/lecture" style={combinedStyle}>
       <VStack gap="20px" className={styles.searchBox}>
         <MagnifyIcon />
         <input

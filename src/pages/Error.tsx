@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+import { triggerWhenRendered } from '../contexts/RenderTriggerContext';
 import { Button, HStack, Spacer, VStack, Typography } from '../components';
 
 interface ErrorPageProps {
@@ -8,6 +9,7 @@ interface ErrorPageProps {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function ErrorPage(errorPageProps: ErrorPageProps) {
+  triggerWhenRendered();
   return (
     <HStack gap="32px">
       <HStack gap="16px">
@@ -28,6 +30,7 @@ export function ErrorPage(errorPageProps: ErrorPageProps) {
 }
 
 function ErrorLackOfPermissionPage({ code }: ErrorPageProps) {
+  triggerWhenRendered();
   return (
     <HStack gap="32px">
       <HStack gap="16px">
