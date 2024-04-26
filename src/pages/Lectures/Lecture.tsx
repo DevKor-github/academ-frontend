@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 
 import { StarIcon } from '../../icons';
+import GlobalStyles from '../../Global.module.css';
 import { HStack, VStack, Tag, Typography, Progress } from '../../components';
 
 import styles from './common.module.css';
@@ -8,10 +9,11 @@ import styles from './common.module.css';
 const BasicInfoView: React.FC<Record<string, never>> = () => {
   return (
     <VStack
-      className={styles.borderBottom}
+      className={`${GlobalStyles.metacontainerMargin} ${styles.borderBottom}`}
       style={{
-        margin: '160px 40px 0px 40px',
-        padding: '0px 0px 60px 0px',
+        paddingTop: '160px',
+        paddingBottom: '60px',
+        justifyItems: 'center',
         alignItems: 'center',
         flexWrap: 'wrap',
       }}
@@ -27,11 +29,11 @@ const BasicInfoView: React.FC<Record<string, never>> = () => {
         }}
       />
       <HStack gap="10px">
-        <VStack gap="10px" style={{ alignItems: 'end' }}>
+        <VStack gap="10px" style={{ alignItems: 'end', flexWrap: 'wrap' }}>
           <Typography variant="t3" children="기초 정보 디자인" />
           <Tag children="강의평 8개" />
         </VStack>
-        <VStack gap="20px">
+        <VStack gap="20px" style={{ flexWrap: 'wrap' }}>
           <Typography variant="t6" children="송운비 교수님" />
           <Typography variant="t6" children="UNBE22512(01)" />
           <Typography variant="t6" children="2024년 1학기" />
@@ -59,7 +61,7 @@ function SummaryView() {
   const tags = ['친절한', '뿌듯한', '과제량이 많은', '뿌듯한', '과제량이 많은'];
 
   return (
-    <HStack gap="30px" style={{ margin: '40px' }}>
+    <HStack gap="30px" className={`${GlobalStyles.metacontainer}`} style={{ marginTop: '160px' }}>
       <Typography variant="t3" children="평가 한눈에보기" />
 
       <VStack
@@ -95,7 +97,7 @@ function ReviewView() {
     <VStack
       style={{
         background: 'white',
-        margin: '20px 0px',
+        marginTop: '10px',
         padding: '32px',
         border: '1px solid #b7b7b7',
         borderRadius: '20px',
@@ -178,7 +180,7 @@ function ReviewsView() {
   const reviews = ['a', 'b'];
 
   return (
-    <HStack className={styles.results}>
+    <HStack className={`${GlobalStyles.metacontainer} ${styles.results}`}>
       <VStack style={{ justifyContent: 'space-between', alignItems: 'center' }}>
         <Typography variant="t3">강의평 목록</Typography>
         <Typography variant="t6">최신순 등록순</Typography>

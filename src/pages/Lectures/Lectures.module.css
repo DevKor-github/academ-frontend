@@ -5,3 +5,13 @@
   align-items: center;
   gap: 20px;
 }
+
+.searchForm {
+  width: min(70%, 800px);
+}
+
+@media (max-width: 720px) {
+  .searchForm {
+    width: 100%;
+  }
+}

@@ -13,6 +13,7 @@ import {
   RegisterPage,
   NoticePage,
 } from '../pages';
+import { RenderTriggerProvider } from '../contexts/RenderTriggerContext';
 import { Layout, Modallike } from '../components';
 
 export function RouteComponent() {
@@ -37,9 +38,11 @@ export function RouteComponent() {
 
       <Route
         element={
-          <Modallike>
-            <Outlet />
-          </Modallike>
+          <RenderTriggerProvider>
+            <Modallike>
+              <Outlet />
+            </Modallike>
+          </RenderTriggerProvider>
         }
       >
         <Route path="/login" element={<LoginPage />} />
