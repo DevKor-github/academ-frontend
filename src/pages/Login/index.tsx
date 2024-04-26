@@ -5,6 +5,7 @@ import axios from 'axios';
 import { CloseIcon } from '../../icons';
 import { ignore } from '../../helper';
 import { useSessionId } from '../../contexts/SessionIdContext';
+import { triggerWhenRendered } from '../../contexts/RenderTriggerContext';
 import { Spacer, VStack, HStack, Toggle, A, Button, Input, TextField } from '../../components';
 
 export function LoginPage() {
@@ -18,6 +19,8 @@ export function LoginPage() {
 
   const [saveLoginInfo, setSaveLoginInfo] = useState(false);
   const [loginError, setLoginError] = useState(false);
+
+  triggerWhenRendered();
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     setInput({
