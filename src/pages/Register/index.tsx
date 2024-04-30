@@ -165,7 +165,7 @@ export function RegisterPage() {
   ];
 
   return (
-    <HStack gap="32px">
+    <HStack gap="32px" style={{ width: '100%' }}>
       <Progress rate={rate / 3}></Progress>
       {pages[rate]}
     </HStack>

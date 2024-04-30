@@ -19,8 +19,9 @@ export default function Toggle({ value, label, ...restProps }: ToggleProps) {
           minHeight: '18px',
           aspectRatio: 1,
           background: value ? 'red' : 'none',
-          border: 'solid 1px black',
-          borderRadius: '4px',
+          border: 'solid 1px red',
+          borderRadius: '50%',
+          marginRight: '5px',
         }}
       />
       {label}

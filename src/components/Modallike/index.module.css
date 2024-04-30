@@ -11,7 +11,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
-  border-radius: 12px;
+  border-radius: 48px;
   border: solid #dddddd 1px;
   background-color: #ffffff; /* Change the color as needed */
   transition: all 0.3s ease;

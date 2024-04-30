@@ -51,14 +51,14 @@ export function LoginPage() {
   }
 
   return (
-    <HStack type="left" gap="32px">
+    <HStack type="left" gap="32px" style={{ width: '400px' }}>
       <VStack style={{ justifyContent: 'space-between' }}>
         <Button style="blank" onClick={() => navigate('/')}>
           <VStack gap="4px" style={{ justifyContent: 'center', alignItems: 'center' }}>
             <LogoIcon /> Academ
           </VStack>
         </Button>
-        <Button style="blank" onClick={() => navigate(-1)}>
+        <Button style="blank" onClick={() => navigate('/')}>
           <CloseIcon width="16px" height="16px" />
         </Button>
       </VStack>
@@ -71,7 +71,7 @@ export function LoginPage() {
           handleLogin();
         }}
       >
-        <HStack gap="8px">
+        <HStack gap="30px">
           <TextField required id="id" placeholder="example@korea.ac.kr" onChange={handleInput} value={input.id} />
           <TextField
             required
@@ -82,29 +82,28 @@ export function LoginPage() {
             errorMessage={loginError ? '이메일 주소 또는 비밀번호가 일치하지 않습니다.' : ''}
             value={input.password}
           />
+          <VStack style={{ justifyContent: 'space-between' }}>
+            <Toggle
+              value={saveLoginInfo}
+              onClick={(event: React.FormEvent<HTMLDivElement>) => {
+                event.stopPropagation();
+                setSaveLoginInfo(!saveLoginInfo);
+              }}
+              label="로그인 정보 저장"
+            />
+            <A href="/login/find-password">비밀번호 찾기</A>
+          </VStack>
+        </HStack>
+        <HStack gap="30px" style={{ marginTop: '50px' }}>
           <Button type="submit" style="filled" accnet="0" variant="contained" color="primary">
             로그인
           </Button>
+          <VStack gap="10px" style={{ justifyContent: 'center', marginBottom: '150px' }}>
+            계정이 없으신가요?
+            <A href="/register">회원가입</A>
+          </VStack>
         </HStack>
       </form>
-
-      <HStack gap="8px">
-        <VStack style={{ justifyContent: 'space-between' }}>
-          <Toggle
-            value={saveLoginInfo}
-            onClick={(event: React.FormEvent<HTMLDivElement>) => {
-              event.stopPropagation();
-              setSaveLoginInfo(!saveLoginInfo);
-            }}
-            label="로그인 정보 저장"
-          />
-          <A href="/login/find-password">비밀번호 찾기</A>
-        </VStack>
-        <VStack style={{ justifyContent: 'space-between' }}>
-          아이디가 없으신가요?
-          <A href="/register">회원가입</A>
-        </VStack>
-      </HStack>
     </HStack>
   );
 }
