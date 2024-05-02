@@ -11,9 +11,10 @@ interface SearchFormProp {
   className?: string;
   defaultValue?: string;
   style?: React.CSSProperties;
+  autoFocus?: boolean;
 }
 
-export default function SearchForm({ className, defaultValue, style }: SearchFormProp) {
+export default function SearchForm({ autoFocus, className, defaultValue, style }: SearchFormProp) {
   const [query, setQuery] = useState(defaultValue || '');
 
   const combinedStyle = {
@@ -27,7 +28,7 @@ export default function SearchForm({ className, defaultValue, style }: SearchFor
         <MagnifyIcon />
         <input
           required
-          autoFocus
+          autoFocus={autoFocus}
           className={styles.textarea}
           id="text"
           name="q"

@@ -1,6 +1,3 @@
-// import { Box } from '@mui/material';
-
-import Typography from './Typography';
 import styles from './Button.module.css';
 
 interface ButtonProps {
@@ -24,7 +21,6 @@ export default function Button({
     <button
       tabIndex={0}
       className={`${styles.shared} ${styles[style]}
-
       ${styles[`accent${accent}`]}
 
       ${className}
@@ -32,7 +28,7 @@ export default function Button({
       ${disabled ? styles.disabled : styles.enabled}`}
       {...restProps}
     >
-      <Typography variant="t5">{children}</Typography>
+      {children}
     </button>
   );
 }

@@ -13,9 +13,10 @@ interface TopnavBlankButtonProps {
   [key: string]: unknown;
 }
 interface TopnavButtonProps {
-  href: string;
+  href?: string;
   children: React.ReactNode;
   icon?: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
   pill?: boolean;
   [key: string]: unknown;
 }
@@ -41,18 +42,21 @@ export function TopnavBlankButton({
   );
 }
 
-export function TopnavButton({ selected, href, children, icon, pill, ...restProps }: TopnavButtonProps) {
+export function TopnavButton({ onClick, selected, href, children, icon, pill, ...restProps }: TopnavButtonProps) {
   const navigate = useNavigate();
 
   return (
     <a
       href={href}
-      onClick={(e) => {
-        if (!e.metaKey && !e.ctrlKey) {
-          e.preventDefault();
-          navigate(href);
-        }
-      }}
+      onClick={
+        onClick ||
+        ((e) => {
+          if (!e.metaKey && !e.ctrlKey) {
+            e.preventDefault();
+            navigate(href || '.');
+          }
+        })
+      }
       {...restProps}
     >
       <span

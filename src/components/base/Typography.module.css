@@ -1,0 +1,49 @@
+/* 
+.t1 *:not(.t2 *, .t3 *, .t4 *, .t5 *, .t6 *)  {
+  font-size: 32px;
+}
+
+.t2 *:not(.t1 *, .t3 *, .t4 *, .t5 * , .t6 *)   {
+  font-size: 28px;
+}
+ 
+.t3 *:not(.t1 *, .t2 *, .t4 *, .t5 *, .t6 *)  {
+  font-size: 24px;
+}
+
+.t4 *:not(.t1 *, .t2 *, .t3 *, .t5 *, .t6 *) {
+  font-size: 20px;
+}
+
+.t5 *:not(.t1 *, .t2 *, .t3 *, .t4 *, .t6 *) {
+  font-size: 16px;
+}
+
+.t6 *:not(.t1 *, .t2 *, .t3 *, .t4 *, .t5 *) {
+  font-size: 12px;
+} */
+
+
+.t1 {
+  font-size: 32px;
+}
+
+.t2 {
+  font-size: 28px;
+}
+ 
+.t3  {
+  font-size: 24px;
+}
+
+.t4 {
+  font-size: 20px;
+}
+
+.t5 {
+  font-size: 16px;
+}
+
+.t6 {
+  font-size: 12px;
+}
