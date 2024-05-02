@@ -13,7 +13,7 @@ export default function Typography({ style, variant, children }: TypographyProp)
 
   return (
     <span className={styles[variant]} style={combinedStyle}>
-      {children}
+      <span>{children}</span>
     </span>
   );
 }
