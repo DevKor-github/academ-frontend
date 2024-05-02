@@ -64,7 +64,7 @@ export function TopnavButton({ onClick, selected, href, children, icon, pill, ..
         className={`${buttonStyles.shared} ${pill ? buttonStyles.pill : buttonStyles.primary} ${
           selected ? buttonStyles.selected : buttonStyles.unselected
         }`}
-        style={{ gap: '8px' }}
+        style={{ display: 'flex', gap: '8px', flexWrap: 'nowrap', overflow: 'hidden' }}
       >
         {icon}
         <Typography variant="t5">{children}</Typography>
