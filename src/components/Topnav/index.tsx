@@ -47,11 +47,15 @@ function TopNavInnerRight() {
   const { sessionId } = useSessionId();
 
   const [openPopover, setOpenPopover] = useState<boolean>(false);
-  return sessionId !== '' ? (
+  return sessionId ? (
     <div>
       <TopnavButton pill onClick={() => setOpenPopover(!openPopover)}>
-        <span className={styles.forSmall}>프사</span>
-        <span className={styles.forBig}>{sessionId}님</span>
+        <span className={styles.forSmall} style={{ textWrap: 'nowrap', overflow: 'hidden' }}>
+          프사
+        </span>
+        <span className={styles.forBig} style={{ textWrap: 'nowrap', overflow: 'hidden' }}>
+          {sessionId}님
+        </span>
       </TopnavButton>
       {openPopover && (
         <Popover onClose={() => setOpenPopover(false)} className={popoverStyles.popover}>

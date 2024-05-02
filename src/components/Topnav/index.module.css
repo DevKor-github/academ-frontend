@@ -1,11 +1,5 @@
 .forSmall {
   display: none;
-  padding: 18px 0px;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  cursor: pointer;
-  font-size: medium;
 }
 
 .compact {
@@ -17,12 +11,9 @@
   align-items: center;
 }
 
-.forSmall {
-  display: none;
-}
 
 .forBig {
-  display: flex;
+  display: inline-flex;
 }
 
 .menulist {
@@ -85,7 +76,11 @@
 
 @media (max-width: 720px) {
   .forSmall {
-    display: flex;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    cursor: pointer;
   }
 
   .forBig {
