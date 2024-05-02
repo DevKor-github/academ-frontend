@@ -4,8 +4,10 @@ import React from 'react';
 import App from './App';
 import './index.css';
 
+console.log(`working in mode : ${process.env.NODE_ENV}`);
+
 // src/index.tsx
-if (process.env.NODE_ENV === 'development' && 'serviceWorker' in navigator) {
+if (/* process.env.NODE_ENV === 'development' && */ 'serviceWorker' in navigator) {
   console.log('dev mode - trying MSW');
   window.addEventListener('load', () => {
     navigator.serviceWorker
