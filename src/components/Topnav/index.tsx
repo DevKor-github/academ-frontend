@@ -2,11 +2,13 @@ import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
 import { VStack, HStack } from '../base/Stack';
-import Carousel from '../base/Carousel';
+import Popover from '../base/Popover';
+import Carousel, { CarouseHelperImg } from '../base/Carousel';
 import { LogoIcon, DownIcon, UpIcon } from '../../icons';
 import GlobalStyle from '../../Global.module.css';
 import { useSessionId } from '../../contexts/SessionIdContext';
 
+import popoverStyles from './popover.module.css';
 import styles from './index.module.css';
 import { TopnavBlankButton, TopnavButton } from './button';
 
@@ -37,18 +39,33 @@ const TopNavInnerMid = () => {
         <TopnavButton selected={getLoc(location) === 'curation'} href="/curation" children={`강의${nbsp}추천`} />
         <TopnavButton selected={getLoc(location) === 'timetable'} href="/timetable" children="시간표" />
         <TopnavButton selected={getLoc(location) === 'notice'} href="/notice" children="공지사항" />
-        <TopnavButton selected={getLoc(location) === 'mypage'} href="/mypage" children="마이페이지" />
       </VStack>
     </VStack>
   );
 };
-
 function TopNavInnerRight() {
   const { sessionId } = useSessionId();
 
-  return (
-    <TopnavButton pill href={sessionId ? '/logout' : '/login'}>
-      {sessionId ? '로그아웃' : '로그인'}
+  const [openPopover, setOpenPopover] = useState<boolean>(false);
+  return sessionId !== '' ? (
+    <div>
+      <TopnavButton pill onClick={() => setOpenPopover(!openPopover)}>
+        <span className={styles.forSmall}>프사</span>
+        <span className={styles.forBig}>{sessionId}님</span>
+      </TopnavButton>
+      {openPopover && (
+        <Popover onClose={() => setOpenPopover(false)} className={popoverStyles.popover}>
+          <HStack style={{ backgroundColor: 'var(--back-0)', borderRadius: '12px' }}>
+            <TopnavButton href="/mypage">마이페이지</TopnavButton>
+            <TopnavButton href="/logout">로그아웃</TopnavButton>
+            <TopnavButton onClick={() => setOpenPopover(false)}>닫기</TopnavButton>
+          </HStack>
+        </Popover>
+      )}
+    </div>
+  ) : (
+    <TopnavButton pill href="/login">
+      로그인
     </TopnavButton>
   );
 }
@@ -83,9 +100,11 @@ function TopNavInner({
       >
         <TopNavInnerLeft />
         <div className={styles.forSmall} style={{ height: '72px' }}>
-          <TopnavBlankButton onClick={() => setSpreaded(!spreaded)}>
-            {spreaded ? <UpIcon width="24px" height="24px" /> : <DownIcon width="24px" height="24px" />}
-          </TopnavBlankButton>
+          <div style={{ position: 'absolute', top: '16px', left: '50%', transform: 'translateX(-50%)' }}>
+            <TopnavBlankButton onClick={() => setSpreaded(!spreaded)}>
+              {spreaded ? <UpIcon width="24px" height="24px" /> : <DownIcon width="24px" height="24px" />}
+            </TopnavBlankButton>
+          </div>
         </div>
         <div className={styles.forBig} style={{ height: '72px' }}>
           <TopNavInnerMid />
@@ -127,14 +146,15 @@ export default function TopNav() {
             // eslint-disable-next-line no-nested-ternary
             height: overlap ? '480px' : '72px',
             position: 'absolute',
+            background: 'grey',
             top: 0,
             transition: 'all .3s ease',
           }}
           children={[
-            <img src={'/samplebanner.png'} />,
-            <img src={'/samplebanner.png'} />,
-            <img src={'/samplebanner.png'} />,
-            <img src={'/samplebanner.png'} />,
+            <CarouseHelperImg key={'/samplebanner.png'} url="/samplebanner.png" />,
+            <CarouseHelperImg key={'/samplebanner.png'} url="/samplebanner.png" />,
+            <CarouseHelperImg key={'/samplebanner.png'} url="/samplebanner.png" />,
+            <CarouseHelperImg key={'/samplebanner.png'} url="/samplebanner.png" />,
           ]}
         />
       )}

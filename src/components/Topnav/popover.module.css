@@ -1,0 +1,32 @@
+.popover {
+  position: absolute;
+  top: 64px;
+  right: 40px;
+  border: 1px solid #dbdbdb;
+  border-radius: 18px;
+  background-color: #ffffff;
+  overflow:hidden;
+  box-shadow: 0px 10px 20px #00000044;
+}
+
+.popover > * {
+  background: none !important;
+  color: black !important;
+}
+
+@media (max-width: 720px) {
+  .popover {
+    right: 20px;
+  }
+}
+
+@media (prefers-color-scheme: dark)  {
+  .popover {
+    border: 1px solid #353535;
+    background-color: #212121;
+  }
+
+  .popover > * {
+    color: white !important;
+  }
+}
