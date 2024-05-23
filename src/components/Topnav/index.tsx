@@ -1,10 +1,11 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
+import Typography from '../base/Typography';
 import { VStack, HStack } from '../base/Stack';
 import Popover from '../base/Popover';
-import Carousel, { CarouseHelperImg } from '../base/Carousel';
-import { LogoIcon, DownIcon, UpIcon } from '../../icons';
+import Carousel, { CarouselItem } from '../base/Carousel';
+import { LogoIconRich, DownIcon, UpIcon, BookIcon } from '../../icons';
 import GlobalStyle from '../../Global.module.css';
 import { useSessionId } from '../../contexts/SessionIdContext';
 
@@ -12,11 +13,14 @@ import popoverStyles from './popover.module.css';
 import styles from './index.module.css';
 import { TopnavBlankButton, TopnavButton } from './button';
 
-function TopNavInnerLeft() {
+function TopNavInnerLeft({ overlap }: { overlap?: boolean }) {
   return (
-    <TopnavButton className={styles.nostroke} icon={<LogoIcon />} href="/">
-      Academ
-    </TopnavButton>
+    <TopnavButton
+      className={styles.nostroke}
+      icon={<LogoIconRich overlap={overlap} width={`${150 * 0.6}px`} height={`${39 * 0.6}px`} />}
+      href="/"
+      children=""
+    />
   );
 }
 
@@ -102,7 +106,7 @@ function TopNavInner({
           height: '72px',
         }}
       >
-        <TopNavInnerLeft />
+        <TopNavInnerLeft overlap={overlap} />
         <div className={styles.forSmall} style={{ height: '72px' }}>
           <div style={{ position: 'absolute', top: '16px', left: '50%', transform: 'translateX(-50%)' }}>
             <TopnavBlankButton onClick={() => setSpreaded(!spreaded)}>
@@ -136,7 +140,7 @@ export default function TopNav() {
       style={{
         width: '100%',
         // eslint-disable-next-line no-nested-ternary
-        height: overlap ? '480px' : spreaded ? '144px' : '72px',
+        height: overlap ? 'var(--adaptive-h)' : spreaded ? '144px' : '72px',
         // background: 'grey',
         position: 'relative',
         top: 0,
@@ -147,24 +151,93 @@ export default function TopNav() {
         <Carousel
           style={{
             width: '100%',
-            // eslint-disable-next-line no-nested-ternary
-            height: overlap ? '480px' : '72px',
+            // eslint-disable-next-linmin(480px, 100vw)e no-nested-ternary
+            height: '',
             position: 'absolute',
             background: 'grey',
             top: 0,
             transition: 'all .3s ease',
           }}
           children={[
-            <CarouseHelperImg key={'/samplebanner.png'} url="/samplebanner.png" />,
-            <CarouseHelperImg key={'/samplebanner.png'} url="/samplebanner.png" />,
-            <CarouseHelperImg key={'/samplebanner.png'} url="/samplebanner.png" />,
-            <CarouseHelperImg key={'/samplebanner.png'} url="/samplebanner.png" />,
+            <CarouselItem key={'/samplebanner.png'} url="/samplebanner.png">
+              <HStack style={{ width: '100%', height: '100%', justifyContent: 'end' }} gap="24px">
+                <VStack style={{ alignItems: 'center' }} gap="12px">
+                  <Typography bold variant="t1">
+                    ACADEM
+                  </Typography>
+                  <Typography variant="t5" style={{ borderLeft: '1px solid #aaaaaa', paddingLeft: '12px' }}>
+                    아카뎀
+                  </Typography>
+                </VStack>
+                <VStack gap="12px" style={{ alignItems: 'center' }}>
+                  <Typography variant="t5" lineHeight={1.5}>
+                    대학원생을 위한{' '}
+                    <Typography bold variant="t5">
+                      강의평가 공유 서비스
+                    </Typography>
+                    <br />
+                    우리 학교 강의에 대한 다양한 정보와 이야기를 나누어요.
+                  </Typography>
+                  <TopnavButton pill href="/about">
+                    자세히보기
+                  </TopnavButton>
+                </VStack>
+              </HStack>
+            </CarouselItem>,
+            <CarouselItem key={'/samplebanner.png'} url="/samplebanner.png">
+              <HStack gap="24px" style={{ alignItems: 'center' }}>
+                <Typography variant="t4">
+                  <Typography bold variant="t4">
+                    이론 중심
+                  </Typography>
+                  {' 강의? '}
+                  <Typography bold variant="t4">
+                    실험 중심
+                  </Typography>
+                  {' 강의? '}
+                </Typography>
+                <Typography variant="t1">어떤 강의가 나의 연구에 도움이 될까?</Typography>
+                <VStack gap="12px">
+                  <BookIcon width="24px" height="24px" auto={false} color="white" />
+                  <Typography variant="t5">강의 간의 비교를 통해 나의 학업에 도움이 되는 강의를 선택하세요.</Typography>
+                </VStack>
+              </HStack>
+            </CarouselItem>,
+            <CarouselItem key={'/samplebanner.png'} url="/samplebanner.png">
+              <HStack gap="24px" style={{ width: '100%' }}>
+                <Typography variant="t1">
+                  <Typography bold variant="t1">
+                    문제 출제 유형
+                  </Typography>
+                  과{' '}
+                  <Typography bold variant="t1">
+                    기출
+                  </Typography>
+                  을 한눈에
+                </Typography>
+                <VStack gap="12px">
+                  <BookIcon width="24px" height="24px" auto={false} color="white" />
+                  <Typography variant="t5">
+                    수업 및 시험 방식에 대한 정보를 얻고{' '}
+                    <Typography bold variant="t5">
+                      효율적으로 시험을 준비
+                    </Typography>
+                    할 수 있어요.
+                  </Typography>
+                </VStack>
+              </HStack>
+            </CarouselItem>,
           ]}
         />
       )}
       <div
-        className={`${overlap ? styles.gradient : ''} ${GlobalStyle.metacontainer}`}
-        style={{ width: '100%', height: overlap || spreaded ? '144px' : '72px', position: 'absolute', top: 0 }}
+        className={`${GlobalStyle.metacontainer}`}
+        style={{
+          width: '100%',
+          height: overlap || spreaded ? '144px' : '72px',
+          position: 'absolute',
+          top: 0,
+        }}
       >
         <TopNavInner overlap={overlap} spreadedState={{ spreaded, setSpreaded }} />
       </div>

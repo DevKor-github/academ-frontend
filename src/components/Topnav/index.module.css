@@ -52,10 +52,6 @@
   align-items: center;
 }
 
-.gradient {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0) 100%);
-}
-
 .overlap {
   color: white;
 }
@@ -113,5 +109,16 @@
     color: #dbdbdb;
     stroke: #dbdbdb;
     border-bottom: 1px solid #424242;
+  }
+}
+
+
+:root {
+  --adaptive-h: 480px;
+}
+
+@media ( max-width: 720px ) {
+  :root {
+    --adaptive-h : 360px;
   }
 }
