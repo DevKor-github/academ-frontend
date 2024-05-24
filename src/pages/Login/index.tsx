@@ -2,11 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 
-import { CloseIcon, LogoIcon } from '../../icons';
 import { ignore } from '../../helper';
 import { useSessionId } from '../../contexts/SessionIdContext';
-import { triggerWhenRendered } from '../../contexts/RenderTriggerContext';
-import { VStack, HStack, Toggle, A, Button, Input, TextField, Typography } from '../../components';
+import { VStack, HStack, Radio, A, Button, Input, TextField, Typography } from '../../components';
 
 export function LoginPage() {
   const [input, setInput] = useState({
@@ -19,8 +17,6 @@ export function LoginPage() {
 
   const [saveLoginInfo, setSaveLoginInfo] = useState(false);
   const [loginError, setLoginError] = useState(false);
-
-  triggerWhenRendered();
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     setInput({
@@ -51,20 +47,21 @@ export function LoginPage() {
   }
 
   return (
-    <Typography variant="t5">
-      <HStack type="left" gap="16px" style={{ width: '400px' }}>
-        <VStack style={{ justifyContent: 'space-between', paddingBottom: '16px' }}>
-          <Button style="blank" onClick={() => navigate('/')}>
-            <VStack gap="4px" style={{ justifyContent: 'center', alignItems: 'center', color: 'var(--fore-0)' }}>
-              <LogoIcon />
-              Academ
-            </VStack>
-          </Button>
-
-          <Button style="blank" onClick={() => navigate(-1)}>
-            <CloseIcon width="16px" height="16px" />
-          </Button>
-        </VStack>
+    <Typography
+      variant="t5"
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginInline: '40px',
+        height: '100%',
+        width: '100%',
+      }}
+    >
+      <HStack type="left" gap="48px" style={{ width: '400px' }}>
+        <Typography bold variant="t1" style={{ textAlign: 'center' }}>
+          로그인
+        </Typography>
 
         <form
           method="post"
@@ -74,44 +71,59 @@ export function LoginPage() {
             handleLogin();
           }}
         >
-          <HStack gap="16px">
-            <HStack gap="8px">
-              <TextField required id="id" placeholder="example@korea.ac.kr" onChange={handleInput} value={input.id} />
+          <HStack gap="48px">
+            <HStack gap="16px">
+              <TextField
+                required
+                id="id"
+                placeholder="이메일을 입력해주세요"
+                onChange={handleInput}
+                value={input.id}
+                style={{ padding: '16px' }}
+              />
               <TextField
                 required
                 id="password"
                 type="password"
-                placeholder="비밀번호"
+                placeholder="비밀번호를 입력해주세요"
                 onChange={handleInput}
                 errorMessage={loginError ? '이메일 주소 또는 비밀번호가 일치하지 않습니다.' : ''}
                 value={input.password}
+                style={{ padding: '16px' }}
               />
+              <VStack style={{ justifyContent: 'space-between', alignItems: 'center', padding: '16px' }}>
+                <Radio
+                  value={saveLoginInfo}
+                  onClick={
+                    (/* event: React.FormEvent<HTMLDivElement> */) => {
+                      // event.stopPropagation();
+                      setSaveLoginInfo(!saveLoginInfo);
+                    }
+                  }
+                  label="로그인 정보 저장"
+                />
+                <A href="/login/find-password">비밀번호 찾기</A>
+              </VStack>
             </HStack>
 
-            <VStack style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-              <Toggle
-                value={saveLoginInfo}
-                onClick={
-                  (/* event: React.FormEvent<HTMLDivElement> */) => {
-                    // event.stopPropagation();
-                    setSaveLoginInfo(!saveLoginInfo);
-                  }
-                }
-                label="로그인 정보 저장"
-              />
-              <A href="/login/find-password">비밀번호 찾기</A>
-            </VStack>
-
-            <Button type="submit" style="filled" accnet="0" variant="contained" color="primary">
-              <div>로그인</div>
-            </Button>
+            <HStack style={{}} gap="20px">
+              <Button
+                type="submit"
+                kind="filled"
+                disabled={input.id === '' && input.password === ''}
+                accnet="0"
+                variant="contained"
+                color="primary"
+                style={{ padding: '16px', width: '100%' }}
+              >
+                <div>로그인</div>
+              </Button>
+              <Typography variant="t5" style={{ textAlign: 'center' }}>
+                계정이 없으신가요? <A href="/register">회원가입</A>
+              </Typography>
+            </HStack>
           </HStack>
         </form>
-
-        <VStack style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-          아이디가 없으신가요?
-          <A href="/register">회원가입</A>
-        </VStack>
       </HStack>
     </Typography>
   );

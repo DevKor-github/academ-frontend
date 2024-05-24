@@ -1,8 +1,6 @@
-import { CheckIcon } from '../../icons';
+import './Radio.module.css';
 
-import './Toggle.module.css';
-
-interface ToggleProps {
+interface RadioProps {
   id?: string;
   value?: boolean;
   label: string;
@@ -10,7 +8,7 @@ interface ToggleProps {
   [key: string]: unknown;
 }
 
-export default function Toggle({ id, value, label, onClick }: ToggleProps) {
+export default function Radio({ id, value, label, onClick }: RadioProps) {
   return (
     <section>
       <span
@@ -32,7 +30,9 @@ export default function Toggle({ id, value, label, onClick }: ToggleProps) {
         <label htmlFor={id}>
           <span id={id}>
             <span id={id}>
-              <CheckIcon width="20px" height="20px" />
+              <svg width="20px" height="20px" viewBox="-20 -20 260 260" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="100" r="90" stroke="none" stroke-width="5" fill="white" />
+              </svg>
             </span>
           </span>
           {label}

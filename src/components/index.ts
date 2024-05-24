@@ -9,6 +9,7 @@ import Toggle from './base/Toggle';
 import TextField from './base/TextField';
 import Tag from './base/Tag';
 import { HStack, VStack } from './base/Stack';
+import Radio from './base/Radio';
 import Popover from './base/Popover';
 import Carousel from './base/Carousel';
 import Button from './base/Button';
@@ -32,5 +33,6 @@ export {
   AdaptiveStack,
   Typography,
   Tag,
+  Radio,
   Popover,
 };
