@@ -159,8 +159,8 @@ export default function TopNav() {
             transition: 'all .3s ease',
           }}
           children={[
-            <CarouselItem key={'/samplebanner.png'} url="/samplebanner.png">
-              <HStack style={{ width: '100%', height: '100%', justifyContent: 'end' }} gap="24px">
+            <CarouselItem key={'/banner/image1.png'} url="/banner/image1.png">
+              <HStack style={{ width: '100%', height: '100%', justifyContent: 'end', color: 'white' }} gap="24px">
                 <VStack style={{ alignItems: 'center' }} gap="12px">
                   <Typography bold variant="t1">
                     ACADEM
@@ -169,10 +169,10 @@ export default function TopNav() {
                     아카뎀
                   </Typography>
                 </VStack>
-                <VStack gap="12px" style={{ alignItems: 'center' }}>
-                  <Typography variant="t5" lineHeight={1.5}>
+                <VStack gap="24px" style={{ alignItems: 'center' }}>
+                  <Typography variant="t4" lineHeight={1.5}>
                     대학원생을 위한{' '}
-                    <Typography bold variant="t5">
+                    <Typography bold variant="t4">
                       강의평가 공유 서비스
                     </Typography>
                     <br />
@@ -184,8 +184,8 @@ export default function TopNav() {
                 </VStack>
               </HStack>
             </CarouselItem>,
-            <CarouselItem key={'/samplebanner.png'} url="/samplebanner.png">
-              <HStack gap="24px" style={{ alignItems: 'center' }}>
+            <CarouselItem key={'/banner/image2.png'} url="/banner/image2.png">
+              <HStack gap="24px" style={{ alignItems: 'center', color: 'white' }}>
                 <Typography variant="t4">
                   <Typography bold variant="t4">
                     이론 중심
@@ -203,8 +203,8 @@ export default function TopNav() {
                 </VStack>
               </HStack>
             </CarouselItem>,
-            <CarouselItem key={'/samplebanner.png'} url="/samplebanner.png">
-              <HStack gap="24px" style={{ width: '100%' }}>
+            <CarouselItem key={'/banner/image3.png'} url="/banner/image3.png">
+              <HStack gap="24px" style={{ width: '100%', color: 'white' }}>
                 <Typography variant="t1">
                   <Typography bold variant="t1">
                     문제 출제 유형
