@@ -33,10 +33,10 @@ function Register0({
         <A href="/terms/privacy">개인정보 수집·이용 동의</A>에 동의한 것으로 간주합니다.
       </Typography>
       <VStack gap="16px" style={{ justifyContent: 'end' }}>
-        <Button style="outline" variant="contained" color="primary" onClick={() => navigate(-1)}>
+        <Button kind="outline" variant="contained" color="primary" onClick={() => navigate(-1)}>
           가입하지 않기
         </Button>
-        <Button style="outline" variant="contained" color="primary" onClick={() => setRate(rate + 1)}>
+        <Button kind="outline" variant="contained" color="primary" onClick={() => setRate(rate + 1)}>
           계속하기
         </Button>
       </VStack>
@@ -66,7 +66,7 @@ function Register1({
         </Button>
       </VStack>
       <VStack style={{ justifyContent: 'end' }}>
-        <Button style="outline" variant="contained" color="primary" onClick={() => setRate(rate + 1)}>
+        <Button kind="outline" variant="contained" color="primary" onClick={() => setRate(rate + 1)}>
           다음
         </Button>
       </VStack>
@@ -95,7 +95,7 @@ function Register2({
       <Input required type="password" id="pwcheck" label="examasdasdf.kr" onChange={handleInput} autoFocus />
       <Input required type="password" id="pwcheck2" label="exaasdfsc.kr" onChange={handleInput} autoFocus />
       <VStack style={{ justifyContent: 'end' }}>
-        <Button style="outline" variant="contained" color="primary" onClick={() => setRate(rate + 1)}>
+        <Button kind="outline" variant="contained" color="primary" onClick={() => setRate(rate + 1)}>
           다음
         </Button>
       </VStack>
@@ -113,7 +113,7 @@ function Register3() {
       <Typography variant="t1">환영합니다.</Typography>
       <Typography variant="t3">회원가입이 완료되었습니다.</Typography>
       <VStack style={{ justifyContent: 'end' }}>
-        <Button style="outline" variant="contained" color="primary" onClick={() => navigate('/login')}>
+        <Button kind="outline" variant="contained" color="primary" onClick={() => navigate('/login')}>
           로그인 화면으로
         </Button>
       </VStack>

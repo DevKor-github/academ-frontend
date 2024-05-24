@@ -22,24 +22,26 @@
 .pagination span {
   display: inline-block;
   width: 10px;
-  height: 10px;
-  border-radius: 50%;
+  height: 4px;
   background-color: gray;
   margin: 0 5px;
   cursor: pointer;
+  transition: all .2s ease;
 }
 
 .pagination span.active {
-  background-color: black;
+  background-color: white;
+  width: 40px; 
+}
+
+.pagination span.deactive {
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 20px;
 }
 
 .carouseImagelItem {
   background: none;
-  background-size: 5000%;
-  background-position: center;
-  background-repeat: no-repeat;
   width: 100%;
-  height: 480px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -49,22 +51,52 @@
 
 .carouseImagelItem > div {
   z-index: 2;
-  height: 100%;
   width: 100%;
+  height: 100%;
   position: relative;
+  background-size: fit;
   background-position: center;
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(24px) saturate(6);
+  background-repeat: no-repeat;
   justify-content: center;
   align-items: center;
   display: flex;
 }
 
-.carouseImagelItem > div > img {
-  z-index: 4;
+.carouseImagelItem > div > div {
   height: 100%;
-  position: relative;
-  width: auto;
-  object-fit: contain;
-  object-position: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.carouseImagelItem > div > div > div {
+  padding-top: 144px;
+  padding-bottom: 72px;
+  padding-left: 24px;
+  padding-right: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: min(840px, 100%);
+}
+
+
+.adaptive-height {
+  height: 480px;
+}
+
+.adaptive-margin {
+  margin-top: 455px;
+}
+
+@media ( max-width: 720px ) {
+  .adaptive-height {
+    height: 360px;
+  }
+  .adaptive-margin {
+    margin-top: 325px;
+  }
+  
 }

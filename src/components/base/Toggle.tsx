@@ -28,7 +28,7 @@ export default function Toggle({ id, value, label, onClick }: ToggleProps) {
         onClick={onClick}
         // {...restProps}
       >
-        <input id={id} role="switch" type="checkbox" defaultChecked={value} />
+        <input id={id} role="switch" type="checkbox" checked={value} />
         <label htmlFor={id}>
           <span id={id}>
             <span id={id}>

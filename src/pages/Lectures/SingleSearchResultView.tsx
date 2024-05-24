@@ -25,7 +25,7 @@ export default function SingleSearchResultView({ course }: { course: Course }) {
           </VStack>
           <Button
             className={`${styles.bookmarkWrapper} ${bookmarked ? styles.on : ''}`}
-            style="blank"
+            kind="blank"
             onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
               event.preventDefault();
               event.stopPropagation();

@@ -6,6 +6,7 @@ svg.line {
   stroke: black;
 }
 
+
 @media (prefers-color-scheme: dark) {
   svg.line  {
     stroke: white;

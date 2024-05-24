@@ -1,11 +1,13 @@
 .main {
   display: flex;
   flex-direction: row;
+  align-items: center;
   color: 'inherit'
 }
 
 @media ( max-width: 720px ) {
   .main {
     flex-direction: column;
+    align-items: start;
   }
 }
