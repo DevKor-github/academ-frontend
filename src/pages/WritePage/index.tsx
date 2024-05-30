@@ -192,7 +192,7 @@ function ReviewsView() {
   );
 }
 
-export function LecturePage() {
+export function WritePage() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { id } = useParams();
 

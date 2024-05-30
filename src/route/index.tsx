@@ -12,6 +12,7 @@ import {
   LecturesPage,
   RegisterPage,
   NoticePage,
+  WritePage,
 } from '../pages/index';
 import { RenderTriggerProvider } from '../contexts/RenderTriggerContext';
 import { Layout, Modallike } from '../components';
@@ -32,6 +33,7 @@ export function RouteComponent() {
         <Route path="/mypage" element={<UserMyPage />} />
         <Route path="/timetable" element={<TimetablePage />} />
         <Route path="/lecture/:id" element={<LecturePage />} />
+        <Route path="/lecture/:id/write" element={<WritePage />} />
 
         <Route path="/lecture" element={<LecturesPage />} />
 
