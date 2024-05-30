@@ -9,7 +9,7 @@ import {
   LoginPage,
   LogoutPage,
   MainPage,
-  LecturesPage,
+  SearchPage,
   RegisterPage,
   NoticePage,
   WritePage,
@@ -35,7 +35,7 @@ export function RouteComponent() {
         <Route path="/lecture/:id" element={<LecturePage />} />
         <Route path="/lecture/:id/write" element={<WritePage />} />
 
-        <Route path="/lecture" element={<LecturesPage />} />
+        <Route path="/lecture" element={<SearchPage />} />
 
         <Route path="/login" element={<LoginPage />} />
       </Route>
