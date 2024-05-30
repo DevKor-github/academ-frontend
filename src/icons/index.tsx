@@ -39,6 +39,12 @@ export const LeftIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+export const RightIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" fill="none" style={props.style}>
+    <path stroke="#9B9B9B" stroke-linecap="square" stroke-width="1.5" d="m2 2 10 9.5L2 21" />
+  </svg>
+);
+
 export const DownIcon = ({ width, height, ...props }: SizeProp) => (
   <svg
     className={styles.line}
@@ -163,6 +169,7 @@ export const BookmarkIcon = ({ height, width }: SizeProp) => (
     <path d="M6 2h12a2 2 0 0 1 2 2v18l-8-3-8 3V4a2 2 0 0 1 2-2z" fill="inherit" />
   </svg>
 );
+
 
 export const CheckIcon = ({ height, width }: SizeProp) => (
   <svg className={styles.line} width={guard(width)} height={guard(height)} viewBox="1.5 0 25.5 24">

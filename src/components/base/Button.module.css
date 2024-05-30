@@ -16,15 +16,11 @@
   opacity: 0.5;
 }
 
-.shared.outline:focus {
+.enabled.outline:focus {
   box-shadow: 0px 4px 8px rgb(from #dc143c r g b / 0.5);
 }
 
-.shared.outline:hover {
-  box-shadow: 0px 4px 8px rgb(from #dc143c r g b / 0.5);
-}
-
-.shared.outline:focus {
+.enabled.outline:hover {
   box-shadow: 0px 4px 8px rgb(from #dc143c r g b / 0.5);
 }
 
@@ -59,4 +55,8 @@
 
 .disabled {
   cursor: not-allowed;
+}
+
+.fullWidth {
+  width: 100%;
 }

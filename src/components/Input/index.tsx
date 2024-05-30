@@ -20,7 +20,7 @@ interface InputProp extends React.DetailedHTMLProps<React.InputHTMLAttributes<HT
 export default function Input({ label, ...rest }: InputProp) {
   return (
     <Typography variant="t5">
-      <input placeholder={label} {...rest} />
+      <input style={{ width: '100%' }} placeholder={label} {...rest} />
     </Typography>
   );
 }

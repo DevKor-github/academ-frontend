@@ -9,6 +9,7 @@ interface TextFieldProps extends React.DetailedHTMLProps<React.HTMLAttributes<HT
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   errorMessage?: string;
   subMessage?: string;
+  isError?: boolean;
   required?: boolean;
 }
 
@@ -22,6 +23,7 @@ const TextField = ({
   onKeyDown,
   errorMessage,
   subMessage,
+  isError,
   required,
   ...restProps
 }: TextFieldProps) => {
