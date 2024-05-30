@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
 import { useSessionId } from '../../contexts/SessionIdContext';
+import { LogoutAPI } from '../../api/logout';
 
 export function LogoutPage() {
   const navigate = useNavigate();
@@ -9,8 +10,10 @@ export function LogoutPage() {
 
   useEffect(() => {
     setTimeout(() => {
-      setSessionId('');
-      navigate('/');
+      LogoutAPI().finally(() => {
+        setSessionId('');
+        navigate('/');
+      });
     }, 1);
   }, []);
 

@@ -1,5 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
+import { LogoutAPI } from '../api/logout';
+
 type SessionId = string;
 
 interface SessionIdContextType {
@@ -26,10 +28,14 @@ const useTabTracker = () => {
 
     const onUnload = () => {
       const count = Number(localStorage.getItem('tabCount') || '0');
-      if (count <= 1) {
+
+      // Since React dev mode render twice;
+      const i = process.env.NODE_ENV === 'development' ? 2 : 1;
+      localStorage.setItem('tabCount', String(count - i));
+
+      if (count <= 0) {
+        LogoutAPI();
         localStorage.clear();
-      } else {
-        localStorage.setItem('tabCount', String(count - 1));
       }
     };
 

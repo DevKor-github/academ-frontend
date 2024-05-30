@@ -1,14 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import axios from 'axios';
+import qs from 'qs';
 
 import { ignore } from '../../helper';
 import { useSessionId } from '../../contexts/SessionIdContext';
 import { VStack, HStack, Radio, A, Button, Input, TextField, Typography } from '../../components';
+import backend from '../../api/backend';
 
 export function LoginPage() {
   const [input, setInput] = useState({
-    id: '',
+    email: '',
     password: '',
   });
 
@@ -29,11 +30,22 @@ export function LoginPage() {
 
   async function handleLogin() {
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/login`, input, {
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await backend.post(
+        '/api/login',
+        qs.stringify({ email: input.email, password: input.password, 'remember-me': false }),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
         },
-      });
+      );
+
+      console.log(response.config);
+      console.log(response.data);
+      console.log(response.headers);
+      console.log(response.request);
+      console.log(response.status);
+      console.log(response.statusText);
 
       if (response.status === 200) {
         window.alert('로그인이 완료되었습니다.');
@@ -53,7 +65,7 @@ export function LoginPage() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        marginInline: '40px',
+        padding: '40px',
         height: '100%',
         width: '100%',
       }}
@@ -75,10 +87,10 @@ export function LoginPage() {
             <HStack gap="16px">
               <TextField
                 required
-                id="id"
+                id="email"
                 placeholder="이메일을 입력해주세요"
                 onChange={handleInput}
-                value={input.id}
+                value={input.email}
                 style={{ padding: '16px' }}
               />
               <TextField
@@ -110,7 +122,7 @@ export function LoginPage() {
               <Button
                 type="submit"
                 kind="filled"
-                disabled={input.id === '' && input.password === ''}
+                disabled={input.email === '' && input.password === ''}
                 accnet="0"
                 variant="contained"
                 color="primary"
