@@ -4,20 +4,13 @@ import React from 'react';
 import App from './App';
 import './index.css';
 
-console.log(`working in mode : ${process.env.NODE_ENV}`);
-
-// src/index.tsx
-if (/* process.env.NODE_ENV === 'development' && */ 'serviceWorker' in navigator) {
-  console.log('dev mode - trying MSW');
-  window.addEventListener('load', () => {
-    navigator.serviceWorker
-      .register('mockServiceWorker.js')
-      .then((registration) => {
-        console.log('Service Worker registered: ', registration);
-      })
-      .catch((registrationError) => {
-        console.log('Service Worker registration failed: ', registrationError);
-      });
+// Unregister service worker since we removed MSW
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const registration of registrations) {
+      registration.unregister();
+    }
   });
 }
 

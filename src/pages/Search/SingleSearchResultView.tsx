@@ -10,7 +10,7 @@ export default function SingleSearchResultView({ course }: { course: Course }) {
   const [bookmarked, setBookmarked] = useState(false);
 
   return (
-    <A abstract href={`/lecture/${course.courseId}`}>
+    <A abstract href={`/lecture/${course.course_id}`}>
       <HStack style={{ justifyContent: 'space-between' }} className={styles.resultBox}>
         <VStack
           className={styles.borderBottom}
@@ -37,12 +37,12 @@ export default function SingleSearchResultView({ course }: { course: Course }) {
         </VStack>
         <VStack style={{ justifyContent: 'space-between' }}>
           <VStack gap="24px">
-            <Typography variant="t6" children={course.courseCode} />
+            <Typography variant="t6" children={course.course_code} />
             <Typography variant="t6" children={course.semester} />
           </VStack>
           <VStack className={styles.star} style={{ justifyContent: 'center', alignItems: 'center' }}>
             <StarIcon width="24px" height="24px" />
-            <Typography variant="t2" children={course.rating} />
+            <Typography variant="t2" children={course.avg_rating} />
           </VStack>
         </VStack>
       </HStack>
