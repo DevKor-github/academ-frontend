@@ -1,30 +1,43 @@
+import { CheckIcon } from '../../icons';
+
+import './Toggle.module.css';
+
 interface ToggleProps {
-  value: boolean;
+  id?: string;
+  value?: boolean;
   label: string;
   onClick: (event: never) => unknown;
   [key: string]: unknown;
 }
 
-export default function Toggle({ value, label, ...restProps }: ToggleProps) {
+export default function Toggle({ id, value, label, onClick }: ToggleProps) {
   return (
-    <button
-      tabIndex={0}
-      style={{ justifyContent: 'center', alignItems: 'center', display: 'flex', background: 'none', border: 'none' }}
-      {...restProps}
-    >
+    <section>
       <span
+        tabIndex={0}
         style={{
-          display: 'inline-block',
-          minWidth: '18px',
-          minHeight: '18px',
-          aspectRatio: 1,
-          background: value ? 'red' : 'none',
-          border: 'solid 1px red',
-          borderRadius: '50%',
-          marginRight: '5px',
+          justifyContent: 'center',
+          alignItems: 'center',
+          display: 'flex',
+          background: 'none',
+          border: 'none',
+          cursor: 'pointer',
+          color: 'var(--fore-0)',
+          padding: '0px',
         }}
-      />
-      {label}
-    </button>
+        onClick={onClick}
+        // {...restProps}
+      >
+        <input id={id} role="switch" type="checkbox" checked={value} />
+        <label htmlFor={id}>
+          <span id={id}>
+            <span id={id}>
+              <CheckIcon width="20px" height="20px" />
+            </span>
+          </span>
+          {label}
+        </label>
+      </span>
+    </section>
   );
 }

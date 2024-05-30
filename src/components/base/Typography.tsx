@@ -1,26 +1,23 @@
+import styles from './Typography.module.css';
+
 interface TypographyProp {
   variant: 't1' | 't2' | 't3' | 't4' | 't5' | 't6';
   children: React.ReactNode;
   style?: React.CSSProperties;
+  bold?: boolean;
+  lineHeight?: string | number;
 }
 
-const fontSize = {
-  t1: '32px',
-  t2: '28px',
-  t3: '24px',
-  t4: '20px',
-  t5: '16px',
-  t6: '12px',
-};
-
-export default function Typography({ style, variant, children }: TypographyProp) {
+export default function Typography({ style, variant, children, bold, lineHeight }: TypographyProp) {
   const combinedStyle: React.CSSProperties = {
+    ...(bold ? { fontWeight: 'bold' } : {}),
+    ...{ lineHeight },
     ...style,
-
-    ...{
-      fontSize: fontSize[variant],
-    },
   };
 
-  return <span style={combinedStyle}>{children}</span>;
+  return (
+    <span className={styles[variant]} style={combinedStyle}>
+      <span>{children}</span>
+    </span>
+  );
 }

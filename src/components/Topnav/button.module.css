@@ -26,13 +26,15 @@
 
 @media (prefers-color-scheme: dark) {
   .unselected.pill {
-    color: black;
-    stroke: black;
+    color: white;
+    stroke: white;
   }
 
   .pill {
     border-radius: 100ch; /* Makes the element round */
-    background: white; /* Sets a transparent background */
+    background: none;
+    border: 1px solid white;
+    color: white;
   }
 }
 
@@ -42,13 +44,15 @@
 }
 
 .unselected.pill {
-  color: black;
-  stroke: black;
+  color: white;
+  stroke: white;
 }
 
 .pill {
   border-radius: 100ch; /* Makes the element round */
-  background: white; /* Sets a transparent background */
+  background: none;
+  border: 1px solid white;
+  color: white;
 }
 
 .primary {

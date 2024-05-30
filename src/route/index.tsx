@@ -12,7 +12,7 @@ import {
   LecturesPage,
   RegisterPage,
   NoticePage,
-} from '../pages';
+} from '../pages/index';
 import { RenderTriggerProvider } from '../contexts/RenderTriggerContext';
 import { Layout } from '../components';
 
@@ -34,6 +34,8 @@ export function RouteComponent() {
         <Route path="/lecture/:id" element={<LecturePage />} />
 
         <Route path="/lecture" element={<LecturesPage />} />
+
+        <Route path="/login" element={<LoginPage />} />
       </Route>
 
       <Route
@@ -55,7 +57,6 @@ export function RouteComponent() {
           </Layout>
         }
       >
-        <Route path="/login" element={<LoginPage />} />
         <Route path="/logout" element={<LogoutPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="*" element={<ErrorPage />} />

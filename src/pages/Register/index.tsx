@@ -205,7 +205,7 @@ function Register2({
         </Button>
       </VStack>
       <VStack style={{ justifyContent: 'end' }}>
-        <Button style="outline" variant="contained" color="primary" onClick={() => setRate(rate + 1)}>
+        <Button kind="outline" variant="contained" color="primary" onClick={() => setRate(rate + 1)}>
           다음
         </Button>
       </VStack>
@@ -336,7 +336,7 @@ function Register3({
         <Typography variant="t4">완료</Typography>
       </Button>
       <VStack style={{ justifyContent: 'end' }}>
-        <Button style="outline" variant="contained" color="primary" onClick={() => setRate(rate + 1)}>
+        <Button kind="outline" variant="contained" color="primary" onClick={() => setRate(rate + 1)}>
           다음
         </Button>
       </VStack>

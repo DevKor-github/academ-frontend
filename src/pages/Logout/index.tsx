@@ -8,9 +8,11 @@ export function LogoutPage() {
   const { setSessionId } = useSessionId();
 
   useEffect(() => {
-    setSessionId('');
-    navigate('/');
+    setTimeout(() => {
+      setSessionId('');
+      navigate('/');
+    }, 1);
   }, []);
 
-  return <div />;
+  return <div>로그아웃 중입니다!</div>;
 }

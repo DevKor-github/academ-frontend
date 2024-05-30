@@ -9,11 +9,15 @@
 } */
 
 .text-field-input {
+  background-color: var(--back-0);
+  color: var(--fore-0);
   width: 100%;
-  padding: 12px;
+  padding: 8px;
+  box-sizing: border-box;
   border-radius: 8px;
+  
   border: 1px solid #b7b7b7;
-  transition: border-color 0.3s ease;
+  transition: all .1s ease;
 }
 
 .text-field-input.valid {
@@ -21,11 +25,11 @@
 }
 
 .text-field-input.invalid {
-  border-color: #dc143c;
+  border-color: var(--accent);
 }
 
 .error-message {
-  color: #dc143c;
+  color: var(--accent);
   font-size: 12px;
   margin-top: 4px;
 }

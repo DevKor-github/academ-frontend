@@ -1,15 +1,3 @@
-.accent-1 {
-  --accent: #e65a76;
-}
-
-.accent0 {
-  --accent: #dc143c;
-}
-
-.accent1 {
-  --accent: #a51330;
-}
-
 .shared {
   display: flex;
   justify-content: center;
@@ -37,9 +25,9 @@
 }
 
 .enabled.outline {
-  color: #dc143c;
-  border: solid 1px #dc143c;
-  background: rgb(from #dc143c r g b / 0.01);
+  color: var(--accent);
+  border: solid 1px var(--accent);
+  background: rgb(from var(--accent) r g b / 0.01);
 }
 
 .disabled.outline {
@@ -49,24 +37,16 @@
 }
 
 .enabled.filled:hover {
-  background: #e65a76;
-  box-shadow: 0px 2px 4px #e65a76;
+  box-shadow: 0px 2px 4px var(--accent);
   /* background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2)); */
 }
-.enabled.filled:active {
-  background-color: #a51330;
-  /* background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2)); */
-}
-.enabled.filled:focus {
-  color: white;
-  background-color: #a51330;
-  /* background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2)); */
-}
+
+/* background-color: hsl(from var(--accent) h calc(s * 1.2) calc(l * 1.2)); */
 
 .enabled.filled {
   color: white;
   border: none;
-  background: #dc143c;
+  background: var(--accent);
 }
 
 .disabled.filled {
