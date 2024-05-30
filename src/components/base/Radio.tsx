@@ -30,8 +30,8 @@ export default function Radio({ id, value, label, onClick }: RadioProps) {
         <label htmlFor={id}>
           <span id={id}>
             <span id={id}>
-              <svg width="20px" height="20px" viewBox="-20 -20 260 260" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="100" cy="100" r="90" stroke="none" stroke-width="5" fill="white" />
+              <svg width="20px" height="20px" viewBox="-40 -40 300 300" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="100" r="90" stroke="none" strokeWidth="5" fill="white" />
               </svg>
             </span>
           </span>
