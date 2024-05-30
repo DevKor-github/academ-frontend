@@ -47,8 +47,12 @@ const TopNavInnerMid = () => {
     </VStack>
   );
 };
-function TopNavInnerRight() {
+function TopNavInnerRight({ overlap }: { overlap?: boolean }) {
   const { sessionId } = useSessionId();
+
+  (function ignore(x) {
+    return x;
+  })(overlap);
 
   const [openPopover, setOpenPopover] = useState<boolean>(false);
   return sessionId ? (
@@ -77,6 +81,77 @@ function TopNavInnerRight() {
     </TopnavButton>
   );
 }
+
+const carouselItems = [
+  <CarouselItem key={'/banner/image1.png'} url="/banner/image1.png">
+    <HStack style={{ width: '100%', height: '100%', justifyContent: 'end', color: 'white' }} gap="24px">
+      <VStack style={{ alignItems: 'center' }} gap="12px">
+        <Typography bold variant="t1">
+          ACADEM
+        </Typography>
+        <Typography variant="t5" style={{ borderLeft: '1px solid #aaaaaa', paddingLeft: '12px' }}>
+          아카뎀
+        </Typography>
+      </VStack>
+      <VStack gap="24px" style={{ alignItems: 'center' }}>
+        <Typography variant="t4" lineHeight={1.5}>
+          대학원생을 위한{' '}
+          <Typography bold variant="t4">
+            강의평가 공유 서비스
+          </Typography>
+          <br />
+          우리 학교 강의에 대한 다양한 정보와 이야기를 나누어요.
+        </Typography>
+        <TopnavButton pill href="/about">
+          자세히보기
+        </TopnavButton>
+      </VStack>
+    </HStack>
+  </CarouselItem>,
+  <CarouselItem key={'/banner/image2.png'} url="/banner/image2.png">
+    <HStack gap="24px" style={{ alignItems: 'center', color: 'white' }}>
+      <Typography variant="t4">
+        <Typography bold variant="t4">
+          이론 중심
+        </Typography>
+        {' 강의? '}
+        <Typography bold variant="t4">
+          실험 중심
+        </Typography>
+        {' 강의? '}
+      </Typography>
+      <Typography variant="t1">어떤 강의가 나의 연구에 도움이 될까?</Typography>
+      <VStack gap="12px">
+        <BookIcon width="24px" height="24px" auto={false} color="white" />
+        <Typography variant="t5">강의 간의 비교를 통해 나의 학업에 도움이 되는 강의를 선택하세요.</Typography>
+      </VStack>
+    </HStack>
+  </CarouselItem>,
+  <CarouselItem key={'/banner/image3.png'} url="/banner/image3.png">
+    <HStack gap="24px" style={{ width: '100%', color: 'white' }}>
+      <Typography variant="t1">
+        <Typography bold variant="t1">
+          문제 출제 유형
+        </Typography>
+        과{' '}
+        <Typography bold variant="t1">
+          기출
+        </Typography>
+        을 한눈에
+      </Typography>
+      <VStack gap="12px">
+        <BookIcon width="24px" height="24px" auto={false} color="white" />
+        <Typography variant="t5">
+          수업 및 시험 방식에 대한 정보를 얻고{' '}
+          <Typography bold variant="t5">
+            효율적으로 시험을 준비
+          </Typography>
+          할 수 있어요.
+        </Typography>
+      </VStack>
+    </HStack>
+  </CarouselItem>,
+];
 
 function TopNavInner({
   overlap,
@@ -117,7 +192,7 @@ function TopNavInner({
         <div className={styles.forBig} style={{ height: '72px' }}>
           <TopNavInnerMid />
         </div>
-        <TopNavInnerRight />
+        <TopNavInnerRight overlap={overlap} />
       </VStack>
       <div
         className={styles.forSmall}
@@ -158,76 +233,7 @@ export default function TopNav() {
             top: 0,
             transition: 'all .3s ease',
           }}
-          children={[
-            <CarouselItem key={'/banner/image1.png'} url="/banner/image1.png">
-              <HStack style={{ width: '100%', height: '100%', justifyContent: 'end', color: 'white' }} gap="24px">
-                <VStack style={{ alignItems: 'center' }} gap="12px">
-                  <Typography bold variant="t1">
-                    ACADEM
-                  </Typography>
-                  <Typography variant="t5" style={{ borderLeft: '1px solid #aaaaaa', paddingLeft: '12px' }}>
-                    아카뎀
-                  </Typography>
-                </VStack>
-                <VStack gap="24px" style={{ alignItems: 'center' }}>
-                  <Typography variant="t4" lineHeight={1.5}>
-                    대학원생을 위한{' '}
-                    <Typography bold variant="t4">
-                      강의평가 공유 서비스
-                    </Typography>
-                    <br />
-                    우리 학교 강의에 대한 다양한 정보와 이야기를 나누어요.
-                  </Typography>
-                  <TopnavButton pill href="/about">
-                    자세히보기
-                  </TopnavButton>
-                </VStack>
-              </HStack>
-            </CarouselItem>,
-            <CarouselItem key={'/banner/image2.png'} url="/banner/image2.png">
-              <HStack gap="24px" style={{ alignItems: 'center', color: 'white' }}>
-                <Typography variant="t4">
-                  <Typography bold variant="t4">
-                    이론 중심
-                  </Typography>
-                  {' 강의? '}
-                  <Typography bold variant="t4">
-                    실험 중심
-                  </Typography>
-                  {' 강의? '}
-                </Typography>
-                <Typography variant="t1">어떤 강의가 나의 연구에 도움이 될까?</Typography>
-                <VStack gap="12px">
-                  <BookIcon width="24px" height="24px" auto={false} color="white" />
-                  <Typography variant="t5">강의 간의 비교를 통해 나의 학업에 도움이 되는 강의를 선택하세요.</Typography>
-                </VStack>
-              </HStack>
-            </CarouselItem>,
-            <CarouselItem key={'/banner/image3.png'} url="/banner/image3.png">
-              <HStack gap="24px" style={{ width: '100%', color: 'white' }}>
-                <Typography variant="t1">
-                  <Typography bold variant="t1">
-                    문제 출제 유형
-                  </Typography>
-                  과{' '}
-                  <Typography bold variant="t1">
-                    기출
-                  </Typography>
-                  을 한눈에
-                </Typography>
-                <VStack gap="12px">
-                  <BookIcon width="24px" height="24px" auto={false} color="white" />
-                  <Typography variant="t5">
-                    수업 및 시험 방식에 대한 정보를 얻고{' '}
-                    <Typography bold variant="t5">
-                      효율적으로 시험을 준비
-                    </Typography>
-                    할 수 있어요.
-                  </Typography>
-                </VStack>
-              </HStack>
-            </CarouselItem>,
-          ]}
+          children={carouselItems}
         />
       )}
       <div
