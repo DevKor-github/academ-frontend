@@ -29,6 +29,12 @@ export const LeftIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
+export const RightIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" fill="none" style={props.style}>
+    <path stroke="#9B9B9B" stroke-linecap="square" stroke-width="1.5" d="m2 2 10 9.5L2 21" />
+  </svg>
+);
+
 export const DownIcon = ({ width, height, ...props }: SizeProp) => (
   <svg
     className={styles.line}
@@ -123,5 +129,33 @@ export const LogoIconBig = () => (
 export const BookmarkIcon = ({ height, width }: SizeProp) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={guard(width)} height={guard(height)}>
     <path d="M6 2h12a2 2 0 0 1 2 2v18l-8-3-8 3V4a2 2 0 0 1 2-2z" fill="inherit" />
+  </svg>
+);
+
+export const CheckedIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+    <rect width="24" height="24" fill="#DC143C" rx="3" />
+    <path stroke="#fff" stroke-linecap="round" stroke-width="2" d="m6 11.25 4.5 4.5 8.25-8.25" />
+  </svg>
+);
+
+export const UncheckedIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+    <rect width="23" height="23" x=".5" y=".5" stroke="#B7B7B7" rx="2.5" />
+    <path stroke="#B7B7B7" stroke-linecap="round" stroke-width="2" d="m6 11.25 4.5 4.5 8.25-8.25" />
+  </svg>
+);
+
+export const ToggledIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none">
+    <rect width="20" height="20" x=".5" y=".5" stroke="#DC143C" rx="10" />
+    <rect width="15" height="15" x="3" y="3" fill="#DC143C" rx="7.5" />
+  </svg>
+);
+
+export const FinishIcon = () => (
+  <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="19.5" cy="19.5" r="18.5" stroke="#DC143C" stroke-width="2" />
+    <path d="M10.2354 19.968L16.7751 26.706L28.7648 14.353" stroke="#DC143C" stroke-width="3" stroke-linecap="round" />
   </svg>
 );

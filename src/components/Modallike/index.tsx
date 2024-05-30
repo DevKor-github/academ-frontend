@@ -32,8 +32,8 @@ export default function Modallike({ children }: ModallikeProps) {
 
   return (
     <div className={styles.container}>
-      <div ref={modalRef} className={styles.modal} style={{ width: '480px', height: '605px' }}>
-        <div ref={ref} style={{ width: '100%', height: 'fit-content', margin: '40px 40px 40px 40px' }}>
+      <div ref={modalRef} className={styles.modal} style={{ width: '480px', height: '670px' }}>
+        <div ref={ref} style={{ width: '100%', height: '80%', margin: '40px 40px 40px 40px' }}>
           {children}
         </div>
       </div>

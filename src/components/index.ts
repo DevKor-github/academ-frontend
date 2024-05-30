@@ -9,6 +9,7 @@ import Toggle from './base/Toggle';
 import TextField from './base/TextField';
 import Tag from './base/Tag';
 import { HStack, VStack } from './base/Stack';
+import Checkbox from './base/Checkbox';
 import Carousel from './base/Carousel';
 import Button from './base/Button';
 import AdaptiveStack from './base/AdaptiveStack';
@@ -31,4 +32,5 @@ export {
   AdaptiveStack,
   Typography,
   Tag,
+  Checkbox,
 };

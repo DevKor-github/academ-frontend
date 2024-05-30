@@ -2,11 +2,11 @@
   position: relative;
 }
 
-.text-field-input:focus {
+/* .text-field-input:focus {
   outline: none;
   border: 1px solid var(--accent);
   box-shadow: 0px 0px 4px var(--accent);
-}
+} */
 
 .text-field-input {
   width: 100%;

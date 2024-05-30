@@ -1,5 +1,5 @@
 .red {
-  color : #dc143c;
+  color: #dc143c;
   text-decoration: none;
   transition: all 0.1s ease;
 }
@@ -9,7 +9,7 @@
 }
 
 .monotone {
-  color : inherit;
+  color: #b7b7b7;
   text-decoration: none;
   transition: all 0.1s ease;
 }

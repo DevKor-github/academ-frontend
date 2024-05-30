@@ -10,6 +10,7 @@ interface TextFieldProps extends React.DetailedHTMLProps<React.HTMLAttributes<HT
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   errorMessage?: string;
   subMessage?: string;
+  isError?: boolean;
   required?: boolean;
 }
 
@@ -23,6 +24,7 @@ const TextField = ({
   onKeyDown,
   errorMessage,
   subMessage,
+  isError,
   required,
   ...restProps
 }: TextFieldProps) => {
@@ -38,11 +40,13 @@ const TextField = ({
           onChange={onChange}
           onKeyDown={onKeyDown}
           required={required}
-          className={`${styles['text-field-input']} ${errorMessage && type === 'password' ? styles.invalid : ''}`}
+          className={`${styles['text-field-input']} ${
+            isError && errorMessage && type === 'password' ? styles.invalid : styles.valid
+          }`}
           {...restProps}
         />
 
-        {errorMessage && <div className={styles['error-message']}>{errorMessage}</div>}
+        {isError && errorMessage && <div className={styles['error-message']}>{errorMessage}</div>}
         {subMessage && <div className={styles['error-message']}>{subMessage}</div>}
       </Typography>
     </div>

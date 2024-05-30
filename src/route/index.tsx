@@ -14,7 +14,7 @@ import {
   NoticePage,
 } from '../pages';
 import { RenderTriggerProvider } from '../contexts/RenderTriggerContext';
-import { Layout, Modallike } from '../components';
+import { Layout } from '../components';
 
 export function RouteComponent() {
   return (
@@ -38,11 +38,21 @@ export function RouteComponent() {
 
       <Route
         element={
-          <RenderTriggerProvider>
-            <Modallike>
-              <Outlet />
-            </Modallike>
-          </RenderTriggerProvider>
+          <Layout>
+            <RenderTriggerProvider>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '100vw',
+                  height: '100%',
+                }}
+              >
+                <Outlet />
+              </div>
+            </RenderTriggerProvider>
+          </Layout>
         }
       >
         <Route path="/login" element={<LoginPage />} />

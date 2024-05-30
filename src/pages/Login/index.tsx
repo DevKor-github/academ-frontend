@@ -52,9 +52,9 @@ export function LoginPage() {
 
   return (
     <HStack type="left" gap="32px" style={{ width: '400px' }}>
-      <VStack style={{ justifyContent: 'space-between' }}>
+      <VStack style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Button style="blank" onClick={() => navigate('/')}>
-          <VStack gap="4px" style={{ justifyContent: 'center', alignItems: 'center' }}>
+          <VStack gap="4px" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <LogoIcon /> Academ
           </VStack>
         </Button>
@@ -79,10 +79,11 @@ export function LoginPage() {
             type="password"
             placeholder="비밀번호"
             onChange={handleInput}
-            errorMessage={loginError ? '이메일 주소 또는 비밀번호가 일치하지 않습니다.' : ''}
+            isError={loginError}
+            errorMessage={'이메일 주소 또는 비밀번호가 일치하지 않습니다.'}
             value={input.password}
           />
-          <VStack style={{ justifyContent: 'space-between' }}>
+          <VStack style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Toggle
               value={saveLoginInfo}
               onClick={(event: React.FormEvent<HTMLDivElement>) => {
@@ -98,7 +99,7 @@ export function LoginPage() {
           <Button type="submit" style="filled" accnet="0" variant="contained" color="primary">
             로그인
           </Button>
-          <VStack gap="10px" style={{ justifyContent: 'center', marginBottom: '150px' }}>
+          <VStack gap="10px" style={{ display: 'flex', justifyContent: 'center' }}>
             계정이 없으신가요?
             <A href="/register">회원가입</A>
           </VStack>
