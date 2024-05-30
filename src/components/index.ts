@@ -11,6 +11,7 @@ import Tag from './base/Tag';
 import { HStack, VStack } from './base/Stack';
 import Radio from './base/Radio';
 import Popover from './base/Popover';
+import Checkbox from './base/Checkbox';
 import Carousel from './base/Carousel';
 import Button from './base/Button';
 import AdaptiveStack from './base/AdaptiveStack';
@@ -30,6 +31,7 @@ export {
   Progress,
   TextField,
   Input,
+  Checkbox,
   AdaptiveStack,
   Typography,
   Tag,

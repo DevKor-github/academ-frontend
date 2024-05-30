@@ -96,7 +96,7 @@ function Register0({ rate, setRate }: { rate: number; setRate: React.Dispatch<Re
       </div>
 
       <Button
-        style="filled"
+        kind="filled"
         disabled={!allAgreed}
         variant="contained"
         color="primary"
@@ -141,7 +141,7 @@ function Register1({
       <Input required type="email" id="email" label="example@korea.ac.kr" onChange={handleInput} autoFocus />
       <VStack style={{ justifyContent: 'end' }}>
         <Button
-          style="outline"
+          kind="outline"
           variant="contained"
           color="primary"
           disabled={!isEmailValid}
@@ -153,7 +153,7 @@ function Register1({
           </VStack>
         </Button>
       </VStack>
-      <Button style="outline" variant="contained" color="primary" onClick={() => setRate(rate + 1)}>
+      <Button kind="outline" variant="contained" color="primary" onClick={() => setRate(rate + 1)}>
         <VStack gap="36px" style={{ justifyContent: 'end', margin: '10px 22px' }}>
           <Typography variant="t4">다음</Typography>
           <RightIcon />
@@ -197,7 +197,7 @@ function Register2({
       <Typography variant="t3">이메일로 인증번호가 발송되었습니다.</Typography>
       <Input required type="text" id="varify" label="인증번호를 입력해주세요" onChange={handleCode} autoFocus />
       <VStack style={{ justifyContent: 'end' }}>
-        <Button style="outline" variant="contained" color="primary" onClick={handleCheckEmail}>
+        <Button kind="outline" variant="contained" color="primary" onClick={handleCheckEmail}>
           <VStack gap="36px" style={{ justifyContent: 'end', margin: '10px 22px' }}>
             <Typography variant="t4">다음</Typography>
             <RightIcon />
@@ -316,12 +316,12 @@ function Register3({
       <Typography variant="t3">학위 / 학기</Typography>
       <VStack style={{ justifyContent: 'space-between', marginBottom: '40px' }}>
         <VStack gap="10px">
-          <Button id="degree" style="outline" variant="contained" color="primary" onClick={handleButtonClick}>
+          <Button id="degree" kind="outline" variant="contained" color="primary" onClick={handleButtonClick}>
             <Typography variant="t5" style={{ margin: '5px 30px' }}>
               석사
             </Typography>
           </Button>
-          <Button id="degree" style="outline" variant="contained" color="primary" onClick={handleButtonClick}>
+          <Button id="degree" kind="outline" variant="contained" color="primary" onClick={handleButtonClick}>
             <Typography variant="t5" style={{ margin: '5px 30px' }}>
               박사
             </Typography>
@@ -332,7 +332,7 @@ function Register3({
           <Typography variant="t4">학기</Typography>
         </VStack>
       </VStack>
-      <Button style="filled" variant="contained" color="primary" onClick={handleRegister}>
+      <Button kind="filled" variant="contained" color="primary" onClick={handleRegister}>
         <Typography variant="t4">완료</Typography>
       </Button>
       <VStack style={{ justifyContent: 'end' }}>
@@ -354,7 +354,7 @@ function Register4() {
       <FinishIcon />
       <Typography variant="t3">회원가입 완료!</Typography>
       <Button
-        style="filled"
+        kind="filled"
         className="styles.fullWidth"
         variant="contained"
         color="primary"

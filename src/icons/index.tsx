@@ -170,10 +170,37 @@ export const BookmarkIcon = ({ height, width }: SizeProp) => (
   </svg>
 );
 
-
 export const CheckIcon = ({ height, width }: SizeProp) => (
   <svg className={styles.line} width={guard(width)} height={guard(height)} viewBox="1.5 0 25.5 24">
     <path fill="none" d="M5 13l4 4L19 7" />
+  </svg>
+);
+
+export const CheckedIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+    <rect width="24" height="24" fill="#DC143C" rx="3" />
+    <path stroke="#fff" stroke-linecap="round" stroke-width="2" d="m6 11.25 4.5 4.5 8.25-8.25" />
+  </svg>
+);
+
+export const UncheckedIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
+    <rect width="23" height="23" x=".5" y=".5" stroke="#B7B7B7" rx="2.5" />
+    <path stroke="#B7B7B7" stroke-linecap="round" stroke-width="2" d="m6 11.25 4.5 4.5 8.25-8.25" />
+  </svg>
+);
+
+export const ToggledIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" fill="none">
+    <rect width="20" height="20" x=".5" y=".5" stroke="#DC143C" rx="10" />
+    <rect width="15" height="15" x="3" y="3" fill="#DC143C" rx="7.5" />
+  </svg>
+);
+
+export const FinishIcon = () => (
+  <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="19.5" cy="19.5" r="18.5" stroke="#DC143C" stroke-width="2" />
+    <path d="M10.2354 19.968L16.7751 26.706L28.7648 14.353" stroke="#DC143C" stroke-width="3" stroke-linecap="round" />
   </svg>
 );
 

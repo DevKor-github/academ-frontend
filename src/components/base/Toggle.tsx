@@ -4,13 +4,13 @@ import './Toggle.module.css';
 
 interface ToggleProps {
   id?: string;
-  value?: boolean;
-  label: string;
+  checked?: boolean;
+  label?: string;
   onClick: (event: never) => unknown;
   [key: string]: unknown;
 }
 
-export default function Toggle({ id, value, label, onClick }: ToggleProps) {
+export default function Toggle({ id, checked: value, label, onClick }: ToggleProps) {
   return (
     <section>
       <span
