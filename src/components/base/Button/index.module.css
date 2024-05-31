@@ -1,18 +1,5 @@
-.shared {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 8px;
-  align-items: 'center';
-  color: 'inherit';
-  background: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: none;
-  padding: 8px;
-}
 
-.shared.blank:hover {
+.blank:hover {
   opacity: 0.5;
 }
 

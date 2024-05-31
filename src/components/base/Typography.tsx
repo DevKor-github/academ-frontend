@@ -1,7 +1,7 @@
 import styles from './Typography.module.css';
 
 interface TypographyProp {
-  variant: 't1' | 't2' | 't3' | 't4' | 't5' | 't6';
+  variant: 't-4' | 't-3' | 't-2' | 't-1' | 't0' | 't1' | 't2' | 't3' | 't4' | 't5' | 't6';
   children: React.ReactNode;
   style?: React.CSSProperties;
   bold?: boolean;
