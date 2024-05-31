@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 
 import { Success, Failure, Result } from '../util/result';
 
-import backend from './backend';
+import { backend } from './backend';
 
 export async function LogoutAPI(): Promise<Result<undefined, unknown>> {
   const ret = await backend

@@ -1,12 +1,10 @@
 import axios from 'axios';
 
-const backend = axios.create({
+export const backend = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   withCredentials: true,
 });
 
-enum AxiosCommonFailure {
+export enum AxiosCommonFailure {
   UNCAUGHT,
 }
-
-export default backend;

@@ -1,6 +1,6 @@
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 
-import backend, { AxiosCommonFailure } from '../backend';
+import { backend, AxiosCommonFailure } from '../backend';
 import { Success, Failure, Result } from '../../util/result';
 import { Course } from '../../models/course';
 
@@ -25,7 +25,7 @@ export async function CourseSearchAPI(
       params,
     })
     .then(
-      (value) =>
+      (value: AxiosResponse) =>
         Promise.resolve(new Success(JSON.parse(value.data) as Course[])) as Promise<
           Result<Course[], CourseSearchFailure>
         >,

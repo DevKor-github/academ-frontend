@@ -5,7 +5,7 @@ import qs from 'qs';
 import { ignore } from '../../helper';
 import { useSessionId } from '../../contexts/SessionIdContext';
 import { VStack, HStack, Radio, A, Button, Input, TextField, Typography } from '../../components';
-import backend from '../../api/backend';
+import { backend } from '../../api/backend';
 
 export function LoginPage() {
   const [input, setInput] = useState({
