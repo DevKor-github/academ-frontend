@@ -7,12 +7,13 @@ import GlobalStyles from '../../Global.module.css';
 import { SearchForm } from '../../components/composite';
 import { HStack, VStack, Typography } from '../../components';
 import { CourseSearchAPI, CourseSearchFailure } from '../../api/course/search';
+import { AxiosCommonFailure } from '../../api/backend';
 
 import SingleSearchResultView from './SingleSearchResultView';
 import lecturesStyles from './Lectures.module.css';
 import styles from './common.module.css';
 
-type SearchResult = Result<Course[], CourseSearchFailure>;
+type SearchResult = Result<Course[], CourseSearchFailure | AxiosCommonFailure>;
 
 const SearchTopView = ({ query }: { query: string }) => {
   return query ? (
@@ -101,8 +102,19 @@ export function SearchPage() {
           .then((cs: SearchResult) => {
             setSearchResult(cs);
           })
-          .catch((uncaught: AxiosError) => {
-            console.log('[Uncaught Axios Error] : ', uncaught);
+          .catch((error: AxiosError) => {
+            if (error.response) {
+              // 요청이 전송되었고, 서버는 2xx 외의 상태 코드로 응답했습니다.
+              console.log(error.response.data);
+              console.log(error.response.status);
+              console.log(error.response.headers);
+            } else if (error.request) {
+              // 요청이 전송되었지만, 응답이 수신되지 않았습니다.
+              console.log(error.request);
+            } else {
+              // 오류가 발생한 요청을 설정하는 동안 문제가 발생했습니다.
+              console.log('Error', error.message);
+            }
           });
       }, 0);
     }

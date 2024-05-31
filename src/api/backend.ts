@@ -5,4 +5,8 @@ const backend = axios.create({
   withCredentials: true,
 });
 
+enum AxiosCommonFailure {
+  UNCAUGHT,
+}
+
 export default backend;

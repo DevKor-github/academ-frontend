@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 
-import backend from '../backend';
+import backend, { AxiosCommonFailure } from '../backend';
 import { Success, Failure, Result } from '../../util/result';
 import { Course } from '../../models/course';
 
@@ -17,7 +17,9 @@ export enum CourseSearchFailure {
   BAD_REQUEST,
 }
 
-export async function CourseSearchAPI(params: CourseSearchRequest): Promise<Result<Course[], CourseSearchFailure>> {
+export async function CourseSearchAPI(
+  params: CourseSearchRequest,
+): Promise<Result<Course[], CourseSearchFailure | AxiosCommonFailure>> {
   const ret = await backend
     .get('/api/course/search', {
       params,
