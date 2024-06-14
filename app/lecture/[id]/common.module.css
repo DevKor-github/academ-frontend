@@ -1,0 +1,11 @@
+
+
+.borderBottom {
+  border-bottom: 1px solid #d4d4d4;
+}
+
+@media (prefers-color-scheme: dark) {
+  .borderBottom {
+    border-bottom: 1px solid #3c3c3c;
+  }
+}
