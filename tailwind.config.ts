@@ -1,7 +1,15 @@
 import type { Config } from "tailwindcss";
-import plugin from "tailwindcss";
+import plugin from "tailwindcss/plugin";
+import { PluginCreator } from "tailwindcss/types/config";
 
-const config: Config = {
+const containerPlugin : PluginCreator = ({ addVariant }) =>{
+  addVariant('light', '@media (prefers-color-scheme: light)');
+  addVariant('under-md', '@media (max-width: 768px)');
+}
+
+
+
+const config : Config = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -53,10 +61,7 @@ const config: Config = {
     },
   },
   plugins: [
-    // @ts-ignore
-    plugin(function({ addVariant }) {
-      addVariant('light', '@media (prefers-color-scheme: light)');
-    }),
+    plugin(containerPlugin)
   ],
 };
 export default config;
