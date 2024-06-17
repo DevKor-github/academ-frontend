@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import { HStack } from '@/components/basic/stack';
 
-import Image from 'next/image';
+import Image from "next/legacy/image";
 
 interface CarouselProps {
   children: React.ReactNode[];

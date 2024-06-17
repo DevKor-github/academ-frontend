@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Carousel from "@/components/commonLayout/carousel/carousel";
 import carouselItems from "@/components/commonLayout/carousel/carouselItems";
 
