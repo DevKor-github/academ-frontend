@@ -39,7 +39,7 @@ export const LeftIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export const RightIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" fill="none" style={props.style}>
-    <path stroke="#9B9B9B" stroke-linecap="square" stroke-width="1.5" d="m2 2 10 9.5L2 21" />
+    <path stroke="#9B9B9B" strokeLinecap="square" strokeWidth="1.5" d="m2 2 10 9.5L2 21" />
   </svg>
 );
 
@@ -178,7 +178,7 @@ export const CheckedIcon = () => (
 export const UncheckedIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
     <rect width="23" height="23" x=".5" y=".5" stroke="#B7B7B7" rx="2.5" />
-    <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m6 11.25 4.5 4.5 8.25-8.25" />
+    <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m6 11.25 4.5 4.5 8.25-8.25" />
   </svg>
 );
 
@@ -191,23 +191,23 @@ export const ToggledIcon = () => (
 
 export const FinishIcon = () => (
   <svg width="39" height="39" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="19.5" cy="19.5" r="18.5" stroke="#DC143C" stroke-width="2" />
-    <path d="M10.2354 19.968L16.7751 26.706L28.7648 14.353" stroke="#DC143C" stroke-width="3" stroke-linecap="round" />
+    <circle cx="19.5" cy="19.5" r="18.5" stroke="#DC143C" strokeWidth="2" />
+    <path d="M10.2354 19.968L16.7751 26.706L28.7648 14.353" stroke="#DC143C" strokeWidth="3" strokeLinecap="round" />
   </svg>
 );
 
-export const BookIcon = ({ height, width, auto }: Color & SizeProp) => (
+export const BookIcon = ({ height, width }: Color & SizeProp) => (
   <svg width={width || '30'} height={height || '28'} viewBox="0 0 30 28" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M1 1H9.4C10.8852 1 12.3096 1.60873 13.3598 2.69227C14.41 3.77582 15 5.24542 15 6.77778V27C15 25.8507 14.5575 24.7485 13.7698 23.9359C12.9822 23.1232 11.9139 22.6667 10.8 22.6667H1V1Z"
-      stroke={auto ? 'var(--fore-0)' : 'white'}
+      stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M29 1H20.6C19.1148 1 17.6904 1.60873 16.6402 2.69227C15.59 3.77582 15 5.24542 15 6.77778V27C15 25.8507 15.4425 24.7485 16.2302 23.9359C17.0178 23.1232 18.0861 22.6667 19.2 22.6667H29V1Z"
-      stroke={auto ? 'var(--fore-0)' : 'white'}
+      stroke="currentColor"
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
