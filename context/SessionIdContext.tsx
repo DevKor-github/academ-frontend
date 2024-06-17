@@ -1,6 +1,9 @@
+"use client";
+
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 import { apiLogout } from '@/api/login';
+import { apiCheckLogin } from '@/api/login';
 
 type SessionId = string;
 
@@ -47,7 +50,7 @@ const useTabTracker = () => {
 };
 
 export function SessionIdProvider({ children }: SessionIdProviderProps) {
-  const [sessionId, setSessionId] = useState(localStorage.getItem(keyForStorage) || '');
+  const [sessionId, setSessionId] = useState(globalThis.localStorage?.getItem(keyForStorage) || '');
 
   useTabTracker();
 
@@ -60,11 +63,17 @@ export function SessionIdProvider({ children }: SessionIdProviderProps) {
 
   // Save the session to storage whenever it changes
   useEffect(() => {
-    if (sessionId) {
-      localStorage.setItem(keyForStorage, sessionId);
-    } else {
-      localStorage.removeItem(keyForStorage);
-    }
+    apiCheckLogin({}).then(
+      (a) => {
+        if (a.status === "SUCCESS") {
+          localStorage.setItem(keyForStorage, sessionId);
+          setSessionId(a.data.username); 
+        }
+        else {
+          localStorage.removeItem(keyForStorage);
+        }
+      }
+    )
   }, [sessionId]);
 
   return <SessionIdContext.Provider value={{ sessionId, setSessionId }}>{children}</SessionIdContext.Provider>;
