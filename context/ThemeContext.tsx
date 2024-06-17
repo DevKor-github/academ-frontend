@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useLayoutEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 
 interface ThemeContextType {
   theme: 'light' | 'dark';
@@ -23,7 +23,7 @@ const Dark = ({ children } : { children : React.ReactNode} ) => {
 const ThemeProvider = ({ children } : { children : React.ReactNode} ) => {
   const [theme, setTheme] = useState('light');
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
     const userPrefersDark = localStorage.getItem('theme') === 'dark';
 
