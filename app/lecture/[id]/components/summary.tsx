@@ -1,8 +1,7 @@
 import { StarIcon } from '@/icons';
 import Tag from '@/components/basic/tag';
-import { VStack, HStack } from '@/components/basic/stack';
+import { HStack, VStack } from '@/components/basic/stack';
 import { Course } from '@/api/models/course';
-import { Comment } from '@/api/models/comment';
 import Progress from '@/components/basic/progress';
 
 
@@ -76,8 +75,8 @@ export function CriteriaIndicator({ name, low, high, rate, style }: CriteriaIndi
       </VStack>
       <HStack gap="10px" style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--d4d4d4)', width:'300px' }}>
         <VStack style={{ justifyContent: 'space-between' }}>
-          <Tag className="bg-neutral-100" children={low} />
-          <Tag className="bg-neutral-100" children={high} />
+          <Tag className="bg-neutral-100">{low}</Tag>
+          <Tag className="bg-neutral-100">{high}</Tag>
         </VStack>
         <Progress rate={rate / 5} />
       </HStack>
@@ -99,8 +98,8 @@ function Criteria() {
 
 export default function SummaryView( {course} : {course : Course}) {
   return (
-    <HStack gap="30px" className="pl-8 pr-8" style={{ marginTop: '160px' }}>
-      <span className='text-2xl' children="평가 한눈에보기" />
+    <HStack gap="30px" className="pl-8 pr-8 pb-8" style={{ marginTop: '160px' }}>
+      <span className='text-2xl'>평가 한눈에 보기</span>
 
       <VStack
         gap="20px"

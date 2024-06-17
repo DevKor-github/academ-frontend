@@ -1,11 +1,11 @@
 "use client";
 
-import { apiBookmark } from "@/api/search";
+
+import { useState } from "react";
 import { BookmarkIcon } from "@/icons";
 import Button from "../basic/button";
 
-import { useState } from "react";
-
+// This should be done after server provides bookmark read api
 export default function BookmarkToggleButton({ id } : { id: number }) {
 
   const [b, setB] = useState(false);

@@ -1,5 +1,5 @@
 import { StarIcon } from '@/icons';
-import { VStack, HStack } from '@/components/basic/stack';
+import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
 
 export default function CommentView() {
@@ -35,24 +35,25 @@ export default function CommentView() {
           }}
         >
           <StarIcon width="24px" height="24px" />
-          <span className='text-xl' children="5.0" />
+          <span className='text-xl'>5.0</span>
         </VStack>
         <HStack gap="8px">
           <VStack gap="8px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-            <span className='text-xl'  children="학습량" />
-            <Tag children="적음" />
+            <span className='text-xl' >학습량</span>
+            <Tag>적음</Tag>
           </VStack>
           <VStack gap="8px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-            <span className='text-xl'  children="성적" />
-            <Tag children="적음" />
+            <span className='text-xl' >성적</span>
+            <Tag>적음</Tag>
+
           </VStack>
           <VStack gap="8px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-            <span className='text-xl'  children="강의력" />
-            <Tag children="적음" />
+            <span className='text-xl' >강의력</span>
+            <Tag>적음</Tag>
           </VStack>
           <VStack gap="8px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-            <span className='text-xl'  children="난이도" />
-            <Tag children="적음" />
+            <span className='text-xl'>난이도</span>
+            <Tag>적음</Tag>
           </VStack>
         </HStack>
       </VStack>
@@ -67,15 +68,14 @@ export default function CommentView() {
           }}
         >
           {/* <span>닉네임 양양쥐 작성일 2024/04/19</span> */}
-          <Tag children="친절한" />
-          <Tag children="친절한" />
-          <Tag children="친절한" />
-          <Tag children="친절한" />
-          <Tag children="친절한" />
-          <Tag children="친절한" />
-          <Tag children="친절한" />
-          <Tag children="친절한" />
-          <Tag children="친절한" />
+          <Tag>친절한</Tag>
+          <Tag>친절한</Tag>
+          <Tag>친절한</Tag>
+          <Tag>친절한</Tag>
+          <Tag>친절한</Tag>
+          <Tag>친절한</Tag>
+          <Tag>친절한</Tag>
+          <Tag>친절한</Tag>
         </VStack>
         <span className='text-xl'  style={{ lineHeight: '150%' }}>
           <span style={{ color: 'grey' }}>작성내용</span> 아주 좋은강의였습니다 교수님이 매우 착하십니다 난이도도 낮아서

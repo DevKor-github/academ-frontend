@@ -23,7 +23,7 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
 
   return (
     <form className={className} method="get" action="/lecture" style={combinedStyle}>
-      <VStack gap="2px" className="transition-all justify-center items-center bg-neutral-100 dark:bg-neutral-900
+      <VStack gap="2px" className="transition-all justify-center items-center light:bg-neutral-100 dark:bg-neutral-900
        pl-5 pr-5 border border-neutral-200 dark:border-neutral-800 rounded-3xl focus-within:shadow-xl dark:shadow-white
        ">
         <MagnifyIcon />

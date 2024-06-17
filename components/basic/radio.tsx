@@ -1,4 +1,4 @@
-import './radio.module.css';
+import styles from './radio.module.css';
 
 interface RadioProps {
   id?: string;
@@ -6,6 +6,12 @@ interface RadioProps {
   label: string;
   onClick: (event: never) => unknown;
   [key: string]: unknown;
+}
+
+function Circle() {
+  return <svg width="20px" height="20px" viewBox="-40 -40 300 300" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="100" cy="100" r="90" stroke="none" strokeWidth="5" fill="white" />
+  </svg>;
 }
 
 export default function Radio({ id, value, label, onClick }: RadioProps) {
@@ -18,7 +24,7 @@ export default function Radio({ id, value, label, onClick }: RadioProps) {
           alignItems: 'center',
           display: 'flex',
           background: 'none',
-          border: 'none',
+          border: 'none', 
           cursor: 'pointer',
           color: 'var(--fore-0)',
           padding: '0px',
@@ -26,15 +32,8 @@ export default function Radio({ id, value, label, onClick }: RadioProps) {
         onClick={onClick}
         // {...restProps}
       >
-        <input id={id} role="switch" type="checkbox" checked={value} readOnly />
-        <label htmlFor={id}>
-          <span id={id}>
-            <span id={id}>
-              <svg width="20px" height="20px" viewBox="-40 -40 300 300" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="100" cy="100" r="90" stroke="none" strokeWidth="5" fill="white" />
-              </svg>
-            </span>
-          </span>
+        <input className="accent-primary-500" id={id} role="switch" type="checkbox" defaultChecked={value} />
+        <label className='ml-1' htmlFor={id}>
           {label}
         </label>
       </span>
