@@ -1,18 +1,19 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, useLayoutEffect } from 'react';
 
 import { apiLogout } from '@/api/login';
 import { apiCheckLogin } from '@/api/login';
+import { UserProfile } from '@/api/models/user';
 
-type SessionId = string;
+type SessionId = UserProfile | null;
 
 interface SessionIdContextType {
   sessionId: SessionId;
   setSessionId: React.Dispatch<React.SetStateAction<SessionId>>;
 }
 
-const SessionIdContext = createContext<SessionIdContextType>({ sessionId: '', setSessionId: () => {} });
+const SessionIdContext = createContext<SessionIdContextType>({ sessionId: null, setSessionId: () => {} });
 
 export function useSessionId() {
   return useContext(SessionIdContext);
@@ -50,31 +51,28 @@ const useTabTracker = () => {
 };
 
 export function SessionIdProvider({ children }: SessionIdProviderProps) {
-  const [sessionId, setSessionId] = useState(globalThis.localStorage?.getItem(keyForStorage) || '');
+  const [sessionId, setSessionId] = useState<SessionId | null>(
+    JSON.parse(localStorage.getItem(keyForStorage) || 'null')
+  );
 
   useTabTracker();
 
-  useEffect(() => {
-    const idFromStorage = localStorage.getItem(keyForStorage);
-    if (idFromStorage && idFromStorage !== '') {
-      setSessionId(idFromStorage); // if object then JSON.parse(sessionUser)
-    }
-  }, []);
-
   // Save the session to storage whenever it changes
-  useEffect(() => {
+  useLayoutEffect(() => {
     apiCheckLogin({}).then(
       (a) => {
         if (a.status === "SUCCESS") {
-          localStorage.setItem(keyForStorage, sessionId);
-          setSessionId(a.data.username); 
+          localStorage.setItem(keyForStorage, JSON.stringify(sessionId));
+          setSessionId(a.data);
         }
         else {
           localStorage.removeItem(keyForStorage);
         }
+        console.log("What");
       }
     )
-  }, [sessionId]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return <SessionIdContext.Provider value={{ sessionId, setSessionId }}>{children}</SessionIdContext.Provider>;
 }
