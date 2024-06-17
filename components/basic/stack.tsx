@@ -5,7 +5,7 @@ interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
   gap?: string;
 }
 
-export function HStack({ className, gap,style, children }: StackProps) {
+export function HStack({ className = "", gap,style, children }: StackProps) {
   const combinedStyle: React.CSSProperties  = {
     ...{ rowGap: gap },
     ... style,
@@ -13,7 +13,7 @@ export function HStack({ className, gap,style, children }: StackProps) {
   return <div className={"flex flex-col " + className} style={combinedStyle}> { children }</div>;
 }
 
-export function VStack({ className, gap, style,children }: StackProps) {
+export function VStack({ className = "", gap, style,children }: StackProps) {
   const combinedStyle : React.CSSProperties = {
     ...{ columnGap: gap },
     ... style,
