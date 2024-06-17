@@ -1,14 +1,11 @@
 "use client";
 
-import { redirect } from 'next/navigation';
-import { useState } from 'react';
-import { AxiosError } from 'axios';
-
-import { useRouter } from 'next/navigation';
-
-import { useSessionId } from '../../context/SessionIdContext';
-import { VStack, HStack } from '@/components/basic/stack';
 import A from '@/components/basic/a';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { HStack, VStack } from '@/components/basic/stack';
+import { useSessionId } from '../../context/SessionIdContext';
+
 import Button from '@/components/basic/button';
 import Radio from '@/components/basic/radio';
 import TextField from '@/components/basic/textfield';
@@ -45,14 +42,14 @@ export default function LoginPage() {
           }
           else {
             window.alert('로그인에 실패했습니다.');
-            console.log(s.message, s.version)
+            
             setLoginError(true);
             return;
           }
         }
       )
     
-  };
+  }
 
   return (
     <span
@@ -66,8 +63,10 @@ export default function LoginPage() {
         width: '100%',
       }}
     >
-      <HStack gap="48px" style={{ width: '400px' }}>
-        <span className='text-xl'  style={{ textAlign: 'center' }}>
+      <HStack
+          className='text-lg'
+          gap="48px" style={{ width: '400px' }}>
+        <span  className='text-4xl' style={{ textAlign: 'center' }}>
           로그인
         </span>
 
@@ -99,8 +98,9 @@ export default function LoginPage() {
                 value={input.password}
                 style={{ padding: '16px' }}
               />
-              <VStack style={{ justifyContent: 'space-between', alignItems: 'center', padding: '16px' }}>
+              <VStack className='pt-4 pb-4 items-center justify-between'>
                 <Radio
+                  id="save"
                   value={saveLoginInfo}
                   onClick={
                     (/* event: React.FormEvent<HTMLDivElement> */) => {
@@ -126,7 +126,7 @@ export default function LoginPage() {
               >
                 <div>로그인</div>
               </Button>
-              <span className='text-xl'  style={{ textAlign: 'center' }}>
+              <span style={{ textAlign: 'center' }}>
                 계정이 없으신가요? <A href="/register">회원가입</A>
               </span>
             </HStack>
