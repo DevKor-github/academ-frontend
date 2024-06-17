@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, forwardRef } from 'react';
+import React, { forwardRef, useEffect, useRef } from 'react';
 
 interface WrapperProps {
   children: React.ReactNode;
@@ -41,10 +41,12 @@ const Popover = React.memo<PopoverProps>((props) => {
     return () => {
       window.removeEventListener('click', pageClickEvent, true);
     };
-  }, []);
+  });
+
+  const combined: React.CSSProperties = { zIndex: 100, ...props.style  };
 
   return (
-    <Wrapper className={props.className} style={props.style} ref={settingsWindowRef}>
+    <Wrapper className={props.className} style={combined} ref={settingsWindowRef}>
       {children}
     </Wrapper>
   );

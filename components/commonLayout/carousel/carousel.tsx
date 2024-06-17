@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { HStack } from '@/components/basic/stack';
 
@@ -53,7 +53,7 @@ export default function Carousel({ className, style, children }: CarouselProps) 
           <span
             key={index}
             className={
-              "inline-block h-2 rounded-lg cursor-pointer transition-all ml-1 mr-1 " +
+              "inline-block h-1 cursor-pointer transition-all ml-1 mr-1 " +
               "bg-neutral-950 dark:bg-neutral-50 " + (index === currentIndex ? "background-color: white; w-10" : "w-5 opacity-50")}
             onClick={() => goToSlide(index)}
           />

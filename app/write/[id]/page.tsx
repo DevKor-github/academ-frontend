@@ -18,6 +18,7 @@ export default function WritePage({ params: { id } }: { params: { id: number } }
       (a) => {
         if (a.status === "SUCCESS") {
           setAvail(true);
+          
         }
         else {
           setAvail(false);
@@ -25,7 +26,7 @@ export default function WritePage({ params: { id } }: { params: { id: number } }
       }
     )
     
-  } , []);
+  } );
 
   return <main>
     <form>

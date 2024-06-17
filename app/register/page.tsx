@@ -1,6 +1,6 @@
 "use client";
 
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { ChangeEvent, useEffect, useState } from 'react';
 
 
@@ -13,7 +13,7 @@ import Button from '@/components/basic/button';
 import Input from '@/components/basic/input';
 import Checkbox from '@/components/basic/checkbok';
 
-import { apiCheckEmail, apiSignup, apiSendEmail, SignupRequest } from '@/api/login';
+import { SignupRequest, apiCheckEmail, apiSendEmail, apiSignup } from '@/api/login';
 
 /**
  * 유저 생성 페이지입니다.
@@ -246,7 +246,7 @@ function Register3({
 
   useEffect(() => {
     setIspwValid(pwcheck !== '' && pwcheck === input.password);
-  });
+  }, [pwcheck, input.password]);
 
   return (
     <HStack gap="20px">
@@ -352,6 +352,9 @@ function Register3({
 
 function Register4() {
 
+  const route = useRouter();
+
+
   return (
     <HStack gap="20px">
       <FinishIcon />
@@ -361,7 +364,7 @@ function Register4() {
         className="styles.fullWidth"
         variant="contained"
         color="primary"
-        onClick={() => redirect('/login')}
+        onClick={() => route.push('/login')}
       >
         로그인 화면으로
       </Button>
@@ -370,6 +373,8 @@ function Register4() {
 }
 
 export default function RegisterPage() {
+
+  const route = useRouter();
   const [rate, setRate] = useState(0);
 
 
@@ -402,7 +407,7 @@ export default function RegisterPage() {
       }
     } catch (e) {
       window.alert('인증번호 발송을 실패하였습니다. 회원가입을 다시 진행해주십시오.');
-      redirect('/login');
+      route.push('/login');
     }
   }
 
@@ -424,7 +429,7 @@ export default function RegisterPage() {
 
       if (response.status === "SUCCESS") {
         window.alert('회원가입이 완료되었습니다.');
-        redirect('/');
+        route.push('/');
       }
     } catch (e) {
       window.alert('회원가입에 실패했습니다.');
@@ -432,16 +437,17 @@ export default function RegisterPage() {
   }
 
   const pages = [
-    <Register0 setRate={setRate} rate={rate} />,
+    <Register0 key={0} setRate={setRate} rate={rate} />,
     <Register1
+      key={1}
       setRate={setRate}
       rate={rate}
       handleInput={handleInput}
       handleSendEmail={handleSendEmail}
       input={input}
     />,
-    <Register2 setRate={setRate} rate={rate} input={input} />,
-    <Register3
+    <Register2 key={2}  setRate={setRate} rate={rate} input={input} />,
+    <Register3 key={3}
       setRate={setRate}
       rate={rate}
       handleInput={handleInput}
@@ -449,7 +455,7 @@ export default function RegisterPage() {
       handleButtonClick={handleButtonClick}
       input={input}
     />,
-    <Register4 />,
+    <Register4 key={4}  />,
   ];
 
   return (
