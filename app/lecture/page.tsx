@@ -26,7 +26,7 @@ const SearchTopView = ({ query }: { query: string }) => {
       }}
     >
       <span className='text-2xl' style={{ wordBreak: 'break-word' }}>
-        <span className='text-4xl'>"{query}"</span> 강의 검색 결과
+        <span className='text-4xl'>&quot;{query}&quot;</span> 강의 검색 결과
       </span>
 
       <SearchForm className="w-full md:w-[70%] md:max-w-[800px]" defaultValue={query} />
@@ -63,22 +63,7 @@ const SearchResultsView = ({ query, results }: { query: string; results: Course[
     <HStack className={styles.results} style={{ padding: '40px', flexGrow: 1, textAlign: 'center' }}>
     <span className="text-xl text-center">
         {
-          // eslint-disable-next-line no-nested-ternary
-          query === ''
-            ? '강의명, 교수명, 학수번호로 검색해보세요.'
-            : // eslint-disable-next-line no-nested-ternary
-            false
-              ? '검색 중입니다.'
-              : // eslint-disable-next-line no-nested-ternary
-              false
-                ? '권한이 없습니다. 로그인하세요'
-                : // eslint-disable-next-line no-nested-ternary
-                false
-                  ? '결과가 없습니다.'
-                  : // eslint-disable-next-line no-nested-ternary
-                  false
-                    ? '너무 짧은 검색어입니다.'
-                    : '?'
+          results
         }
       </span>
     </HStack>
@@ -95,33 +80,35 @@ const SearchResultsView = ({ query, results }: { query: string; results: Course[
 }
 */
 
-enum SearchState {
-  INIT = "강의명, 교수명, 학수번호로 검색해보세요.",
-  FAIL = "검색 중입니다.",
-  TOO_SHORT = '너무 짧은 검색어입니다.',
-}
-
 
 function SearchPage() {
-  
 
   const query = useSearchParams()?.get('q') || '';
-
-  const [searchResult, setSearchResult] = useState<Course[] | SearchState>(SearchState.INIT);
+  const [searchResult, setSearchResult] = useState<Course[] | string>(
+      query.length === 0 ?
+      "강의명, 교수명, 학수번호로 검색해보세요." :
+      query.length <= 1 ?
+      '너무 짧은 검색어입니다.'
+      :
+      '검색 중입니다.'
+  );
 
   useEffect(() => {
     if (query.length > 1) {
       apiSearch({ keyword: query }).then((a) => {
         if (a.status === "SUCCESS") {
-          setSearchResult(a.data)
+          setSearchResult(a.data);
+        }
+        else if (a.status === "ERROR") {
+          setSearchResult(a.message);
+        }
+        else {
+          setSearchResult("요청을 처리할 수 없습니다 : 장치 또는 서버가 오프라인일 수 있습니다.");
         }
       }
-      ).catch((e) => setSearchResult(SearchState.FAIL))
+      )
     }
-    else {
-      setSearchResult(SearchState.TOO_SHORT);
-    }
-  }, []);
+  }, [query]);
 
 
   return (
