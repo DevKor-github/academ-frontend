@@ -1,15 +1,18 @@
-import styles from '../common.module.css';
+
 import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
-import { Course } from '@/api/models/course';
+import { Course } from '@/lib/models/course';
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
-import Skeleton from '@/components/composite/skeleton';
+
+type RenderType<T, NewType> = {
+  [P in keyof T]: T[P] extends number ? T[P] : NewType;
+};
 
 export default function BasicInfoView({ course }: { course: Course }) {
   
   return (
     <VStack
-      className={` pl-8 pr-8 ${styles.borderBottom} bg-neutral-50 dark:bg-neutral-950`}
+      className={` pl-8 pr-8  border-b-black bg-neutral-50 dark:bg-neutral-950`}
       style={{
         paddingTop: '160px',
         paddingBottom: '60px',

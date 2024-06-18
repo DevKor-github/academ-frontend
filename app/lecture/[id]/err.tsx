@@ -1,10 +1,10 @@
-
+"use client";
 
 import { HStack, VStack } from "@/components/basic/stack"
 import Link from "next/link"
 import Button from "@/components/basic/button"
 
-export default function Custom404() {
+export default function LectureError() {
   return <main>
     <HStack className="pt-24 pb-24 pl-8 pr-8 text-center justify-center" gap="64px">
       <HStack gap="16px">

@@ -1,45 +1,41 @@
 "use client";
 
-import { HStack } from '@/components/basic/stack';
+import { apiCourseDetail } from '@/lib/api/search';
+import { useState, useEffect } from 'react';
 
-import { apiCourseDetail } from '@/api/search';
-import { useState, useLayoutEffect } from 'react';
+import { Course } from '@/lib/models/course';
 
-import { useRouter } from 'next/navigation';
-
-import BasicInfoView from './components/basicinfo';
-import CommentsView from './components/comments';
-import SummaryView from './components/summary';
-
-import { Course } from '@/api/models/course';
+import LectureLoading from './loading';
+import LectureView from './lecture';
+import LectureError from './err';
 
 export default function LecturePage({ params: { id } }: { params: { id: number } }) {
 
-
   const [course, setCourse] = useState<Course | null>(null);
-  
-  const route = useRouter();
+  const [loading, setLoading] = useState<boolean>(true);
 
-  useLayoutEffect(() =>{
+  useEffect(() => {
     apiCourseDetail({ course_id: id }).then(
       (a) => {
         if (a.status === "SUCCESS") {
           setCourse(a.data);
         }
         else {
-          route.replace('/lecture/error-404');
+          setCourse(null);
         }
-      }).catch(() => {
-        route.replace('/lecture/error-404');
-      })});
+        setLoading(false);
+      })
+  });
+
+  if (loading) {
+    return <main className='w-full h-full'><LectureLoading /></main>
+  }
+
+  return  <main className='w-full h-full'>
+      {course === null ? <LectureError /> :
+        <LectureView course={course} />
+      }
+    </main>
 
 
-  return ( course === null ? <main></main> : <main>
-        <HStack style={{ height: '100%' }}>
-          <BasicInfoView course={course} />
-          <SummaryView course={course} />
-      <CommentsView course_id={course.course_id} comments={course.comments}/>
-        </HStack>
-      </main>
-  );
 }
