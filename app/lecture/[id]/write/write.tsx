@@ -1,11 +1,12 @@
-import { apiInsertComment } from "@/lib/api/search";
+import { apiInsertComment, CommentNewReq } from "@/lib/api/search";
 import { useState } from "react";
 import Button from "@/components/basic/button";
-import { Comment } from "@/lib/models/comment";
 import { Course } from "@/lib/models/course";
 
-function NewCommentWithId(id: number) {
-  return {  "course_id": id,
+
+function NewCommentWithId(id: number ) {
+  return {
+    "course_id": id,
     "rating": 0,
     "r1_amount_of_studying": 0,
     "r2_difficulty": 0,
@@ -25,7 +26,7 @@ function NewCommentWithId(id: number) {
 
 export default function WriteComment({ course }: { course: Course }) {
   
-  const [input, setInput] = useState<Comment>(NewCommentWithId(course.course_id));
+  const [input, setInput] = useState<CommentNewReq>(NewCommentWithId(course.course_id));
 
   function handleInput(event: React.ChangeEvent<HTMLTextAreaElement>) {
     const { value } = event.target;
@@ -43,30 +44,63 @@ export default function WriteComment({ course }: { course: Course }) {
     )
   }
 
-  return <main className="p-8 h-full">
+  return <main className="md:p-8 h-full">
     <form
+      className="flex flex-col "
       method="post"
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmit();
       }}
     >
-      <span className="text-2xl ">
-        `{course.name}`       <span className="text-base ">
-          강의평 작성하기
+      <div>
+        <span className="text-4xl ">
+          `{course.name}`       <span className="text-base ">
+            강의평 작성하기
+          </span>
+        
+          </span>
+      </div>
+
+      <div className="pt-8 pb-8 border-b border-b-neutral-500"> 
+        <span className="text-lg">
+          강의 별점 선택
         </span>
-      
-      </span>
+      </div>
 
-      강의 별점 선택
-      항목별 평가
-      태그 선택
-      강의평 작성
-      {course.course_id}
+      <div className="pt-8 pb-8 border-b border-b-neutral-500"> 
+        <span className="text-lg">
+          항목별 평가
+        </span>
+      </div>
 
-      <textarea id="review" onChange={handleInput}></textarea>
-      <Button type="submit">강의평 제출하기</Button>
+      <div className="pt-8 pb-8 border-b border-b-neutral-500"> 
+        <span className="text-lg">
+          태그 선택
+        </span>
+      </div>
+
+      <div className="pt-8 pb-8 border-b border-b-neutral-500"> 
+        <span className="text-lg">
+        강의평 작성
+        </span>
+
+      <div className="bg-neutral-100" >
+        <textarea className="w-full md:p-8 bg-neutral-100" id="review" onChange={handleInput} placeholder="다음 질문을 참고하여 내용을 작성해주세요. (최소 50자)" required>
+        </textarea>
+        <div className="w-full items-end text-right md:pr-2 md:pb-2">{input.review.length} / 최소 50자</div>
+      </div>
+
+      </div>
+
+
+
+      <div className="flex flex-row justify-center items-center mt-8">
+        <Button kind="filled" type="submit">강의평 제출하기</Button>
+      </div>
+
 
     </form>
+
   </main>;
 }
