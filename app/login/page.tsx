@@ -9,7 +9,7 @@ import { useSessionId } from '../../context/SessionIdContext';
 import Button from '@/components/basic/button';
 import Radio from '@/components/basic/radio';
 import TextField from '@/components/basic/textfield';
-import { apiLogin } from '@/lib/api/login';
+import { apiLogin, apiCheckLogin } from '@/lib/api/login';
 
 export default function LoginPage() {
   const [input, setInput] = useState({
@@ -36,8 +36,18 @@ export default function LoginPage() {
       const a = await apiLogin({ email: input.email, password: input.password, 'remember-me': false }).then(
         (s) => {
           if (s.status === "SUCCESS") {
-            setSessionId(s.data);
-            return route.push('/');
+            apiCheckLogin({}).then(
+              (a) => {
+                if (a.status === "SUCCESS") {
+                  setSessionId(a.data);
+                  return route.push('/');
+                }
+                else {
+                  alert("로그인을 완료하였으나 사용자 정보 획득에 실패하였습니다. 이 상황은 일반적이지 않습니다. 다시 시도해주세요.");
+                  setSessionId(null);
+                }
+              }
+            )
           }
           else {
             setLoginError(true);
