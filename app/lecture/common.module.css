@@ -1,8 +1,3 @@
-
-.borderBottom {
-  border-bottom: 1px solid #d4d4d4;
-}
-
 .container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));

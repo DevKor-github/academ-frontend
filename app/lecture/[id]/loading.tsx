@@ -1,10 +1,10 @@
 import { VStack, HStack } from "@/components/basic/stack";
-import BookmarkToggleButton from "@/components/composite/bookmarkToggleButton";
+// import BookmarkToggleButton from "@/components/composite/bookmarkToggleButton";
 import Tag from "@/components/basic/tag";
 import Skeleton from "@/components/composite/skeleton";
 
 export default function LectureLoading() {
-  return <HStack className='w-full h-full'><VStack
+  return <main className='w-full h-full'><HStack className='w-full h-full'><VStack
     className={` pl-8 pr-8 border-b-black bg-neutral-50 dark:bg-neutral-950`}
     style={{
       paddingTop: '160px',
@@ -28,7 +28,7 @@ export default function LectureLoading() {
       <VStack gap="10px" style={{ alignItems: 'center', flexWrap: 'wrap' }}>
         <span className='text-3xl'><Skeleton placeholder="강의 이름 이름" /></span>
         <Tag className="bg-primary-100 text-primary-900 opacity-50"><Skeleton placeholder="강의평 n개" /></Tag>
-        <BookmarkToggleButton id={0} />
+        {/* <BookmarkToggleButton id={0} /> */}
       </VStack>
       <VStack gap="20px" style={{ flexWrap: 'wrap' }}>
         <span className='text-lg' ><Skeleton placeholder="교수명" /></span>
@@ -38,6 +38,8 @@ export default function LectureLoading() {
         <span className='text-lg'><Skeleton placeholder="요일 교시 강의 장소 텍스트" /></span>
       </VStack>
     </HStack>
-  </VStack></HStack>;
+  </VStack>
+  </HStack>
+  </main>
 
 }
