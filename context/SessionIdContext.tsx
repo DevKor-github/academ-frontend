@@ -2,9 +2,9 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode, useLayoutEffect } from 'react';
 
-import { apiLogout } from '@/api/login';
-import { apiCheckLogin } from '@/api/login';
-import { UserProfile } from '@/api/models/user';
+import { apiLogout } from '@/lib/api/login';
+import { apiCheckLogin } from '@/lib/api/login';
+import { UserProfile } from '@/lib/models/user';
 
 type SessionId = UserProfile | null;
 
@@ -52,23 +52,27 @@ const useTabTracker = () => {
 
 export function SessionIdProvider({ children }: SessionIdProviderProps) {
   const [sessionId, setSessionId] = useState<SessionId | null>(
-    JSON.parse(localStorage.getItem(keyForStorage) || 'null')
+    JSON.parse(globalThis?.localStorage?.getItem(keyForStorage) || 'null')
   );
 
   useTabTracker();
 
-  // Save the session to storage whenever it changes
-  useLayoutEffect(() => {
+  useEffect(() => {
+
     apiCheckLogin({}).then(
       (a) => {
         if (a.status === "SUCCESS") {
           localStorage.setItem(keyForStorage, JSON.stringify(sessionId));
-          setSessionId(a.data);
+          if (a === null && sessionId !== null) {
+            alert('세션이 만료되었습니다. 다시 로그인해주세요.');
+          }
+          else {
+            setSessionId(a.data);
+          }
         }
         else {
           localStorage.removeItem(keyForStorage);
         }
-        console.log("What");
       }
     )
   // eslint-disable-next-line react-hooks/exhaustive-deps
