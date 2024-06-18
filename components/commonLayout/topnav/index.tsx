@@ -1,6 +1,4 @@
 "use client";
-
-import { SessionIdProvider, useSessionId } from '@/context/SessionIdContext';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 
@@ -32,10 +30,11 @@ const TopNavInnerMid = ({ location, spreaded, setSpreaded }: { location: string,
       className={`overflow-hidden transition-all ${height} md:h-16 text-black dark:text-white items-center justify-start   flex flex-col md:flex-row`}
       style={{ rowGap : '10px' }}
   >
-        
-      <Button className='md:hidden' kind='blank' style={{minHeight : '64px' }} onClick={() => setSpreaded(!spreaded)}>
-          {spreaded ? <UpIcon width="24px" height="24px" /> : <DownIcon width="24px" height="24px" />}
-      </Button>
+      <div className='md:hidden'>
+        <Button kind='blank' style={{minHeight : '64px' }} onClick={() => setSpreaded(!spreaded)}>
+            {spreaded ? <UpIcon scale="24px" /> : <DownIcon scale="24px" />}
+        </Button>
+      </div>
       <Link href="/lecture">
         <Button kind='blank' className={ (location) === '/lecture'? 'text-primary-500' : '' }>강의{nbsp}목록</Button>
       </Link>
@@ -55,7 +54,7 @@ const TopNavInnerMid = ({ location, spreaded, setSpreaded }: { location: string,
 };
 
 function TopNavRightLoading() {
-  return <Button><Skeleton placeholder='로그인 버튼' /></Button>;
+  return <Button><Skeleton placeholder='로그인' /></Button>;
 }
 
 const TopNavRightClient = dynamic(() => import('./client/topNavRight'), { ssr: false, loading : TopNavRightLoading});

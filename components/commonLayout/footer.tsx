@@ -22,7 +22,7 @@ import Link from "next/link";
 import { LogoIconRich } from "@/icons";
 
 export default function Footer() {
-  return <footer className="pl-4 pr-4 md:pl-8 md:pr-8 border-t light:border-t-neutral-400 dark:border-t-neutral-700 light:bg-neutral-100 dark:bg-neutral-800 pt-8 pb-8">
+  return <footer className="pl-4 pr-4 md:pl-8 md:pr-8 border-t light:border-light-back-4 dark:border-dark-back-8 light:bg-light-back-1 dark:bg-dark-back-4 pt-8 pb-8">
     <AdaptiveStack vGap="20px" hGap="24px">
         <Link className="" href="/about">
           <LogoIconRich width={`${150 * 0.6}px`} height={`${39 * 0.6}px`} />
@@ -30,7 +30,7 @@ export default function Footer() {
           <Link href="/policy">
             이용약관
           </Link>
-          <Link href="https://forms.gle/ugJaaHWVmcL1hfBS8">
+          <Link href={process.env.NEXT_PUBLIC_BUG_REPORT || ''}>
             버그리포트
       </Link>{
         (process.env.NODE_ENV === "development") &&
