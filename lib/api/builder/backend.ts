@@ -74,10 +74,10 @@ export function build<Req, Res>(method: "POST" | "GET", path: string, allowedSta
         else if (
           error.request
         ) {
-          return Promise.resolve(failWith("NO_RES", "응답을 수신하지 못했습니다."));
+          return Promise.resolve(failWith("NO_RES", "응답을 수신하지 못했습니다. 장치가 네트워크에 연결되어 있지 않거나 서버가 오프라인입니다."));
         }
         else {
-          return Promise.resolve(failWith("NO_REQ", "요청을 전송하지 못했습니다."));
+          return Promise.resolve(failWith("NO_REQ", "요청을 전송하지 못했습니다. 장치가 네트워크에 연결 되지 않았나요?"));
         }
       }).catch(() => {
         return Promise.resolve(failWith("NO_REQ", "알 수 없는 오류"));
