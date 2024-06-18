@@ -51,6 +51,12 @@ const useTabTracker = () => {
 };
 
 export function SessionIdProvider({ children }: SessionIdProviderProps) {
+
+
+  const [internalSessionId, setInternalSessionId] = useState<SessionId | null>(
+    JSON.parse(globalThis?.localStorage?.getItem(keyForStorage) || 'null')
+  );
+
   const [sessionId, setSessionId] = useState<SessionId | null>(
     JSON.parse(globalThis?.localStorage?.getItem(keyForStorage) || 'null')
   );
@@ -58,25 +64,23 @@ export function SessionIdProvider({ children }: SessionIdProviderProps) {
   useTabTracker();
 
   useEffect(() => {
-
     apiCheckLogin({}).then(
       (a) => {
         if (a.status === "SUCCESS") {
-          localStorage.setItem(keyForStorage, JSON.stringify(sessionId));
-          if (a === null && sessionId !== null) {
-            alert('세션이 만료되었습니다. 다시 로그인해주세요.');
-          }
-          else {
-            setSessionId(a.data);
-          }
+          setInternalSessionId(a.data);
+          localStorage.setItem(keyForStorage, JSON.stringify(a.data));
         }
         else {
+          if (a.status === "ERROR" && sessionId !== null) {
+            alert("세션이 만료되었습니다. 다시 로그인해주세요")
+          }
           localStorage.removeItem(keyForStorage);
+          setInternalSessionId(null);
         }
       }
     )
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [sessionId]);
 
-  return <SessionIdContext.Provider value={{ sessionId, setSessionId }}>{children}</SessionIdContext.Provider>;
+  return <SessionIdContext.Provider value={{ sessionId : internalSessionId, setSessionId }}>{children}</SessionIdContext.Provider>;
 }
