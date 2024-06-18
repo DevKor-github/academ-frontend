@@ -46,7 +46,7 @@ export default function WritePage({ params: { id } }: { params: { id: number } }
           setCourse(null);
         }
         else {
-          setAvail(false);
+          setCourse(null);
         }
         setLoading(false);
       }

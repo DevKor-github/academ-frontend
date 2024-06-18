@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import { HStack } from '@/components/basic/stack';
 
-import { SignupRequest, apiSendEmail, apiSignup } from '@/api/login';
+import { SignupRequest, apiSendEmail, apiSignup } from '@/lib/api/login';
 
 import Step0 from './steps/step0';
 import Step1 from './steps/step1';

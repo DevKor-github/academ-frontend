@@ -48,7 +48,7 @@ const carouselItems = [
       </span>
       <span className="text-4xl">어떤 강의가 나의 연구에 도움이 될까?</span>
       <VStack gap="12px">
-        <BookIcon width="24px" height="24px" auto={false} color="white" />
+        <BookIcon width="24px" height="24px" color="white" />
         <span className="text-lg">강의 간의 비교를 통해 나의 학업에 도움이 되는 강의를 선택하세요.</span>
       </VStack>
     </HStack>
@@ -66,7 +66,7 @@ const carouselItems = [
         을 한눈에
       </span>
       <VStack gap="12px">
-        <BookIcon width="24px" height="24px" auto={false} color="white" />
+        <BookIcon width="24px" height="24px" color="white" />
         <span className="text-lg">
           수업 및 시험 방식에 대한 정보를 얻고{' '}
           <span className="font-bold">
