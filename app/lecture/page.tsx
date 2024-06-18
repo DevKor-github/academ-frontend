@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation'
 import { Suspense } from 'react';
 
-import { Course } from '@/api/models/course';
+import { Course } from '@/lib/models/course';
 import SearchForm from '@/components/composite/SearchForm';
 import { HStack, VStack } from '@/components/basic/stack';
-import { apiSearch } from '@/api/search';
+import { apiSearch } from '@/lib/api/search';
 
 
 import SingleSearchResultView from './SingleSearchResultView';

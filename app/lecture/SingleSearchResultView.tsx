@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Course } from '@/api/models/course';
+import { Course } from '@/lib/models/course';
 import { StarIcon } from "@/icons";
 import Button from '@/components/basic/button';
 import { HStack, VStack } from '@/components/basic/stack';

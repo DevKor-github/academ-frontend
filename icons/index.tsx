@@ -1,27 +1,17 @@
 interface SizeProp extends React.SVGProps<SVGSVGElement> {
   id?: string;
-  width?: string;
-  height?: string;
+  width: string;
+  height: string;
 }
-
-type Color =
-  | {
-      auto: true;
-    }
-  | {
-      auto: false;
-      color: string;
-    };
 
 function guard(x: string | undefined): string {
   return x || '72px';
 }
 
+
 export const CloseIcon = ({ width, height, ...props }: SizeProp) => (
   <svg
     className="stroke-neutral-950 dark:stroke-neutral-50"
-    width={guard(width)}
-    height={guard(height)}
     viewBox="0 0 32 32"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
@@ -32,13 +22,13 @@ export const CloseIcon = ({ width, height, ...props }: SizeProp) => (
 );
 
 export const LeftIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg     className="stroke-neutral-950 dark:stroke-neutral-50"  width="17" height="32" xmlns="http://www.w3.org/2000/svg" {...props}>
+  <svg     className="stroke-neutral-950 dark:stroke-neutral-50" xmlns="http://www.w3.org/2000/svg" {...props}>
     <path d="M 15 2 L 2 16 L 15 30" strokeWidth="3" fill="none" />
   </svg>
 );
 
 export const RightIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="23" fill="none" style={props.style}>
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" style={props.style}>
     <path stroke="#9B9B9B" strokeLinecap="square" strokeWidth="1.5" d="m2 2 10 9.5L2 21" />
   </svg>
 );
@@ -196,7 +186,7 @@ export const FinishIcon = () => (
   </svg>
 );
 
-export const BookIcon = ({ height, width }: Color & SizeProp) => (
+export const BookIcon = ({ height, width }: SizeProp) => (
   <svg width={width || '30'} height={height || '28'} viewBox="0 0 30 28" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M1 1H9.4C10.8852 1 12.3096 1.60873 13.3598 2.69227C14.41 3.77582 15 5.24542 15 6.77778V27C15 25.8507 14.5575 24.7485 13.7698 23.9359C12.9822 23.1232 11.9139 22.6667 10.8 22.6667H1V1Z"
