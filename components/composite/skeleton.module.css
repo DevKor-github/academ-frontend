@@ -1,16 +1,16 @@
 .skeleton {
-  display: span;
-  height: 1.8em;
+  display: inline-block;
   background-color: #ccc;
   border-radius: 8px;
-  animation: pulse 1.5s infinite ease-in-out;
+  animation: pulse 0.5s infinite ease-in-out;
+  color: transparent;
 }
 
 @keyframes pulse {
   0%, 100% {
-    opacity: 1;
+    opacity: 0.5;
   }
   50% {
-    opacity: 0.5;
+    opacity: 1;
   }
 }
