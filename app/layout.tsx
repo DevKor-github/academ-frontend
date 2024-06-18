@@ -2,6 +2,7 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { SessionIdProvider } from "@/context/SessionIdContext";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,11 +20,13 @@ export default function RootLayout({
   
   return (
     <html lang="en">
-      <ThemeProvider>
-        <body className={inter.className}>
+      <SessionIdProvider>
+        <ThemeProvider>
+          <body className={inter.className}>
             {children}
-        </body>
-      </ThemeProvider>
+          </body>
+        </ThemeProvider>
+      </SessionIdProvider>
     </html>
   );
 }
