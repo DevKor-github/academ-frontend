@@ -1,0 +1,4 @@
+.starClipped {
+  background-color: grey;
+  clip-path: url('#star-shape');
+}

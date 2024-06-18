@@ -5,3 +5,7 @@ export default function Skeleton ({placeholder} : {placeholder : string}) {
   return <span className={`${styles.skeleton}`} >{placeholder}</span>;
 }
 
+export function SkeletonDiv ({ className = "",...props } : React.HTMLProps<HTMLDivElement> ) {
+  return <div className={`${styles.skeleton} ${className}`} {...props}/>;
+}
+
