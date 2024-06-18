@@ -13,7 +13,7 @@ import Link from "next/link";
 import { HStack } from "@/components/basic/stack";
 
 function ProfilePopover({ setOpenPopover } : { setOpenPopover : (b : boolean) => void }) {
-  return <Popover onPageClick={() => setOpenPopover(false)} className={"absolute rounded-lg overflow-hidden border border-neutral-600 right-2 md:right-8 top-16 "}>
+  return <Popover onPageClick={() => setOpenPopover(false)} className={"absolute rounded-lg overflow-hidden border bg-l dark:bg-black border-neutral-600 right-2 md:right-8 top-16 "}>
     <HStack className="justify-center items-center" style={{ borderRadius: '12px' }}>
       <Link href="/mypage">
         <Button kind='blank'  >마이페이지</Button>
@@ -48,10 +48,7 @@ function ProfileButton() {
   } else {
     return <div>
       <Button onClick={() => setOpen(v => !v)}>
-        <span className={styles.forSmall} style={{ textWrap: 'nowrap', overflow: 'hidden' }}>
-          프사
-        </span>
-        <span className='hidden md:inline-flex' style={{ textWrap: 'nowrap', overflow: 'hidden' }}>
+        <span className='under-md:max-w-24' style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {sessionId.username}님
         </span>
       </Button>

@@ -9,28 +9,28 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 } 
 
 const CommonButton = ({ disabled, className, ...rest }: ButtonProps) => (
-  <button className={`flex justify-center items-center rounded-lg transition-all p-2 bg-none ${disabled ? "cursor-not-allowed" : "cursor-pointer"} ${className}`} {...rest} />
+  <button className={`flex justify-center items-center rounded-lg transition-all p-2 ${disabled ? "cursor-not-allowed" : "cursor-pointer"} ${className}`} {...rest} />
 );
 
-function FilledButton({ disabled, ...rest } : ButtonProps) {
+function FilledButton({ className = "", disabled, ...rest } : ButtonProps) {
   return (disabled ?
-      <CommonButton disabled className="bg-gray-300 dark:bg-gray-700 border-none" {...rest} /> :
-      <CommonButton className="bg-primary-500 cursor-pointer border-none"  {...rest} />);
+      <CommonButton disabled className={" bg-gray-300 dark:bg-gray-700 border-none opacity-25 " + className} {...rest} /> :
+      <CommonButton className={"bg-primary-500 cursor-pointer border-none" + className}  {...rest} />);
 }
 
-function OutlineButton({ disabled, ...rest }: ButtonProps) {
+function OutlineButton({ className ="", disabled, ...rest }: ButtonProps) {
   return (
     disabled ?
-      <CommonButton disabled className="border-gray-300 dark:border-gray-700 border" {...rest} /> :
-      <CommonButton className="border-primary-500 border" {...rest} />
+      <CommonButton disabled className={"border-gray-300 dark:border-gray-700 border opacity-25 " + className} {...rest} /> :
+      <CommonButton className={"border-primary-500 border " + className} {...rest} />
   );
 }
 
-function BlankButton({ disabled, ...rest }: ButtonProps) {
+function BlankButton({ className ="", disabled, ...rest }: ButtonProps) {
   return (
     disabled ?
-      <CommonButton disabled className="border-none" {...rest} /> :
-      <CommonButton className="border-none hover:opacity-50" {...rest} />
+      <CommonButton disabled className={"border-none opacity-25 " + className} {...rest} /> :
+      <CommonButton className={"border-none hover:opacity-50" + className} {...rest} />
   );
 }
 

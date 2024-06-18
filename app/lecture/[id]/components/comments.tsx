@@ -11,7 +11,7 @@ export default function CommentsView({ course_id, comments }: { course_id: numbe
       <VStack style={{ justifyContent: 'space-between', alignItems: 'center' }}>
         <span className='text-2xl'>강의평 목록</span>
       </VStack>
-      {comments?.map((t) => <CommentView key={t.course_id} /> )}
+      {comments?.map((t) => <CommentView key={t.comment_id} comment={t} /> )}
     </HStack>
   );
 }

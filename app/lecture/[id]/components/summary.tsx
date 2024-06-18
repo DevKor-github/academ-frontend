@@ -4,6 +4,8 @@ import { HStack, VStack } from '@/components/basic/stack';
 import { Course } from '@/lib/models/course';
 import Progress from '@/components/basic/progress';
 
+import Star5 from '@/components/composite/starIndicator';
+
 
 function Stars({ rate0to5 }: { rate0to5: number }) {
   const size = '24px';
@@ -44,10 +46,10 @@ function RateSummary({course} : {course : Course}) {
           </span>
           <span className='text-4xl' style={{ color: 'grey' }}>
             {' '}
-            (57)
+            ({course.count_comments})
           </span>
         </span>
-        <Stars rate0to5={4.1} />
+        <Star5 rate={course.avg_rating / 5} px={32} />
       </VStack>
       <VStack style={{ flexWrap: 'wrap', justifyContent: 'start' }}>
         {tags.map((t) => (
