@@ -1,9 +1,9 @@
 .skeleton {
-  display: span;
-  height: 1.8em;
-  background-color: #ccc;
+  display: inline-block;
+  background-color: #0003;
   border-radius: 8px;
-  animation: pulse 1.5s infinite ease-in-out;
+  animation: pulse 0.5s infinite ease-in-out;
+  color: transparent;
 }
 
 @keyframes pulse {
@@ -12,5 +12,11 @@
   }
   50% {
     opacity: 0.5;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .skeleton {
+    background-color: #FFF3;
   }
 }

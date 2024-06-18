@@ -22,19 +22,21 @@ import Link from "next/link";
 import { LogoIconRich } from "@/icons";
 
 export default function Footer() {
-  return <footer className="pl-4 pr-4 md:pl-8 md:pr-8 border-t light:border-t-neutral-400 dark:border-t-neutral-700 light:bg-neutral-100 dark:bg-neutral-800 pt-8 pb-8">
+  return <footer className="pl-4 pr-4 md:pl-8 md:pr-8 border-t light:border-light-back-4 dark:border-dark-back-8 light:bg-light-back-1 dark:bg-dark-back-4 pt-8 pb-8">
     <AdaptiveStack vGap="20px" hGap="24px">
-        <LogoIconRich width={`${150 * 0.6}px`} height={`${39 * 0.6}px`} />
-        <span style={{ height: 'fit-content' }}>
+        <Link className="" href="/about">
+          <LogoIconRich width={`${150 * 0.6}px`} height={`${39 * 0.6}px`} />
+        </Link>
           <Link href="/policy">
             이용약관
           </Link>
-        </span>
-        <span style={{ height: 'fit-content' }}>
-          <Link href="/policy">
+          <Link href={process.env.NEXT_PUBLIC_BUG_REPORT || ''}>
             버그리포트
-          </Link>
-      </span>
+      </Link>{
+        (process.env.NODE_ENV === "development") &&
+      <Link href="/diagnostic">
+            진단
+      </Link>}
       <span className="md:ml-auto">Copyright ⓒ 2024 Academ. all rights reserved</span>
     </AdaptiveStack>
   </footer>;

@@ -1,17 +1,13 @@
 "use client";
-
-import { SessionIdProvider, useSessionId } from '@/context/SessionIdContext';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 
 import Button from '@/components/basic/button';
 
 import { HStack, VStack } from '@/components/basic/stack';
-import Popover from '../../basic/popover';
 import { DownIcon, LogoIconRich, UpIcon } from '@/icons';
 import Link from 'next/link';
-
-import styles from './index.module.css';
+import Skeleton from '@/components/composite/skeleton';
 
 function TopNavInnerLeft() {
   return (
@@ -34,10 +30,11 @@ const TopNavInnerMid = ({ location, spreaded, setSpreaded }: { location: string,
       className={`overflow-hidden transition-all ${height} md:h-16 text-black dark:text-white items-center justify-start   flex flex-col md:flex-row`}
       style={{ rowGap : '10px' }}
   >
-        
-      <Button className='md:hidden' kind='blank' style={{minHeight : '64px' }} onClick={() => setSpreaded(!spreaded)}>
-          {spreaded ? <UpIcon width="24px" height="24px" /> : <DownIcon width="24px" height="24px" />}
-      </Button>
+      <div className='md:hidden'>
+        <Button kind='blank' style={{minHeight : '64px' }} onClick={() => setSpreaded(!spreaded)}>
+            {spreaded ? <UpIcon scale="24px" /> : <DownIcon scale="24px" />}
+        </Button>
+      </div>
       <Link href="/lecture">
         <Button kind='blank' className={ (location) === '/lecture'? 'text-primary-500' : '' }>강의{nbsp}목록</Button>
       </Link>
@@ -56,7 +53,11 @@ const TopNavInnerMid = ({ location, spreaded, setSpreaded }: { location: string,
   );
 };
 
-const TopNavRightClient = dynamic(() => import('./client/topNavRight'), { ssr: false });
+function TopNavRightLoading() {
+  return <Button><Skeleton placeholder='로그인' /></Button>;
+}
+
+const TopNavRightClient = dynamic(() => import('./client/topNavRight'), { ssr: false, loading : TopNavRightLoading});
 
 
 const TopNavInnerRight = () =>
@@ -77,12 +78,17 @@ export default function TopNav({
 
   const [spreaded, setSpreaded] = useState(false);
 
-  return <VStack className={
-    `${overlap ? " dark z-50  " : styles.line} 
-     ${spreaded ? ` ${overlap ? " md:bg-transparent dark:bg-neutral-800 " : " md:bg-transparent dark:bg-neutral-800  "} bg-white h-72 md:h-16 ` : " h-16 bg-none "}
+  return <div className={"w-full " + (overlap ? " dark z-50  " : "border-b border-b-neutral-400 ")}>
+    <VStack className={
+      `${spreaded ?
+        ` h-72 md:h-16 md:bg-transparent
+          ${overlap /* dark */ ?
+          " bg-neutral-800 " :
+          " bg-white dark:bg-black "}`
+        : " h-16 bg-none "}
       pl-2 pr-2 md:pl-8 md:pr-8 ${className} flex flex-nowrap items-start flex-row justify-between w-full transition-all`}>
       <TopNavInnerLeft />
       <TopNavInnerMid location={location} spreaded={spreaded} setSpreaded={setSpreaded} />
       <TopNavInnerRight />
-    </VStack>;
+    </VStack></div>;
 }

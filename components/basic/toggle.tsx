@@ -32,7 +32,7 @@ export default function Toggle({ id, checked: value, label, onClick }: TogglePro
         <label htmlFor={id}>
           <span id={id}>
             <span id={id}>
-              <CheckIcon width="20px" height="20px" />
+              <CheckIcon scale="20px" />
             </span>
           </span>
           {label}

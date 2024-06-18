@@ -18,35 +18,37 @@ Wrapper.displayName = "Wrapper";
 
 interface PopoverProps {
   className?: string;
-  onClose: (...args: never[]) => void;
+  onPageClick: (...args: never[]) => void;
   children: React.ReactNode;
   style?: React.CSSProperties;
   keep?: boolean;
 }
 
 const Popover = React.memo<PopoverProps>((props) => {
-  const { onClose, children } = props;
+  const { onPageClick, children } = props;
 
-  const settingsWindowRef = useRef<HTMLDivElement>(null);
+  // const settingsWindowRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const pageClickEvent = (e: MouseEvent) => {
-      if (!props.keep || !settingsWindowRef.current?.contains(e.target as Node)) {
-        onClose();
-      }
-    };
+  // useEffect(() => {
+  //   const pageClickEvent = (e: MouseEvent) => {
+  //     if (!props.keep || !settingsWindowRef.current?.contains(e.target as Node)) {
+  //       onPageClick();
+  //     }
+  //   };
 
-    window.addEventListener('click', pageClickEvent, true);
+  //   window.addEventListener('click', pageClickEvent, true);
 
-    return () => {
-      window.removeEventListener('click', pageClickEvent, true);
-    };
-  });
+  //   return () => {
+  //     window.removeEventListener('click', pageClickEvent, true);
+  //   };
+  // });
 
   const combined: React.CSSProperties = { zIndex: 100, ...props.style  };
 
   return (
-    <Wrapper className={props.className} style={combined} ref={settingsWindowRef}>
+    <Wrapper className={props.className} style={combined}
+      // ref={settingsWindowRef}
+    >
       {children}
     </Wrapper>
   );

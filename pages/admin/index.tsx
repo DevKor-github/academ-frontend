@@ -2,6 +2,7 @@ import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/navigation";
 import CommonLayout from "@/components/commonLayout/commonLayout";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { SessionIdProvider } from "@/context/SessionIdContext";
 
 import '@/app/globals.css';
 
@@ -20,6 +21,7 @@ export default function AdminPage({ isAdmin }: { isAdmin: boolean }) {
   }
 
   return (
+    <SessionIdProvider>
     <ThemeProvider>
     <CommonLayout>
           <div>
@@ -28,6 +30,7 @@ export default function AdminPage({ isAdmin }: { isAdmin: boolean }) {
         </div>
       </CommonLayout>
       </ThemeProvider>
+      </SessionIdProvider>
   );
 }
 

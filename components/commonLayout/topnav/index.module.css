@@ -42,12 +42,7 @@
   align-items: center;
 }
 
-.line {
-  stroke: black;
-  border-bottom: 1px solid #dbdbdb;
-}
-
-@media (max-width: 720px) {
+@media (max-width: 768px) {
   .forSmall {
     display: inline-flex;
     align-items: center;
@@ -74,12 +69,5 @@
 
   .metacontainer {
     padding: 0px 16px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .line {
-    stroke: #dbdbdb;
-    border-bottom: 1px solid #424242;
   }
 }
