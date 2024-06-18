@@ -9,7 +9,7 @@ import { useSessionId } from '../../context/SessionIdContext';
 import Button from '@/components/basic/button';
 import Radio from '@/components/basic/radio';
 import TextField from '@/components/basic/textfield';
-import { apiLogin } from '@/api/login';
+import { apiLogin } from '@/lib/api/login';
 
 export default function LoginPage() {
   const [input, setInput] = useState({
@@ -36,13 +36,10 @@ export default function LoginPage() {
       const a = await apiLogin({ email: input.email, password: input.password, 'remember-me': false }).then(
         (s) => {
           if (s.status === "SUCCESS") {
-            window.alert('로그인이 완료되었습니다.');
-            setSessionId('sesssionId from backend server');
+            setSessionId(s.data);
             return route.push('/');
           }
           else {
-            window.alert('로그인에 실패했습니다.');
-            
             setLoginError(true);
             return;
           }
@@ -72,7 +69,6 @@ export default function LoginPage() {
 
         <form
           method="post"
-          action="/login/api"
           onSubmit={(e) => {
             e.preventDefault();
             handleLogin();
