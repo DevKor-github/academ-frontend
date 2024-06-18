@@ -28,6 +28,7 @@ const buildUrlWithParams = (baseUrl: string, req: Record<string, (string | numbe
 
 export type ApiResponse<T> = {
   status: "SUCCESS" | "ERROR"
+  code: number,
   data: T,
   message: string,
   version: string,
@@ -62,6 +63,8 @@ export function build<Req, Res>(method: "POST" | "GET", path: string, allowedSta
             }));
       
       return await ret.then((res) => {
+        const data = res.data;
+        data.code = res.status;
         return Promise.resolve(res.data as ApiResponse<Res>);
       }
       ).catch((error: AxiosError) => {

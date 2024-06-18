@@ -1,6 +1,6 @@
 
-import { build } from '@/api/builder/backend';
-import { UserProfile } from './models/user';
+import { build } from '@/lib/api/builder/backend';
+import { UserProfile } from '../models/user';
 
 export interface SignupRequest {
   email: string,

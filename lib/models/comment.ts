@@ -16,3 +16,4 @@ export interface Comment {
   "learn_t3_exam": boolean,
   "learn_t4_industry": boolean,
 }
+

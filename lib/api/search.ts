@@ -1,7 +1,7 @@
 
-import { build } from '@/api/builder/backend';
-import { Course } from './models/course';
-import { Comment } from './models/comment';
+import { build } from '@/lib/api/builder/backend';
+import { Course } from '../models/course';
+import { Comment } from '../models/comment';
 
 export interface SearchRequest {
   keyword: string;
@@ -16,6 +16,6 @@ export const apiBookmark = build<CourseRelatedRequest, Course[]>("GET", "/api/co
 
 export const apiCourseDetail = build<CourseRelatedRequest, Course>("GET", "/api/course/detail", [400, 401, 404])
 
-export const apiStartComment = build<CourseRelatedRequest, Course>("GET", "/api/course/start-comment", [400, 401, 404])
+export const apiStartComment = build<CourseRelatedRequest, Course>("GET", "/api/course/start-insert-comment", [400, 401, 404])
 
 export const apiInsertComment = build<Comment, string>("POST", "/api/course/insert-comment", [400,401, 404])
