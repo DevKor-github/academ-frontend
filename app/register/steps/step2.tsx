@@ -2,30 +2,40 @@ import { useState } from "react";
 import { SignupRequest, apiSendEmail } from "@/lib/api/login";
 import { HStack, VStack } from "@/components/basic/stack";
 import { RightIcon } from "@/icons";
-import TextField from "@/components/basic/textfield";
+import Input from "@/components/basic/input";
 import Button from "@/components/basic/button";
+
+import { apiCheckEmail } from "@/lib/api/login";
 
 
 export default function Step2({
-  next,
+  nextStep,
   input,
+  setInput,
 }: {
-  next : () => void,
-  input: SignupRequest;
+  nextStep : () => void,
+    input: SignupRequest;
+    setInput: React.Dispatch<SignupRequest>;
 }) {
-  const [code, setCode] = useState<string>();
 
-  function handleCode(event: React.ChangeEvent<HTMLInputElement>) {
+  function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
-    setCode(value);
+    setInput({ ...input, code: value });
   }
 
-  async function handleCheckEmail() {
+  async function handleCode() {
     try {
-      const response = await apiSendEmail({email : input.email + code});
+      const response = await apiCheckEmail({ email: input.email.split('@')[0] || '' , code: input.code });
 
       if (response.status === "SUCCESS") {
-        next();
+        nextStep();
+      }
+      else if (response.status === "ERROR" && response.code === 400) {
+        window.alert(response.message);
+      }
+      else {
+        alert(response.message);
+        window.alert('인증번호 처리에 실패하였습니다.');
       }
     } catch (e) {
       window.alert('인증번호 발송 도중 예기치 못한 에러가 발생하였습니다.');
@@ -35,23 +45,20 @@ export default function Step2({
   return (
     <HStack style={{ justifyContent: 'center' }} gap="20px">
       <span className="text-xl">이메일로 인증번호가 발송되었습니다.</span>
-      <TextField required type="text" id="varify" value="인증번호를 입력해주세요" onChange={handleCode} autoFocus />
-      <VStack style={{ justifyContent: 'end' }}>
-        <Button kind="outline" variant="contained" color="primary" onClick={handleCheckEmail}>
-          <VStack gap="36px" style={{ justifyContent: 'end', margin: '10px 22px' }}>
-            <span className="text-xl">다음</span>
-            <RightIcon />
-          </VStack>
-        </Button>
-      </VStack>
-      <VStack>
-        현재 이메일 전송 API 버그가 있어 디버그를 위해 건너뛰기 기능을 제공하는 중입니다.
-        <Button
-          onClick={next}
-        >
-          건너뛰기
-        </Button>
-      </VStack>
+      <input required type="text" id="code" autoComplete="one-time-code" inputMode="numeric" placeholder="인증번호를 입력해주세요" value={input.code} onChange={handleInput} autoFocus />
+      <VStack className="w-full h-fit justify-end" gap="36px">
+            <Button
+              kind="outline"
+              className="flex flex-row justify-end items-center text-xl"
+              variant="contained"
+              color="primary"
+              disabled={input.code === ''}
+              onClick={handleCode}
+            >
+              다음&nbsp;
+            <RightIcon scale="16px" />
+          </Button>
+        </VStack>
     </HStack>
   );
 }

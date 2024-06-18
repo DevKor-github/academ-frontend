@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { FinishIcon } from "@/icons";
 import { HStack } from "@/components/basic/stack";
 import Button from "@/components/basic/button";

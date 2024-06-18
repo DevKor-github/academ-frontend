@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, } from "react";
 
 import { HStack, VStack } from "@/components/basic/stack";
 import { apiSignup } from "@/lib/api/login";
@@ -10,12 +10,12 @@ import Input from "@/components/basic/input";
 import { SignupRequest } from "@/lib/api/login";
 
 export default function Step3({
-  next,
+  nextStep,
   setInput,
   input,
 }: {
-  next: () => void;
-  setInput: React.Dispatch<SignupRequest>;
+  nextStep: () => void;
+  setInput: React.Dispatch<React.SetStateAction<SignupRequest>>;
   input: SignupRequest;
 }) {
   const [pwcheck, setpwCheck] = useState('');
@@ -25,15 +25,6 @@ export default function Step3({
     setpwCheck(value);
   }
 
-  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const { id, textContent } = event.currentTarget;
-    const value = textContent === '박사' ? 'DOCTER' : 'MASTER';
-    setInput({
-      ...input,
-      [id]: value,
-    });
-  };
-
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
     setInput({
@@ -42,23 +33,17 @@ export default function Step3({
     });
   }
 
-
   async function handleRegister() {
-    const response = await apiSignup({ ...input, student_id: "asdf", code: "asdf" } as SignupRequest);
+    const response = await apiSignup({ ...input  } as SignupRequest);
     
       if (response.status === "SUCCESS") {
         window.alert('회원가입이 완료되었습니다.');
-        next();
+        nextStep();
       } else {
         window.alert('회원가입에 실패했습니다.');
       }
   }
 
-  const [ispwValid, setIspwValid] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIspwValid(pwcheck !== '' && pwcheck === input.password);
-  }, [pwcheck, input.password]);
 
   return (
     <HStack gap="20px">
@@ -95,8 +80,7 @@ export default function Step3({
         value={pwcheck}
         placeholder="비밀번호를 다시 입력해주세요"
         onChange={handlepwCheck}
-        errorMessage="비밀번호가 일치하지 않습니다"
-        isError={!ispwValid}
+        errorMessage={input.password !== pwcheck || pwcheck === '' ? "비밀번호가 일치하지 않습니다" : ""}
         autoFocus
       />
       <span className="text-xl" style={{ marginTop: '10px' }}>
@@ -115,7 +99,7 @@ export default function Step3({
       <Input
         required
         type="text"
-        id="studentId"
+        id="student_id"
         label="학번"
         onChange={handleInput}
         style={{ width: '100%', marginBottom: '10px' }}
@@ -134,12 +118,16 @@ export default function Step3({
       <span className="text-xl">학위 / 학기</span>
       <VStack style={{ justifyContent: 'space-between', marginBottom: '40px' }}>
         <VStack gap="10px">
-          <Button id="degree" kind="outline" variant="contained" color="primary" onClick={handleButtonClick}>
-            <span className="text-xl" style={{ margin: '5px 30px' }}>
+          <Button id="degree" kind={input.degree === "MASTER" ? "filled" : "outline"} variant="contained" color="primary" onClick={() => setInput((input : SignupRequest) => {
+            return { ...input, degree: "MASTER" };
+            })} >
+            <span className="text-xl" style={{ margin: '5px 30px' }} >
               석사
             </span>
           </Button>
-          <Button id="degree" kind="outline" variant="contained" color="primary" onClick={handleButtonClick}>
+          <Button id="degree" kind={input.degree === "DOCTOR" ? "filled" : "outline"} variant="contained" color="primary" onClick={() => setInput((input : SignupRequest) => {
+            return { ...input, degree: "DOCTOR" };
+            })}>
             <span className="text-xl" style={{ margin: '5px 30px' }}>
               박사
             </span>

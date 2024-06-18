@@ -3,7 +3,7 @@ import { VStack, HStack } from "@/components/basic/stack";
 import Button from "@/components/basic/button";
 import Checkbox from "@/components/basic/checkbok";
 
-export default function Step0({ next }: { next: () => void }) {
+export default function Step0({ nextStep }: { nextStep: () => void }) {
   const [agreements, setAgreements] = useState({
     termsAgreed: false,
     personalInfoAgreed: false,
@@ -94,7 +94,7 @@ export default function Step0({ next }: { next: () => void }) {
         disabled={!allAgreed}
         variant="contained"
         color="primary"
-        onClick={() => (allAgreed ? next() : undefined)}
+        onClick={() => (allAgreed ? nextStep() : undefined)}
       >
         회원가입
       </Button>

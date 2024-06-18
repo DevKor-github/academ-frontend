@@ -30,16 +30,18 @@ export default function RegisterPage() {
   });
 
   const pages = [
-    <Step0 key={0} next={() => setRate(rate + 1)} />,
+    <Step0 key={0} nextStep={() => setRate(rate + 1)} />,
     <Step1
       key={1}
-      next={() => setRate(rate + 1)}
+      nextStep={() => setRate(rate + 1)}
       input={input}
       setInput={setInput}
     />,
-    <Step2 key={2} next={() => setRate(rate + 1)}  input={input} />,
+    <Step2 key={2} nextStep={() => setRate(rate + 1)} input={input}
+      setInput={setInput}
+    />,
     <Step3 key={3}
-      next={() => setRate(rate + 1)}
+      nextStep={() => setRate(rate + 1)}
       input={input}
       setInput={setInput}
     />,
