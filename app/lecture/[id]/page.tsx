@@ -25,7 +25,7 @@ export default function LecturePage({ params: { id } }: { params: { id: number }
         }
         setLoading(false);
       })
-  });
+  }, []);
 
   if (loading) {
     return <main className='w-full h-full'><LectureLoading /></main>

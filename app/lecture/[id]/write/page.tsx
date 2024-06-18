@@ -17,7 +17,6 @@ export default function WritePage({ params: { id } }: { params: { id: number } }
   const [loading, setLoading] = useState<boolean>(true);
 
   const [course, setCourse] = useState<Course | null>(null);
-
   
   const route = useRouter();
 
@@ -52,7 +51,7 @@ export default function WritePage({ params: { id } }: { params: { id: number } }
       }
     )
     
-  });
+  }, []);
 
   if (loading) {
     return <WriteLoading />;
