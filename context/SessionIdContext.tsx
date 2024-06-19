@@ -5,6 +5,7 @@ import { createContext, useContext, useState, useEffect, ReactNode, useLayoutEff
 import { apiLogout } from '@/lib/api/login';
 import { apiCheckLogin } from '@/lib/api/login';
 import { UserProfile } from '@/lib/models/user';
+import { Try } from '@/lib/types/result';
 
 type SessionId = UserProfile | null;
 
@@ -52,13 +53,8 @@ const useTabTracker = () => {
 
 export function SessionIdProvider({ children }: SessionIdProviderProps) {
 
-
-  const [internalSessionId, setInternalSessionId] = useState<SessionId | null>(
-    JSON.parse(globalThis?.localStorage?.getItem(keyForStorage) || 'null')
-  );
-
   const [sessionId, setSessionId] = useState<SessionId | null>(
-    JSON.parse(globalThis?.localStorage?.getItem(keyForStorage) || 'null')
+    Try(() => JSON.parse(globalThis?.localStorage?.getItem(keyForStorage) || 'null')).unwrapOrElse(() => null)
   );
 
   useTabTracker();
@@ -67,7 +63,7 @@ export function SessionIdProvider({ children }: SessionIdProviderProps) {
     apiCheckLogin({}).then(
       (a) => {
         if (a.status === "SUCCESS") {
-          setInternalSessionId(a.data);
+          setSessionId(a.data);
           localStorage.setItem(keyForStorage, JSON.stringify(a.data));
         }
         else {
@@ -75,12 +71,12 @@ export function SessionIdProvider({ children }: SessionIdProviderProps) {
             alert("세션이 만료되었습니다. 다시 로그인해주세요")
           }
           localStorage.removeItem(keyForStorage);
-          setInternalSessionId(null);
+          setSessionId(null);
         }
       }
     )
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sessionId]);
+  }, []);
 
-  return <SessionIdContext.Provider value={{ sessionId : internalSessionId, setSessionId }}>{children}</SessionIdContext.Provider>;
+  return <SessionIdContext.Provider value={{ sessionId : sessionId, setSessionId }}>{children}</SessionIdContext.Provider>;
 }
