@@ -6,7 +6,7 @@ interface TextFieldProps extends React.DetailedHTMLProps<React.HTMLAttributes<HT
   placeholder?: string;
   value: string;
   name?: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   errorMessage?: string;
   subMessage?: string;
   isError?: boolean;
