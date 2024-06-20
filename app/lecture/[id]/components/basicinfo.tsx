@@ -23,7 +23,7 @@ export default function BasicInfoView({ course }: { course: Course }) {
       }}
       gap="24px"
     >
-      <LectureIcon code={course.course_code} />
+      <LectureIcon kind="BIG" code={course.course_code} />
       <HStack gap="10px">
         <VStack gap="10px" style={{ alignItems: 'center', flexWrap: 'wrap' }}>
           <span className='text-3xl'>{course.name}</span>
