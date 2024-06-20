@@ -21,6 +21,7 @@ export interface LoginRequest {
   "remember-me": boolean,
 }
 
+// build가 맞음
 export const apiLogin = build<LoginRequest, null>("POST", "/api/login", [400, 404, 401], {
   headers: { 'content-type': 'application/x-www-form-urlencoded' },
 });
@@ -30,6 +31,7 @@ export interface ReqeustWithEmail {
   email: string,
 }
 
+// build가 맞음
 export const apiSendEmail = build<ReqeustWithEmail, unknown>("GET", "/api/signup/send-email", [400, 404, 401]);
 
 export interface CheckEmailReqeust {
@@ -37,7 +39,10 @@ export interface CheckEmailReqeust {
   code: string,
 }
 
+// build가 맞음
 export const apiCheckEmail = build<CheckEmailReqeust, unknown>("GET", "/api/signup/check-email", [400, 404, 401]);
+
+// build가 맞음
 export const apiResetPassword = build<ReqeustWithEmail, unknown>("GET", "/api/login/reset-password", [400, 404, 401]);
 export const apiCheckLogin = build<{}, UserProfile>("GET", "/api/login/check-login", [400, 404, 401]);
 
