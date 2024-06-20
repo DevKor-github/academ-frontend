@@ -1,19 +1,15 @@
 "use client";
 
-import { useLayoutEffect } from "react"
-
 import { apiCourseDetail, apiStartNewComment } from "@/lib/api/search";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 
 import WriteComment from "./write";
-import WriteError from "./err";
 
 import { Course } from "@/lib/models/course";
+import ErrorTemplate from "@/lib/template";
 
 export default async function WritePage({ params: { id } }: { params: { id: number } }) {
   
-  const course : Course | null = await apiStartNewComment({ course_id: id }).then(
+  const course : Course | number = await apiStartNewComment({ course_id: id }).then(
     (a) => {
       if (a.status === "SUCCESS") {
         if (a.code === 200) {
@@ -22,26 +18,29 @@ export default async function WritePage({ params: { id } }: { params: { id: numb
               if (a.status === "SUCCESS") {
                 return(a.data);
               }
+              else if (a.status === "ERROR") {
+                return a.code;
+              }
               else {
-                return(null);
+                return -1
               }
             }
           )
         }
         else {
-          return(null);
+          return -1;
         }
       }
       else if (a.status === "ERROR") {
-        return (null);
+        return a.code
       }
       else {
-        return (null);
+        return -1;
       }
     }
   );
 
-  return course !== null ?
-      <WriteComment course={course} />
-      : <WriteError code={-1} />;
+  return typeof course === 'number' ?
+    <ErrorTemplate title={course.toString()} subtitle="강의평을 작성할 수 없습니다. 해당 상태 코드와 함께 실패하였습니다." />
+    : <WriteComment course={course} />;
 }
