@@ -49,11 +49,10 @@ function failWith(data : "NO_RES" | "NO_REQ" | "FAIL_RES", message: string) : Ap
 }
 
 export function build<Req, Res>(method: "POST" | "GET", path: string, allowedStatus: number[], config? : AxiosRequestConfig) {
-  return async function (req: Req): Promise<ApiResponse<Res>> {
+  return async function (req: Req, ): Promise<ApiResponse<Res>> {
 
       const ret = (method === "POST" ? backend
-        .post(path, req,
-          {
+        .post(path, req,{
             ...{validateStatus: (status: number) => status >= 200 && status < 300 || allowedStatus.includes(status)},
             ...config
           }) : backend.get(buildUrlWithParams(path, req as Record<string, string | number>),

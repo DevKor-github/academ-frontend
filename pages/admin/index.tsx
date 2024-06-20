@@ -1,38 +1,26 @@
 import { GetServerSidePropsContext } from "next";
-import { useRouter } from "next/navigation";
 import CommonLayout from "@/components/commonLayout/commonLayout";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { SessionIdProvider } from "@/context/SessionIdContext";
 
 import '@/app/globals.css';
 
+import AdminPageInner from './inner';
 
-export default function AdminPage({ isAdmin }: { isAdmin: boolean }) {
-  const router = useRouter();
-
-
-  if (!isAdmin) {
-
-    router.replace('/404');
-    return null; // 로딩 상태 또는 아무것도 렌더링하지 않음
-
-
-    
-  }
+export default function AdminPage() {
 
   return (
     <SessionIdProvider>
     <ThemeProvider>
-    <CommonLayout>
-          <div>
-            <h1>Admin Page</h1>
-            <p>Welcome, Admin!</p>
-        </div>
+      <CommonLayout>
+          <AdminPageInner />
       </CommonLayout>
-      </ThemeProvider>
-      </SessionIdProvider>
+    </ThemeProvider>
+    </SessionIdProvider>
   );
 }
+
+
 
 export async function getServerSideProps(context : GetServerSidePropsContext) {
   const { req } = context;
