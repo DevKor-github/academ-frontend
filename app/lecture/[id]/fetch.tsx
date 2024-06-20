@@ -6,10 +6,6 @@ import { Course } from '@/lib/models/course';
 
 import LectureView from './main';
 
-
-import { HStack, VStack } from "@/components/basic/stack"
-import Link from "next/link"
-import Button from "@/components/basic/button"
 import { ApiResponse } from '@/lib/api/builder/backend';
 import ErrorTemplate from '@/lib/template';
 
@@ -31,7 +27,6 @@ export default async function Page({ params: { id } }: { params: { id: number } 
           <ErrorTemplate title={a.code.toString()} subtitle={a.message} />
           :
           <ErrorTemplate title="!" subtitle="알 수 없는 오류가 발생했습니다." />
-
       ) :
         <LectureView course={course} />
       }
