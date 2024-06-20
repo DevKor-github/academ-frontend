@@ -3,6 +3,7 @@ import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
 import { Course } from '@/lib/models/course';
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
+import LectureIcon from '@/components/composite/lectureIcon';
 
 type RenderType<T, NewType> = {
   [P in keyof T]: T[P] extends number ? T[P] : NewType;
@@ -22,15 +23,7 @@ export default function BasicInfoView({ course }: { course: Course }) {
       }}
       gap="24px"
     >
-      <div
-        style={{
-          height: '80px',
-          width: '80px',
-          aspectRatio: 1,
-          borderRadius: '52px',
-          background: '#d9d9d9',
-        }}
-      />
+      <LectureIcon kind="BIG" code={course.course_code} />
       <HStack gap="10px">
         <VStack gap="10px" style={{ alignItems: 'center', flexWrap: 'wrap' }}>
           <span className='text-3xl'>{course.name}</span>

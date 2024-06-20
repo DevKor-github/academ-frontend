@@ -33,8 +33,6 @@ body {
 * {
   --accent: #dc143c;
   box-sizing: border-box;
-  /* user-select: none; */
-  font-size: inherit;
 }
 
 html,

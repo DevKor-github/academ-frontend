@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, ChangeEvent } from "react";
 import { VStack, HStack } from "@/components/basic/stack";
 import Button from "@/components/basic/button";

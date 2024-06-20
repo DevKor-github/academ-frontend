@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, } from "react";
 
 import { HStack, VStack } from "@/components/basic/stack";
@@ -6,6 +8,8 @@ import { apiSignup } from "@/lib/api/login";
 import TextField from "@/components/basic/textfield";
 import Button from "@/components/basic/button";
 import Input from "@/components/basic/input";
+
+import ErrorLabel from "@/components/basic/errorlabel";
 
 import { SignupRequest } from "@/lib/api/login";
 
@@ -35,9 +39,8 @@ export default function Step3({
 
   async function handleRegister() {
     const response = await apiSignup({ ...input  } as SignupRequest);
-    
+  
       if (response.status === "SUCCESS") {
-        window.alert('회원가입이 완료되었습니다.');
         nextStep();
       } else {
         window.alert('회원가입에 실패했습니다.');
@@ -47,9 +50,9 @@ export default function Step3({
 
   return (
     <HStack gap="20px">
-      <span className="text-xl">회원가입</span>
-      <span className="text-xl">ACADEM에 오신걸 환영합니다!</span>
+      <span className="text-4xl">회원가입</span>
       <span className="text-xl" style={{ marginBottom: '60px' }}>
+      ACADEM에 오신걸 환영합니다!<br />
         회원 정보를 입력해주세요.
       </span>
       <span className="text-xl">아이디</span>
@@ -80,9 +83,9 @@ export default function Step3({
         value={pwcheck}
         placeholder="비밀번호를 다시 입력해주세요"
         onChange={handlepwCheck}
-        errorMessage={input.password !== pwcheck || pwcheck === '' ? "비밀번호가 일치하지 않습니다" : ""}
         autoFocus
       />
+      <ErrorLabel label={input.password !== pwcheck || pwcheck === '' ? "비밀번호가 일치하지 않습니다" : ""} />
       <span className="text-xl" style={{ marginTop: '10px' }}>
         닉네임
       </span>

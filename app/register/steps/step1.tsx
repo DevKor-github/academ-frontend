@@ -1,9 +1,11 @@
+"use client";
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import Button from "@/components/basic/button";
 import Input from "@/components/basic/input";
+import ErrorLabel from "@/components/basic/errorlabel";
 
 import { HStack, VStack } from "@/components/basic/stack";
 
@@ -27,6 +29,8 @@ export default function Step1({
 }) {
 
   const route = useRouter();
+  
+  
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
@@ -35,9 +39,9 @@ export default function Step1({
       [event.target.id]: value,
     });
   }
-  
-  const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
 
+  const [error, setError] = useState<string>('');
+  const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
@@ -55,19 +59,19 @@ export default function Step1({
       setInput({ ...input, [input.email]: id.slice(0, -12) });
       nextStep();
     } else {
-      window.alert('인증번호 발송을 실패하였습니다. 회원가입을 다시 진행해주십시오.');
-      route.push('/login');
+      setError('인증번호 발송을 실패하였습니다. 잠시 후 다시 시도해주세요. 계속해서 실패하는 경우 서버 상의 문제일 수 있습니다.');
     }
   }
 
   return (
     <HStack gap="20px">
-      <span className="text-xl">환영합니다!</span>
-      <span className="text-xl">고려대학교 이메일로 학생인증을 해주세요.</span>
+      <span className="text-4xl">환영합니다!</span>
+      <span className="text-2xl">고려대학교 이메일로 학생인증을 해주세요.</span>
       <Input required type="email" id="email" label="example@korea.ac.kr" onChange={handleInput} autoFocus />
+      <ErrorLabel className="text-primary-500" label={error} />
       <VStack className="w-full h-fit justify-end" gap="36px">
         {loading ?
-          <Spinner scale="48px" />
+          <Spinner scale="24px" />
           :
             <Button
               kind="outline"
@@ -78,7 +82,7 @@ export default function Step1({
               onClick={isEmailValid ? handleSendEmail : () => undefined}
             >
               다음&nbsp;
-            <RightIcon scale="16px" />
+            <RightIcon />
           </Button>
         }
         </VStack>

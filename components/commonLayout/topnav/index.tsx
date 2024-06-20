@@ -13,7 +13,7 @@ function TopNavInnerLeft() {
   return (
     <Link href="/" className='items-center justify-start flex text-black dark:text-white' style={{height: '64px', width : '108px'}}>
       <Button kind='blank'>
-        <LogoIconRich width={`${150 * 0.6}px`} height={`${39 * 0.6}px`} />
+        <LogoIconRich />
       </Button>
     </Link>
   );
@@ -32,7 +32,7 @@ const TopNavInnerMid = ({ location, spreaded, setSpreaded }: { location: string,
   >
       <div className='md:hidden'>
         <Button kind='blank' style={{minHeight : '64px' }} onClick={() => setSpreaded(!spreaded)}>
-            {spreaded ? <UpIcon scale="24px" /> : <DownIcon scale="24px" />}
+            {spreaded ? <UpIcon /> : <DownIcon />}
         </Button>
       </div>
       <Link href="/lecture">

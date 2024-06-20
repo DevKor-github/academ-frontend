@@ -4,7 +4,7 @@ interface RadioProps {
   id?: string;
   value?: boolean;
   label: string;
-  onClick: (event: never) => unknown;
+  onClick?: (event: never) => unknown;
   [key: string]: unknown;
 }
 
