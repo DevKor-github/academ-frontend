@@ -1,11 +1,9 @@
-interface SizeProp extends React.SVGProps<SVGSVGElement> {
+export interface SquareIconSize extends React.SVGProps<SVGSVGElement> {
   id?: string;
   scale: string;
 }
 
-
-
-export const CloseIcon = ({ width, height, ...props }: SizeProp) => (
+export const CloseIcon = ({ width, height, ...props }: SquareIconSize) => (
   <svg
     className="stroke-neutral-950 dark:stroke-neutral-50"
     viewBox="0 0 32 32"
@@ -23,13 +21,13 @@ export const LeftIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-export const RightIcon = ({scale}: SizeProp) => (
+export const RightIcon = ({scale}: SquareIconSize) => (
   <svg xmlns="http://www.w3.org/2000/svg" fill="none" width={scale} height={scale} viewBox="0 0 22 22" >
     <path stroke="currentColor" strokeLinecap="square" strokeWidth="1.5" d="m2 2 10 9.5L2 21" />
   </svg>
 );
 
-export const DownIcon = ({ scale  }: SizeProp) => (
+export const DownIcon = ({ scale  }: SquareIconSize) => (
   <svg
     stroke="currentColor"
     xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +39,7 @@ export const DownIcon = ({ scale  }: SizeProp) => (
   </svg>
 );
 
-export const UpIcon = ({ scale }: SizeProp) => (
+export const UpIcon = ({ scale }: SquareIconSize) => (
   <svg
     stroke="currentColor"
     xmlns="http://www.w3.org/2000/svg"
@@ -142,13 +140,13 @@ export const LogoIconRich = ({
   </svg>
 );
 
-export const BookmarkIcon = ({ scale }: SizeProp) => (
+export const BookmarkIcon = ({ scale }: SquareIconSize) => (
   <svg stroke="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={(scale)} height={(scale)}>
     <path d="M6 2h12a2 2 0 0 1 2 2v18l-8-3-8 3V4a2 2 0 0 1 2-2z" fill="currentColor" />
   </svg>
 );
 
-export const CheckIcon = ({ scale }: SizeProp) => (
+export const CheckIcon = ({ scale }: SquareIconSize) => (
   <svg width={(scale)} height={(scale)} viewBox="1.5 0 25.5 24">
     <path fill="none" d="M5 13l4 4L19 7" />
   </svg>
@@ -182,7 +180,7 @@ export const FinishIcon = () => (
   </svg>
 );
 
-export const BookIcon = ({ scale }: SizeProp) => (
+export const BookIcon = ({ scale }: SquareIconSize) => (
   <svg width={scale} height={scale} viewBox="0 0 30 28" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M1 1H9.4C10.8852 1 12.3096 1.60873 13.3598 2.69227C14.41 3.77582 15 5.24542 15 6.77778V27C15 25.8507 14.5575 24.7485 13.7698 23.9359C12.9822 23.1232 11.9139 22.6667 10.8 22.6667H1V1Z"
