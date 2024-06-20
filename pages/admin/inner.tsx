@@ -54,12 +54,7 @@ export default function AdminPageInner() {
     <h2 className=" text-xl  pb-2">대학원용 강의 데이터베이스 추가</h2>
     <form className="pt-2 pb-2 gap-2 flex flex-col w-96" action="/upload" method="post" encType="multipart/form-data" onSubmit={handleSubmit} >
       <input className="w-fill" type="file" id="file" name="file" onChange={handleFileChange} />
-      {
-        loading ?
-          <Spinner scale="32px" />
-          :
-          <Button disabled={jsonContent === null} type="submit" >업로드</Button>
-      }
+          <Button disabled={jsonContent === null || loading} type="submit" >{ loading ? <Spinner scale="32px" /> : "업로드"}</Button>
     </form>
   </main>
 }
