@@ -1,4 +1,9 @@
-.starClipped {
+.starClipped5 {
   background-color: grey;
-  clip-path: url('#star-shape');
+  clip-path: url('#star-shape-5');
+}
+
+.starClipped1 {
+  background-color: grey;
+  clip-path: url('#star-shape-1');
 }

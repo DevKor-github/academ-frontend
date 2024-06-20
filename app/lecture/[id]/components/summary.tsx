@@ -12,11 +12,21 @@ function Stars({ rate0to5 }: { rate0to5: number }) {
 
   return (
     <VStack style={{ paddingBottom: '8px' }}>
-      <StarIcon width={size} height={size} fill={rate0to5 >= 1 ? 'var(--accent)' : 'var(--dbdbdb)'} />
-      <StarIcon width={size} height={size} fill={rate0to5 >= 2 ? 'var(--accent)' : 'var(--dbdbdb)'} />
-      <StarIcon width={size} height={size} fill={rate0to5 >= 3 ? 'var(--accent)' : 'var(--dbdbdb)'} />
-      <StarIcon width={size} height={size} fill={rate0to5 >= 4 ? 'var(--accent)' : 'var(--dbdbdb)'} />
-      <StarIcon width={size} height={size} fill={rate0to5 >= 5 ? 'var(--accent)' : 'var(--dbdbdb)'} />
+      <span className={rate0to5 >= 1 ? 'red' : 'grey'}>
+      <StarIcon />
+      </span>
+      <span className={rate0to5 >= 2 ? 'red' : 'grey'}>
+      <StarIcon />
+      </span>
+      <span className={rate0to5 >= 3 ? 'red' : 'grey'}>
+      <StarIcon />
+      </span>
+      <span className={rate0to5 >= 4 ? 'red' : 'grey'}>
+      <StarIcon />
+      </span>
+      <span className={rate0to5 >= 5 ? 'red' : 'grey'}>
+      <StarIcon />
+      </span>
     </VStack>
   );
 }
@@ -87,13 +97,13 @@ export function CriteriaIndicator({ name, low, high, rate, style }: CriteriaIndi
 }
 
 
-function Criteria() {
+function Criteria({course} : {course : Course}) {
   return (
     <HStack className='border-neutral-200 border' style={{  borderRadius: '20px', padding: '80px 40px', width: '480px', maxWidth: '100%' }}>
-        <CriteriaIndicator name="학습량" low="1" high="5" rate={1.5}  />
-        <CriteriaIndicator name="성적" low="낮음" high="높음" rate={1.5} />
-        <CriteriaIndicator name="강의력" low="나쁨" high="좋음" rate={1.5} />
-        <CriteriaIndicator name="난이도" low="낮음" high="높음" rate={1.5}  />
+        <CriteriaIndicator name="학습량" low="1" high="5" rate={course.avg_r1_amount_of_studying}  />
+        <CriteriaIndicator name="성적" low="낮음" high="높음" rate={course.avg_r2_difficulty} />
+        <CriteriaIndicator name="강의력" low="나쁨" high="좋음" rate={course.avg_r3_delivery_power} />
+        <CriteriaIndicator name="난이도" low="낮음" high="높음" rate={course.avg_r4_grading}  />
     </HStack>
   );
 }
@@ -108,7 +118,7 @@ export default function SummaryView( {course} : {course : Course}) {
         style={{ rowGap:'20px', justifyContent: 'space-evenly', flexWrap: 'wrap', alignItems: 'start', margin: '20px 0px' }}
       >
         <RateSummary course={course} />
-        <Criteria />
+        <Criteria course={course} />
       </VStack>
     </HStack>
   );

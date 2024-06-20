@@ -32,7 +32,7 @@ const TopNavInnerMid = ({ location, spreaded, setSpreaded }: { location: string,
   >
       <div className='md:hidden'>
         <Button kind='blank' style={{minHeight : '64px' }} onClick={() => setSpreaded(!spreaded)}>
-            {spreaded ? <UpIcon scale="24px" /> : <DownIcon scale="24px" />}
+            {spreaded ? <UpIcon /> : <DownIcon />}
         </Button>
       </div>
       <Link href="/lecture">

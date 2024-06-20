@@ -11,7 +11,7 @@ export default function BookmarkToggleButton({ id } : { id: number }) {
   
   return <span className={b ? "text-primary-500" : "text-neutral-400 dark:text-neutral-600"}>
     <Button kind='blank' onClick={() => setB(!b)}>
-      <BookmarkIcon scale="1.5rem" className="" />
+      <BookmarkIcon />
     </Button>
   </span>;
   

@@ -82,7 +82,7 @@ export default function Step1({
               onClick={isEmailValid ? handleSendEmail : () => undefined}
             >
               다음&nbsp;
-            <RightIcon scale="16px" />
+            <RightIcon />
           </Button>
         }
         </VStack>

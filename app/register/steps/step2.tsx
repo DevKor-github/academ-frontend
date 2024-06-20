@@ -63,7 +63,7 @@ export default function Step2({
               onClick={handleCode}
             >
               다음&nbsp;
-            <RightIcon scale="16px" />
+            <RightIcon />
           </Button>
         </VStack>
     </HStack>
