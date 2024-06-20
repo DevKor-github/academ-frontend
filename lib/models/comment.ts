@@ -1,6 +1,7 @@
 export interface Comment {
   "comment_id": number,
-  "profile_username": string,
+  "username": string,
+  "profile_id": number,
   "rating": number,
   "r1_amount_of_studying": number,
   "r2_difficulty": number,

@@ -11,8 +11,8 @@ export interface CourseRelatedRequest {
   course_id: number;
 }
 
-export type CommentNewReq = Omit<Comment, "profile_username" | "created_at" | "updated_at" | "likes" | "comment_id"> & { "course_id" : number };
-export type CommentEditReq = Omit<Comment, "profile_username" | "created_at" | "updated_at" | "likes">;
+export type CommentNewReq = Omit<Comment, "username" | "profile_id" | "created_at" | "updated_at" | "likes" | "comment_id"> & { "course_id" : number };
+export type CommentEditReq = Omit<Comment, "username" | "profile_id" | "created_at" | "updated_at" | "likes">;
 
 export type CommentMeet = Comment & CommentNewReq & CommentEditReq;
 export type CommentJoin = Comment | CommentNewReq | CommentEditReq;
