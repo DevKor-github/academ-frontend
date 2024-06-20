@@ -5,16 +5,15 @@ import { useSessionId } from "@/context/SessionIdContext";
 
 import { useState } from "react";
 
-import styles from '../index.module.css';
-
 import Button from "@/components/basic/button";
 import Popover from "@/components/basic/popover";
 import Link from "next/link";
 import { HStack } from "@/components/basic/stack";
 
 function ProfilePopover({ setOpenPopover } : { setOpenPopover : (b : boolean) => void }) {
-  return <Popover onPageClick={() => setOpenPopover(false)} className={"absolute rounded-lg overflow-hidden border bg-l dark:bg-black border-neutral-600 right-2 md:right-8 top-16 "}>
-    <HStack className="justify-center items-center" style={{ borderRadius: '12px' }}>
+  return <Popover onPageClick={() => setOpenPopover(false)} className={"absolute rounded-lg overflow-hidden border bg-l bg-white dark:bg-black border-light-back-2 right-2 md:right-8 top-14 shadow-lg "}
+  style={{zIndex: 100}}>
+    <HStack className="justify-center items-center rounded-xl">
       <Link href="/mypage">
         <Button kind='blank'  >마이페이지</Button>
       </Link>

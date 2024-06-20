@@ -8,8 +8,9 @@ import { useSessionId } from '../../context/SessionIdContext';
 
 import Button from '@/components/basic/button';
 import Radio from '@/components/basic/radio';
-import TextField from '@/components/basic/textfield';
+import Input from '@/components/basic/input';
 import { apiLogin, apiCheckLogin } from '@/lib/api/login';
+import ErrorLabel from '@/components/basic/errorlabel';
 
 export default function LoginPageClient() {
   const [input, setInput] = useState({
@@ -23,7 +24,7 @@ export default function LoginPageClient() {
   const { setSessionId } = useSessionId();
 
   const [saveLoginInfo, setSaveLoginInfo] = useState(false);
-  const [loginError, setLoginError] = useState(false);
+  const [loginError, setLoginError] = useState('');
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     setInput({
@@ -43,15 +44,17 @@ export default function LoginPageClient() {
                   return route.push('/');
                 }
                 else {
-                  alert("로그인을 완료하였으나 사용자 정보 획득에 실패하였습니다. 이 상황은 일반적이지 않습니다. 다시 시도해주세요.");
+                  setLoginError("로그인을 완료하였으나 사용자 정보 획득에 실패하였습니다. 이 상황은 일반적이지 않습니다. 다시 시도해주세요.");
                   setSessionId(null);
                 }
               }
             )
           }
-          else {
-            setLoginError(true);
-            return;
+          else if (s.status === "ERROR") {
+            setLoginError("로그인에 실패했습니다. 없는 계정이거나 비밀번호가 일치하지 않습니다.")
+          }
+            else {
+            setLoginError(s.message);
           }
         }
       )
@@ -67,7 +70,7 @@ export default function LoginPageClient() {
         >
           <HStack gap="48px">
             <HStack gap="16px">
-              <TextField
+              <Input
                 required
                 id="email"
                 placeholder="이메일을 입력해주세요"
@@ -75,16 +78,17 @@ export default function LoginPageClient() {
                 value={input.email}
                 style={{ padding: '16px' }}
               />
-              <TextField
+              <Input
                 required
                 id="password"
                 type="password"
                 placeholder="비밀번호를 입력해주세요"
                 onChange={handleInput}
-                errorMessage={loginError ? '이메일 주소 또는 비밀번호가 일치하지 않습니다.' : ''}
                 value={input.password}
                 style={{ padding: '16px' }}
-              />
+          />
+              <ErrorLabel className='text-primary-500' label={loginError} />
+        
               <VStack className='pt-4 pb-4 items-center justify-between'>
                 <Radio
                   id="save"
@@ -98,10 +102,11 @@ export default function LoginPageClient() {
                   label="로그인 정보 저장"
                 />
                 <A href="/login/find-password">비밀번호 찾기</A>
-              </VStack>
+            </VStack>
             </HStack>
 
             <HStack style={{}} gap="20px">
+          
               <Button
                 type="submit"
                 kind="filled"
