@@ -2,7 +2,7 @@ import { VStack, HStack } from "@/components/basic/stack";
 import Tag from "@/components/basic/tag";
 import Skeleton from "@/components/composite/skeleton";
 
-export default function WriteLoading() {
+export default function EditLoading() {
   return <HStack className='w-full h-full'><VStack
     className={` pl-8 pr-8 border-b-black bg-neutral-50 dark:bg-neutral-950`}
     style={{
