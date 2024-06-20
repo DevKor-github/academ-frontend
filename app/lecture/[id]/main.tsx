@@ -5,7 +5,6 @@ import { HStack, VStack } from '@/components/basic/stack';
 import BasicInfoView from './components/basicinfo';
 import CommentsView from './components/comments';
 import SummaryView from './components/summary';
-import Button from '@/components/basic/button';
 
 import { Course } from '@/lib/models/course';
 import Link from 'next/link';

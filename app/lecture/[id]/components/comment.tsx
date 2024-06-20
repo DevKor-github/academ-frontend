@@ -11,6 +11,7 @@ import { useApiStartUpdateComment } from '@/lib/api/search';
 
 import { apiDeleteComment } from '@/lib/api/search';
 import Link from 'next/link';
+import { useSessionId } from '@/context/SessionIdContext';
 
 function quaternary<T>(that : number, standard : number, gt: T, eq: T, lt: T) {
   if (that === standard) {
@@ -84,7 +85,7 @@ function Right({ editable, comment, setDel }: { editable: boolean, comment: Comm
         gap: '4px',
       }}
     >
-      <span>닉네임 {comment.profile_username}</span>
+      <span>닉네임 {comment.username}</span>
       <span>작성일 {comment.updated_at}</span>
     
       {getTag(comment).flatMap((v, i) => <Tag key={i}>{v}</Tag>)}
@@ -126,18 +127,16 @@ function Right({ editable, comment, setDel }: { editable: boolean, comment: Comm
 }
 
 export default function CommentView({ comment }: { comment: Comment }) {
+
+  const sessionId = useSessionId();
  
-  const editable = useApiStartUpdateComment({ comment_id: comment.comment_id });
+  const editable = comment.profile_id === sessionId.sessionId?.profile_id;
 
   const [ del, setDel ] = useState<boolean>(false);
-  
-  if (editable === null) {
-    return <div>로딩중..</div>;
-  }
 
   return <div className={`${del? 'hidden' : ''} flex flex-col md:flex-row bg-white mt-3 p-8 rounded-3xl gap-5 border border-neutral-300`}>
     <Left comment={comment} />
-    <Right comment={comment} editable={editable.status === "SUCCESS" && editable.code === 200} setDel={setDel} />
+    <Right comment={comment} editable={editable} setDel={setDel} />
   </div>;
 }
 

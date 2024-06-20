@@ -10,10 +10,6 @@ export default function EditComment({ comment, courseName }: { comment: CommentE
 
   const [submitted, setSubmitted] = useState<boolean | null>(null); 
 
-  useEffect(() => {
-    alert(JSON.stringify(comment));
-  },[]);
-
   function handleSubmit() {
     if (confirm(JSON.stringify(input)) == true) {
       apiUpdateComment(input).then(
