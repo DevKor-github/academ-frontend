@@ -13,7 +13,7 @@ function TopNavInnerLeft() {
   return (
     <Link href="/" className='items-center justify-start flex text-black dark:text-white' style={{height: '64px', width : '108px'}}>
       <Button kind='blank'>
-        <LogoIconRich width={`${150 * 0.6}px`} height={`${39 * 0.6}px`} />
+        <LogoIconRich />
       </Button>
     </Link>
   );

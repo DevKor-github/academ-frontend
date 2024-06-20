@@ -109,14 +109,11 @@ export const LogoIconBig = () => (
   </svg>
 );
 
-export const LogoIconRich = ({
-  height = '39px',
-  width = '150px',
-}: { height : string, width: string}) => (
+export const LogoIconRich = () => (
   <svg
     stroke="none"
-    width={width}
-    height={height}
+    width="5.77em"
+    height="1.5em"
     viewBox="0 0 150 39"
     xmlns="http://www.w3.org/2000/svg"
   >

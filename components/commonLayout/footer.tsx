@@ -22,10 +22,10 @@ import Link from "next/link";
 import { LogoIconRich } from "@/icons";
 
 export default function Footer() {
-  return <footer className="pl-4 pr-4 md:pl-8 md:pr-8 border-t light:border-light-back-4 dark:border-dark-back-8 light:bg-light-back-1 dark:bg-dark-back-4 pt-8 pb-8">
+  return <footer className=" text-xs pl-4 pr-4 md:pl-8 md:pr-8 border-t light:border-light-back-4 dark:border-dark-back-8 light:bg-light-back-1 dark:bg-dark-back-4 pt-8 pb-8">
     <AdaptiveStack vGap="20px" hGap="24px">
         <Link className="" href="/about">
-          <LogoIconRich width={`${150 * 0.6}px`} height={`${39 * 0.6}px`} />
+          <LogoIconRich />
         </Link>
           <Link href="/policy">
             이용약관
