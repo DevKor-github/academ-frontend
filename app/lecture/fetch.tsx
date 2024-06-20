@@ -2,17 +2,17 @@
 
 import { HStack } from "@/components/basic/stack";
 import styles from './common.module.css'
-import SingleSearchResultView from "./SingleSearchResultView";
+import SearchSingle from "./SearchSingle";
 
-import { apiSearch } from "@/lib/api/search";
+import { useApiSearch } from "@/lib/api/search";
+import { SearchBotLoading } from "./loading";
+
 
 function Box({ children } : {children : React.ReactNode}) {
   return <HStack className='pb-8 pt-8 bg-neutral-50 dark:bg-neutral-950 flex-grow text-xl text-center pl-8 pr-8 md:pl-24 md:pr-24'>{children}</HStack>
 }
 
-export default async function SearchResultsView({ query }: { query: string }) {
-
-
+export default function SearchResultsView({ query }: { query: string }) {
 
   if (query === '') {
     return <Box>
@@ -20,14 +20,18 @@ export default async function SearchResultsView({ query }: { query: string }) {
     </Box>
   }
 
-  const results = await apiSearch({ keyword: query });
+  const results = useApiSearch({ keyword: query });
+
+  if (results === null) {
+    return <SearchBotLoading />
+  }
 
   if (results.status === "SUCCESS") {
     return (
       <Box>
         <div className={styles.container}>
           {results.data.map((course) => (
-            <SingleSearchResultView key={course.course_id} course={course} />
+            <SearchSingle key={course.course_id} course={course} />
           ))}
         </div>
       </Box>

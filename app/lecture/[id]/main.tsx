@@ -11,7 +11,6 @@ import { Course } from '@/lib/models/course';
 import Link from 'next/link';
 
 export default function LectureView({ course }: { course: Course }) {
-
   
   if (course.comments.length === 0) {
     return <HStack className='w-full h-full'>
@@ -25,11 +24,6 @@ export default function LectureView({ course }: { course: Course }) {
   } else {
     return <HStack className='w-full h-full'>
       <BasicInfoView course={course} />
-      <VStack>
-        <Link href={`/lecture/${course.course_id}/write`}><Button>강의평 작성하기</Button></Link>
-        <Link href={`/lecture/${course.course_id}/edit`}><Button>강의평 수정하기</Button></Link>
-        <Link href={`/lecture/${course.course_id}/write`}><Button>강의평 삭제하기</Button></Link>
-      </VStack>
       <SummaryView course={course} />
       <CommentsView course_id={course.course_id} comments={course.comments} />
     </HStack>;

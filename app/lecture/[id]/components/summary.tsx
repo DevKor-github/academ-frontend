@@ -6,33 +6,10 @@ import Progress from '@/components/basic/progress';
 
 import Star5 from '@/components/composite/starIndicator';
 
-
-function Stars({ rate0to5 }: { rate0to5: number }) {
-  const size = '24px';
-
-  return (
-    <VStack style={{ paddingBottom: '8px' }}>
-      <span className={rate0to5 >= 1 ? 'red' : 'grey'}>
-      <StarIcon />
-      </span>
-      <span className={rate0to5 >= 2 ? 'red' : 'grey'}>
-      <StarIcon />
-      </span>
-      <span className={rate0to5 >= 3 ? 'red' : 'grey'}>
-      <StarIcon />
-      </span>
-      <span className={rate0to5 >= 4 ? 'red' : 'grey'}>
-      <StarIcon />
-      </span>
-      <span className={rate0to5 >= 5 ? 'red' : 'grey'}>
-      <StarIcon />
-      </span>
-    </VStack>
-  );
-}
+import { getTagFromCourse } from '@/lib/process/tag';
 
 function RateSummary({course} : {course : Course}) {
-  const tags = ['친절한', '뿌듯한', '과제량이 많은', '뿌듯한', '과제량이 많은'];
+  const tags = getTagFromCourse(course);
 
   return (
     <HStack className='border-neutral-200 border' style={{  borderRadius: '20px', padding: '80px 40px', width: '480px',  maxWidth: '100%'}}>
@@ -62,9 +39,11 @@ function RateSummary({course} : {course : Course}) {
         <Star5 rate={course.avg_rating / 5} px={32} />
       </VStack>
       <VStack style={{ flexWrap: 'wrap', justifyContent: 'start' }}>
-        {tags.map((t) => (
+        {tags.length === 0 ?
+          <span>태그가 없습니다.</span>
+          :(tags.map((t) => (
           <Tag key={t} style={{ margin: '6px 6px 0px 0px' }} >{t}</Tag>
-        ))}
+        )))}
       </VStack>
     </HStack>
   );

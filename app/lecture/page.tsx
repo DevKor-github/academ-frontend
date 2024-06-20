@@ -2,11 +2,15 @@ import SearchForm from '@/components/composite/SearchForm';
 import { HStack, VStack } from '@/components/basic/stack';
 
 
-import dynamic from 'next/dynamic';
-import SearchLoading from './loading';
 
+import { SearchBotLoading } from './loading';
+
+import dynamic from 'next/dynamic';
+
+const SearchResultsView = dynamic(() => import('./fetch'), { ssr: false, loading: SearchBotLoading})
 
 const SearchTopView = ({ query }: { query: string }) => {
+  
   return query ? (
     <VStack
       gap="20px"
@@ -39,7 +43,6 @@ const SearchTopView = ({ query }: { query: string }) => {
   );
 };
 
-const SearchResultsView = dynamic(() => import('./fetch'), { ssr: false, loading: SearchLoading})
 
 export default function SearchPage({ searchParams } : {   searchParams?: { [key: string]: string | string[] | undefined } }) {
 
