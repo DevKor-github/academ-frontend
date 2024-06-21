@@ -7,7 +7,7 @@ export default function Layout({
 }>) {
   
   return (
-    <CommonLayout highlight="/">
+    <CommonLayout>
       {children}
     </CommonLayout>
   );

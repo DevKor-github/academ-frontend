@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface TagProps extends React.PropsWithChildren<{}> {
+interface TagProps extends React.HTMLAttributes<HTMLDivElement> {
   style?: React.CSSProperties;
   [key: string]: unknown;
 }

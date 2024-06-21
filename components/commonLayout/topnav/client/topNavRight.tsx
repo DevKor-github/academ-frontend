@@ -11,7 +11,7 @@ import Link from "next/link";
 import { HStack } from "@/components/basic/stack";
 
 function ProfilePopover({ setOpenPopover } : { setOpenPopover : (b : boolean) => void }) {
-  return <Popover onPageClick={() => setOpenPopover(false)} className={"absolute rounded-lg overflow-hidden border bg-l bg-white dark:bg-black border-light-back-2 right-2 md:right-8 top-14 shadow-lg "}
+  return <Popover onPageClick={() => setOpenPopover(false)} className={"absolute rounded-lg overflow-hidden border bg-l bg-white dark:bg-dark-back-1 border-light-back-2 dark:border-dark-back-4 right-2 md:right-8 top-14 shadow-lg "}
   style={{zIndex: 100}}>
     <HStack className="justify-center items-center rounded-xl">
       <Link href="/mypage">
