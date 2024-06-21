@@ -5,7 +5,6 @@ import { useState, } from "react";
 import { HStack, VStack } from "@/components/basic/stack";
 import { apiSignup } from "@/lib/api/login";
 
-import TextField from "@/components/basic/textfield";
 import Button from "@/components/basic/button";
 import Input from "@/components/basic/input";
 
@@ -76,7 +75,7 @@ export default function Step3({
         style={{ width: '100%', marginBottom: '10px' }}
       />
       <span className="text-xl">비밀번호 확인</span>
-      <TextField
+      <Input
         required
         type="password"
         id="pwcheck"

@@ -1,10 +1,6 @@
-import dynamic from 'next/dynamic.js';
+import dynamic from "next/dynamic";
+import MyPageLoading from "./loading";
 
-function MyPageLoading() {
-  return <main className='w-full h-full p-8'>...</main>;
-}
+const MyPage = dynamic(() => import('./client'), { ssr: false, loading: MyPageLoading });
 
-const ProfilePage =  dynamic(() => import('./client'), { ssr: false, loading : MyPageLoading});
-
-export default ProfilePage
-
+export default MyPage;

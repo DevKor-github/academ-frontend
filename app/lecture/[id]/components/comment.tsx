@@ -7,9 +7,8 @@ import Button from '@/components/basic/button';
 import { Comment } from '@/lib/models/comment'
 import { useState } from 'react';
 
-import { useApiStartUpdateComment } from '@/lib/api/search';
+import { useApiStartUpdateComment, apiDeleteComment } from '@/lib/api/course';
 
-import { apiDeleteComment } from '@/lib/api/search';
 import Link from 'next/link';
 import { useSessionId } from '@/context/SessionIdContext';
 

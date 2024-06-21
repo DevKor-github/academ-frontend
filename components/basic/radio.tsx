@@ -5,6 +5,7 @@ interface RadioProps {
   value?: boolean;
   label: string;
   onClick?: (event: never) => unknown;
+  onChange?: (event: never) => unknown;
   [key: string]: unknown;
 }
 
@@ -14,7 +15,7 @@ function Circle() {
   </svg>;
 }
 
-export default function Radio({ id, value, label, onClick }: RadioProps) {
+export default function Radio({ id, value, label, onClick, onChange }: RadioProps) {
   return (
     <section>
       <span
@@ -30,6 +31,7 @@ export default function Radio({ id, value, label, onClick }: RadioProps) {
           padding: '0px',
         }}
         onClick={onClick}
+        onChange={onChange}
         // {...restProps}
       >
         <input className="accent-primary-500" id={id} role="switch" type="checkbox" defaultChecked={value} />

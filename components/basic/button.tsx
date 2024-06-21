@@ -15,7 +15,7 @@ const CommonButton = ({ disabled, className, ...rest }: ButtonProps) => (
 function FilledButton({ className = "", disabled, ...rest } : ButtonProps) {
   return (disabled ?
       <CommonButton disabled className={" bg-gray-300 dark:bg-gray-700 border-none opacity-25 " + className} {...rest} /> :
-      <CommonButton className={"bg-primary-500 cursor-pointer border-none" + className}  {...rest} />);
+      <CommonButton className={"bg-primary-500 cursor-pointer border-none text-white dark:text-white " + className}  {...rest} />);
 }
 
 function OutlineButton({ className ="", disabled, ...rest }: ButtonProps) {
