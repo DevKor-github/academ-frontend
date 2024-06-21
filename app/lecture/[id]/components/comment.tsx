@@ -89,7 +89,7 @@ function Right({ editable, comment, setDel }: { editable: boolean, comment: Comm
     
       {getTag(comment).flatMap((v, i) => <Tag key={i}>{v}</Tag>)}
     </VStack>
-    <span className='text-xl flex-grow' style={{ lineHeight: '150%' }}>
+    <span className='text-xl flex-grow' style={{ lineHeight: '150%', lineBreak: 'anywhere' }}>
       <span style={{ color: 'grey' }}>작성내용</span> {comment.review}
     </span>
     <VStack className='self-end' gap='4px'>
