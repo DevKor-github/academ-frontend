@@ -1,4 +1,4 @@
-import { CommentJoin } from "@/lib/api/search";
+import { CommentJoin } from "@/lib/api/course";
 import Button from "@/components/basic/button";
 
 function FieldSetStar<Req>({label, name, onChange, input} : {input : Req, label: string, name: string, onChange : React.ChangeEventHandler<HTMLInputElement>}) {

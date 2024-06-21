@@ -1,4 +1,4 @@
-import { apiUpdateComment, CommentEditReq } from "@/lib/api/search";
+import { apiUpdateComment, CommentEditReq } from "@/lib/api/course";
 import { useEffect, useState } from "react";
 import Submitted from "./submitted";
 

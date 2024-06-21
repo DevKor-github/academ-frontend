@@ -4,7 +4,7 @@ import { HStack } from "@/components/basic/stack";
 import styles from './common.module.css'
 import SearchSingle from "./SearchSingle";
 
-import { useApiSearch } from "@/lib/api/search";
+import { useApiSearch } from "@/lib/api/course";
 import { SearchBotLoading } from "./loading";
 
 

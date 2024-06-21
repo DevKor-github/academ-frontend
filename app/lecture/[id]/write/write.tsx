@@ -1,4 +1,4 @@
-import { apiInsertComment, CommentNewReq } from "@/lib/api/search";
+import { apiInsertComment, CommentNewReq } from "@/lib/api/course";
 import { useState } from "react";
 import { Course } from "@/lib/models/course";
 import Submitted from "./submitted";

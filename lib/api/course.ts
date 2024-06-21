@@ -17,8 +17,6 @@ export type CommentEditReq = Omit<Comment, "username" | "profile_id" | "created_
 export type CommentMeet = Comment & CommentNewReq & CommentEditReq;
 export type CommentJoin = Comment | CommentNewReq | CommentEditReq;
 
-
-
 export const apiSearch = build<SearchRequest, Course[]>("GET", "/api/course/search", [400, 401, 404])
 export const useApiSearch = createApiHook(apiSearch);
 
@@ -43,3 +41,6 @@ export const apiUpdateComment = build<CommentEditReq, string>("POST", "/api/cour
 export const useApiUpdateComment = createApiHook(apiUpdateComment);
 
 export const apiDeleteComment = build<CommentRelated, Course>("POST", "/api/course/delete-comment", [400, 401, 404])
+
+export const apiMyComments = build<{}, Comment[]>("GET", "/api/course/my-comments", [400, 401, 404]);
+export const useApiMyComments = createApiHook(apiMyComments);

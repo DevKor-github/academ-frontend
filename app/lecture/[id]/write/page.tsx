@@ -1,6 +1,6 @@
 "use client";
 
-import { useApiCourseDetail, useApiStartNewComment } from "@/lib/api/search";
+import { useApiCourseDetail, useApiStartNewComment } from "@/lib/api/course";
 
 import ErrorTemplate from "@/lib/template";
 import WriteLoading from "./loading";
