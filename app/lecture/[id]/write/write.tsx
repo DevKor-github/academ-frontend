@@ -47,7 +47,7 @@ export default function WriteComment({ course }: { course: Course }) {
   }
 
   if (submitted !== null) {
-    return <Submitted success={submitted} />;
+    return <Submitted back={`/lecture/${course.course_id}`} success={submitted} />;
   }
             
   return <WriteOrEditComment title={

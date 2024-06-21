@@ -24,7 +24,7 @@ export default function EditComment({ comment, courseName }: { comment: CommentE
   };
 
   if (submitted !== null) {
-    return <Submitted success={submitted} />
+    return <Submitted back={"/"} success={submitted} />
   }
             
   return <WriteOrEditComment title={
