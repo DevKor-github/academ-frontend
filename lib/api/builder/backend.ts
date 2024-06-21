@@ -52,6 +52,15 @@ function failWith(data : "NO_RES" | "NO_REQ" | "FAIL_RES", message: string, code
   }
 }
 
+/**
+ * build : automatically generates api call functions
+ * 
+ * @param method 
+ * @param path 
+ * @deprecated @param allowedStatus deprecated parameter - build treats 2XX, 3XX, 4XX as success as default.
+ * @param config 
+ * @returns 
+ */
 export function build<Req, Res>(method: "POST" | "GET", path: string, allowedStatus: number[], config? : AxiosRequestConfig) {
   return async function (req: Req, ): Promise<ApiResponse<Res>> {
 
