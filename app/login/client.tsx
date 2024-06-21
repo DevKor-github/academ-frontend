@@ -13,13 +13,13 @@ import { apiLogin, apiCheckLogin } from '@/lib/api/login';
 import ErrorLabel from '@/components/basic/errorlabel';
 
 export default function LoginPageClient() {
+  
   const [input, setInput] = useState({
     email: '',
     password: '',
   });
 
   const route = useRouter();
-
 
   const { setSessionId } = useSessionId();
 
@@ -93,7 +93,7 @@ export default function LoginPageClient() {
                 <Radio
                   id="save"
                   value={saveLoginInfo}
-                  onClick={
+                  onChange={
                     (/* event: React.FormEvent<HTMLDivElement> */) => {
                       // event.stopPropagation();
                       setSaveLoginInfo(!saveLoginInfo);
