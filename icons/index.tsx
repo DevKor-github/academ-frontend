@@ -145,14 +145,14 @@ export const CheckIcon = () => (
 );
 
 export const CheckedIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none">
+  <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24" fill="none">
     <rect width="24" height="24" fill="#DC143C" rx="3" />
     <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="m6 11.25 4.5 4.5 8.25-8.25" />
   </svg>
 );
 
 export const UncheckedIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="none">
+  <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24" fill="none">
     <rect width="23" height="23" x=".5" y=".5" stroke="#B7B7B7" rx="2.5" />
     <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m6 11.25 4.5 4.5 8.25-8.25" />
   </svg>
