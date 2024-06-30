@@ -8,12 +8,17 @@ import LectureLoading from "./loading";
 
 import dynamic from "next/dynamic";
 
+import { useSessionId } from '@/context/SessionIdContext';
+
+
 const ErrorTemplate = dynamic(() => import("@/lib/template"), { ssr: false, loading : LectureLoading });
 const LectureView = dynamic(() => import('./main'), { ssr: false, loading : LectureLoading });
 
 export default function LectureFetch({ params: { id } }: { params: { id: number } }) {
   
-  const course = useApiCourseDetail({ course_id: id });
+  const [jwt] = useSessionId();
+
+  const course = useApiCourseDetail({ course_id: id }, jwt);
   
   if (course === null) {
     return <LectureLoading />;

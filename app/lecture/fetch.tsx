@@ -6,6 +6,7 @@ import SearchSingle from "./SearchSingle";
 
 import { useApiSearch } from "@/lib/api/course";
 import { SearchBotLoading } from "./loading";
+import { useSessionId } from "@/context/SessionIdContext";
 
 
 function Box({ children } : {children : React.ReactNode}) {
@@ -14,13 +15,15 @@ function Box({ children } : {children : React.ReactNode}) {
 
 export default function SearchResultsView({ query }: { query: string }) {
 
+  const [ jwt ] = useSessionId();
+
   if (query === '') {
     return <Box>
     강의명, 교수명, 학수번호로 검색해보세요.
     </Box>
   }
 
-  const results = useApiSearch({ keyword: query });
+  const results = useApiSearch({ keyword: query }, jwt);
 
   if (results === null) {
     return <SearchBotLoading />

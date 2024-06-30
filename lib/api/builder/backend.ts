@@ -5,6 +5,7 @@ import { AxiosError } from 'axios';
 import { AxiosRequestConfig } from 'axios';
 
 import { useEffect, useState } from 'react';
+import { JWT } from '@/lib/models/user';
 
 const backend = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_API_URL,
@@ -57,12 +58,20 @@ function failWith(data : "NO_RES" | "NO_REQ" | "FAIL_RES", message: string, code
  * 
  * @param method 
  * @param path 
- * @deprecated @param allowedStatus deprecated parameter - build treats 2XX, 3XX, 4XX as success as default.
+ * @param allowedStatus will be deprecated parameter - build treats 2XX, 3XX, 4XX as success as default.
  * @param config 
  * @returns 
  */
-export function build<Req, Res>(method: "POST" | "GET", path: string, allowedStatus: number[], config? : AxiosRequestConfig) {
-  return async function (req: Req, ): Promise<ApiResponse<Res>> {
+export function build<Req, Res>(method: "POST" | "GET", path: string, allowedStatus: number[], config: AxiosRequestConfig = {}) {
+  return async function (req: Req, jwt : JWT | null = null): Promise<ApiResponse<Res>> {
+
+    if (config.headers === undefined) {
+      config.headers = {};
+    }
+
+    if (jwt !== null) {
+      config.headers.Authorization = `Bearer ${jwt}`;
+    }
 
       const ret = (method === "POST" ? backend
         .post(path, req,{
@@ -96,13 +105,13 @@ export function build<Req, Res>(method: "POST" | "GET", path: string, allowedSta
   }
 }
 
-export function createApiHook<Req, Res>(apicall : (a : Req) => Promise<ApiResponse<Res>>) {
-  return function (req: Req): ApiResponse<Res> | null {
+export function createApiHook<Req, Res>(apicall : (a : Req, jwt : JWT | null) => Promise<ApiResponse<Res>>) {
+  return function (req: Req, jwt : JWT | null = null): ApiResponse<Res> | null {
 
     const [r, setR] = useState<ApiResponse<Res> | null>(null);
 
     useEffect(() => {
-      apicall(req).then((a) =>
+      apicall(req, jwt).then((a) =>
         setR(a)
       )
     }, []);

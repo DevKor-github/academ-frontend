@@ -1,3 +1,5 @@
+export type JWT = string;
+
 export interface UserProfile {
   "profile_id": number,
   "email": string,
@@ -9,4 +11,12 @@ export interface UserProfile {
   "point": string,
   "created_at": string,
   "role": string
+}
+
+export interface JWTDecoded {
+  memberId: number,
+  email: string,
+  role: string,
+  iat: number,
+  exp: number,
 }

@@ -6,6 +6,8 @@ import { useApiMyComments } from '@/lib/api/course';
 import CommentsView from "../lecture/[id]/components/comments";
 import { UserProfile } from '@/lib/models/user';
 
+import { decode } from '@/lib/jwt';
+
 function NoSessionIdFallback() {
   return <div>이 기능을 사용하려면 로그인해야 합니다.</div>
 }
@@ -23,20 +25,22 @@ function UserData({ userprofile }: { userprofile: UserProfile }) {
 
 export default function MyPage() {
 
-  const { sessionId } = useSessionId();
-  const comments = useApiMyComments({});
+  const [ jwt ] = useSessionId();
+  const comments = useApiMyComments({}, jwt);
 
-  if (sessionId === null) {
+  if (jwt === null) {
     return <NoSessionIdFallback />
   }
 
   if (comments === null) {
     return <div>강의평 로딩중</div>
   }
+  
+
 
   if (comments.status === "SUCCESS") {
     return <main className='w-full h-full'>
-      <UserData userprofile={sessionId} />
+      {/* <UserData userprofile={} /> */}
       <CommentsView comments={comments.data} />
     </main>;
   }

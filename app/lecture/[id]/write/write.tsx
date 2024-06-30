@@ -5,6 +5,8 @@ import Submitted from "./submitted";
 
 import WriteOrEditComment from "@/components/composite/form";
 
+import { useSessionId } from "@/context/SessionIdContext";
+
 function NewCommentWithId(id: number ) {
   return {
     "course_id": id,
@@ -26,13 +28,15 @@ function NewCommentWithId(id: number ) {
 }
 
 export default function WriteComment({ course }: { course: Course }) {
+
+  const [jwt] = useSessionId();
   
   const [input, setInput] = useState<CommentNewReq>(NewCommentWithId(course.course_id));
   const [submitted, setSubmitted] = useState<boolean | null>(null);
 
   function handleSubmit() {
     if (confirm(JSON.stringify(input)) == true) {
-      apiInsertComment(input).then(
+      apiInsertComment(input, jwt).then(
         (s) => {
           if (s.status === 'SUCCESS') {
             setSubmitted(true);

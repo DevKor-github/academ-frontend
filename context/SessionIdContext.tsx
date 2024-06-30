@@ -4,17 +4,18 @@ import { createContext, useContext, useState, useEffect, ReactNode, useLayoutEff
 
 import { apiLogout } from '@/lib/api/login';
 import { apiCheckLogin } from '@/lib/api/login';
-import { UserProfile } from '@/lib/models/user';
+import { JWT } from '@/lib/models/user';
 import { Try } from '@/lib/types/result';
 
-type SessionId = UserProfile | null;
 
-interface SessionIdContextType {
-  sessionId: SessionId;
-  setSessionId: React.Dispatch<React.SetStateAction<SessionId>>;
-}
+type SessionId = JWT | null;
 
-const SessionIdContext = createContext<SessionIdContextType>({ sessionId: null, setSessionId: () => {} });
+type SessionIdContextType = [
+  SessionId,
+  React.Dispatch<React.SetStateAction<SessionId>>
+];
+
+const SessionIdContext = createContext<SessionIdContextType>([ null, () => {} ]);
 
 export function useSessionId() {
   return useContext(SessionIdContext);
@@ -24,7 +25,7 @@ interface SessionIdProviderProps {
   children: ReactNode;
 }
 
-const keyForStorage = 'userSessionId';
+export const keyForStorage = 'userSessionId';
 
 const useTabTracker = () => {
   useEffect(() => {
@@ -54,29 +55,31 @@ const useTabTracker = () => {
 export function SessionIdProvider({ children }: SessionIdProviderProps) {
 
   const [sessionId, setSessionId] = useState<SessionId | null>(
-    Try(() => JSON.parse(globalThis?.localStorage?.getItem(keyForStorage) || 'null')).unwrapOrElse(() => null)
+    // Try(() => JSON.parse(globalThis?.localStorage?.getItem(keyForStorage) || 'null')).unwrapOrElse(() => null)
+    globalThis?.localStorage?.getItem(keyForStorage) || null
   );
 
   useTabTracker();
 
-  useEffect(() => {
-    apiCheckLogin({}).then(
-      (a) => {
-        if (a.status === "SUCCESS") {
-          setSessionId(a.data);
-          localStorage.setItem(keyForStorage, JSON.stringify(a.data));
-        }
-        else {
-          if (a.status === "ERROR" && sessionId !== null) {
-            alert("세션이 만료되었습니다. 다시 로그인해주세요")
-          }
-          localStorage.removeItem(keyForStorage);
-          setSessionId(null);
-        }
-      }
-    )
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   apiCheckLogin({}).then(
+  //     (a) => {
+  //       if (a.status === "SUCCESS") {
+  //         // setSessionId(a.data);
+          // localStorage.setItem(keyForStorage,
+          //   // JSON.stringify(a.data)
+          // );
+  //       }
+  //       else {
+  //         if (a.status === "ERROR" && sessionId !== null) {
+  //           alert("세션이 만료되었습니다. 다시 로그인해주세요")
+  //         }
+  //         localStorage.removeItem(keyForStorage);
+  //         setSessionId(null);
+  //       }
+  //     }
+  //   )
+  // }, []);
 
-  return <SessionIdContext.Provider value={{ sessionId : sessionId, setSessionId }}>{children}</SessionIdContext.Provider>;
+  return <SessionIdContext.Provider value={[ sessionId , setSessionId ]}>{children}</SessionIdContext.Provider>;
 }

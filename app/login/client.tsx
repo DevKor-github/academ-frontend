@@ -12,6 +12,8 @@ import Input from '@/components/basic/input';
 import { apiLogin, apiCheckLogin } from '@/lib/api/login';
 import ErrorLabel from '@/components/basic/errorlabel';
 
+import { keyForStorage } from '../../context/SessionIdContext';
+
 export default function LoginPageClient() {
   
   const [input, setInput] = useState({
@@ -21,7 +23,7 @@ export default function LoginPageClient() {
 
   const route = useRouter();
 
-  const { setSessionId } = useSessionId();
+  const [ _, setSessionId ]= useSessionId();
 
   const [saveLoginInfo, setSaveLoginInfo] = useState(false);
   const [loginError, setLoginError] = useState('');
@@ -37,10 +39,13 @@ export default function LoginPageClient() {
       const a = await apiLogin({ email: input.email, password: input.password, 'remember-me': false }).then(
         (s) => {
           if (s.status === "SUCCESS") {
-            apiCheckLogin({}).then(
+            apiCheckLogin({}, s.data).then(
               (a) => {
                 if (a.status === "SUCCESS") {
-                  setSessionId(a.data);
+                  setSessionId(s.data);
+                  localStorage.setItem(keyForStorage,
+                    s.data
+                  );
                   return route.push('/');
                 }
                 else {

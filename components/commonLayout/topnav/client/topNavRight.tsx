@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import { useSessionId } from "@/context/SessionIdContext";
 
 import { useState } from "react";
@@ -9,6 +8,10 @@ import Button from "@/components/basic/button";
 import Popover from "@/components/basic/popover";
 import Link from "next/link";
 import { HStack } from "@/components/basic/stack";
+
+import { decode } from "@/lib/jwt";
+import { JWTDecoded } from "@/lib/models/user";
+
 
 function ProfilePopover({ setOpenPopover } : { setOpenPopover : (b : boolean) => void }) {
   return <Popover onPageClick={() => setOpenPopover(false)} className={"absolute rounded-lg overflow-hidden border bg-l bg-white dark:bg-dark-back-1 border-light-back-2 dark:border-dark-back-4 right-2 md:right-8 top-14 shadow-lg "}
@@ -33,22 +36,20 @@ function LoginButton() {
   </Link>;
 }
 
+
+
 function ProfileButton() {
-  const { sessionId } = useSessionId();
+  const [ jwt ] = useSessionId();
 
   const [open, setOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    console.log('State after toggle request:', open);
-  }, [open]);
-
-  if (sessionId === null) {
+  if (jwt === null) {
     return <LoginButton />;
   } else {
     return <div>
       <Button onClick={() => setOpen(v => !v)}>
         <span className='under-md:max-w-24' style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-          {sessionId.username}님
+          {decode<JWTDecoded>(jwt).email}님
         </span>
       </Button>
       {open && <ProfilePopover setOpenPopover={setOpen} /> }

@@ -1,6 +1,7 @@
 
 import { build } from '@/lib/api/builder/backend';
-import { UserProfile } from '../models/user';
+import { JWT } from '../models/user';
+
 
 export interface SignupRequest {
   email: string,
@@ -44,7 +45,7 @@ export const apiCheckEmail = build<CheckEmailReqeust, unknown>("GET", "/api/sign
 
 // build가 맞음
 export const apiResetPassword = build<ReqeustWithEmail, unknown>("GET", "/api/login/reset-password", [400, 404, 401]);
-export const apiCheckLogin = build<{}, UserProfile>("GET", "/api/login/check-login", [400, 404, 401]);
+export const apiCheckLogin = build<{}, JWT | null>("GET", "/api/login/check-login", [400, 404, 401]);
 
 
 

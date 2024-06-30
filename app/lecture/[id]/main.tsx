@@ -10,7 +10,7 @@ import { Course } from '@/lib/models/course';
 import Link from 'next/link';
 
 export default function LectureView({ course }: { course: Course }) {
-  
+
   if (course.comments.length === 0) {
     return <HStack className='w-full h-full'>
       <BasicInfoView course={course} />
