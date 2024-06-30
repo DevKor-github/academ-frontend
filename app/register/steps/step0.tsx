@@ -1,9 +1,11 @@
-"use client";
+'use client';
 
-import { useState, ChangeEvent } from "react";
-import { VStack, HStack } from "@/components/basic/stack";
-import Button from "@/components/basic/button";
-import Checkbox from "@/components/basic/checkbok";
+import { useState, ChangeEvent } from 'react';
+import { VStack, HStack } from '@/components/basic/stack';
+import Button from '@/components/basic/button';
+import Checkbox from '@/components/basic/checkbok';
+import PersonalInfoAgreement from './personalInfoAgreement';
+import TermsAgreement from './termsagreement';
 
 export default function Step0({ nextStep }: { nextStep: () => void }) {
   const [agreements, setAgreements] = useState({
@@ -31,9 +33,9 @@ export default function Step0({ nextStep }: { nextStep: () => void }) {
   };
 
   return (
-    <HStack className='h-full w-full justify-center' gap="20px">
+    <HStack className="h-full w-full justify-center" gap="20px">
       <div
-        className='w-full'
+        className="w-full"
         style={{
           backgroundColor: allAgreed ? 'rgba(230, 90, 118, 0.05)' : '#F5F5F5',
           borderRadius: '12px',
@@ -62,14 +64,16 @@ export default function Step0({ nextStep }: { nextStep: () => void }) {
           <div
             style={{
               backgroundColor: 'white',
-              padding: '15px',
+              padding: '30px',
               width: '100%',
               height: '250px',
               borderRadius: '12px',
               marginBottom: '20px',
               overflowY: 'scroll',
             }}
-          ></div>
+          >
+            <TermsAgreement />
+          </div>
           <VStack style={{ justifyContent: 'space-between', paddingLeft: '5px' }}>
             <span className="text-xl">개인정보 수집 동의 (필수)</span>
             <Checkbox
@@ -81,13 +85,15 @@ export default function Step0({ nextStep }: { nextStep: () => void }) {
           <div
             style={{
               backgroundColor: 'white',
-              padding: '15px',
+              padding: '30px',
               width: '100%',
               height: '250px',
               borderRadius: '12px',
               overflowY: 'scroll',
             }}
-          ></div>
+          >
+            <PersonalInfoAgreement />
+          </div>
         </HStack>
       </div>
 
