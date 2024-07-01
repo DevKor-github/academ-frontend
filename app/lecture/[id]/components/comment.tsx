@@ -9,6 +9,9 @@ import { useState } from 'react';
 
 import { useApiStartUpdateComment, apiDeleteComment } from '@/lib/api/course';
 
+import { decode } from '@/lib/jwt';
+import { JWTDecoded } from '@/lib/models/user';
+
 import Link from 'next/link';
 import { useSessionId } from '@/context/SessionIdContext';
 
@@ -127,13 +130,13 @@ function Right({ editable, comment, setDel }: { editable: boolean, comment: Comm
 
 export default function CommentView({ comment }: { comment: Comment }) {
 
-  const sessionId = useSessionId();
- 
-  const editable = comment.profile_id === sessionId.sessionId?.profile_id;
+  const [jwt] = useSessionId();
+
+  const editable = jwt === null ? true : comment.profile_id === (decode<JWTDecoded>(jwt)).memberId;
 
   const [ del, setDel ] = useState<boolean>(false);
 
-  return <div className={`${del? 'hidden' : ''} flex flex-col md:flex-row bg-white mt-3 p-8 rounded-3xl gap-5 border border-neutral-300`}>
+  return <div className={`${del? 'hidden' : ''} flex flex-col md:flex-row bg-white mt-3 p-4 rounded-3xl gap-5 border border-neutral-300`}>
     <Left comment={comment} />
     <Right comment={comment} editable={editable} setDel={setDel} />
   </div>;

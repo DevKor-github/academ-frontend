@@ -9,13 +9,13 @@ import { apiLogout } from '@/lib/api/login';
 import { HStack } from '@/components/basic/stack';
 
 export default function LogoutPage() {
-  const { setSessionId } = useSessionId();
+  const [ _, setJWT ] = useSessionId();
   const route = useRouter();
 
   useEffect(() => {
     setTimeout(() => {
       apiLogout({}).finally(() => {
-        setSessionId(null);
+        setJWT(null);
         route.push('/');
       });
     }, 1);

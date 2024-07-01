@@ -6,13 +6,17 @@ import ErrorTemplate from "@/lib/template";
 import EditLoading from "./loading";
 
 import dynamic from "next/dynamic";
+import { useSessionId } from "@/context/SessionIdContext";
+
 
 const EditComment = dynamic(() => import('./edit'), { ssr: false, loading: EditLoading });
 
 export default function EditPage({ params: { id } }: { params: { id: number } }) {
+
+  const [jwt] = useSessionId();
   
-  const editable = useApiStartUpdateComment({ comment_id: id });
-  const course = useApiCourseDetail({ course_id: id });
+  const editable = useApiStartUpdateComment({ comment_id: id }, jwt);
+  const course = useApiCourseDetail({ course_id: id }, jwt);
 
   if (course === null || editable === null) {
     return <EditLoading />

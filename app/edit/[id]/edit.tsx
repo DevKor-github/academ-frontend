@@ -1,10 +1,13 @@
 import { apiUpdateComment, CommentEditReq } from "@/lib/api/course";
 import { useEffect, useState } from "react";
 import Submitted from "./submitted";
+import { useSessionId } from "@/context/SessionIdContext";
 
 import WriteOrEditComment from "@/components/composite/form";
 
 export default function EditComment({ comment, courseName }: { comment: CommentEditReq; courseName: string }) {
+
+  const [jwt] = useSessionId();
   
   const [input, setInput] = useState<CommentEditReq>(comment);
 
@@ -12,7 +15,7 @@ export default function EditComment({ comment, courseName }: { comment: CommentE
 
   function handleSubmit() {
     if (confirm(JSON.stringify(input)) == true) {
-      apiUpdateComment(input).then(
+      apiUpdateComment(input, jwt).then(
         (s) => {
           if (s.status === 'SUCCESS') {
             setSubmitted(true)
