@@ -11,6 +11,8 @@ import { HStack } from '@/components/basic/stack';
 
 import { decode } from '@/lib/jwt';
 import { JWTDecoded } from '@/lib/models/user';
+import { useApiCheckLogin } from '@/lib/api/login';
+import Skeleton from '@/components/composite/skeleton';
 
 function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => void }) {
   return (
@@ -49,7 +51,13 @@ function ProfileButton() {
 
   const [open, setOpen] = useState<boolean>(false);
 
-  if (jwt === null) {
+  const state = useApiCheckLogin({}, jwt);
+
+  if (state === null) {
+    return <Button><Skeleton placeholder='로그인' /></Button>;
+  }
+
+  if (state.status !== 'SUCCESS') {
     return <LoginButton />;
   } else {
     return (
@@ -59,7 +67,7 @@ function ProfileButton() {
             className="under-md:max-w-24"
             style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
           >
-            {decode<JWTDecoded>(jwt).email}님
+            {state.data.username}님
           </span>
         </Button>
         {open && <ProfilePopover setOpenPopover={setOpen} />}

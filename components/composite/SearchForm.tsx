@@ -34,7 +34,7 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
         <input
           required
           autoFocus={autoFocus}
-          className="w-full pl-4 focus:border-none"
+          className="w-full pl-4 focus-within:outline-none"
           id="text"
           name="q"
           placeholder={'검색'}
