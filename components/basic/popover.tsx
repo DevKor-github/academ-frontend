@@ -14,7 +14,7 @@ const Wrapper = forwardRef(({ className, children, style }: WrapperProps, ref: R
   );
 });
 
-Wrapper.displayName = "Wrapper";
+Wrapper.displayName = 'Wrapper';
 
 interface PopoverProps {
   className?: string;
@@ -43,10 +43,12 @@ const Popover = React.memo<PopoverProps>((props) => {
   //   };
   // });
 
-  const combined: React.CSSProperties = { zIndex: 100, ...props.style  };
+  const combined: React.CSSProperties = { zIndex: 100, ...props.style };
 
   return (
-    <Wrapper className={props.className} style={combined}
+    <Wrapper
+      className={props.className}
+      style={combined}
       // ref={settingsWindowRef}
     >
       {children}
@@ -54,6 +56,6 @@ const Popover = React.memo<PopoverProps>((props) => {
   );
 });
 
-Popover.displayName = "Popover"
+Popover.displayName = 'Popover';
 
 export default Popover;

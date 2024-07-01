@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode, useLayoutEffect } from 'react';
 
@@ -7,15 +7,11 @@ import { apiCheckLogin } from '@/lib/api/login';
 import { JWT } from '@/lib/models/user';
 import { Try } from '@/lib/types/result';
 
-
 type SessionId = JWT | null;
 
-type SessionIdContextType = [
-  SessionId,
-  React.Dispatch<React.SetStateAction<SessionId>>
-];
+type SessionIdContextType = [SessionId, React.Dispatch<React.SetStateAction<SessionId>>];
 
-const SessionIdContext = createContext<SessionIdContextType>([ null, () => {} ]);
+const SessionIdContext = createContext<SessionIdContextType>([null, () => {}]);
 
 export function useSessionId() {
   return useContext(SessionIdContext);
@@ -53,10 +49,9 @@ const useTabTracker = () => {
 };
 
 export function SessionIdProvider({ children }: SessionIdProviderProps) {
-
   const [sessionId, setSessionId] = useState<SessionId | null>(
     // Try(() => JSON.parse(globalThis?.localStorage?.getItem(keyForStorage) || 'null')).unwrapOrElse(() => null)
-    globalThis?.localStorage?.getItem(keyForStorage) || null
+    globalThis?.localStorage?.getItem(keyForStorage) || null,
   );
 
   useTabTracker();
@@ -66,9 +61,9 @@ export function SessionIdProvider({ children }: SessionIdProviderProps) {
   //     (a) => {
   //       if (a.status === "SUCCESS") {
   //         // setSessionId(a.data);
-          // localStorage.setItem(keyForStorage,
-          //   // JSON.stringify(a.data)
-          // );
+  // localStorage.setItem(keyForStorage,
+  //   // JSON.stringify(a.data)
+  // );
   //       }
   //       else {
   //         if (a.status === "ERROR" && sessionId !== null) {
@@ -81,5 +76,5 @@ export function SessionIdProvider({ children }: SessionIdProviderProps) {
   //   )
   // }, []);
 
-  return <SessionIdContext.Provider value={[ sessionId , setSessionId ]}>{children}</SessionIdContext.Provider>;
+  return <SessionIdContext.Provider value={[sessionId, setSessionId]}>{children}</SessionIdContext.Provider>;
 }

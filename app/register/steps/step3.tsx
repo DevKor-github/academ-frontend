@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useState, } from "react";
+import { useState } from 'react';
 
-import { HStack, VStack } from "@/components/basic/stack";
-import { apiSignup } from "@/lib/api/login";
+import { HStack, VStack } from '@/components/basic/stack';
+import { apiSignup } from '@/lib/api/login';
 
-import Button from "@/components/basic/button";
-import Input from "@/components/basic/input";
+import Button from '@/components/basic/button';
+import Input from '@/components/basic/input';
 
-import ErrorLabel from "@/components/basic/errorlabel";
+import ErrorLabel from '@/components/basic/errorlabel';
 
-import { SignupRequest } from "@/lib/api/login";
+import { SignupRequest } from '@/lib/api/login';
 
 export default function Step3({
   nextStep,
@@ -37,21 +37,21 @@ export default function Step3({
   }
 
   async function handleRegister() {
-    const response = await apiSignup({ ...input  } as SignupRequest);
-  
-      if (response.status === "SUCCESS") {
-        nextStep();
-      } else {
-        window.alert('회원가입에 실패했습니다.');
-      }
-  }
+    const response = await apiSignup({ ...input } as SignupRequest);
 
+    if (response.status === 'SUCCESS') {
+      nextStep();
+    } else {
+      window.alert('회원가입에 실패했습니다.');
+    }
+  }
 
   return (
     <HStack gap="20px">
       <span className="text-4xl">회원가입</span>
       <span className="text-xl" style={{ marginBottom: '60px' }}>
-      ACADEM에 오신걸 환영합니다!<br />
+        ACADEM에 오신걸 환영합니다!
+        <br />
         회원 정보를 입력해주세요.
       </span>
       <span className="text-xl">아이디</span>
@@ -84,7 +84,7 @@ export default function Step3({
         onChange={handlepwCheck}
         autoFocus
       />
-      <ErrorLabel label={input.password !== pwcheck || pwcheck === '' ? "비밀번호가 일치하지 않습니다" : ""} />
+      <ErrorLabel label={input.password !== pwcheck || pwcheck === '' ? '비밀번호가 일치하지 않습니다' : ''} />
       <span className="text-xl" style={{ marginTop: '10px' }}>
         닉네임
       </span>
@@ -120,16 +120,32 @@ export default function Step3({
       <span className="text-xl">학위 / 학기</span>
       <VStack style={{ justifyContent: 'space-between', marginBottom: '40px' }}>
         <VStack gap="10px">
-          <Button id="degree" kind={input.degree === "MASTER" ? "filled" : "outline"} variant="contained" color="primary" onClick={() => setInput((input : SignupRequest) => {
-            return { ...input, degree: "MASTER" };
-            })} >
-            <span className="text-xl" style={{ margin: '5px 30px' }} >
+          <Button
+            id="degree"
+            kind={input.degree === 'MASTER' ? 'filled' : 'outline'}
+            variant="contained"
+            color="primary"
+            onClick={() =>
+              setInput((input: SignupRequest) => {
+                return { ...input, degree: 'MASTER' };
+              })
+            }
+          >
+            <span className="text-xl" style={{ margin: '5px 30px' }}>
               석사
             </span>
           </Button>
-          <Button id="degree" kind={input.degree === "DOCTOR" ? "filled" : "outline"} variant="contained" color="primary" onClick={() => setInput((input : SignupRequest) => {
-            return { ...input, degree: "DOCTOR" };
-            })}>
+          <Button
+            id="degree"
+            kind={input.degree === 'DOCTOR' ? 'filled' : 'outline'}
+            variant="contained"
+            color="primary"
+            onClick={() =>
+              setInput((input: SignupRequest) => {
+                return { ...input, degree: 'DOCTOR' };
+              })
+            }
+          >
             <span className="text-xl" style={{ margin: '5px 30px' }}>
               박사
             </span>

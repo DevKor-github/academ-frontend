@@ -11,12 +11,9 @@
   align-items: center;
 }
 
-
-
 .menulist {
   flex-wrap: nowrap;
 }
-
 
 .metacontainer {
   padding: 0px 40px;

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -13,9 +13,7 @@ import Step2 from './steps/step2';
 import Step3 from './steps/step3';
 import Step4 from './steps/step4';
 
-
 export default function RegisterPage() {
-
   const [rate, setRate] = useState(0);
 
   const [input, setInput] = useState<SignupRequest>({
@@ -26,33 +24,22 @@ export default function RegisterPage() {
     degree: 'MASTER',
     semester: 1,
     department: '',
-    code : '',
+    code: '',
   });
 
   const pages = [
     <Step0 key={0} nextStep={() => setRate(rate + 1)} />,
-    <Step1
-      key={1}
-      nextStep={() => setRate(rate + 1)}
-      input={input}
-      setInput={setInput}
-    />,
-    <Step2 key={2} nextStep={() => setRate(rate + 1)} input={input}
-      setInput={setInput}
-    />,
-    <Step3 key={3}
-      nextStep={() => setRate(rate + 1)}
-      input={input}
-      setInput={setInput}
-    />,
+    <Step1 key={1} nextStep={() => setRate(rate + 1)} input={input} setInput={setInput} />,
+    <Step2 key={2} nextStep={() => setRate(rate + 1)} input={input} setInput={setInput} />,
+    <Step3 key={3} nextStep={() => setRate(rate + 1)} input={input} setInput={setInput} />,
     <Step4 key={4} />,
   ];
 
-  return (<div  className='flex w-full h-full justify-center items-center'>
+  return (
+    <div className="flex w-full h-full justify-center items-center">
       <HStack gap="40px" style={{ width: 'max(500px, 50vw)', margin: '40px 0px' }}>
         {pages[rate]}
       </HStack>
     </div>
   );
-  
 }

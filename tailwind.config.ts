@@ -1,28 +1,27 @@
-import type { Config } from "tailwindcss";
-import plugin from "tailwindcss/plugin";
-import { PluginCreator } from "tailwindcss/types/config";
+import type { Config } from 'tailwindcss';
+import plugin from 'tailwindcss/plugin';
+import { PluginCreator } from 'tailwindcss/types/config';
 
-const containerPlugin : PluginCreator = ({ addVariant }) =>{
+const containerPlugin: PluginCreator = ({ addVariant }) => {
   addVariant('light', '@media (prefers-color-scheme: light)');
   addVariant('under-md', '@media (max-width: 768px)');
-}
+};
 
-const config : Config = {
+const config: Config = {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  darkMode: "class",
+  darkMode: 'class',
   theme: {
     extend: {
       height: {
         '128': '32rem',
       },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
         primary: {
@@ -134,8 +133,6 @@ const config : Config = {
       },
     },
   },
-  plugins: [
-    plugin(containerPlugin)
-  ],
+  plugins: [plugin(containerPlugin)],
 };
 export default config;

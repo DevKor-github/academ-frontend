@@ -85,4 +85,4 @@ export class Some<T> implements BaseOption<T> {
   }
 }
 
-export type Option<T> = Some<T> | None<T>
+export type Option<T> = Some<T> | None<T>;

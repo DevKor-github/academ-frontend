@@ -1,10 +1,9 @@
-import { useRouter } from "next/navigation";
-import { FinishIcon } from "@/icons";
-import { HStack } from "@/components/basic/stack";
-import Button from "@/components/basic/button";
+import { useRouter } from 'next/navigation';
+import { FinishIcon } from '@/icons';
+import { HStack } from '@/components/basic/stack';
+import Button from '@/components/basic/button';
 
 export default function Step4() {
-
   const route = useRouter();
 
   return (

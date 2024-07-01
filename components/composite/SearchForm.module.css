@@ -13,7 +13,6 @@
   box-shadow: 0px 8px 16px #00000055;
 }
 
-
 @media (prefers-color-scheme: dark) {
   .searchBox {
     background-color: #0b0b0b0b;

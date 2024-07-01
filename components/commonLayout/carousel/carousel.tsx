@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
 import React, { useEffect, useState } from 'react';
 
 import { HStack } from '@/components/basic/stack';
 
-import Image from "next/image";
+import Image from 'next/image';
 
 interface CarouselProps {
   children: React.ReactNode[];
@@ -14,19 +14,22 @@ interface CarouselProps {
 
 export function CarouselItem({ url, children }: { url: string; children?: React.ReactNode }) {
   return (
-    <div className={`flex justify-center items-center dark h-full relative`} style={{ backgroundColor: 'black', minWidth: '100%'}}>
+    <div
+      className={`flex justify-center items-center dark h-full relative`}
+      style={{ backgroundColor: 'black', minWidth: '100%' }}
+    >
       <Image
-        className='absolute z-10'
+        className="absolute z-10"
         loading="eager"
         src={url}
-        alt='banner image'
+        alt="banner image"
         fill
         sizes="100vw"
         style={{
-          objectFit: "cover"
+          objectFit: 'cover',
         }}
       />
-      <div className='z-10 size-full flex justify-center items-center pt-20'>{children}</div>
+      <div className="z-10 size-full flex justify-center items-center pt-20">{children}</div>
     </div>
   );
 }
@@ -46,11 +49,16 @@ export default function Carousel({ className, style, children }: CarouselProps) 
   }, [children.length]);
 
   return (
-    <HStack className='relative top-0 h-96 md:h-128 overflow-hidden transition-all'>
+    <HStack className="relative top-0 h-96 md:h-128 overflow-hidden transition-all">
       <div className={`overflow-hidden  transition-all ralative bg-cyan-500 top-0 h-96  md:h-128  w-full ${className}`}>
-        <div className="flex flew-row transition-all bg-red-600 absolute top-0 w-full" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
+        <div
+          className="flex flew-row transition-all bg-red-600 absolute top-0 w-full"
+          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+        >
           {children.map((child, index) => (
-            <div className='relative bg-slate-500 transition-all justify-center items-center h-96 md:h-128 w-full' style={{ flex :'0 0 100%' }}
+            <div
+              className="relative bg-slate-500 transition-all justify-center items-center h-96 md:h-128 w-full"
+              style={{ flex: '0 0 100%' }}
               key={index}
             >
               {child}
@@ -58,13 +66,15 @@ export default function Carousel({ className, style, children }: CarouselProps) 
           ))}
         </div>
       </div>
-      <div className='z-10 justify-center flex pt-2 pb-2'>
+      <div className="z-10 justify-center flex pt-2 pb-2">
         {children.map((_, index) => (
           <span
             key={index}
             className={
-              "inline-block h-1 cursor-pointer transition-all ml-1 mr-1 " +
-              "bg-neutral-950 dark:bg-neutral-50 " + (index === currentIndex ? "background-color: white; w-10" : "w-5 opacity-50")}
+              'inline-block h-1 cursor-pointer transition-all ml-1 mr-1 ' +
+              'bg-neutral-950 dark:bg-neutral-50 ' +
+              (index === currentIndex ? 'background-color: white; w-10' : 'w-5 opacity-50')
+            }
             onClick={() => goToSlide(index)}
           />
         ))}

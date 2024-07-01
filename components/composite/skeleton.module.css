@@ -7,7 +7,8 @@
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -17,6 +18,6 @@
 
 @media (prefers-color-scheme: dark) {
   .skeleton {
-    background-color: #FFF3;
+    background-color: #fff3;
   }
 }

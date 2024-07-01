@@ -13,50 +13,47 @@ export const CloseIcon = () => (
 
 export const LeftIcon = () => (
   <svg
-    
-  width="1em" height="1em" className="stroke-neutral-950 dark:stroke-neutral-50" xmlns="http://www.w3.org/2000/svg">
+    width="1em"
+    height="1em"
+    className="stroke-neutral-950 dark:stroke-neutral-50"
+    xmlns="http://www.w3.org/2000/svg"
+  >
     <path d="M 15 2 L 2 16 L 15 30" strokeWidth="3" fill="none" />
   </svg>
 );
 
 export const RightIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="1em" height="1em" viewBox="0 0 22 22" >
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="1em" height="1em" viewBox="0 0 22 22">
     <path stroke="currentColor" strokeLinecap="square" strokeWidth="1.5" d="m2 2 10 9.5L2 21" />
   </svg>
 );
 
 export const DownIcon = () => (
-  <svg
-    stroke="currentColor"
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em" height="1em"
-    viewBox="0 0 24 24"
-  >
+  <svg stroke="currentColor" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
     <path d="M6 9l6 6 6-6" fill="none" strokeWidth="2" />
   </svg>
 );
 
 export const UpIcon = () => (
-  <svg
-    stroke="currentColor"
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em" height="1em"
-    viewBox="0 0 24 24"
-  >
+  <svg stroke="currentColor" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
     <path d="M6 15l6-6 6 6" fill="none" strokeWidth="2" />
   </svg>
 );
 
 export const StarIcon = () => (
-  <svg display="inline-block" width="1em" height="1em" viewBox="0 -1 24 23" xmlns="http://www.w3.org/2000/svg" >
-    <polygon fill="currentColor" points="12,17.27 18.18,21 16.54,13.97 22,9.24 14.81,8.63 12,2 9.19,8.63 2,9.24 7.46,13.97 5.82,21 12,17.27" />
+  <svg display="inline-block" width="1em" height="1em" viewBox="0 -1 24 23" xmlns="http://www.w3.org/2000/svg">
+    <polygon
+      fill="currentColor"
+      points="12,17.27 18.18,21 16.54,13.97 22,9.24 14.81,8.63 12,2 9.19,8.63 2,9.24 7.46,13.97 5.82,21 12,17.27"
+    />
   </svg>
 );
 
 export const MagnifyIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="1em" height="1em"
+    width="1em"
+    height="1em"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -71,7 +68,7 @@ export const MagnifyIcon = () => (
 
 export const LogoIcon = () => (
   <svg
-    className='stroke-none'
+    className="stroke-none"
     width="18"
     height="28"
     viewBox="0 0 50 70"
@@ -90,14 +87,7 @@ export const LogoIcon = () => (
 );
 
 export const LogoIconBig = () => (
-  <svg
-    stroke="none"
-    width="45"
-    height="70"
-    viewBox="0 0 45 70"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg stroke="none" width="45" height="70" viewBox="0 0 45 70" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M45 24.8728C45 20.2311 41.2371 16.4683 36.5954 16.4683C31.9538 16.4683 28.1909 20.2311 28.1909 24.8728V60.7536C28.1909 65.3953 31.9538 69.1582 36.5954 69.1582C41.2371 69.1582 45 65.3953 45 60.7536V24.8728Z"
       fill="#E84351"
@@ -110,13 +100,7 @@ export const LogoIconBig = () => (
 );
 
 export const LogoIconRich = () => (
-  <svg
-    stroke="none"
-    width="5.77em"
-    height="1.5em"
-    viewBox="0 0 150 39"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg stroke="none" width="5.77em" height="1.5em" viewBox="0 0 150 39" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M26 13.6038C26 11.0652 23.8259 9.0072 21.144 9.0072C18.4622 9.0072 16.2881 11.0652 16.2881 13.6038V33.228C16.2881 35.7666 18.4622 37.8246 21.144 37.8246C23.8259 37.8246 26 35.7666 26 33.228V13.6038Z"
       fill="#E84351"

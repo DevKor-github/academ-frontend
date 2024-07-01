@@ -10,9 +10,11 @@ interface RadioProps {
 }
 
 function Circle() {
-  return <svg width="20px" height="20px" viewBox="-40 -40 300 300" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="100" cy="100" r="90" stroke="none" strokeWidth="5" fill="white" />
-  </svg>;
+  return (
+    <svg width="20px" height="20px" viewBox="-40 -40 300 300" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="100" cy="100" r="90" stroke="none" strokeWidth="5" fill="white" />
+    </svg>
+  );
 }
 
 export default function Radio({ id, value, label, onClick, onChange }: RadioProps) {
@@ -25,7 +27,7 @@ export default function Radio({ id, value, label, onClick, onChange }: RadioProp
           alignItems: 'center',
           display: 'flex',
           background: 'none',
-          border: 'none', 
+          border: 'none',
           cursor: 'pointer',
           color: 'var(--fore-0)',
           padding: '0px',
@@ -35,7 +37,7 @@ export default function Radio({ id, value, label, onClick, onChange }: RadioProp
         // {...restProps}
       >
         <input className="accent-primary-500" id={id} role="switch" type="checkbox" defaultChecked={value} />
-        <label className='ml-1' htmlFor={id}>
+        <label className="ml-1" htmlFor={id}>
           {label}
         </label>
       </span>

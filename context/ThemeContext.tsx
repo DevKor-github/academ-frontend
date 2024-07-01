@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { createContext, useEffect, useState } from 'react';
 
@@ -7,20 +7,15 @@ interface ThemeContextType {
   setTheme: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const ThemeContext = createContext<ThemeContextType>({ theme: 'light', setTheme: () => { } });
+const ThemeContext = createContext<ThemeContextType>({ theme: 'light', setTheme: () => {} });
 
-const Dark = ({ children } : { children : React.ReactNode} ) => {
-  
+const Dark = ({ children }: { children: React.ReactNode }) => {
   const [_, setTheme] = useState('dark');
 
-  return (
-    <ThemeContext.Provider value={{ theme : 'dark' , setTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
-}
+  return <ThemeContext.Provider value={{ theme: 'dark', setTheme }}>{children}</ThemeContext.Provider>;
+};
 
-const ThemeProvider = ({ children } : { children : React.ReactNode} ) => {
+const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState('light');
 
   useEffect(() => {
@@ -29,7 +24,7 @@ const ThemeProvider = ({ children } : { children : React.ReactNode} ) => {
 
     const updateTheme = () => {
       const userPrefersDark = localStorage.getItem('theme') === 'dark';
-      
+
       if (systemPrefersDark.matches || userPrefersDark) {
         setTheme('dark');
         document.documentElement.classList.add('dark');
@@ -52,7 +47,7 @@ const ThemeProvider = ({ children } : { children : React.ReactNode} ) => {
   }, []);
 
   return (
-    <ThemeContext.Provider value={{ theme : (theme === 'dark' ? 'dark' : 'light' ), setTheme }}>
+    <ThemeContext.Provider value={{ theme: theme === 'dark' ? 'dark' : 'light', setTheme }}>
       {children}
     </ThemeContext.Provider>
   );
