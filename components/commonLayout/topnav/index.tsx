@@ -28,7 +28,7 @@ const TopNavInnerMid = ({ location, spreaded, setSpreaded }: { location: string,
   const height = (spreaded ? ' h-72 ' : ' h-16 ');
 
   return ( <div
-      className={`overflow-hidden transition-all ${height} md:h-16 text-black dark:text-white items-center justify-start   flex flex-col md:flex-row`}
+      className={`overflow-y-hidden transition-all ${height} md:h-16 text-black dark:text-white items-center justify-start   flex flex-col md:flex-row`}
       style={{ rowGap : '10px' }}
   >
       <div className='md:hidden'>
@@ -79,13 +79,13 @@ export default function TopNav({
 
   const [spreaded, setSpreaded] = useState(false);
 
-  return <div className={"w-full " + (overlap ? " dark z-50  " : "border-b border-b-neutral-400 ")}>
+  return <div className={"w-full " + (overlap ? " dark z-50  " : "border-b light:border-b-light-back-2 dark:border-b-dark-back-4 ")}>
     <VStack className={
       `${spreaded ?
         ` h-72 md:h-16 md:bg-transparent
           ${overlap /* dark */ ?
-          " bg-neutral-800 " :
-          " bg-white dark:bg-black "}`
+          " bg-dark-back-5 " :
+          " bg-white dark:bg-dark-back-5 "}`
         : " h-16 bg-none "}
       pl-2 pr-2 md:pl-8 md:pr-8 ${className} flex flex-nowrap items-start flex-row justify-between w-full transition-all`}>
       <TopNavInnerLeft />

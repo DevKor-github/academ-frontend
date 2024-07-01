@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { VStack } from '@/components/basic/stack';
 import { MagnifyIcon } from '@/icons';
 import Button from '@/components/basic/button';
+import { RightIcon } from '@/icons';
 
 interface SearchFormProp {
   className?: string;
@@ -24,13 +25,13 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
   return (
     <form className={className} method="get" action="/lecture" style={combinedStyle}>
       <VStack gap="2px" className="transition-all justify-center items-center light:bg-neutral-100 dark:bg-neutral-900
-       pl-5 pr-5 border border-neutral-200 dark:border-neutral-800 rounded-3xl focus-within:shadow-xl dark:shadow-white
+       pl-5 pr-5 border border-neutral-200 dark:border-neutral-800 rounded-3xl focus-within:shadow-xl dark:shadow-dark-back-6
        ">
         <MagnifyIcon />
         <input
           required
           autoFocus={autoFocus}
-          className="w-full pl-4"
+          className="w-full pl-4 focus:border-none"
           id="text"
           name="q"
           placeholder={'검색'}
@@ -43,7 +44,7 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
             background: 'none',
           }}
         />
-         <Button kind='blank' type="submit">검색</Button> 
+         <Button kind='blank' type="submit"><RightIcon /></Button> 
       </VStack>
     </form>
   );

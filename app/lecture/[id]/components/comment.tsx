@@ -136,7 +136,10 @@ export default function CommentView({ comment }: { comment: Comment }) {
 
   const [ del, setDel ] = useState<boolean>(false);
 
-  return <div className={`${del? 'hidden' : ''} flex flex-col md:flex-row bg-white mt-3 p-4 rounded-3xl gap-5 border border-neutral-300`}>
+  return <div className={`${del ? 'hidden' : ''} flex flex-col md:flex-row mt-3 p-4 rounded-3xl gap-5 border
+  
+  light:bg-white dark:bg-dark-back-2
+  light:border-light-back-4 dark:border-dark-back-4`}>
     <Left comment={comment} />
     <Right comment={comment} editable={editable} setDel={setDel} />
   </div>;

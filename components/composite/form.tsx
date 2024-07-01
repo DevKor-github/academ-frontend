@@ -157,8 +157,8 @@ export default function WriteOrEditComment<Req extends CommentJoin>({ title, han
         강의평 작성
         </span>
 
-      <div className="bg-neutral-100" >
-        <textarea className="w-full p-8 bg-neutral-100" id="review" onChange={handleInputString} placeholder="다음 질문을 참고하여 내용을 작성해주세요. (최소 50자)" defaultValue={input.review} required>
+      <div className="light:bg-neutral-100 dark:bg-dark-back-6" >
+        <textarea className="w-full p-8 light:bg-neutral-100 dark:bg-dark-back-6" id="review" onChange={handleInputString} placeholder="다음 질문을 참고하여 내용을 작성해주세요. (최소 50자)" defaultValue={input.review} required>
         </textarea>
         <div className="w-full items-end text-right pr-2 pb-2">{input.review.length} / 최소 50자</div>
       </div>

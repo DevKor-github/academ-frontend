@@ -40,13 +40,13 @@ function Mid({ course }: { course: Course }) {
     className={' border-b border-b-neutral-400 text-base flex flex-row flex-grow pt-2 gap-1'}
     style={{ paddingBottom: '24px'}}
   >
-    <Tag className=" bg-neutral-100 ">
+    <Tag className=" light:bg-neutral-100 dark:bg-dark-back-6">
       {course.credit}학점
     </Tag>
-    <Tag className=" bg-neutral-100 ">
+    <Tag className="  light:bg-neutral-100 dark:bg-dark-back-6 ">
     {course.course_code}
     </Tag>
-    <Tag className=" bg-neutral-100 ">
+    <Tag className="  light:bg-neutral-100 dark:bg-dark-back-6">
     { course.year }-{ course.semester }
     </Tag>
   </span>;

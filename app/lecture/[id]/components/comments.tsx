@@ -7,7 +7,9 @@ import Link from 'next/link';
 export default function CommentsView({ course_id, comments }: { course_id?: number; comments: Comment[] }) {
 
   return (
-    <HStack className='pl-8 pr-8 pt-24 pb-24 h-full bg-neutral-100 dark:bg-neutral-900'>
+    <HStack className='pl-2 pr-2 md:pl-8 md:pr-8 pt-24 pb-24 h-full transition-all
+    light:bg-light-back-1 dark:bg-dark-back-1
+    '>
 
     <VStack className="items-center justify-between gap-2">
 
