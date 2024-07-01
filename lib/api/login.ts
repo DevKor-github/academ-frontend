@@ -21,7 +21,7 @@ export interface LoginRequest {
 }
 
 // build가 맞음
-export const apiLogin = build<LoginRequest, null>('POST', '/api/login', [400, 404, 401], {
+export const apiLogin = build<LoginRequest, JWT>('POST', '/api/login', [400, 404, 401], {
   headers: { 'content-type': 'application/x-www-form-urlencoded' },
 });
 export const apiLogout = build<{}, null>('POST', '/api/logout', [400, 404, 401]);
