@@ -1,4 +1,4 @@
-import { build, createApiHook } from '@/lib/api/builder/backend';
+import { build, createApiHook } from '@/lib/api/builder';
 import { Course } from '../models/course';
 import { Comment } from '../models/comment';
 

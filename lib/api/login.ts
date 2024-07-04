@@ -1,4 +1,4 @@
-import { build, createApiHook } from '@/lib/api/builder/backend';
+import { build, createApiHook } from '@/lib/api/builder';
 import { JWT, UserProfile } from '../models/user';
 
 export interface SignupRequest {
