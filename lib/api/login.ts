@@ -21,9 +21,14 @@ export interface LoginRequest {
 }
 
 // build가 맞음
-export const apiLogin = build<LoginRequest, JWT>('POST', '/api/login', [400, 404, 401], {
-  headers: { 'content-type': 'application/x-www-form-urlencoded' },
-});
+export const apiLogin = build<LoginRequest, { accessToken: JWT; refreshToken: JWT | null }>(
+  'POST',
+  '/api/login',
+  [400, 404, 401],
+  {
+    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+  },
+);
 export const apiLogout = build<{}, null>('POST', '/api/logout', [400, 404, 401]);
 
 export interface ReqeustWithEmail {
@@ -43,5 +48,5 @@ export const apiCheckEmail = build<CheckEmailReqeust, unknown>('GET', '/api/sign
 
 // build가 맞음
 export const apiResetPassword = build<ReqeustWithEmail, unknown>('GET', '/api/login/reset-password', [400, 404, 401]);
-export const apiCheckLogin = build<{}, UserProfile>('GET', '/api/login/check-login', [400, 404, 401]);
+export const apiCheckLogin = build<{}, UserProfile>('GET', '/api/check-login', [400, 404, 401]);
 export const useApiCheckLogin = createApiHook(apiCheckLogin);
