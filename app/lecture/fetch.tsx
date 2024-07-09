@@ -10,6 +10,8 @@ import { useSessionId } from '@/context/SessionIdContext';
 import { useEffect, useState } from 'react';
 import { Course } from '@/lib/models/course';
 import Button from '@/components/basic/button';
+import Select from '@/components/basic/select';
+import { DownIcon } from '@/icons';
 
 function Box({ children }: { children: React.ReactNode }) {
   return (
@@ -21,11 +23,11 @@ function Box({ children }: { children: React.ReactNode }) {
 
 function SearchResultsArrayView({
   courses,
-  setPage,
+  setCond,
   eoc,
 }: {
   courses: Course[];
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setCond: React.Dispatch<React.SetStateAction<Omit<SearchRequest, 'keyword'>>>;
   eoc: boolean;
 }) {
   if (courses.length === 0) {
@@ -34,6 +36,15 @@ function SearchResultsArrayView({
 
   return (
     <Box>
+      <Select
+        defaultLabel="최신순"
+        setValue={setCond}
+        items={[
+          { value: { order: 'NEWEST', page: 1 }, label: '최신순' },
+          { value: { order: 'RATING_DESC', page: 1 }, label: '별점 낮은순' },
+          { value: { order: 'RATING_ASC', page: 1 }, label: '별점 높은순' },
+        ]}
+      />
       <div className={styles.container}>
         {courses.map((course) => (
           <SearchSingle key={course.course_id} course={course} />
@@ -41,7 +52,15 @@ function SearchResultsArrayView({
       </div>
       {eoc || (
         <div className="w-full pt-6 flex flex-col justify-center items-center">
-          <Button onClick={() => setPage((v) => v + 1)}>더 불러오기</Button>
+          <Button
+            onClick={() =>
+              setCond((v) => {
+                return { ...v, page: v.page + 1 };
+              })
+            }
+          >
+            <DownIcon />
+          </Button>
         </div>
       )}
     </Box>
@@ -52,24 +71,23 @@ export default function SearchResultsView({ query: keyword }: { query: string })
   const [jwt] = useSessionId();
   const [courses, setCourses] = useState<null | Course[]>(null);
   const [EOC, setEOC] = useState<boolean>(false);
-  const [page, setPage] = useState(1);
-  const [order, setOrder] = useState<SearchRequest['order']>('NEWEST');
+  const [cond, setCond] = useState<Omit<SearchRequest, 'keyword'>>({ order: 'NEWEST', page: 1 });
 
   if (keyword === '') {
     return <Box>강의명, 교수명, 학수번호로 검색해보세요.</Box>;
   }
 
   useEffect(() => {
-    apiSearch({ keyword, page, order }, { token: jwt?.accessToken }).then((a) => {
+    apiSearch({ keyword, page: cond.page, order: cond.order }, { token: jwt?.accessToken }).then((a) => {
       if (a.status === 'SUCCESS') {
         if (a.data.length < 10) {
           setEOC(true);
         }
 
-        if (courses === null) {
+        if (cond.page === 1) {
           setCourses(a.data);
         } else {
-          setCourses(courses.concat(a.data));
+          setCourses((courses || []).concat(a.data));
         }
       } else if (a.statusCode === 404) {
         setCourses(courses || []);
@@ -77,11 +95,11 @@ export default function SearchResultsView({ query: keyword }: { query: string })
       } else {
       }
     });
-  }, [page]);
+  }, [cond]);
 
   if (courses === null) {
     return <SearchBotLoading />;
   } else {
-    return <SearchResultsArrayView setPage={setPage} courses={courses} eoc={EOC} />;
+    return <SearchResultsArrayView setCond={setCond} courses={courses} eoc={EOC} />;
   }
 }

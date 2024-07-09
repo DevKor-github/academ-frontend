@@ -12,6 +12,11 @@ export interface CourseRelatedRequest {
   course_id: number;
 }
 
+export interface CourseDetailRequest extends CourseRelatedRequest {
+  order: 'NEWEST' | 'RATING_DESC' | 'RATING_ASC' | 'LIKES_DESC' | 'LIKES_ASC';
+  page: number;
+}
+
 export type CommentNewReq = Omit<
   Comment,
   'username' | 'profile_id' | 'created_at' | 'updated_at' | 'likes' | 'comment_id'
@@ -23,7 +28,8 @@ export type CommentJoin = Comment | CommentNewReq | CommentEditReq;
 
 export const apiSearch = build<SearchRequest, Course[]>('GET', '/api/course/search');
 export const apiBookmark = build<CourseRelatedRequest, Course[]>('GET', '/api/course/bookmark');
-export const apiCourseDetail = build<CourseRelatedRequest, Course>('GET', '/api/course/detail');
+
+export const apiCourseDetail = build<CourseDetailRequest, Course>('GET', '/api/course/detail');
 
 export const useApiSearch = createApiHook(apiSearch);
 export const useApiCourseDetail = createApiHook(apiCourseDetail);

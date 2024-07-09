@@ -15,8 +15,9 @@ const LectureView = dynamic(() => import('./main'), { ssr: false, loading: Lectu
 
 export default function LectureFetch({ params: { id } }: { params: { id: number } }) {
   const [jwt] = useSessionId();
+  const [page, setPage] = useState(1);
 
-  const course = useApiCourseDetail({ course_id: id }, { token: jwt?.accessToken });
+  const course = useApiCourseDetail({ course_id: id, order: 'NEWEST', page }, { token: jwt?.accessToken });
 
   if (course === null) {
     return <LectureLoading />;

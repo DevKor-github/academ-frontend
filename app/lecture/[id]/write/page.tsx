@@ -15,7 +15,7 @@ export default function WritePage({ params: { id } }: { params: { id: number } }
   const [jwt] = useSessionId();
 
   const writable = useApiStartNewComment({ course_id: id }, { token: jwt?.accessToken });
-  const course = useApiCourseDetail({ course_id: id }, { token: jwt?.accessToken });
+  const course = useApiCourseDetail({ course_id: id, page: 1, order: 'NEWEST' }, { token: jwt?.accessToken });
 
   if (course === null || writable === null) {
     return <WriteLoading />;
