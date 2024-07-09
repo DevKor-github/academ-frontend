@@ -19,38 +19,31 @@ export type CommentEditReq = Omit<Comment, 'username' | 'profile_id' | 'created_
 export type CommentMeet = Comment & CommentNewReq & CommentEditReq;
 export type CommentJoin = Comment | CommentNewReq | CommentEditReq;
 
-export const apiSearch = build<SearchRequest, Course[]>('GET', '/api/course/search', [400, 401, 404]);
+export const apiSearch = build<SearchRequest, Course[]>('GET', '/api/course/search');
+export const apiBookmark = build<CourseRelatedRequest, Course[]>('GET', '/api/course/bookmark');
+export const apiCourseDetail = build<CourseRelatedRequest, Course>('GET', '/api/course/detail');
+
 export const useApiSearch = createApiHook(apiSearch);
-
-export const apiBookmark = build<CourseRelatedRequest, Course[]>('GET', '/api/course/bookmark', [400, 401, 404]);
-
-export const apiCourseDetail = build<CourseRelatedRequest, Course>('GET', '/api/course/detail', [400, 401, 404]);
 export const useApiCourseDetail = createApiHook(apiCourseDetail);
 
-export const apiStartNewComment = build<CourseRelatedRequest, Course>(
-  'GET',
-  '/api/course/start-insert-comment',
-  [400, 401, 404],
-);
-export const useApiStartNewComment = createApiHook(apiStartNewComment);
-
-export const apiInsertComment = build<CommentNewReq, string>('POST', '/api/course/insert-comment', [400, 401, 404]);
+/**
+ * Comments
+ */
 
 export interface CommentRelated {
   comment_id: number;
 }
 
-export const apiStartUpdateComment = build<CommentRelated, CommentEditReq>(
-  'GET',
-  '/api/course/start-update-comment',
-  [400, 401, 404],
-);
+export const apiStartNewComment = build<CourseRelatedRequest, Course>('GET', '/api/course/start-insert-comment');
+export const apiInsertComment = build<CommentNewReq, string>('POST', '/api/course/insert-comment');
+export const apiStartUpdateComment = build<CommentRelated, CommentEditReq>('GET', '/api/course/start-update-comment');
+export const apiUpdateComment = build<CommentEditReq, string>('POST', '/api/course/update-comment');
+export const apiDeleteComment = build<CommentRelated, Course>('POST', '/api/course/delete-comment');
+export const apiMyComments = build<{}, Comment[]>('GET', '/api/course/my-comments');
+export const apiLikeComment = build<CommentRelated, Comment[]>('POST', '/api/course/like-comment');
+export const apiRepComment = build<CommentRelated, Comment[]>('POST', '/api/course/report-comment');
+
+export const useApiStartNewComment = createApiHook(apiStartNewComment);
 export const useApiStartUpdateComment = createApiHook(apiStartUpdateComment);
-
-export const apiUpdateComment = build<CommentEditReq, string>('POST', '/api/course/update-comment', [400, 401, 404]);
 export const useApiUpdateComment = createApiHook(apiUpdateComment);
-
-export const apiDeleteComment = build<CommentRelated, Course>('POST', '/api/course/delete-comment', [400, 401, 404]);
-
-export const apiMyComments = build<{}, Comment[]>('GET', '/api/course/my-comments', [400, 401, 404]);
 export const useApiMyComments = createApiHook(apiMyComments);

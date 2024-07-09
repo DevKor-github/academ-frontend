@@ -1,6 +1,6 @@
 'use client';
 
-import axios from 'axios';
+import axios, { AxiosHeaders, AxiosResponse } from 'axios';
 import { AxiosError } from 'axios';
 import { AxiosRequestConfig } from 'axios';
 
@@ -58,30 +58,69 @@ function failWith(data: 'NO_RES' | 'NO_REQ' | 'FAIL_RES', message: string, code:
 }
 
 /**
+ * Api 요청시 함께 보낼 수 있는 Context
+ *
+ */
+export interface ApiCTX {
+  token?: {
+    accessToken: JWT;
+    refreshToken?: JWT;
+  };
+}
+
+/**
+ * AxiosResponse Promise를 받아서 항상 resolve된 버전의 Promise로 바꿔줌
+ */
+function resolvify<Res>(promise: Promise<AxiosResponse<ApiResponse<Res>, any>>) {
+  return promise
+    .then((res) => {
+      const data: ApiResponse<Res> = res.data;
+      data.code = res.status;
+      return Promise.resolve(res.data as ApiResponse<Res>);
+    })
+    .catch((error: AxiosError) => {
+      if (error.response) {
+        return Promise.resolve(failWith('FAIL_RES', '실패한 응답을 받았습니다.', error.response.status));
+      } else if (error.request) {
+        return Promise.resolve(
+          failWith(
+            'NO_RES',
+            '응답을 수신하지 못했습니다. 장치가 네트워크에 연결되어 있지 않거나 서버가 오프라인입니다.',
+            -2,
+          ),
+        );
+      } else {
+        return Promise.resolve(
+          failWith('NO_REQ', '요청을 전송하지 못했습니다. 장치가 네트워크에 연결 되지 않았나요?', -3),
+        );
+      }
+    })
+    .catch(() => {
+      return Promise.resolve(failWith('NO_REQ', '알 수 없는 오류', -4));
+    });
+}
+
+/**
  * build : automatically generates api call functions
  *
  * @param method
  * @param path
- * @param allowedStatus will be deprecated parameter - build treats 2XX, 3XX, 4XX as success as default.
  * @param config
  * @returns
  */
-export function build<Req, Res>(
-  method: 'POST' | 'GET',
-  path: string,
-  allowedStatus: number[],
-  config: AxiosRequestConfig = {},
-) {
-  return async function (req: Req, jwt: JWT | null = null): Promise<ApiResponse<Res>> {
-    if (config.headers === undefined) {
-      config.headers = {};
-    }
+export function build<Req, Res>(method: 'POST' | 'GET', path: string, config: AxiosRequestConfig = {}) {
+  return async function (req: Req, ctx?: ApiCTX): Promise<ApiResponse<Res>> {
+    (function prepareConfig() {
+      if (config.headers === undefined) {
+        config.headers = {};
+      }
 
-    if (jwt !== null) {
-      config.headers.Authorization = `Bearer ${jwt}`;
-    }
+      if (ctx?.token !== undefined) {
+        config.headers.Authorization = `Bearer ${ctx.token.accessToken}`;
+      }
+    })();
 
-    const ret =
+    const firstTry =
       method === 'POST'
         ? backend.post(path, req, {
             ...{
@@ -96,41 +135,18 @@ export function build<Req, Res>(
             ...config,
           });
 
-    return await ret
-      .then((res) => {
-        const data = res.data;
-        data.code = res.status;
-        return Promise.resolve(res.data as ApiResponse<Res>);
-      })
-      .catch((error: AxiosError) => {
-        if (error.response) {
-          return Promise.resolve(failWith('FAIL_RES', '실패한 응답을 받았습니다.', error.response.status));
-        } else if (error.request) {
-          return Promise.resolve(
-            failWith(
-              'NO_RES',
-              '응답을 수신하지 못했습니다. 장치가 네트워크에 연결되어 있지 않거나 서버가 오프라인입니다.',
-              -2,
-            ),
-          );
-        } else {
-          return Promise.resolve(
-            failWith('NO_REQ', '요청을 전송하지 못했습니다. 장치가 네트워크에 연결 되지 않았나요?', -3),
-          );
-        }
-      })
-      .catch(() => {
-        return Promise.resolve(failWith('NO_REQ', '알 수 없는 오류', -4));
-      });
+    const firstResult = await resolvify<Res>(firstTry);
+
+    return firstResult;
   };
 }
 
-export function createApiHook<Req, Res>(apicall: (a: Req, jwt: JWT | null) => Promise<ApiResponse<Res>>) {
-  return function (req: Req, jwt: JWT | null = null): ApiResponse<Res> | null {
+export function createApiHook<Req, Res>(apicall: (a: Req, ctx?: ApiCTX) => Promise<ApiResponse<Res>>) {
+  return function (req: Req, ctx?: ApiCTX): ApiResponse<Res> | null {
     const [r, setR] = useState<ApiResponse<Res> | null>(null);
 
     useEffect(() => {
-      apicall(req, jwt).then((a) => setR(a));
+      apicall(req, ctx).then((a) => setR(a));
     }, []);
 
     return r;
