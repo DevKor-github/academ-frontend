@@ -5,8 +5,10 @@ import { useState } from 'react';
 import Button from '@/components/basic/button';
 import { apiUploadLectures } from '@/lib/api/admin';
 import Spinner from '@/components/basic/spinner';
+import { useSessionId } from '@/context/SessionIdContext';
 
 export default function AdminPageInner() {
+  const [jwt] = useSessionId();
   const [jsonContent, setJsonContent] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -30,7 +32,7 @@ export default function AdminPageInner() {
 
     setLoading(true);
 
-    const ret = await apiUploadLectures(JSON.parse(jsonContent));
+    const ret = await apiUploadLectures(JSON.parse(jsonContent), { token: jwt?.accessToken });
 
     setLoading(false);
 
