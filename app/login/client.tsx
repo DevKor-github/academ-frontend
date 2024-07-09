@@ -38,10 +38,10 @@ export default function LoginPageClient() {
     //input.email // input.password
     const a = await apiLogin({ email: input.email, password: input.password, 'remember-me': false }).then((s) => {
       if (s.status === 'SUCCESS') {
-        apiCheckLogin({}, s.data).then((a) => {
+        apiCheckLogin({}, { token: s.data.accessToken }).then((a) => {
           if (a.status === 'SUCCESS') {
             setSessionId(s.data);
-            localStorage.setItem(keyForStorage, s.data);
+            localStorage.setItem(keyForStorage, JSON.stringify(s.data));
             return route.push('/');
           } else {
             setLoginError(

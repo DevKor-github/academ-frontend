@@ -23,7 +23,7 @@ export default function SearchResultsView({ query }: { query: string }) {
     return <Box>강의명, 교수명, 학수번호로 검색해보세요.</Box>;
   }
 
-  const results = useApiSearch({ keyword: query }, jwt);
+  const results = useApiSearch({ keyword: query }, { token: jwt?.accessToken });
 
   if (results === null) {
     return <SearchBotLoading />;

@@ -2,12 +2,15 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode, useLayoutEffect } from 'react';
 
-import { apiLogout } from '@/lib/api/login';
+import { apiLogout, apiRefreshToken } from '@/lib/api/login';
 import { apiCheckLogin } from '@/lib/api/login';
 import { JWT } from '@/lib/models/user';
 import { Try } from '@/lib/types/result';
 
-type SessionId = JWT | null;
+type SessionId = {
+  accessToken: JWT;
+  refreshToken: JWT | null;
+} | null;
 
 type SessionIdContextType = [SessionId, React.Dispatch<React.SetStateAction<SessionId>>];
 
@@ -23,7 +26,7 @@ interface SessionIdProviderProps {
 
 export const keyForStorage = 'userSessionId';
 
-const useTabTracker = () => {
+const useTabTracker = (s: SessionId, setS: React.Dispatch<React.SetStateAction<SessionId>>) => {
   useEffect(() => {
     const prevCount = Number(localStorage.getItem('tabCount') || '0');
     localStorage.setItem('tabCount', String(prevCount + 1));
@@ -36,7 +39,8 @@ const useTabTracker = () => {
       localStorage.setItem('tabCount', String(count - i));
 
       if (count <= 0) {
-        apiLogout({});
+        apiLogout({}, { token: s?.accessToken });
+        setS(null);
         localStorage.clear();
       }
     };
@@ -50,31 +54,35 @@ const useTabTracker = () => {
 
 export function SessionIdProvider({ children }: SessionIdProviderProps) {
   const [sessionId, setSessionId] = useState<SessionId | null>(
-    // Try(() => JSON.parse(globalThis?.localStorage?.getItem(keyForStorage) || 'null')).unwrapOrElse(() => null)
-    globalThis?.localStorage?.getItem(keyForStorage) || null,
+    Try(() => JSON.parse(globalThis?.localStorage?.getItem(keyForStorage) || 'null')).unwrapOrElse(() => null),
   );
 
-  useTabTracker();
+  useTabTracker(sessionId, setSessionId);
 
-  // useEffect(() => {
-  //   apiCheckLogin({}).then(
-  //     (a) => {
-  //       if (a.status === "SUCCESS") {
-  //         // setSessionId(a.data);
-  // localStorage.setItem(keyForStorage,
-  //   // JSON.stringify(a.data)
-  // );
-  //       }
-  //       else {
-  //         if (a.status === "ERROR" && sessionId !== null) {
-  //           alert("세션이 만료되었습니다. 다시 로그인해주세요")
-  //         }
-  //         localStorage.removeItem(keyForStorage);
-  //         setSessionId(null);
-  //       }
-  //     }
-  //   )
-  // }, []);
+  useEffect(() => {
+    apiCheckLogin({}, { token: sessionId?.accessToken }).then((a) => {
+      if (a.status === 'SUCCESS') {
+        // well done
+      } else {
+        if (a.status === 'ERROR' && sessionId?.refreshToken === null) {
+          alert('세션이 만료되었습니다. 다시 로그인해주세요');
+        } else if (a.status === 'ERROR' && sessionId !== null && sessionId?.refreshToken !== null) {
+          apiRefreshToken({}, { token: sessionId?.refreshToken }).then((a) => {
+            if (a.status === 'SUCCESS') {
+              setSessionId({
+                accessToken: a.data,
+                refreshToken: sessionId?.refreshToken || null,
+              });
+            } else {
+              alert('세션이 만료되었습니다. 다시 로그인해주세요');
+            }
+          });
+        }
+        localStorage.removeItem(keyForStorage);
+        setSessionId(null);
+      }
+    });
+  }, []);
 
   return <SessionIdContext.Provider value={[sessionId, setSessionId]}>{children}</SessionIdContext.Provider>;
 }

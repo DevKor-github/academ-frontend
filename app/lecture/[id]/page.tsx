@@ -16,7 +16,7 @@ const LectureView = dynamic(() => import('./main'), { ssr: false, loading: Lectu
 export default function LectureFetch({ params: { id } }: { params: { id: number } }) {
   const [jwt] = useSessionId();
 
-  const course = useApiCourseDetail({ course_id: id }, jwt);
+  const course = useApiCourseDetail({ course_id: id }, { token: jwt?.accessToken });
 
   if (course === null) {
     return <LectureLoading />;
@@ -25,6 +25,6 @@ export default function LectureFetch({ params: { id } }: { params: { id: number 
   return course.status === 'SUCCESS' ? (
     <LectureView course={course.data} />
   ) : (
-    <ErrorTemplate title={course.code.toString()} subtitle="오류" />
+    <ErrorTemplate title={course.statusCode.toString()} subtitle="오류" />
   );
 }

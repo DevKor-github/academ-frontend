@@ -143,7 +143,7 @@ function Right({
 export default function CommentView({ comment }: { comment: Comment }) {
   const [jwt] = useSessionId();
 
-  const editable = jwt === null ? true : comment.profile_id === decode<JWTDecoded>(jwt).memberId;
+  const editable = jwt === null ? true : comment.profile_id === decode<JWTDecoded>(jwt.accessToken).memberId;
 
   const [del, setDel] = useState<boolean>(false);
 

@@ -12,7 +12,7 @@ export interface SignupRequest {
   code: string;
 }
 
-export const apiSignup = build<SignupRequest, string>('POST', '/api/signup', [400, 404, 401]);
+export const apiSignup = build<SignupRequest, string>('POST', '/api/signup');
 
 export interface LoginRequest {
   email: string;
@@ -20,7 +20,6 @@ export interface LoginRequest {
   'remember-me': boolean;
 }
 
-// build가 맞음
 export const apiLogin = build<LoginRequest, { accessToken: JWT; refreshToken: JWT | null }>('POST', '/api/login', {
   headers: { 'content-type': 'application/x-www-form-urlencoded' },
 });
@@ -30,7 +29,6 @@ export interface ReqeustWithEmail {
   email: string;
 }
 
-// build가 맞음
 export const apiSendEmail = build<ReqeustWithEmail, unknown>('GET', '/api/signup/send-email');
 
 export interface CheckEmailReqeust {
@@ -38,10 +36,10 @@ export interface CheckEmailReqeust {
   code: string;
 }
 
-// build가 맞음
 export const apiCheckEmail = build<CheckEmailReqeust, unknown>('GET', '/api/signup/check-email');
-
-// build가 맞음
 export const apiResetPassword = build<ReqeustWithEmail, unknown>('GET', '/api/login/reset-password');
+
 export const apiCheckLogin = build<{}, UserProfile>('GET', '/api/check-login');
 export const useApiCheckLogin = createApiHook(apiCheckLogin);
+
+export const apiRefreshToken = build<{}, JWT>('GET', '/api/refresh-token');

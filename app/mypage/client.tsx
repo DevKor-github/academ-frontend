@@ -38,8 +38,8 @@ function UserData({ userprofile }: { userprofile: UserProfile }) {
 export default function MyPage() {
   const [jwt] = useSessionId();
 
-  const myprofile = useApiCheckLogin({}, jwt);
-  const comments = useApiMyComments({}, jwt);
+  const myprofile = useApiCheckLogin({}, { token: jwt?.accessToken });
+  const comments = useApiMyComments({}, { token: jwt?.accessToken });
 
   if (jwt === null) {
     return <NoSessionIdFallback />;

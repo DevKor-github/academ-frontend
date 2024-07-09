@@ -14,7 +14,7 @@ export default function EditComment({ comment, courseName }: { comment: CommentE
 
   function handleSubmit() {
     if (confirm(JSON.stringify(input)) == true) {
-      apiUpdateComment(input, jwt).then((s) => {
+      apiUpdateComment(input, { token: jwt?.accessToken }).then((s) => {
         if (s.status === 'SUCCESS') {
           setSubmitted(true);
         } else {

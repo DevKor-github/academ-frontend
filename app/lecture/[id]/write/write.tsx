@@ -36,7 +36,7 @@ export default function WriteComment({ course }: { course: Course }) {
 
   function handleSubmit() {
     if (confirm(JSON.stringify(input)) == true) {
-      apiInsertComment(input, jwt).then((s) => {
+      apiInsertComment(input, { token: jwt?.accessToken }).then((s) => {
         if (s.status === 'SUCCESS') {
           setSubmitted(true);
         } else {

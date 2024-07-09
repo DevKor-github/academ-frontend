@@ -51,10 +51,14 @@ function ProfileButton() {
 
   const [open, setOpen] = useState<boolean>(false);
 
-  const state = useApiCheckLogin({}, jwt);
+  const state = useApiCheckLogin({}, { token: jwt?.accessToken });
 
   if (state === null) {
-    return <Button><Skeleton placeholder='로그인' /></Button>;
+    return (
+      <Button>
+        <Skeleton placeholder="로그인" />
+      </Button>
+    );
   }
 
   if (state.status !== 'SUCCESS') {

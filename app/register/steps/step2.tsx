@@ -32,7 +32,7 @@ export default function Step2({
 
       if (response.status === 'SUCCESS') {
         nextStep();
-      } else if (response.status === 'ERROR' && response.code === 400) {
+      } else if (response.status === 'ERROR' && response.statusCode === 400) {
         setError(response.message);
       } else {
         alert(response.message);
