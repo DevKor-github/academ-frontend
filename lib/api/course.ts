@@ -4,6 +4,8 @@ import { Comment } from '../models/comment';
 
 export interface SearchRequest {
   keyword: string;
+  order: 'NEWEST' | 'RATING_DESC' | 'RATING_ASC';
+  page: number;
 }
 
 export interface CourseRelatedRequest {
