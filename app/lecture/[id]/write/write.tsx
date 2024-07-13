@@ -54,7 +54,7 @@ export default function WriteComment({ course }: { course: Course }) {
     <WriteOrEditComment
       title={
         <span className="text-2xl ">
-          `{course.name}` <span className="text-base ">강의평 작성하기</span>
+          `{course.name}` <span className="text-base text-gray-400">강의평 작성하기</span>
         </span>
       }
       handleSubmit={handleSubmit}

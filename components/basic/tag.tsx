@@ -8,7 +8,7 @@ interface TagProps extends React.HTMLAttributes<HTMLDivElement> {
 const Tag: React.FC<TagProps> = ({ accent, children, className, ...restProps }: TagProps) => {
   return (
     <div
-      className={`flex text-xs rounded-xl transition-all justify-center text-end items-center pl-1.5 pr-1.5 h-6 ${className}`}
+      className={`flex text-xs rounded-full transition-all justify-center text-end items-center px-4 h-7 ${className}`}
       {...restProps}
     >
       {children}
