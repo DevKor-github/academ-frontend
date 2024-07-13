@@ -6,13 +6,11 @@ import { StarIcon } from '@/icons';
 import { VStack } from '../basic/stack';
 
 function FieldSetStar<Req>({
-  label,
   name,
   onChange,
   input,
 }: {
   input: Req;
-  label: string;
   name: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }) {
@@ -21,7 +19,6 @@ function FieldSetStar<Req>({
 
   return (
     <fieldset className="flex flex-row mt-4">
-      <legend>{label}</legend>
       {[1, 2, 3, 4, 5].flatMap((i) => (
         <label>
           <input
@@ -59,8 +56,10 @@ function FieldSet<Req>({
   const v_of_name = input[name];
 
   return (
-    <fieldset className="flex flex-row mt-4">
-      <legend>{label}</legend>
+    <fieldset className="flex flex-row my-7 mr-40">
+      <legend className="mb-4">
+        <span className="font-bold">{label}</span> 어땠나요?
+      </legend>
       {[1, 2, 3, 4, 5].flatMap((i) => (
         <label>
           <input
@@ -166,24 +165,28 @@ export default function WriteOrEditComment<Req extends CommentJoin>({
           handleSubmit(input);
         }}
       >
-        <div>{title}</div>
+        <div className="my-10">{title}</div>
 
-        <div className="pt-8 pb-8 border-b border-b-neutral-500">
+        <div className="py-10 border-b border-b-neutral-500">
           <span className="text-lg">강의 별점 선택</span>
-          <FieldSetStar input={input} label="단계 선택" name="rating" onChange={handleInputNumber} />
+          <FieldSetStar input={input} name="rating" onChange={handleInputNumber} />
+        </div>
+
+        <div className="pt-8 pb-8 border-b border-b-neutral-500 flex flex-wrap">
+          <span className="text-lg w-full">항목별 평가</span>
+          <div className="grid grid-cols-1 sm:grid-cols-2">
+            <FieldSet input={input} label="학습량" name="r1_amount_of_studying" onChange={handleInputNumber} />
+            <FieldSet input={input} label="난이도" name="r2_difficulty" onChange={handleInputNumber} />
+            <FieldSet input={input} label="전달력" name="r3_delivery_power" onChange={handleInputNumber} />
+            <FieldSet input={input} label="학점" name="r4_grading" onChange={handleInputNumber} />
+          </div>
         </div>
 
         <div className="pt-8 pb-8 border-b border-b-neutral-500">
-          <span className="text-lg">항목별 평가</span>
-          <FieldSet input={input} label="학습량 단계 선택" name="r1_amount_of_studying" onChange={handleInputNumber} />
-          <FieldSet input={input} label="난이도 단계 선택" name="r2_difficulty" onChange={handleInputNumber} />
-          <FieldSet input={input} label="전달력 단계 선택" name="r3_delivery_power" onChange={handleInputNumber} />
-          <FieldSet input={input} label="학점 단계 선택" name="r4_grading" onChange={handleInputNumber} />
-        </div>
-
-        <div className="pt-8 pb-8 border-b border-b-neutral-500">
-          <span className="text-lg">태그 선택</span>
-
+          <div className="flex justify-center items-center mb-5">
+            <span className="text-lg mr-10">태그 선택</span>
+            <span className="text-sm text-gray-400 align-middle">최대 3개의 태그를 선택할 수 있습니다.</span>
+          </div>
           {/* 
     "teach_t1_theory": false,
     "teach_t2_practice":false,
@@ -195,7 +198,8 @@ export default function WriteOrEditComment<Req extends CommentJoin>({
     "learn_t3_exam": false,
     "learn_t4_industry": false,*/}
 
-          <VStack gap="4px">
+          <span className="inline-block my-5">수업 진행 방식 선택</span>
+          <VStack gap="24px">
             <InputToggleTag
               name="teach_t1_theory"
               onChange={handleInputBoolean}
@@ -206,57 +210,58 @@ export default function WriteOrEditComment<Req extends CommentJoin>({
               name="teach_t2_practice"
               onChange={handleInputBoolean}
               defaultChecked={input.teach_t2_practice}
-              label="실습 수업"
+              label="실습 및 실험"
             />
             <InputToggleTag
               name="teach_t3_seminar"
               onChange={handleInputBoolean}
               defaultChecked={input.teach_t3_seminar}
-              label="세미나형 수업"
+              label="세미나"
             />
             <InputToggleTag
               name="teach_t4_discussion"
               onChange={handleInputBoolean}
               defaultChecked={input.teach_t4_discussion}
-              label="토론형 수업"
+              label="토론"
             />
             <InputToggleTag
               name="teach_t5_presentation"
               onChange={handleInputBoolean}
               defaultChecked={input.teach_t5_presentation}
-              label="발표형 수업"
+              label="발표"
             />
           </VStack>
-          <VStack gap="4px">
+          <span className="inline-block mt-10 mb-5">학습 내용 선택</span>
+          <VStack gap="24px">
             <InputToggleTag
               name="learn_t1_theory"
               onChange={handleInputBoolean}
               defaultChecked={input.learn_t1_theory}
-              label="지식 습득에 도움"
+              label="이론 지식 습득"
             />
             <InputToggleTag
               name="learn_t2_thesis"
               onChange={handleInputBoolean}
               defaultChecked={input.learn_t2_thesis}
-              label="논문 작성에 도움"
+              label="논문 작성 도움"
             />
             <InputToggleTag
               name="learn_t3_exam"
               onChange={handleInputBoolean}
               defaultChecked={input.learn_t3_exam}
-              label="시험 대비에 도움"
+              label="졸업 시험 대비"
             />
             <InputToggleTag
               name="learn_t4_industry"
               onChange={handleInputBoolean}
               defaultChecked={input.learn_t4_industry}
-              label="실무 적용에 도움"
+              label="현업 적용"
             />
           </VStack>
         </div>
 
         <div className="pt-8 pb-8 border-b border-b-neutral-500">
-          <span className="text-lg">강의평 작성</span>
+          <span className="text-lg inline-block mb-10">강의평 작성</span>
 
           <div className="light:bg-neutral-100 dark:bg-dark-back-6">
             <textarea
@@ -268,6 +273,9 @@ export default function WriteOrEditComment<Req extends CommentJoin>({
               required
             ></textarea>
             <div className="w-full items-end text-right pr-2 pb-2">{input.review.length} / 최소 50자</div>
+          </div>
+          <div className="flex justify-end mt-4">
+            <span className="text-[#DC143C]">강의 평가 내용은 50자 이상이어야합니다.</span>
           </div>
         </div>
 
