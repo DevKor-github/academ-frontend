@@ -1,5 +1,3 @@
-import Image from 'next/image';
-
 export default function LectureIcon({ code, kind = 'SMALL' }: { code: string; kind?: 'BIG' | 'SMALL' }) {
   (function ignore(r) {
     return r;
@@ -7,13 +5,16 @@ export default function LectureIcon({ code, kind = 'SMALL' }: { code: string; ki
 
   const scale = kind === 'BIG' ? '80px' : '48px';
   const smallScale = kind === 'BIG' ? '12px' : '4px';
-  const imageUrl = imageMap[code.substring(0, 3)] || '/cicon/ku.jpg';
+  const imageUrl = `url(${imageMap[code.substring(0, 3)] || '/cicon/ku.jpg'})`;
 
   return (
     <div
       className="flex flex-row justify-center items-center overflow-clip"
       style={{
-        background: 'white',
+        backgroundImage: imageUrl,
+        backgroundSize: 'contain',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
         aspectRatio: 1,
         minWidth: scale,
         minHeight: scale,
@@ -25,7 +26,7 @@ export default function LectureIcon({ code, kind = 'SMALL' }: { code: string; ki
         overflow: 'clip',
       }}
     >
-      <Image
+      {/* <img
         className="absolute z-10"
         loading="eager"
         src={imageUrl}
@@ -39,7 +40,7 @@ export default function LectureIcon({ code, kind = 'SMALL' }: { code: string; ki
           width: scale,
           objectFit: 'contain',
         }}
-      />
+      /> */}
     </div>
   );
 }
