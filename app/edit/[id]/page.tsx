@@ -14,14 +14,13 @@ export default function EditPage({ params: { id } }: { params: { id: number } })
   const [jwt] = useSessionId();
 
   const editable = useApiStartUpdateComment({ comment_id: id }, { token: jwt?.accessToken });
-  const course = useApiCourseDetail({ course_id: id, page: 1, order: 'NEWEST' }, { token: jwt?.accessToken });
 
-  if (course === null || editable === null) {
+  if (editable === null) {
     return <EditLoading />;
   }
 
-  return course.status === 'SUCCESS' && editable.status === 'SUCCESS' && editable.statusCode === 200 ? (
-    <EditComment courseName={course.data.name} comment={editable.data} />
+  return editable.status === 'SUCCESS' && editable.status === 'SUCCESS' && editable.statusCode === 200 ? (
+    <EditComment courseName={editable.data.name} comment={editable.data} />
   ) : (
     <ErrorTemplate
       title={editable.statusCode.toString()}
