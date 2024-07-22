@@ -8,8 +8,9 @@ import SummaryView from './components/summary';
 
 import { Course } from '@/lib/models/course';
 import Link from 'next/link';
+import { isBookmark } from '@/lib/api/course';
 
-export default function LectureView({ course }: { course: Course }) {
+export default function LectureView({ course }: { course: Course & isBookmark }) {
   if (course.comments.length === 0) {
     return (
       <HStack className="w-full h-full">

@@ -10,6 +10,7 @@ export interface UserProfile {
   department: string;
   point: string;
   created_at: string;
+  access_expiration_date: string;
   role: string;
 }
 
