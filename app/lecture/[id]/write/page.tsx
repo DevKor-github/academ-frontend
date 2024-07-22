@@ -15,14 +15,13 @@ export default function WritePage({ params: { id } }: { params: { id: number } }
   const [jwt] = useSessionId();
 
   const writable = useApiStartNewComment({ course_id: id }, { token: jwt?.accessToken });
-  const course = useApiCourseDetail({ course_id: id, page: 1, order: 'NEWEST' }, { token: jwt?.accessToken });
 
-  if (course === null || writable === null) {
+  if (writable === null) {
     return <WriteLoading />;
   }
 
-  return course.status === 'SUCCESS' && writable.status === 'SUCCESS' && writable.statusCode === 200 ? (
-    <WriteComment course={course.data} />
+  return writable.status === 'SUCCESS' && writable.status === 'SUCCESS' && writable.statusCode === 200 ? (
+    <WriteComment course={writable.data} />
   ) : (
     <ErrorTemplate
       title={writable.statusCode.toString()}
