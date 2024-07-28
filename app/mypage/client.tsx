@@ -9,6 +9,7 @@ import { useApiMyPage } from '@/lib/api/login';
 import SearchSingle from '../lecture/SearchSingle';
 import { HStack, VStack } from '@/components/basic/stack';
 import { isBookmark } from '@/lib/api/course';
+import Link from 'next/link';
 
 function NoSessionIdFallback() {
   return <div>이 기능을 사용하려면 로그인해야 합니다.</div>;
@@ -18,6 +19,7 @@ function UserData({ userprofile }: { userprofile: UserProfile }) {
   return (
     <div className="p-8 text-xl col-auto">
       <div className="text-3xl pb-4">내 정보</div>
+      <Link href="/mypage/edit">수정하기</Link>
       <div>
         <span className="font-bold">이름</span> {userprofile.username}
       </div>
