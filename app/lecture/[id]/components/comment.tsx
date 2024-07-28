@@ -109,7 +109,7 @@ function Right({
       <VStack className="self-end" gap="4px">
         {editable ? (
           <>
-            <Link href={`/edit/${comment.comment_id}`}>
+            <Link href={`/comment/${comment.comment_id}/edit`}>
               <Button kind="blank">수정</Button>
             </Link>
             <Button
@@ -134,7 +134,9 @@ function Right({
           <></>
         )}
         <Button kind="blank">강의평 좋아요 ({comment.likes})</Button>
-        <Button kind="blank">신고 </Button>
+        <Link href={`/comment/${comment.comment_id}/report`}>
+          <Button kind="blank">신고 </Button>
+        </Link>
       </VStack>
     </HStack>
   );
