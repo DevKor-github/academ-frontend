@@ -3,20 +3,20 @@
 import { useApiCourseDetail, useApiStartUpdateComment } from '@/lib/api/course';
 
 import ErrorTemplate from '@/lib/template';
-import EditLoading from './loading';
+import CommentReportLoading from './loading';
 
 import dynamic from 'next/dynamic';
 import { useSessionId } from '@/context/SessionIdContext';
 
-const EditComment = dynamic(() => import('./edit'), { ssr: false, loading: EditLoading });
+const EditComment = dynamic(() => import('./edit'), { ssr: false, loading: CommentReportLoading });
 
-export default function EditPage({ params: { id } }: { params: { id: number } }) {
+export default function EditPage({ params: { comment_id } }: { params: { comment_id: number } }) {
   const [jwt] = useSessionId();
 
-  const editable = useApiStartUpdateComment({ comment_id: id }, { token: jwt?.accessToken });
+  const editable = useApiStartUpdateComment({ comment_id }, { token: jwt?.accessToken });
 
   if (editable === null) {
-    return <EditLoading />;
+    return <CommentReportLoading />;
   }
 
   return editable.status === 'SUCCESS' && editable.status === 'SUCCESS' && editable.statusCode === 200 ? (
