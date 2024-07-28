@@ -103,8 +103,8 @@ function Right({
           <Tag key={i}>{v}</Tag>
         ))}
       </VStack>
-      <span className="text-xl flex-grow" style={{ lineHeight: '150%', lineBreak: 'anywhere' }}>
-        <span style={{ color: 'grey' }}>작성내용</span> {comment.review}
+      <span className="text-xl flex-grow" style={{ lineHeight: '150%', lineBreak: 'anywhere', whiteSpace: 'pre-line' }}>
+        <div style={{ color: 'grey' }}>작성내용</div> {comment.review}
       </span>
       <VStack className="self-end" gap="4px">
         {editable ? (
