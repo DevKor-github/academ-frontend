@@ -41,8 +41,8 @@ function SearchResultsArrayView({
         setValue={setCond}
         items={[
           { value: { order: 'NEWEST', page: 1 }, label: '최신순' },
-          { value: { order: 'RATING_DESC', page: 1 }, label: '별점 낮은순' },
-          { value: { order: 'RATING_ASC', page: 1 }, label: '별점 높은순' },
+          { value: { order: 'RATING_DESC', page: 1 }, label: '별점 높은순' },
+          { value: { order: 'RATING_ASC', page: 1 }, label: '별점 낮은순' },
         ]}
       />
       <div className={styles.container}>
