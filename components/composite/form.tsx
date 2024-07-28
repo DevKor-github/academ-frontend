@@ -4,6 +4,7 @@ import Tag from '@/components/basic/tag';
 
 import { StarIcon } from '@/icons';
 import { VStack } from '../basic/stack';
+import { useRef } from 'react';
 
 function FieldSetStar<Req>({
   name,
@@ -155,6 +156,14 @@ export default function WriteOrEditComment<Req extends CommentJoin>({
     });
   }
 
+  const textarea = useRef<HTMLTextAreaElement>(null);
+  const handleResizeHeight = () => {
+    if (textarea.current) {
+      textarea.current.style.height = 'auto'; // 높이 초기화
+      textarea.current.style.height = textarea.current.scrollHeight + 'px';
+    }
+  };
+
   return (
     <main className="p-2 md:p-8 h-full transition-all">
       <form
@@ -265,7 +274,10 @@ export default function WriteOrEditComment<Req extends CommentJoin>({
 
           <div className="light:bg-neutral-100 dark:bg-dark-back-6">
             <textarea
-              className="w-full p-8 light:bg-neutral-100 dark:bg-dark-back-6"
+              ref={textarea}
+              onInput={handleResizeHeight}
+              rows={5}
+              className="w-full p-8 light:bg-neutral-100 dark:bg-dark-back-6 resize-none"
               id="review"
               onChange={handleInputString}
               placeholder="다음 질문을 참고하여 내용을 작성해주세요. (최소 50자)"
@@ -280,7 +292,7 @@ export default function WriteOrEditComment<Req extends CommentJoin>({
         </div>
 
         <div className="flex flex-row justify-center items-center mt-8">
-          <Button kind="filled" type="submit">
+          <Button kind="filled" type="submit" className="px-20">
             강의평 제출하기
           </Button>
         </div>
