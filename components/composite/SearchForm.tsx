@@ -6,6 +6,7 @@ import { VStack } from '@/components/basic/stack';
 import { MagnifyIcon } from '@/icons';
 import Button from '@/components/basic/button';
 import { RightIcon } from '@/icons';
+import ErrorLabel from '../basic/errorlabel';
 
 interface SearchFormProp {
   className?: string;
@@ -16,14 +17,22 @@ interface SearchFormProp {
 
 export default function SearchForm({ autoFocus, className, defaultValue, style }: SearchFormProp) {
   const [query, setQuery] = useState(defaultValue || '');
+  const [error, setError] = useState('');
 
   const combinedStyle = {
     ...style,
     ...{ padding: '20px 0px' },
   };
 
+  function submitHanlder(event: React.FormEvent<HTMLFormElement>) {
+    if (query === '') {
+      event.preventDefault();
+      setError('검색어를 1자 이상 입력해주세요.');
+    }
+  }
+
   return (
-    <form className={className} method="get" action="/lecture" style={combinedStyle}>
+    <form className={className} method="get" action="/lecture" style={combinedStyle} onSubmit={submitHanlder}>
       <VStack
         gap="2px"
         className="transition-all justify-center items-center light:bg-neutral-100 dark:bg-neutral-900
@@ -32,7 +41,7 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
       >
         <MagnifyIcon />
         <input
-          required
+          // required
           autoFocus={autoFocus}
           className="w-full pl-4 focus-within:outline-none"
           id="text"
@@ -51,6 +60,7 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
           <RightIcon />
         </Button>
       </VStack>
+      <ErrorLabel className={'text-primary-500 '} label={error} />
     </form>
   );
 }
