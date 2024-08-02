@@ -1,22 +1,27 @@
 'use client';
 
-import { useSessionId } from '@/context/SessionIdContext';
-import { useApiNoticeDetail } from '@/lib/api/notice';
-import NoticeView from './main';
-import ErrorTemplate from '@/lib/template';
+import { usePathname } from 'next/navigation';
+import { NoticeList } from '../list';
+import { HStack } from '@/components/basic/stack';
 
-export default function NoticeDetailPage({ params: { id } }: { params: { id: number } }) {
-  const [jwt] = useSessionId();
+export default function NoticeDetailPage() {
+  const path = usePathname();
+  const id = path.split('/').pop();
 
-  const notice = useApiNoticeDetail({ notice_id: id }, { token: jwt?.accessToken });
+  // id로 해당 notice를 찾음
+  const notice = NoticeList.find((notice) => notice.id === Number(id));
+
   // 데이터가 없으면 에러 처리
-  if (notice === null) {
-    return <div>{id} error</div>;
+  if (!notice) {
+    return <div>{id}</div>;
   }
 
-  return notice.status === 'SUCCESS' ? (
-    <NoticeView notice={notice.data} />
-  ) : (
-    <ErrorTemplate title={notice.statusCode.toString()} subtitle='="오류' />
+  return (
+    <HStack gap="10px" className="m-20">
+      <h1 className="text-2xl font-semibold">{notice.title}</h1>
+      <p className="text-sm font-medium text-gray-400">{notice.date}</p>
+      <div className="w-full border border-gray-300 my-10"></div>
+      <div>{notice.text}</div>
+    </HStack>
   );
 }

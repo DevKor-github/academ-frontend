@@ -1,11 +1,12 @@
-import { Notice } from '@/lib/api/notice';
+import { Notice } from './NoticeSingle';
 
 export const NoticeList: Notice[] = [
   {
-    notice_id: 1,
+    id: 1,
     title: '대학원 강의 평가 공유 서비스, ACADEM(아카뎀) 서비스 소개',
-    created_at: '2024/07/09',
-    detail: `<div>
+    date: '2024/07/09',
+    text: (
+      <div>
         <div className="leading-normal text-base flex flex-col gap-12">
           <p>안녕하세요! 고려대학교 소프트웨어 개발연구 학회 DevKor의 프로젝트 팀, 아카뎀입니다.</p>
           <p>
@@ -64,17 +65,7 @@ export const NoticeList: Notice[] = [
             <a href="https://forms.gle/7agPntbjgCjHumVER">https://forms.gle/7agPntbjgCjHumVER</a>
           </p>
         </div>
-      </div>`,
-  },
-  {
-    notice_id: 2,
-    title: 'ACADEM',
-    created_at: '2024/07/09',
-    detail: `<div>
-        <div className="leading-normal text-base flex flex-col gap-12">
-          <p>like DevKor</p>
-          <p>like Academ</p>
-        </div>
-      </div>`,
+      </div>
+    ),
   },
 ];
