@@ -10,9 +10,9 @@ export interface Notice {
 export default function NoticeSingle({ notice }: { notice: Notice }) {
   return (
     <div>
-      <Link className="flex justify-between" href={`/notice/${notice.id}`}>
-        <span>{notice.title}</span>
-        <span>{notice.date}</span>
+      <Link className="flex justify-between self-centers" href={`/notice/${notice.id}`}>
+        <span className="text-base font-medium">{notice.title}</span>
+        <span className="text-base font-normal text-gray-400">{notice.date}</span>
       </Link>
       <div className="w-full my-4 border border-gray-300" />
     </div>
