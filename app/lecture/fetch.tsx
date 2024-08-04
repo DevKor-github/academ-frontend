@@ -4,7 +4,7 @@ import { HStack } from '@/components/basic/stack';
 import styles from './common.module.css';
 import SearchSingle from './SearchSingle';
 
-import { SearchRequest, apiSearch } from '@/lib/api/course';
+import { SearchRequest, apiSearch, isBookmark } from '@/lib/api/course';
 import { SearchBotLoading } from './loading';
 import { useSessionId } from '@/context/SessionIdContext';
 import { useEffect, useState } from 'react';
@@ -33,7 +33,6 @@ function SearchResultsArrayView({
   if (courses.length === 0) {
     return <Box>검색 결과가 없습니다.</Box>;
   }
-
   return (
     <Box>
       <Select
@@ -69,7 +68,7 @@ function SearchResultsArrayView({
 
 export default function SearchResultsView({ query: keyword }: { query: string }) {
   const [jwt] = useSessionId();
-  const [courses, setCourses] = useState<null | Course[]>(null);
+  const [courses, setCourses] = useState<null | string | (Course & isBookmark)[]>(null);
   const [EOC, setEOC] = useState<boolean>(false);
   const [cond, setCond] = useState<Omit<SearchRequest, 'keyword'>>({ order: 'NEWEST', page: 1 });
 
@@ -99,6 +98,8 @@ export default function SearchResultsView({ query: keyword }: { query: string })
 
   if (courses === null) {
     return <SearchBotLoading />;
+  } else if (typeof courses === 'string') {
+    return <div></div>;
   } else {
     return <SearchResultsArrayView setCond={setCond} courses={courses} eoc={EOC} />;
   }
