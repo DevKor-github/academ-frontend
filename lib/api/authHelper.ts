@@ -24,7 +24,7 @@ export const retryWithJWTRefresh: <Req, Res>(
 
     return apiFunc(req, setCtxtWithToken(sessionId?.accessToken)).then((v) => {
       if (v.statusCode === 403) {
-        return apiJWTRefresh({}, { token: sessionId?.refreshToken }).then((v2) => {
+        return apiJWTRefresh({}, { token: sessionId?.refreshToken || undefined }).then((v2) => {
           if (v2.status === 'SUCCESS') {
             setSessionId({ accessToken: v2.data, refreshToken: sessionId?.refreshToken || null });
             return apiFunc(req, setCtxtWithToken(v2.data)) as Promise<ApiResponse<Res>>;

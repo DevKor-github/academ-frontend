@@ -3,13 +3,12 @@
 import { useSessionId } from '../../context/SessionIdContext';
 import CommentsView from '../lecture/[id]/components/comments';
 
-import { Course } from '@/lib/models/course';
+import { CourseWithBookmark } from '@/lib/models/course';
 import { UserProfile } from '@/lib/models/user';
 import { useApiMyPage } from '@/lib/api/login';
 
 import SearchSingle from '../lecture/SearchSingle';
 import { HStack, VStack } from '@/components/basic/stack';
-import { isBookmark } from '@/lib/api/course';
 import Link from 'next/link';
 
 import ManageMembership from './inner/ManageMembership';
@@ -19,7 +18,7 @@ function NoSessionIdFallback() {
   return <div>이 기능을 사용하려면 로그인해야 합니다.</div>;
 }
 
-function CoursesView({ courses }: { courses: (Course & isBookmark)[] }) {
+function CoursesView({ courses }: { courses: CourseWithBookmark[] }) {
   return (
     <HStack
       className="pl-2 pr-2 md:pl-8 md:pr-8 pt-24 h-full transition-all

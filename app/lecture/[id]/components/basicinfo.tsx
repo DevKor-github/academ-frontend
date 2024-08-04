@@ -1,15 +1,14 @@
 import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
-import { Course } from '@/lib/models/course';
+import { Course, CourseWithBookmark } from '@/lib/models/course';
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
 import LectureIcon from '@/components/composite/lectureIcon';
-import { isBookmark } from '@/lib/api/course';
 
 type RenderType<T, NewType> = {
   [P in keyof T]: T[P] extends number ? T[P] : NewType;
 };
 
-export default function BasicInfoView({ course }: { course: Course & isBookmark }) {
+export default function BasicInfoView({ course }: { course: CourseWithBookmark }) {
   return (
     <VStack
       className={` pl-8 pr-8  border-b-black bg-neutral-50 dark:bg-neutral-950`}
