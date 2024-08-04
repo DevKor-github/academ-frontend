@@ -2,11 +2,13 @@ import { HStack, VStack } from '@/components/basic/stack';
 import Link from 'next/link';
 import Button from '@/components/basic/button';
 import BackButton from './backbutton';
+import ErrorIllust from './inner/erroricon';
 
 export default function ErrorTemplate({ title, subtitle, back }: { title: string; subtitle: string; back?: string }) {
   return (
     <main>
       <HStack className="pt-24 pb-24 pl-8 pr-8 text-center items-center justify-center">
+        <ErrorIllust />
         <HStack className="pb-16" gap="16px">
           <span className="text-6xl font-bold">{title}</span>
           <span className="text-xl whitespace-pre-line">{subtitle}</span>
