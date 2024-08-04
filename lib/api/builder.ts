@@ -5,6 +5,7 @@ import { AxiosError } from 'axios';
 import { AxiosRequestConfig } from 'axios';
 
 import { useEffect, useState } from 'react';
+import { isDebug } from '../directive';
 
 const backend = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_API_URL,
@@ -132,6 +133,11 @@ export function build<Req, Res>(method: 'POST' | 'GET', path: string, config: Ax
           });
 
     const firstResult = await resolvify<Res>(firstTry);
+
+    if (isDebug) {
+      const show = firstResult.status === 'SUCCESS' ? console.log : console.error;
+      show(`[DEBUG] path: ${path} <- \n ${JSON.stringify(firstResult)}`);
+    }
 
     return firstResult;
   };
