@@ -1,7 +1,42 @@
 import { CommentReportReq } from '@/lib/api/course';
 import Button from '@/components/basic/button';
 
-function PickOne(f: StateChange<String>) {}
+const reasons = [
+  { reason: 'PROFANITY', text: '욕설/비방/비하' },
+  { reason: 'INSINCERE', text: '성의없는 강의평' },
+  { reason: 'SEXUAL', text: '음란성/선정성' },
+  { reason: 'PERSONAL', text: '개인정보 노출' },
+  { reason: 'OTHER', text: '기타' },
+] as const;
+
+function ReasonPicker({ setInput, input }: { input: CommentReportReq; setInput: StateChange<CommentReportReq> }) {
+  return (
+    <fieldset className="flex flex-row flex-wrap justify-center mt-4 gap-4 w-full">
+      {reasons.flatMap((i) => (
+        <label>
+          <input
+            id="reason"
+            className="accent-primary-500"
+            type="radio"
+            name="reason"
+            onChange={function (e: React.ChangeEvent<HTMLInputElement>) {
+              setInput((v) => {
+                return { ...v, ...{ reason: i.reason } };
+              });
+            }}
+            value={i.reason}
+            defaultChecked={input.reason === i.reason}
+          />
+          {
+            <span className={`${input.reason === i.reason ? 'text-primary-500' : 'text-neutral-500'} cursor-pointer`}>
+              {i.text}
+            </span>
+          }
+        </label>
+      ))}
+    </fieldset>
+  );
+}
 
 export default function ReportCommentForm({
   handleSubmit,
@@ -13,18 +48,23 @@ export default function ReportCommentForm({
   setInput: StateChange<CommentReportReq>;
 }) {
   return (
-    <main className="p-2 md:p-8 h-full transition-all">
+    <main className="pt-8 pb-8 h-full transition-all">
       <form
-        className="flex flex-col "
+        className="flex flex-col gap-8"
         method="post"
         onSubmit={(e) => {
           e.preventDefault();
           handleSubmit(input);
         }}
       >
-        <div>강의평 신고</div>
+        <div className="pl-8 pr-8 font-bold text-xl">강의평 신고</div>
+
+        <ReasonPicker input={input} setInput={setInput} />
 
         <textarea
+          required
+          placeholder="신고 사유를 입력해주세요."
+          className="bg-light-back-1 dark:bg-dark-back-2 p-8"
           onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
             setInput((v) => {
               return { ...v, ...{ detail: event.target.value } };
@@ -34,7 +74,7 @@ export default function ReportCommentForm({
 
         <div className="flex flex-row justify-center items-center mt-8">
           <Button kind="filled" type="submit">
-            강의평 제출하기
+            강의평 신고하기
           </Button>
         </div>
       </form>
