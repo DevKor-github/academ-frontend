@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import Submitted from './submitted';
 import { useSessionId } from '@/context/SessionIdContext';
 
-import WriteOrEditComment from '@/components/composite/form';
+import ReportCommentForm from './inner/form';
 
-export default function EditComment({ comment, courseName }: { comment: CommentEditReq; courseName: string }) {
+export default function ReportComment({ comment }: { comment: CommentEditReq }) {
   const [jwt] = useSessionId();
 
   const [input, setInput] = useState<CommentEditReq>(comment);
@@ -28,16 +28,5 @@ export default function EditComment({ comment, courseName }: { comment: CommentE
     return <Submitted back={'/'} success={submitted} />;
   }
 
-  return (
-    <WriteOrEditComment
-      title={
-        <span className="text-2xl ">
-          `{courseName}` <span className="text-base ">강의평 수정하기</span>
-        </span>
-      }
-      handleSubmit={handleSubmit}
-      input={input}
-      setInput={setInput}
-    />
-  );
+  return <ReportCommentForm />;
 }
