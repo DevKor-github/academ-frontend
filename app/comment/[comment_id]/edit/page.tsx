@@ -10,18 +10,17 @@ import { useSessionId } from '@/context/SessionIdContext';
 
 const EditComment = dynamic(() => import('./edit'), { ssr: false, loading: EditLoading });
 
-export default function EditPage({ params: { id } }: { params: { id: number } }) {
+export default function EditPage({ params: { comment_id } }: { params: { comment_id: number } }) {
   const [jwt] = useSessionId();
 
-  const editable = useApiStartUpdateComment({ comment_id: id }, { token: jwt?.accessToken });
-  const course = useApiCourseDetail({ course_id: id, page: 1, order: 'NEWEST' }, { token: jwt?.accessToken });
+  const editable = useApiStartUpdateComment({ comment_id }, { token: jwt?.accessToken });
 
-  if (course === null || editable === null) {
+  if (editable === null) {
     return <EditLoading />;
   }
 
-  return course.status === 'SUCCESS' && editable.status === 'SUCCESS' && editable.statusCode === 200 ? (
-    <EditComment courseName={course.data.name} comment={editable.data} />
+  return editable.status === 'SUCCESS' && editable.status === 'SUCCESS' && editable.statusCode === 200 ? (
+    <EditComment courseName={editable.data.name} comment={editable.data} />
   ) : (
     <ErrorTemplate
       title={editable.statusCode.toString()}

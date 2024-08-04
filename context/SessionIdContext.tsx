@@ -2,17 +2,12 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode, useLayoutEffect } from 'react';
 
-import { apiLogout, apiRefreshToken } from '@/lib/api/login';
+import { apiLogout } from '@/lib/api/login';
 import { apiCheckLogin } from '@/lib/api/login';
-import { JWT } from '@/lib/models/user';
+import { apiJWTRefresh } from '@/lib/api/authHelper';
 import { Try } from '@/lib/types/result';
 
-type SessionId = {
-  accessToken: JWT;
-  refreshToken: JWT | null;
-} | null;
-
-type SessionIdContextType = [SessionId, React.Dispatch<React.SetStateAction<SessionId>>];
+export type SessionIdContextType = [SessionId, StateChange<SessionId>];
 
 const SessionIdContext = createContext<SessionIdContextType>([null, () => {}]);
 
@@ -67,7 +62,7 @@ export function SessionIdProvider({ children }: SessionIdProviderProps) {
         if (a.status === 'ERROR' && sessionId?.refreshToken === null) {
           alert('세션이 만료되었습니다. 다시 로그인해주세요');
         } else if (a.status === 'ERROR' && sessionId !== null && sessionId?.refreshToken !== null) {
-          apiRefreshToken({}, { token: sessionId?.refreshToken }).then((a) => {
+          apiJWTRefresh({}, { token: sessionId?.refreshToken }).then((a) => {
             if (a.status === 'SUCCESS') {
               setSessionId({
                 accessToken: a.data,

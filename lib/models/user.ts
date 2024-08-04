@@ -1,5 +1,3 @@
-export type JWT = string;
-
 export interface UserProfile {
   profile_id: number;
   email: string;
@@ -10,6 +8,7 @@ export interface UserProfile {
   department: string;
   point: string;
   created_at: string;
+  access_expiration_date: string;
   role: string;
 }
 

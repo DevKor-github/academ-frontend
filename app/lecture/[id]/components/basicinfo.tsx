@@ -1,6 +1,6 @@
 import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
-import { Course } from '@/lib/models/course';
+import { Course, CourseWithBookmark } from '@/lib/models/course';
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
 import LectureIcon from '@/components/composite/lectureIcon';
 
@@ -8,7 +8,7 @@ type RenderType<T, NewType> = {
   [P in keyof T]: T[P] extends number ? T[P] : NewType;
 };
 
-export default function BasicInfoView({ course }: { course: Course }) {
+export default function BasicInfoView({ course }: { course: CourseWithBookmark }) {
   return (
     <VStack
       className={` pl-8 pr-8  border-b-black bg-neutral-50 dark:bg-neutral-950`}
@@ -26,7 +26,7 @@ export default function BasicInfoView({ course }: { course: Course }) {
         <VStack gap="10px" style={{ alignItems: 'center', flexWrap: 'wrap' }}>
           <span className="text-3xl">{course.name}</span>
           <Tag className="bg-primary-100 text-primary-900 opacity-50">강의평 {course.count_comments}개</Tag>
-          <BookmarkToggleButton id={course.course_id} />
+          <BookmarkToggleButton defaultValue={course.isBookmark} id={course.course_id} />
         </VStack>
         <VStack gap="20px" style={{ flexWrap: 'wrap' }}>
           <span className="text-lg">{course.professor}</span>

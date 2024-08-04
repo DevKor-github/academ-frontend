@@ -5,5 +5,5 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <CommonLayout highlight="/lecture">{children}</CommonLayout>;
+  return <CommonLayout>{children}</CommonLayout>;
 }

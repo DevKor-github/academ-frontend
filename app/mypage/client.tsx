@@ -1,59 +1,64 @@
 'use client';
 
 import { useSessionId } from '../../context/SessionIdContext';
-import { useApiMyComments } from '@/lib/api/course';
-
 import CommentsView from '../lecture/[id]/components/comments';
-import { UserProfile } from '@/lib/models/user';
 
-import { useApiCheckLogin } from '@/lib/api/login';
+import { CourseWithBookmark } from '@/lib/models/course';
+import { UserProfile } from '@/lib/models/user';
+import { useApiMyPage } from '@/lib/api/login';
+
+import SearchSingle from '../lecture/SearchSingle';
+import { HStack, VStack } from '@/components/basic/stack';
+import Link from 'next/link';
+
+import ManageMembership from './inner/ManageMembership';
+import UserDataOverview from './inner/UserdataOverview';
 
 function NoSessionIdFallback() {
   return <div>이 기능을 사용하려면 로그인해야 합니다.</div>;
 }
 
-function UserData({ userprofile }: { userprofile: UserProfile }) {
+function CoursesView({ courses }: { courses: CourseWithBookmark[] }) {
   return (
-    <div className="p-8 text-xl col-auto">
-      <div className="text-3xl pb-4">내 정보</div>
-      <div>
-        <span className="font-bold">이름</span> {userprofile.username}
+    <HStack
+      className="pl-2 pr-2 md:pl-8 md:pr-8 pt-24 h-full transition-all
+  light:bg-light-back-1 dark:bg-dark-back-1
+  "
+    >
+      <VStack className="items-center justify-start gap-2">
+        <span className="text-2xl">강의 책갈피</span>
+      </VStack>
+      <div className="overflow-scroll w-full">
+        <div className="flex flex-row w-fit gap-4 p-8">
+          {courses.flatMap((v) => (
+            <SearchSingle course={v} />
+          ))}
+        </div>
       </div>
-      <div>
-        <span className="font-bold">학번</span> {userprofile.student_id}
-      </div>
-      <div>
-        <span className="font-bold">과정</span> {userprofile.degree}
-      </div>
-      <div>
-        <span className="font-bold">학과</span> {userprofile.department}
-      </div>
-      <div>
-        <span className="font-bold">포인트</span> {userprofile.point}
-      </div>
-    </div>
+    </HStack>
   );
 }
 
 export default function MyPage() {
   const [jwt] = useSessionId();
 
-  const myprofile = useApiCheckLogin({}, { token: jwt?.accessToken });
-  const comments = useApiMyComments({}, { token: jwt?.accessToken });
+  const myprofile = useApiMyPage({}, { token: jwt?.accessToken });
 
   if (jwt === null) {
     return <NoSessionIdFallback />;
   }
 
-  if (comments === null || myprofile === null) {
+  if (myprofile === null) {
     return <div>로딩중</div>;
   }
 
-  if (comments.status === 'SUCCESS' && myprofile.status === 'SUCCESS') {
+  if (myprofile.status === 'SUCCESS') {
     return (
       <main className="w-full flex-grow">
-        <UserData userprofile={myprofile.data} />
-        <CommentsView comments={comments.data} />
+        <UserDataOverview userprofile={myprofile.data} />
+        <ManageMembership profile={myprofile.data} />
+        <CoursesView courses={myprofile.data.courses} />
+        <CommentsView comments={myprofile.data.comments} />
       </main>
     );
   } else {

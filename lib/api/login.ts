@@ -1,5 +1,7 @@
 import { build, createApiHook } from '@/lib/api/builder';
-import { JWT, UserProfile } from '../models/user';
+import { UserProfile } from '../models/user';
+import { Course, CourseWithBookmark } from '../models/course';
+import { Comment } from '../models/comment';
 
 export interface SignupRequest {
   email: string;
@@ -42,4 +44,8 @@ export const apiResetPassword = build<ReqeustWithEmail, unknown>('GET', '/api/lo
 export const apiCheckLogin = build<{}, UserProfile>('GET', '/api/check-login');
 export const useApiCheckLogin = createApiHook(apiCheckLogin);
 
-export const apiRefreshToken = build<{}, JWT>('GET', '/api/refresh-token');
+export const apiMyPage = build<{}, UserProfile & { courses: CourseWithBookmark[]; comments: Comment[] }>(
+  'GET',
+  '/api/mypage',
+);
+export const useApiMyPage = createApiHook(apiMyPage);
