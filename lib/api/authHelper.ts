@@ -12,19 +12,22 @@ export const apiJWTRefresh = build<{}, JWT>('GET', '/api/signup/check-email');
  * @param param1
  * @returns Promise<ApiResponse<Res>>
  */
-export const retryWithJWTRefresh =
+export const retryWithJWTRefresh: <Req, Res>(
+  apiFunc: ApiFunction<Req, Res>,
+  useSessionIdReturn: SessionIdContextType,
+) => ApiFunction<Req, Res> =
   <Req, Res>(apiFunc: ApiFunction<Req, Res>, [sessionId, setSessionId]: SessionIdContextType) =>
   (req: Req, ctxt?: ApiCTX) => {
     function setCtxtWithToken(jwt: JWT | undefined) {
       return { ...ctxt, ...{ token: jwt } };
     }
 
-    apiFunc(req, setCtxtWithToken(sessionId?.accessToken)).then((v) => {
+    return apiFunc(req, setCtxtWithToken(sessionId?.accessToken)).then((v) => {
       if (v.statusCode === 403) {
-        apiJWTRefresh({}, { token: sessionId?.refreshToken }).then((v2) => {
+        return apiJWTRefresh({}, { token: sessionId?.refreshToken }).then((v2) => {
           if (v2.status === 'SUCCESS') {
             setSessionId({ accessToken: v2.data, refreshToken: sessionId?.refreshToken || null });
-            return apiFunc(req, setCtxtWithToken(v2.data));
+            return apiFunc(req, setCtxtWithToken(v2.data)) as Promise<ApiResponse<Res>>;
           } else {
             return Promise.resolve(v);
           }
