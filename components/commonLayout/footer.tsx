@@ -1,3 +1,4 @@
+import { isDebug } from '@/lib/directive';
 interface AdaptiveStackProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
   className?: string;
   vGap?: string | number;
@@ -28,7 +29,7 @@ export default function Footer() {
         </Link>
         <Link href="/policy">이용약관</Link>
         <Link href={process.env.NEXT_PUBLIC_BUG_REPORT || ''}>버그리포트</Link>
-        {process.env.NODE_ENV === 'development' && <Link href="/diagnostic">진단</Link>}
+        {isDebug && <Link href="/diagnostic">진단</Link>}
         <span className="md:ml-auto">Copyright ⓒ 2024 Academ. all rights reserved</span>
       </AdaptiveStack>
     </footer>

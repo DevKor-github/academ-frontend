@@ -9,7 +9,7 @@ export default function UserDataOverview({ userprofile }: { userprofile: UserPro
     userprofile.degree === 'MASTER' ? '석사과정' : userprofile.degree === 'DOCTOR' ? '박사과정' : '?과정';
 
   return (
-    <div className="p-8 text-xl flex flex-row gap-16 w-full justify-start items-start">
+    <div className="p-8 text-xl flex flex-row flex-wrap gap-16 w-full justify-start items-start">
       <div className="block bg-neutral-500 rounded-2xl" style={{ width: '192px', height: '128px' }}>
         로고이미지
       </div>
@@ -29,7 +29,9 @@ export default function UserDataOverview({ userprofile }: { userprofile: UserPro
         </div>
       </div>
       <Link href="/mypage/edit" className="self-end ml-auto">
-        수정하기
+        <button className="border border-primary-400 rounded-full text-sm pt-1 pb-1 pl-4 pr-4 text-primary-400">
+          수정하기
+        </button>
       </Link>
     </div>
   );

@@ -13,7 +13,7 @@ export default function EditComment({ comment, courseName }: { comment: CommentE
   const [submitted, setSubmitted] = useState<boolean | null>(null);
 
   function handleSubmit() {
-    if (confirm(JSON.stringify(input)) == true) {
+    if (confirm('정말 수정하시겠습니까?') == true) {
       apiUpdateComment(input, { token: jwt?.accessToken }).then((s) => {
         if (s.status === 'SUCCESS') {
           setSubmitted(true);

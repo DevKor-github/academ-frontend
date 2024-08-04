@@ -13,12 +13,12 @@ export default function ReportComment({ comment_id }: { comment_id: number }) {
 
   const [submitted, setSubmitted] = useState<boolean | null>(null);
 
+  const sessionIdState = useSessionId();
+
   function handleSubmit(finalInput: CommentReportReq) {
-    if (confirm(JSON.stringify(finalInput)) == true) {
-      retryWithJWTRefresh(apiRepComment, useSessionId())(finalInput, {}).then((s) => {
-        setSubmitted(s.status === 'SUCCESS');
-      });
-    }
+    retryWithJWTRefresh(apiRepComment, sessionIdState)(finalInput, {}).then((s) => {
+      setSubmitted(s.status === 'SUCCESS');
+    });
   }
 
   if (submitted !== null) {

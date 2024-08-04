@@ -6,6 +6,7 @@ import Submitted from './submitted';
 import WriteOrEditComment from '@/components/composite/form';
 
 import { useSessionId } from '@/context/SessionIdContext';
+import { retryWithJWTRefresh } from '@/lib/api/authHelper';
 
 function NewCommentWithId(id: number) {
   return {
@@ -29,14 +30,17 @@ function NewCommentWithId(id: number) {
 }
 
 export default function WriteComment({ course }: { course: Course }) {
-  const [jwt] = useSessionId();
+  const sessionId = useSessionId();
 
   const [input, setInput] = useState<CommentNewReq>(NewCommentWithId(course.course_id));
   const [submitted, setSubmitted] = useState<boolean | null>(null);
 
   function handleSubmit() {
-    if (confirm(JSON.stringify(input)) == true) {
-      apiInsertComment(input, { token: jwt?.accessToken }).then((s) => {
+    if (confirm('정말 수정하시겠습니까?') == true) {
+      retryWithJWTRefresh(
+        apiInsertComment,
+        sessionId,
+      )(input).then((s) => {
         if (s.status === 'SUCCESS') {
           setSubmitted(true);
         } else {
