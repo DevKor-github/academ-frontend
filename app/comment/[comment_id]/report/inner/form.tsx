@@ -1,8 +1,17 @@
-function PickOne(f: StateChange<String>) {
-  
-}
+import { CommentReportReq } from '@/lib/api/course';
+import Button from '@/components/basic/button';
 
-export default function ReportCommentForm() {
+function PickOne(f: StateChange<String>) {}
+
+export default function ReportCommentForm({
+  handleSubmit,
+  input,
+  setInput,
+}: {
+  handleSubmit: (input: CommentReportReq) => void;
+  input: CommentReportReq;
+  setInput: StateChange<CommentReportReq>;
+}) {
   return (
     <main className="p-2 md:p-8 h-full transition-all">
       <form
@@ -14,6 +23,14 @@ export default function ReportCommentForm() {
         }}
       >
         <div>강의평 신고</div>
+
+        <textarea
+          onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+            setInput((v) => {
+              return { ...v, ...{ detail: event.target.value } };
+            });
+          }}
+        />
 
         <div className="flex flex-row justify-center items-center mt-8">
           <Button kind="filled" type="submit">

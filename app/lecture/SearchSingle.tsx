@@ -1,6 +1,6 @@
 'use client';
 
-import { Course } from '@/lib/models/course';
+import { CourseWithBookmark } from '@/lib/models/course';
 import { StarIcon } from '@/icons';
 import Button from '@/components/basic/button';
 import { HStack, VStack } from '@/components/basic/stack';
@@ -14,9 +14,8 @@ import styles from './SearchSingle.module.css';
 import LectureIcon from '@/components/composite/lectureIcon';
 
 import { getTagFromCourse } from '@/lib/process/tag';
-import { isBookmark } from '@/lib/api/course';
 
-function Up({ course }: { course: Course & isBookmark }) {
+function Up({ course }: { course: CourseWithBookmark }) {
   return (
     <VStack style={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
       <LectureIcon code={course.course_code} />
@@ -39,7 +38,7 @@ function Up({ course }: { course: Course & isBookmark }) {
   );
 }
 
-function Mid({ course }: { course: Course & isBookmark }) {
+function Mid({ course }: { course: CourseWithBookmark }) {
   return (
     <span
       className={' border-b border-b-neutral-400 text-base flex flex-row flex-grow pt-2 gap-1'}
@@ -53,7 +52,7 @@ function Mid({ course }: { course: Course & isBookmark }) {
     </span>
   );
 }
-function Down({ course }: { course: Course & isBookmark }) {
+function Down({ course }: { course: CourseWithBookmark }) {
   const tags = getTagFromCourse(course);
 
   return (
@@ -77,7 +76,7 @@ function Down({ course }: { course: Course & isBookmark }) {
     </VStack>
   );
 }
-export default function SearchSingle({ course }: { course: Course & isBookmark }) {
+export default function SearchSingle({ course }: { course: CourseWithBookmark }) {
   return (
     <Link className={styles.resultBox + ' p-6 flex flex-col justify-between'} href={`/lecture/${course.course_id}`}>
       <Up course={course} />

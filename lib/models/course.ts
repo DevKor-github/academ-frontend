@@ -28,3 +28,7 @@ export interface Course {
   count_learn_t4_industry: number;
   comments: Comment[];
 }
+
+export interface CourseWithBookmark extends Course {
+  isBookmark: boolean;
+}

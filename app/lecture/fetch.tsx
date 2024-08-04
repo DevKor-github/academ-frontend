@@ -4,11 +4,11 @@ import { HStack } from '@/components/basic/stack';
 import styles from './common.module.css';
 import SearchSingle from './SearchSingle';
 
-import { SearchRequest, apiSearch, isBookmark } from '@/lib/api/course';
+import { SearchRequest, apiSearch } from '@/lib/api/course';
 import { SearchBotLoading } from './loading';
 import { useSessionId } from '@/context/SessionIdContext';
 import { useEffect, useState } from 'react';
-import { Course } from '@/lib/models/course';
+import { Course, CourseWithBookmark } from '@/lib/models/course';
 import Button from '@/components/basic/button';
 import Select from '@/components/basic/select';
 import { DownIcon } from '@/icons';
@@ -26,7 +26,7 @@ function SearchResultsArrayView({
   setCond,
   eoc,
 }: {
-  courses: Course[];
+  courses: CourseWithBookmark[];
   setCond: React.Dispatch<React.SetStateAction<Omit<SearchRequest, 'keyword'>>>;
   eoc: boolean;
 }) {
@@ -68,7 +68,7 @@ function SearchResultsArrayView({
 
 export default function SearchResultsView({ query: keyword }: { query: string }) {
   const [jwt] = useSessionId();
-  const [courses, setCourses] = useState<null | string | (Course & isBookmark)[]>(null);
+  const [courses, setCourses] = useState<null | CourseWithBookmark[]>(null);
   const [EOC, setEOC] = useState<boolean>(false);
   const [cond, setCond] = useState<Omit<SearchRequest, 'keyword'>>({ order: 'NEWEST', page: 1 });
 
