@@ -3,7 +3,7 @@ export interface UserProfile {
   email: string;
   username: string;
   student_id: string;
-  degree: string;
+  degree: 'MASTER' | 'DOCTOR';
   semester: number;
   department: string;
   point: string;
