@@ -74,7 +74,9 @@ export default function ManageMembership({ profile }: { profile: UserProfile }) 
       <div className="flex flex-row text-2xl mt-8 pb-2">
         <span>강의 열람권</span>
         <div className="inline-block ml-auto">
-          <span className="rounded-lg text-base bg-primary-500  text-white  p-1">{expireLabel}</span>
+          <span className="rounded-lg text-base bg-primary-400 text-white p-1 shadow-lg shadow-primary-400">
+            {expireLabel}
+          </span>
         </div>
       </div>
       <div className="border border-primary-500 bg-opacity-5 bg-primary-400 p-8 mt-8 mb-8 rounded-2xl">
