@@ -48,7 +48,7 @@ export default function ReportCommentForm({
   setInput: StateChange<CommentReportReq>;
 }) {
   return (
-    <main className="pt-8 pb-8 h-full transition-all">
+    <main className="pt-8 pb-8 h-full transition-all pl-16 pr-16">
       <form
         className="flex flex-col gap-8"
         method="post"
@@ -57,14 +57,15 @@ export default function ReportCommentForm({
           handleSubmit(input);
         }}
       >
-        <div className="pl-8 pr-8 font-bold text-xl">강의평 신고</div>
+        <div className="pl-8 pr-8 font-bold text-xl w-full text-center">강의평 신고</div>
 
         <ReasonPicker input={input} setInput={setInput} />
 
         <textarea
           required
+          rows={1}
           placeholder="신고 사유를 입력해주세요."
-          className="bg-light-back-1 dark:bg-dark-back-2 p-8"
+          className="bg-light-back-1 dark:bg-dark-back-2 p-8 h-auto"
           onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
             setInput((v) => {
               return { ...v, ...{ detail: event.target.value } };

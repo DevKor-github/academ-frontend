@@ -92,7 +92,7 @@ export default function ManageMembership({ profile }: { profile: UserProfile }) 
       </div>
       <div className="flex flex-row mt-4 gap-x-4 flex-wrap gap-y-2">
         {memberships.flatMap((v) => (
-          <BuyMembershipButton membershipData={v} />
+          <BuyMembershipButton key={v.item} membershipData={v} />
         ))}
       </div>
     </div>
