@@ -51,7 +51,13 @@ export default function WriteComment({ course }: { course: Course }) {
   }
 
   if (submitted !== null) {
-    return <Submitted back={`/lecture/${course.course_id}`} success={submitted} />;
+    return (
+      <div className="flex w-full h-full justify-center items-center">
+        <div>
+          <Submitted back={`/lecture/${course.course_id}`} success={submitted} />
+        </div>
+      </div>
+    );
   }
 
   return (

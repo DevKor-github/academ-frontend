@@ -22,7 +22,13 @@ export default function ReportComment({ comment_id }: { comment_id: number }) {
   }
 
   if (submitted !== null) {
-    return <Submitted back={'/'} success={submitted} />;
+    return (
+      <div className="flex w-full h-full justify-center items-center">
+        <div>
+          <Submitted back={'/'} success={submitted} />
+        </div>
+      </div>
+    );
   }
 
   return <ReportCommentForm handleSubmit={handleSubmit} input={input} setInput={setInput} />;
