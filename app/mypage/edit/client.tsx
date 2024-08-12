@@ -1,6 +1,7 @@
 'use client';
 
 import { apiProfileUpdateBasic, UpdateProfileReq } from '@/lib/api/mypage';
+import { useApiCheckLogin } from '@/lib/api/login';
 import { useState } from 'react';
 import Submitted from './inner/submitted';
 import { useSessionId } from '@/context/SessionIdContext';
@@ -8,8 +9,7 @@ import { retryWithJWTRefresh } from '@/lib/api/authHelper';
 
 import UpdateBasicForm from './inner/form';
 import { UserProfile } from '@/lib/models/user';
-import { apiCheckLogin } from '@/lib/api/login';
-import { createApiHook } from '@/lib/api/builder';
+import ErrorTemplate from '@/lib/template';
 
 function MyPageEditBasicWithProfile({
   profile: { username, student_id, degree, semester, department },
@@ -36,7 +36,13 @@ function MyPageEditBasicWithProfile({
 }
 
 export default function MyPageEditBasic() {
-  // const sessionId = useSessionId();
-  // retryWithJWTRefresh(apiCheckLogin, sessionId)({});
-  return <div />;
+  const [jwt] = useSessionId();
+
+  const profile = useApiCheckLogin({}, { token: jwt?.accessToken });
+
+  if (profile?.status === 'SUCCESS') {
+    return <MyPageEditBasicWithProfile profile={profile.data} />;
+  }
+
+  return <ErrorTemplate title="?" subtitle="오류가 발생했습니다." />;
 }

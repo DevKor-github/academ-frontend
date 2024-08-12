@@ -11,8 +11,11 @@ export interface UpdateProfileReq {
 export const apiProfileUpdateBasic = build<UpdateProfileReq, null>('POST', '/api/mypage/update-basic');
 
 export interface UpdatePWReq {
-  // oldPassword: string;
   password: string;
+}
+export interface UpdatePWExtended extends UpdatePWReq {
+  // old_password: string;
+  password_check: string;
 }
 
 export const apiProfileUpdatePW = build<UpdatePWReq, null>('POST', '/api/mypage/update-password');

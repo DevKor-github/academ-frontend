@@ -1,4 +1,4 @@
 // TODO
-export default function CommentReMyPageEditBasicLoadingportLoading() {
+export default function MyPageEditBasicLoading() {
   return <div />;
 }
