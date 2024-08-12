@@ -6,7 +6,7 @@ export default function ErrorLabel({ className = '', label }: { className?: stri
       className={`
   ${className} 
   ${label === '' ? ' hidden ' : ' animate-shake '} 
-  inline flex-row items-center gap-1`}
+  inline flex-row items-center gap-1 text-red-600`}
     >
       <WarningIcon /> {label}
     </span>

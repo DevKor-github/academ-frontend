@@ -7,12 +7,12 @@ export default function Step4() {
   const route = useRouter();
 
   return (
-    <HStack gap="20px">
+    <HStack gap="25px" className="items-center">
       <FinishIcon />
-      <span className="text-xl">회원가입 완료!</span>
+      <span className="text-4xl font-medium">회원가입 완료!</span>
       <Button
         kind="filled"
-        className="styles.fullWidth"
+        className="w-full mt-20 text-2xl"
         variant="contained"
         color="primary"
         onClick={() => route.push('/login')}

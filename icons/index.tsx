@@ -150,9 +150,19 @@ export const ToggledIcon = () => (
 );
 
 export const FinishIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="2.5em" height="2.5em" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="19.5" cy="19.5" r="18.5" stroke="#DC143C" strokeWidth="2" />
     <path d="M10.2354 19.968L16.7751 26.706L28.7648 14.353" stroke="#DC143C" strokeWidth="3" strokeLinecap="round" />
+  </svg>
+);
+
+export const IssueIcon = () => (
+  <svg width="2.5em" height="2.5em" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="19.5" cy="19.5" r="18.5" stroke="#DC143C" stroke-width="2" />
+    <path
+      d="M21.3125 8.375L21.0312 24.4688H17.9375L17.6562 8.375H21.3125ZM19.5 31.2188C18.2812 31.2188 17.25 30.2188 17.2812 29C17.25 27.7812 18.2812 26.7812 19.5 26.7812C20.6875 26.7812 21.7188 27.7812 21.7188 29C21.7188 30.2188 20.6875 31.2188 19.5 31.2188Z"
+      fill="#DC143C"
+    />
   </svg>
 );
 

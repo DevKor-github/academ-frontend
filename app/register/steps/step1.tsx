@@ -73,13 +73,13 @@ export default function Step1({
         ) : (
           <Button
             kind="outline"
-            className="flex flex-row justify-end items-center text-xl"
+            className="flex flex-row justify-around items-center text-xl gap-x-4 px-4"
             variant="contained"
             color="primary"
             disabled={!isEmailValid}
             onClick={isEmailValid ? handleSendEmail : () => undefined}
           >
-            다음&nbsp;
+            <span>다음</span>
             <RightIcon />
           </Button>
         )}

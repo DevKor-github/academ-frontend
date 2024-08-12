@@ -61,13 +61,13 @@ export default function Step2({
       <VStack className="w-full h-fit justify-end" gap="36px">
         <Button
           kind="outline"
-          className="flex flex-row justify-end items-center text-xl"
+          className="flex flex-row justify-around items-center text-xl gap-x-4 px-4"
           variant="contained"
           color="primary"
           disabled={input.code === ''}
           onClick={handleCode}
         >
-          다음&nbsp;
+          <span>다음</span>
           <RightIcon />
         </Button>
       </VStack>
