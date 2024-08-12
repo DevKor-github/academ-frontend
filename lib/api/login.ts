@@ -16,6 +16,12 @@ export interface SignupRequest {
 
 export const apiSignup = build<SignupRequest, string>('POST', '/api/signup');
 
+export interface DupNameRequest {
+  username: string;
+}
+
+export const apiDuplicateName = build<DupNameRequest, unknown>('GET', '/api/signup/check-username');
+
 export interface LoginRequest {
   email: string;
   password: string;

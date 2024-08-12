@@ -150,7 +150,7 @@ export const ToggledIcon = () => (
 );
 
 export const FinishIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="3em" height="3em" viewBox="0 0 39 39" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="19.5" cy="19.5" r="18.5" stroke="#DC143C" strokeWidth="2" />
     <path d="M10.2354 19.968L16.7751 26.706L28.7648 14.353" stroke="#DC143C" strokeWidth="3" strokeLinecap="round" />
   </svg>
