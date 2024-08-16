@@ -11,6 +11,7 @@ import Input from '@/components/basic/input';
 import ErrorLabel from '@/components/basic/errorlabel';
 
 import { SignupRequest } from '@/lib/api/login';
+import { departments } from './departments';
 
 const validatePw = (pw: string) => {
   const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,24}$/;
@@ -92,6 +93,56 @@ export default function Step3({
     }
   }
 
+  const [dropDownList, setDropDownList] = useState<string[]>(departments);
+  const [dropDownItemIndex, setDropDownItemIndex] = useState<number>(-1);
+  const [isDropDown, setIsDropDown] = useState<boolean>(false);
+
+  const showDropDownList = () => {
+    if (input.department === '') {
+      setIsDropDown(false);
+      setDropDownList([]);
+    } else {
+      const choosenTextList = departments.filter((textItem) => textItem.includes(input.department));
+      setDropDownList(choosenTextList);
+    }
+  };
+
+  const changeInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setInput({
+      ...input,
+      [event.target.id]: value,
+    });
+    setIsDropDown(true);
+  };
+
+  const clickDropDownItem = (clickedItem: string) => {
+    setInput({
+      ...input,
+      department: clickedItem,
+    });
+  };
+
+  const handleDropDownKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (isDropDown) {
+      if (event.key === 'ArrowDown' && dropDownList.length - 1 > dropDownItemIndex) {
+        setDropDownItemIndex(dropDownItemIndex + 1);
+      }
+
+      if (event.key === 'ArrowUp' && dropDownItemIndex >= 0) {
+        setDropDownItemIndex(dropDownItemIndex - 1);
+      }
+
+      if (event.key === 'Enter' && dropDownItemIndex >= 0) {
+        clickDropDownItem(dropDownList[dropDownItemIndex]);
+        setDropDownItemIndex(-1);
+        setIsDropDown(false);
+      }
+    }
+  };
+
+  useEffect(showDropDownList, [input.department]);
+
   return (
     <HStack gap="20px">
       <span className="text-4xl">회원가입</span>
@@ -159,7 +210,48 @@ export default function Step3({
       <Input required type="text" id="student_id" label="학번" onChange={handleInput} style={{ width: '100%' }} />
       <ErrorLabel label={!isNumValid && input.student_id !== '' ? '7자리 학번을 입력해주세요.' : ''} />
       <span className="text-xl">학과</span>
-      <Input required type="text" id="department" label="학과" onChange={handleInput} style={{ width: '100%' }} />
+      <div
+        onBlur={() => {
+          setDropDownItemIndex(-1);
+          setIsDropDown(false);
+        }}
+      >
+        <Input
+          required
+          type="text"
+          id="department"
+          label="학과"
+          autoComplete="off"
+          value={input.department}
+          onChange={changeInputValue}
+          onKeyDown={handleDropDownKey}
+          onFocus={() => {
+            setIsDropDown(true);
+          }}
+          style={
+            isDropDown ? { borderRadius: '0.5rem 0.5rem 0 0', zIndex: 10 } : { borderRadius: '0.5rem', zIndex: 10 }
+          }
+        />
+        {isDropDown && (
+          <ul className="block m-0 p-2 light:bg-white border light:border-light-back-2 dark:bg-neutral-900 dark:border-dark-back-2 rounded-b-lg z-10">
+            {dropDownList.length === 0 && <li className="p-2 text-gray-500">해당하는 단어가 없습니다</li>}
+            {dropDownList.map((dropDownItem, dropDownIndex) => (
+              <li
+                key={dropDownIndex}
+                onMouseDown={() => {
+                  clickDropDownItem(dropDownItem);
+                  setDropDownItemIndex(-1);
+                  setIsDropDown(false);
+                }}
+                onMouseOver={() => setDropDownItemIndex(dropDownIndex)}
+                className={`p-2 cursor-pointer ${dropDownItemIndex === dropDownIndex ? 'light:bg-gray-300 dark:bg-gray-700' : ''}`}
+              >
+                {dropDownItem}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
       <span className="text-xl">학위 / 학기</span>
       <VStack style={{ justifyContent: 'space-between', marginBottom: '40px' }}>
         <VStack gap="10px">
