@@ -62,7 +62,7 @@ export default function UpdateBasicForm({
         <MyInput name="username" placeholder="닉네임" value={input.username} setInput={setInput} />
         <MyInput name="student_id" placeholder="학번" value={input.student_id} setInput={setInput} />
         {/* <MyInput name="username" placeholder="닉네임" value={input.username} setInput={setInput} /> */}
-        <MyInput name="semester" placeholder="학기" value={input.semester} setInput={setInput} />
+        <MyInput name="semester" placeholder="학기" value={String(input.semester)} setInput={setInput} />
         <MyInput name="department" placeholder="소속" value={input.department} setInput={setInput} />
 
         <div className="flex flex-row justify-center items-center mt-8">
