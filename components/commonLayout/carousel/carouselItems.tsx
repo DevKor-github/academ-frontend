@@ -22,7 +22,7 @@ const carouselItems = [
           <br />
           우리 학교 강의에 대한 다양한 정보와 이야기를 나누어요.
         </span>
-        <Link href="/about">
+        <Link href="/notice/1)">
           <Button kind="filled">자세히보기</Button>
         </Link>
       </VStack>
