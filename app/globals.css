@@ -17,6 +17,8 @@
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-end-rgb));
+  /* styles/globals.css */
+  font-family: 'Pretendard', sans-serif;
 }
 
 @layer utilities {
