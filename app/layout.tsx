@@ -11,16 +11,25 @@ export const metadata: Metadata = {
   description: 'Academ - 수강 정보 공유',
 };
 
+import localFont from "next/font/local";
+
+const pretendard = localFont({
+  src: "@/public/fonts/PretendardVariable.woff2",
+  display: "swap",
+  weight: "45 920",
+  variable: "--font-pretendard",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${pretendard.variable}`}>
       <SessionIdProvider>
         <ThemeProvider>
-          <body className={inter.className}>{children}</body>
+          <body className={`${inter.className}  ${pretendard.className}`}>{children}</body>
         </ThemeProvider>
       </SessionIdProvider>
     </html>
