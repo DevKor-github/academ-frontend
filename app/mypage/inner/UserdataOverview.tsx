@@ -3,6 +3,7 @@
 import Link from 'next/link';
 
 import { UserProfile } from '@/lib/models/user';
+import DepartIcon from '@/components/composite/departIcon';
 
 export default function UserDataOverview({ userprofile }: { userprofile: UserProfile }) {
   let degreePrint =
@@ -10,8 +11,8 @@ export default function UserDataOverview({ userprofile }: { userprofile: UserPro
 
   return (
     <div className="p-8 text-xl flex flex-row flex-wrap gap-16 w-full justify-start items-start">
-      <div className="block bg-neutral-500 rounded-2xl" style={{ width: '192px', height: '128px' }}>
-        로고이미지
+      <div className="block bg-white rounded-2xl p-4 border border-light-back-4" style={{ width: '192px', height: '128px' }}>
+        <DepartIcon code='???' />
       </div>
       <div className="flex flex-col gap-4">
         <div>
