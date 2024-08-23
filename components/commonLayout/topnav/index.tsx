@@ -49,7 +49,7 @@ const TopNavInnerMid = ({
       </div>
       <Link href="/lecture">
         <Button kind="blank" className={location === '/lecture' ? 'text-primary-500' : ''}>
-          강의{nbsp}목록
+          강의{nbsp}검색
         </Button>
       </Link>
       <Link href="/curation">

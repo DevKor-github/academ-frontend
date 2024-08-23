@@ -192,7 +192,7 @@ export default function WriteOrEditComment<Req extends CommentJoin>({
         </div>
 
         <div className="pt-8 pb-8 border-b border-b-neutral-500">
-          <div className="flex justify-center items-center mb-5">
+          <div className="flex justify-start items-center mb-5">
             <span className="text-lg mr-10">태그 선택</span>
             <span className="text-sm text-gray-400 align-middle">최대 3개의 태그를 선택할 수 있습니다.</span>
           </div>

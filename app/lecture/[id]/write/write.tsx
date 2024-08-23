@@ -36,7 +36,7 @@ export default function WriteComment({ course }: { course: Course }) {
   const [submitted, setSubmitted] = useState<boolean | null>(null);
 
   function handleSubmit() {
-    if (confirm('정말 수정하시겠습니까?') == true) {
+    if (confirm('작성 완료하시겠습니까?') == true) {
       retryWithJWTRefresh(
         apiInsertComment,
         sessionId,
