@@ -1,8 +1,5 @@
-'use client';
-
 import { CourseWithBookmark } from '@/lib/models/course';
 import { StarIcon } from '@/icons';
-import Button from '@/components/basic/button';
 import { HStack, VStack } from '@/components/basic/stack';
 import Link from 'next/link';
 import Tag from '@/components/basic/tag';

@@ -1,11 +1,11 @@
 import SearchForm from '@/components/composite/SearchForm';
-import { HStack, VStack } from '@/components/basic/stack';
-
-import { SearchBotLoading } from './loading';
+import { VStack } from '@/components/basic/stack';
 
 import dynamic from 'next/dynamic';
 
-const SearchResultsView = dynamic(() => import('./fetch'), { ssr: false, loading: SearchBotLoading });
+import { SearchBotLoading } from './loading';
+
+const SearchResultsView = dynamic(() => import('./result/results'), { ssr: false, loading: SearchBotLoading });
 
 const SearchTopView = ({ query }: { query: string }) => {
   return query ? (
@@ -49,9 +49,9 @@ export default function SearchPage({
   const q = (Array.isArray(qCand) ? qCand[0] : qCand) || '';
 
   return (
-    <HStack className="h-full">
+    <div className="flex flex-col h-full">
       <SearchTopView query={q} />
       <SearchResultsView query={q} />
-    </HStack>
+    </div>
   );
 }

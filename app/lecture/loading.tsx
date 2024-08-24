@@ -3,23 +3,7 @@
 import { HStack, VStack } from '@/components/basic/stack';
 import { SkeletonDiv } from '@/components/composite/skeleton';
 
-import styles from './common.module.css';
-
-const SearchTopViewLoading = () => {
-  return (
-    <VStack
-      className="border-b border-b-neutral-200"
-      style={{
-        padding: '110px 40px 110px 40px',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-      }}
-    >
-      <div />
-    </VStack>
-  );
-};
+import styles from './result/results.module.css';
 
 function Box({ children }: { children: React.ReactNode }) {
   return (
@@ -72,6 +56,25 @@ export function SearchBotLoading() {
     </Box>
   );
 }
+
+
+const SearchTopViewLoading = () => {
+  return (
+    <VStack
+      className="border-b border-b-neutral-200"
+      style={{
+        padding: '110px 40px 110px 40px',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+      }}
+    >
+      <div />
+    </VStack>
+  );
+};
+
+
 
 export default function SearchLoading() {
   return (

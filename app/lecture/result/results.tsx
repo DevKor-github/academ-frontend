@@ -1,11 +1,11 @@
 'use client';
 
 import { HStack } from '@/components/basic/stack';
-import styles from './common.module.css';
-import SearchSingle from './SearchSingle';
+import styles from './results.module.css';
+import SearchSingle from '../SearchSingle';
 
 import { SearchRequest, apiSearch } from '@/lib/api/course';
-import { SearchBotLoading } from './loading';
+import { SearchBotLoading } from '../loading';
 import { useSessionId } from '@/context/SessionIdContext';
 import { useEffect, useState } from 'react';
 import { Course, CourseWithBookmark } from '@/lib/models/course';
