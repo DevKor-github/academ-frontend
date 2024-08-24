@@ -15,14 +15,17 @@ export function TopNavInnerLeft() {
   );
 }
 
-function NavButton({ label, desiredPath, currentPath }: {
+function NavButton({ label, desiredPath, currentPath, wip }: {
   label: string;
   desiredPath: string;
   currentPath: string;
+  wip?: true;
 }) {
   return (
     <Link href={desiredPath} className={' p-2 ' + (currentPath === desiredPath ? 'text-primary-500' : 'text-black dark:text-white ')}>
-      {label}
+      {wip ? (
+        <span>{label} <sup className="rounded-full ">준비 중</sup></span>
+      ) : label}
     </Link>
   );
 }
@@ -34,7 +37,7 @@ export const TopNavInnerMid = ({
 }: {
   path: string;
   spreaded: boolean;
-  setSpreaded: (b: boolean) => void;
+    setSpreaded: (b: boolean) => void;
 }) => {
   const nbsp = '\u00A0';
 
@@ -51,8 +54,8 @@ export const TopNavInnerMid = ({
         </Button>
       </div>
       <NavButton currentPath={path} desiredPath="/lecture" label={`강의${nbsp}검색`} />
-      <NavButton currentPath={path} desiredPath="/curation" label={`강의${nbsp}추천`} />
-      <NavButton currentPath={path} desiredPath="/timetable" label={`시간표`} />
+      <NavButton wip currentPath={path} desiredPath="/curation" label={`강의${nbsp}추천`} />
+      <NavButton wip currentPath={path} desiredPath="/timetable" label={`시간표`} />
       <NavButton currentPath={path} desiredPath="/notice" label={`공지사항`} />
     </div>
   );
