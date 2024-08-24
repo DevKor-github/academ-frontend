@@ -40,31 +40,31 @@ const TopNavInnerMid = ({
 
   return (
     <div
-      className={`overflow-y-hidden transition-all ${height} md:h-16 text-black dark:text-white items-center justify-start   flex flex-col md:flex-row`}
+      className={`overflow-y-hidden transition-all ${height} md:h-16 items-center justify-start flex flex-col md:flex-row`}
       style={{ rowGap: '10px' }}
     >
-      <div className="md:hidden">
+      <div className="md:hidden text-black dark:text-white ">
         <Button kind="blank" style={{ minHeight: '64px' }} onClick={() => setSpreaded(!spreaded)}>
           {spreaded ? <UpIcon /> : <DownIcon />}
         </Button>
       </div>
-      <Link href="/lecture">
-        <Button kind="blank" className={location === '/lecture' ? 'text-primary-500' : ''}>
+      <Link href="/lecture" className={location === '/lecture' ? 'text-primary-500' : 'text-black dark:text-white '}>
+        <Button kind="blank">
           강의{nbsp}검색
         </Button>
       </Link>
-      <Link href="/curation">
-        <Button kind="blank" className={location === '/curation' ? 'text-primary-500' : ''}>
+      <Link href="/curation" className={location === '/curation' ? 'text-primary-500' : 'text-black dark:text-white '}>
+        <Button kind="blank">
           강의{nbsp}추천
         </Button>
       </Link>
-      <Link href="/timetable">
-        <Button kind="blank" className={location === '/timetable' ? 'text-primary-500' : ''}>
+      <Link href="/timetable" className={location === '/timetable' ? 'text-primary-500' : 'text-black dark:text-white '}>
+        <Button kind="blank">
           시간표
         </Button>
       </Link>
-      <Link href="/notice">
-        <Button kind="blank" className={location === '/notice' ? 'text-primary-500' : ''}>
+      <Link href="/notice" className={location === '/notice' ? 'text-primary-500' : 'text-black dark:text-white '}>
+        <Button kind="blank">
           공지사항
         </Button>
       </Link>
