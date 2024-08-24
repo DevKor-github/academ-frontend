@@ -1,8 +1,6 @@
 import Carousel from '@/components/commonLayout/carousel/carousel';
 import carouselItems from '@/components/commonLayout/carousel/carouselItems';
 
-import Layout from '@/components/commonLayout/commonLayout';
-
 import { HStack, VStack } from '@/components/basic/stack';
 import SearchForm from '@/components/composite/SearchForm';
 

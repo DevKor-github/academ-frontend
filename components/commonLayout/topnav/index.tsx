@@ -4,10 +4,9 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation'
 
-
 import Button from '@/components/basic/button';
 
-import { HStack, VStack } from '@/components/basic/stack';
+import { VStack } from '@/components/basic/stack';
 import { DownIcon, LogoIconRich, UpIcon } from '@/icons';
 import Link from 'next/link';
 import Skeleton from '@/components/composite/skeleton';
@@ -93,13 +92,11 @@ const TopNavInnerRight = () => {
     </div>
   );
 };
-export default function TopNav({ className }: { className: string; location: string }) {
-  
+export default function TopNav() {
 
   const location = usePathname();
-
-
   const overlap = location === '/';
+  const className = overlap ? 'absolute top-0 z-50' : 'relative';
 
   const [spreaded, setSpreaded] = useState(false);
 

@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { SessionIdProvider } from '@/context/SessionIdContext';
-import CommonLayout from '@/components/commonLayout/commonLayout';
+import TopLevelLayout from '@/components/composite/toplevellayout';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -31,7 +31,7 @@ export default function RootLayout({
       <SessionIdProvider>
         <ThemeProvider>
           <body className={`${inter.className} ${pretendard.className}`}>
-            <CommonLayout>{children}</CommonLayout>
+            <TopLevelLayout>{children}</TopLevelLayout>
           </body>
         </ThemeProvider>
       </SessionIdProvider>
