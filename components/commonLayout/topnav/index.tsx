@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
+import { usePathname } from 'next/navigation'
+
 
 import Button from '@/components/basic/button';
 
@@ -91,7 +93,12 @@ const TopNavInnerRight = () => {
     </div>
   );
 };
-export default function TopNav({ className, location }: { className: string; location: string }) {
+export default function TopNav({ className }: { className: string; location: string }) {
+  
+
+  const location = usePathname();
+
+
   const overlap = location === '/';
 
   const [spreaded, setSpreaded] = useState(false);
@@ -106,7 +113,7 @@ export default function TopNav({ className, location }: { className: string; loc
         className={`${
           spreaded
             ? ` h-72 md:h-16 md:bg-transparent
-          ${overlap /* dark */ ? ' bg-dark-back-5 ' : ' bg-white dark:bg-dark-back-5 '}`
+          ${overlap /* dark */ ? ' bg-dark-back-5  ' : ' bg-white dark:bg-dark-back-5 '}`
             : ' h-16 bg-none '
         }
       pl-2 pr-2 md:pl-8 md:pr-8 ${className} flex flex-nowrap items-start flex-row justify-between w-full transition-all`}

@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
 import { ThemeProvider } from '@/context/ThemeContext';
 import { SessionIdProvider } from '@/context/SessionIdContext';
+import CommonLayout from '@/components/commonLayout/commonLayout';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,7 +30,9 @@ export default function RootLayout({
     <html lang="en" className={`${pretendard.variable}`}>
       <SessionIdProvider>
         <ThemeProvider>
-          <body className={`${inter.className} ${pretendard.className}`}>{children}</body>
+          <body className={`${inter.className} ${pretendard.className}`}>
+            <CommonLayout>{children}</CommonLayout>
+          </body>
         </ThemeProvider>
       </SessionIdProvider>
     </html>
