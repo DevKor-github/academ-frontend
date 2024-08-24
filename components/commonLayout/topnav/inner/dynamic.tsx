@@ -9,8 +9,6 @@ import Popover from '@/components/basic/popover';
 import Link from 'next/link';
 import { HStack } from '@/components/basic/stack';
 
-import { decode } from '@/lib/jwt';
-import { JWTDecoded } from '@/lib/models/user';
 import { useApiCheckLogin } from '@/lib/api/login';
 import Skeleton from '@/components/composite/skeleton';
 
