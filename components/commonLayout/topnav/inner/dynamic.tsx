@@ -3,14 +3,17 @@
 import { useSessionId } from '@/context/SessionIdContext';
 
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 import Button from '@/components/basic/button';
 import Popover from '@/components/basic/popover';
 import Link from 'next/link';
 import { HStack } from '@/components/basic/stack';
 
-import { useApiCheckLogin } from '@/lib/api/login';
+import { apiCheckLogin } from '@/lib/api/login';
+import { ApiResponse } from '@/lib/api/builder';
 import Skeleton from '@/components/composite/skeleton';
+import { UserProfile } from '@/lib/models/user';
 
 function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => void }) {
   return (
@@ -49,7 +52,11 @@ function ProfileButton() {
 
   const [open, setOpen] = useState<boolean>(false);
 
-  const state = useApiCheckLogin({}, { token: jwt?.accessToken });
+  let [state, setState] = useState<null | ApiResponse<UserProfile>>(null);
+
+  useEffect(() => {
+    apiCheckLogin({}, { token: jwt?.accessToken }).then((v) => setState(v));
+  }, [jwt]);
 
   if (state === null) {
     return (
