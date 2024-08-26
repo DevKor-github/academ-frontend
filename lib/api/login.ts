@@ -1,5 +1,5 @@
 import { build, createApiHook } from '@/lib/api/builder';
-import { UserProfile } from '../models/user';
+import { UserProfile, SimpleCheckLogin } from '../models/user';
 import { Course, CourseWithBookmark } from '../models/course';
 import { Comment } from '../models/comment';
 
@@ -47,7 +47,7 @@ export interface CheckEmailReqeust {
 export const apiCheckEmail = build<CheckEmailReqeust, unknown>('GET', '/api/signup/check-email');
 export const apiResetPassword = build<ReqeustWithEmail, unknown>('GET', '/api/login/reset-password');
 
-export const apiCheckLogin = build<{}, UserProfile>('GET', '/api/check-login');
+export const apiCheckLogin = build<{}, SimpleCheckLogin>('GET', '/api/check-login');
 export const useApiCheckLogin = createApiHook(apiCheckLogin);
 
 export const apiMyPage = build<{}, UserProfile & { courses: CourseWithBookmark[]; comments: Comment[] }>(

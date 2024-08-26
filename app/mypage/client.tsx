@@ -4,15 +4,15 @@ import { useSessionId } from '../../context/SessionIdContext';
 import CommentsView from '../lecture/[id]/components/comments';
 
 import { CourseWithBookmark } from '@/lib/models/course';
-import { UserProfile } from '@/lib/models/user';
 import { useApiMyPage } from '@/lib/api/login';
 
 import SearchSingle from '../lecture/SearchSingle';
 import { HStack, VStack } from '@/components/basic/stack';
-import Link from 'next/link';
 
 import ManageMembership from './inner/ManageMembership';
 import UserDataOverview from './inner/UserdataOverview';
+
+import ErrorTemplate from '@/lib/template';
 
 function NoSessionIdFallback() {
   return <div>이 기능을 사용하려면 로그인해야 합니다.</div>;
@@ -62,6 +62,6 @@ export default function MyPage() {
       </main>
     );
   } else {
-    return <div>오류</div>;
+    return <ErrorTemplate title={(myprofile.statusCode).toString()} subtitle={'오류가 발생했습니다. 다음 정보를 참고하세요: ' + myprofile.message} />;
   }
 }

@@ -1,3 +1,10 @@
+export interface SimpleCheckLogin {
+  profile_id: number;
+  email: string;
+  role: string;
+}
+
+
 export interface UserProfile {
   profile_id: number;
   email: string;

@@ -10,7 +10,7 @@ import Popover from '@/components/basic/popover';
 import Link from 'next/link';
 import { HStack } from '@/components/basic/stack';
 
-import { apiCheckLogin } from '@/lib/api/login';
+import { apiMyPage } from '@/lib/api/login';
 import { ApiResponse } from '@/lib/api/builder';
 import Skeleton from '@/components/composite/skeleton';
 import { UserProfile } from '@/lib/models/user';
@@ -55,7 +55,7 @@ function ProfileButton() {
   let [state, setState] = useState<null | ApiResponse<UserProfile>>(null);
 
   useEffect(() => {
-    apiCheckLogin({}, { token: jwt?.accessToken }).then((v) => setState(v));
+    apiMyPage({}, { token: jwt?.accessToken }).then((v) => setState(v));
   }, [jwt]);
 
   if (state === null) {

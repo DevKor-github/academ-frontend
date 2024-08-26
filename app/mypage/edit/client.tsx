@@ -1,7 +1,7 @@
 'use client';
 
 import { apiProfileUpdateBasic, UpdateProfileReq } from '@/lib/api/mypage';
-import { useApiCheckLogin } from '@/lib/api/login';
+import { useApiCheckLogin, useApiMyPage } from '@/lib/api/login';
 import { useState } from 'react';
 import Submitted from './inner/submitted';
 import { useSessionId } from '@/context/SessionIdContext';
@@ -38,7 +38,7 @@ function MyPageEditBasicWithProfile({
 export default function MyPageEditBasic() {
   const [jwt] = useSessionId();
 
-  const profile = useApiCheckLogin({}, { token: jwt?.accessToken });
+  const profile = useApiMyPage({}, { token: jwt?.accessToken });
 
   if (profile?.status === 'SUCCESS') {
     return <MyPageEditBasicWithProfile profile={profile.data} />;
