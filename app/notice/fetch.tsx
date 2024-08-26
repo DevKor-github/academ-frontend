@@ -1,3 +1,5 @@
+'use client';
+
 import { useSessionId } from '@/context/SessionIdContext';
 import { apiNoticeList } from '@/lib/api/notice';
 import { useEffect, useState } from 'react';
