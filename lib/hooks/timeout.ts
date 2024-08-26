@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 
 export function useTemporal<T>(ms : number, initial: T, temporal: T) {
-  const [isAnimating, setIsAnimating] = useState(initial);
+  const [v, setV] = useState(initial);
 
   useEffect(
     () => {
-      if (isAnimating) {
+      if (v === temporal) {
         setTimeout(() => {
-          setIsAnimating(temporal);
+          setV(initial);
         }, ms);
       }
-    }, [isAnimating]
+    }, [v]
   );
   
-  function resetAnimation() {
-    setIsAnimating(initial);
+  function resetV() {
+    setV(temporal);
   }
 
-  return [isAnimating, resetAnimation] as const;
+  return [v, resetV] as const;
 }
 
-export const useAnimationTimeout = (ms : number) => useTemporal(ms, true, false)
+export const useAnimationTimeout = (ms : number) => useTemporal(ms, false, true)

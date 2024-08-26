@@ -64,7 +64,7 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
           <RightIcon />
         </Button>
       </VStack>
-  <ErrorLabel className={'text-primary-500 '} label={error} shake={isAnimation} />
+      <ErrorLabel className='mt-4' label={error} shake={isAnimation} />
     </form>
   );
 }
