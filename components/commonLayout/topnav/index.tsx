@@ -31,15 +31,15 @@ export default function TopNav() {
 
   return (
     <div
-      className={
-        'w-full ' + (overlap ? ' dark z-50  ' : 'border-b light:border-b-light-back-2 dark:border-b-dark-back-4 ')
+    className={
+        'w-full ' + (overlap ? ' dark z-50 text-white  ' : 'border-b light:border-b-light-back-2 dark:border-b-dark-back-4 ')
       }
     >
       <VStack
         className={`${
           spreaded
             ? ` h-72 md:h-16 md:bg-transparent
-          ${overlap /* dark */ ? ' bg-dark-back-5  ' : ' bg-white dark:bg-dark-back-5 '}`
+          ${overlap /* dark */ ? ' bg-dark-back-5  ' : ' text-black dark:text-white bg-white dark:bg-dark-back-5 '}`
             : ' h-16 bg-none '
         }
       pl-2 pr-2 md:pl-8 md:pr-8 ${className} flex flex-nowrap items-start flex-row justify-between w-full transition-all`}
