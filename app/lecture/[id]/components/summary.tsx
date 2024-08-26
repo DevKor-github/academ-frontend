@@ -1,7 +1,6 @@
 import { StarIcon } from '@/icons';
 import Tag from '@/components/basic/tag';
 import { HStack, VStack } from '@/components/basic/stack';
-import { Course } from '@/lib/models/course';
 import Progress from '@/components/basic/progress';
 
 import Star5 from '@/components/composite/starIndicator';

@@ -13,7 +13,6 @@ import { HStack } from '@/components/basic/stack';
 import { apiMyPage } from '@/lib/api/login';
 import { ApiResponse } from '@/lib/api/builder';
 import Skeleton from '@/components/composite/skeleton';
-import { UserProfile } from '@/lib/models/user';
 
 function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => void }) {
   return (

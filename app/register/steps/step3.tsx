@@ -10,7 +10,6 @@ import Input from '@/components/basic/input';
 
 import ErrorLabel from '@/components/basic/errorlabel';
 
-import { SignupRequest } from '@/lib/api/login';
 import { departments } from './departments';
 
 const validatePw = (pw: string) => {

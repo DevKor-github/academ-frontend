@@ -1,4 +1,4 @@
-export interface Comment {
+interface AcdComment {
   comment_id: number;
   username: string;
   profile_id: number;
@@ -20,4 +20,8 @@ export interface Comment {
   likes: number;
   created_at: string;
   updated_at: string;
+}
+
+interface AcdCommentRelated {
+  comment_id: number;
 }

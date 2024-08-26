@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { SignupRequest, apiSendEmail } from '@/lib/api/login';
+import { apiSendEmail } from '@/lib/api/login';
 import { HStack, VStack } from '@/components/basic/stack';
 import { RightIcon } from '@/icons';
 import Input from '@/components/basic/input';

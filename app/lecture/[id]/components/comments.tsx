@@ -1,10 +1,9 @@
 import { HStack, VStack } from '@/components/basic/stack';
-import { Comment } from '@/lib/models/comment';
 import Button from '@/components/basic/button';
 import CommentView from './comment';
 import Link from 'next/link';
 
-export default function CommentsView({ course_id, comments }: { course_id?: number; comments: Comment[] }) {
+export default function CommentsView({ course_id, comments }: { course_id?: number; comments: AcdComment[] }) {
   return (
     <HStack
       className="pl-2 pr-2 md:pl-8 md:pr-8 pt-24 pb-24 h-full transition-all

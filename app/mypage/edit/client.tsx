@@ -8,7 +8,6 @@ import { useSessionId } from '@/context/SessionIdContext';
 import { retryWithJWTRefresh } from '@/lib/api/authHelper';
 
 import UpdateBasicForm from './inner/form';
-import { UserProfile } from '@/lib/models/user';
 import ErrorTemplate from '@/lib/template';
 
 function MyPageEditBasicWithProfile({

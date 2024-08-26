@@ -10,7 +10,7 @@ import ErrorLabel from '@/components/basic/errorlabel';
 import { HStack, VStack } from '@/components/basic/stack';
 
 import { RightIcon } from '@/icons';
-import { SignupRequest, apiSendEmail } from '@/lib/api/login';
+import { apiSendEmail } from '@/lib/api/login';
 import Spinner from '@/components/basic/spinner';
 
 const validateEmail = (email: string) => {

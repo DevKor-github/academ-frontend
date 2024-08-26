@@ -3,7 +3,6 @@
 import { useSessionId } from '../../context/SessionIdContext';
 import CommentsView from '../lecture/[id]/components/comments';
 
-import { CourseWithBookmark } from '@/lib/models/course';
 import { useApiMyPage } from '@/lib/api/login';
 
 import SearchSingle from '../lecture/SearchSingle';

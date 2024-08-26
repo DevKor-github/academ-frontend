@@ -1,4 +1,3 @@
-import { CommentReportReq } from '@/lib/api/course';
 import Button from '@/components/basic/button';
 
 const reasons = [
@@ -9,7 +8,7 @@ const reasons = [
   { reason: 'OTHER', text: '기타' },
 ] as const;
 
-function ReasonPicker({ setInput, input }: { input: CommentReportReq; setInput: StateChange<CommentReportReq> }) {
+function ReasonPicker({ setInput, input }: { input: AcdCommentReportReq; setInput: StateChange<AcdCommentReportReq> }) {
   return (
     <fieldset className="flex flex-row flex-wrap justify-center mt-4 gap-4 w-full">
       {reasons.flatMap((i) => (
@@ -43,9 +42,9 @@ export default function ReportCommentForm({
   input,
   setInput,
 }: {
-  handleSubmit: (input: CommentReportReq) => void;
-  input: CommentReportReq;
-  setInput: StateChange<CommentReportReq>;
+  handleSubmit: (input: AcdCommentReportReq) => void;
+  input: AcdCommentReportReq;
+  setInput: StateChange<AcdCommentReportReq>;
 }) {
   return (
     <main className="pt-8 pb-8 h-full transition-all pl-16 pr-16">

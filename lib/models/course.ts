@@ -1,6 +1,4 @@
-import { Comment } from './comment';
-
-export interface Course {
+interface Course {
   course_id: number;
   course_code: string;
   graduate_school: string;
@@ -26,9 +24,42 @@ export interface Course {
   count_learn_t2_thesis: number;
   count_learn_t3_exam: number;
   count_learn_t4_industry: number;
-  comments: Comment[];
+  comments: AcdComment[];
 }
 
-export interface CourseWithBookmark extends Course {
+interface CourseWithBookmark extends Course {
   isBookmark: boolean;
+}
+
+interface SearchRequest {
+  keyword: string;
+  order: 'NEWEST' | 'RATING_DESC' | 'RATING_ASC';
+  page: number;
+}
+
+interface CourseId {
+  course_id: number;
+}
+
+interface CourseDetailRequest extends CourseId {
+  order: 'NEWEST' | 'RATING_DESC' | 'RATING_ASC' | 'LIKES_DESC' | 'LIKES_ASC';
+  page: number;
+}
+
+type AcdCommentNewReq = Omit<
+  AcdComment,
+  'username' | 'profile_id' | 'created_at' | 'updated_at' | 'likes' | 'comment_id'
+> & { course_id: number };
+
+type AcdCommentEditReq = Omit<AcdComment, 'username' | 'profile_id' | 'created_at' | 'updated_at' | 'likes'>;
+
+
+type AcdCommentMeet = AcdComment & AcdCommentNewReq & AcdCommentEditReq;
+
+type AcdCommentJoin = AcdComment | AcdCommentNewReq | AcdCommentEditReq;
+
+
+interface AcdCommentReportReq extends AcdCommentRelated {
+  reason: 'PROFANITY' | 'INSINCERE' | 'SEXUAL' | 'PERSONAL' | 'OTHER';
+  detail: string;
 }

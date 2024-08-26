@@ -22,7 +22,6 @@ export function SearchBotLoading() {
             minHeight: '240px',
             width: '100%',
             borderRadius: '24px',
-            backgroundColor: '#00000011',
             animationDelay: '0s',
           }}
         >
@@ -34,7 +33,6 @@ export function SearchBotLoading() {
             minHeight: '240px',
             width: '100%',
             borderRadius: '24px',
-            backgroundColor: '#00000011',
             animationDelay: '0.15s',
           }}
         >
@@ -46,7 +44,6 @@ export function SearchBotLoading() {
             minHeight: '240px',
             width: '100%',
             borderRadius: '24px',
-            backgroundColor: '#00000011',
             animationDelay: '0.3s',
           }}
         >

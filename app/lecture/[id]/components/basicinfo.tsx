@@ -1,6 +1,5 @@
 import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
-import { Course, CourseWithBookmark } from '@/lib/models/course';
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
 import LectureIcon from '@/components/composite/lectureIcon';
 
