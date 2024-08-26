@@ -12,6 +12,8 @@ import Input from '@/components/basic/input';
 import { apiLogin, apiCheckLogin } from '@/lib/api/login';
 import ErrorLabel from '@/components/basic/errorlabel';
 
+import { useAnimationTimeout } from '@/lib/hooks/timeout';
+
 import { keyForStorage } from '../../context/SessionIdContext';
 
 export default function LoginPageClient() {
@@ -23,6 +25,7 @@ export default function LoginPageClient() {
   const route = useRouter();
 
   const [_, setSessionId] = useSessionId();
+  const [shake, resetShake] = useAnimationTimeout(600);
 
   const [saveLoginInfo, setSaveLoginInfo] = useState(false);
   const [loginError, setLoginError] = useState('');
@@ -36,7 +39,15 @@ export default function LoginPageClient() {
 
   async function handleLogin() {
     //input.email // input.password
-    const a = await apiLogin({ email: input.email, password: input.password, 'remember-me': false }).then((s) => {
+
+    if (input.email === '' || input.password === '') {
+      setLoginError('이메일 및 비밀번호를 모두 입력하세요.');
+      resetShake();
+      return;
+    }
+
+
+    await apiLogin({ email: input.email, password: input.password, 'remember-me': false }).then((s) => {
       if (s.status === 'SUCCESS') {
         apiCheckLogin({}, { token: s.data.accessToken }).then((a) => {
           if (a.status === 'SUCCESS') {
@@ -47,13 +58,16 @@ export default function LoginPageClient() {
             setLoginError(
               '로그인을 완료하였으나 사용자 정보 획득에 실패하였습니다. 이 상황은 일반적이지 않습니다. 다시 시도해주세요.',
             );
+            resetShake();
             setSessionId(null);
           }
         });
       } else if (s.status === 'ERROR') {
         setLoginError('로그인에 실패했습니다. 없는 계정이거나 비밀번호가 일치하지 않습니다.');
+        resetShake();
       } else {
         setLoginError(s.message);
+        resetShake();
       }
     });
   }
@@ -69,7 +83,7 @@ export default function LoginPageClient() {
       <HStack gap="48px">
         <HStack gap="16px">
           <Input
-            required
+            // required
             id="email"
             placeholder="이메일을 입력해주세요"
             onChange={handleInput}
@@ -77,7 +91,7 @@ export default function LoginPageClient() {
             style={{ padding: '16px' }}
           />
           <Input
-            required
+            // required 
             id="password"
             type="password"
             placeholder="비밀번호를 입력해주세요"
@@ -85,7 +99,7 @@ export default function LoginPageClient() {
             value={input.password}
             style={{ padding: '16px' }}
           />
-          <ErrorLabel className="text-primary-500" label={loginError} />
+          <ErrorLabel className="text-primary-500" label={loginError} shake={shake} />
 
           <VStack className="pt-4 pb-4 items-center justify-between">
             <Radio
@@ -99,7 +113,7 @@ export default function LoginPageClient() {
               }
               label="로그인 정보 저장"
             />
-            <A href="/login/find-password">비밀번호 찾기</A>
+            <A href="/login/reset-password">비밀번호 초기화</A>
           </VStack>
         </HStack>
 
