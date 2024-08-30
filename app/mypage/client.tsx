@@ -3,7 +3,7 @@
 import { useSessionId } from '../../context/SessionIdContext';
 import CommentsView from '../lecture/[id]/components/comments';
 
-import { useApiMyPage } from '@/lib/api/login';
+import { useApiMyPageBasics } from '@/lib/api/mypage';
 
 import SearchSingle from '../lecture/SearchSingle';
 import { HStack, VStack } from '@/components/basic/stack';
@@ -41,7 +41,7 @@ function CoursesView({ courses }: { courses: CourseWithBookmark[] }) {
 export default function MyPage() {
   const [jwt] = useSessionId();
 
-  const myprofile = useApiMyPage({}, { token: jwt?.accessToken });
+  const myprofile = useApiMyPageBasics({}, { token: jwt?.accessToken });
 
   if (jwt === null) {
     return <NoSessionIdFallback />;
@@ -56,8 +56,8 @@ export default function MyPage() {
       <main className="w-full flex-grow">
         <UserDataOverview userprofile={myprofile.data} />
         <ManageMembership profile={myprofile.data} />
-        <CoursesView courses={myprofile.data.courses} />
-        <CommentsView comments={myprofile.data.comments} />
+        {/* <CoursesView courses={myprofile.data.courses} /> */}
+        {/* <CommentsView comments={myprofile.data.comments} /> */}
       </main>
     );
   } else {

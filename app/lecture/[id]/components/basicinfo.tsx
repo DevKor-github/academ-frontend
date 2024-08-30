@@ -3,9 +3,9 @@ import Tag from '@/components/basic/tag';
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
 import LectureIcon from '@/components/composite/lectureIcon';
 
-type RenderType<T, NewType> = {
-  [P in keyof T]: T[P] extends number ? T[P] : NewType;
-};
+// type RenderType<T, NewType> = {
+//   [P in keyof T]: T[P] extends number ? T[P] : NewType;
+// };
 
 export default function BasicInfoView({ course }: { course: CourseWithBookmark }) {
   return (

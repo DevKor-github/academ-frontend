@@ -1,6 +1,6 @@
 'use client';
 
-import { apiProfileUpdatePW, UpdatePWReq, UpdatePWExtended } from '@/lib/api/mypage';
+import { apiProfileUpdatePW } from '@/lib/api/mypage';
 import { useState } from 'react';
 import Submitted from './inner/submitted';
 import { useSessionId } from '@/context/SessionIdContext';

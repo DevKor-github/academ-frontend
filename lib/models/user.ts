@@ -4,20 +4,7 @@ interface SimpleCheckLogin {
   role: string;
 }
 
-
-interface UserProfile {
-  profile_id: number;
-  email: string;
-  username: string;
-  student_id: string;
-  degree: 'MASTER' | 'DOCTOR';
-  semester: number;
-  department: string;
-  point: string;
-  created_at: string;
-  access_expiration_date: string;
-  role: string;
-}
+type UserProfile = MyPageBasicInfo;
 
 interface JWTDecoded {
   memberId: number;
@@ -26,7 +13,6 @@ interface JWTDecoded {
   iat: number;
   exp: number;
 }
-
 
 interface SignupRequest {
   email: string;

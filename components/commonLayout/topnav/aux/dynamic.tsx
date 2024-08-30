@@ -1,18 +1,20 @@
 'use client';
 
-import { useSessionId } from '@/context/SessionIdContext';
+import { useEffect, useState } from 'react';
 
-import { useState } from 'react';
-import { useEffect } from 'react';
+import Link from 'next/link';
+
+import { useSessionId } from '@/context/SessionIdContext';
 
 import Button from '@/components/basic/button';
 import Popover from '@/components/basic/popover';
-import Link from 'next/link';
 import { HStack } from '@/components/basic/stack';
 
-import { apiMyPage } from '@/lib/api/login';
+import { apiMyPageBasics } from '@/lib/api/mypage';
 import { ApiResponse } from '@/lib/api/builder';
 import Skeleton from '@/components/composite/skeleton';
+
+import { LogoutIcon, ProfileIcon } from './icons';
 
 function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => void }) {
   return (
@@ -24,8 +26,14 @@ function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => vo
       style={{ zIndex: 100 }}
     >
       <HStack className="justify-center items-center rounded-xl">
-        <Link href="/mypage">마이페이지</Link>
-        <Link href="/logout">로그아웃</Link>
+        <Link href="/mypage">
+          <ProfileIcon />
+          마이페이지
+        </Link>
+        <Link href="/logout">
+          <LogoutIcon />
+          로그아웃
+        </Link>
       </HStack>
     </Popover>
   );
@@ -47,7 +55,7 @@ function ProfileButton() {
   let [state, setState] = useState<null | ApiResponse<UserProfile>>(null);
 
   useEffect(() => {
-    apiMyPage({}, { token: jwt?.accessToken }).then((v) => setState(v));
+    apiMyPageBasics({}, { token: jwt?.accessToken }).then((v) => setState(v));
   }, [jwt]);
 
   if (state === null) {
