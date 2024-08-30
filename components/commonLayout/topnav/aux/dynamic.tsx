@@ -21,18 +21,24 @@ function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => vo
     <Popover
       onPageClick={() => setOpenPopover(false)}
       className={
-        'absolute rounded-lg overflow-hidden border bg-l bg-white dark:bg-dark-back-1 border-light-back-2 dark:border-dark-back-4 right-2 md:right-8 top-14 shadow-lg '
+        'absolute rounded-xl overflow-hidden border bg-l bg-white dark:bg-dark-back-1 border-light-back-2 dark:border-dark-back-4 right-2 md:right-8 top-14 shadow-lg '
       }
       style={{ zIndex: 100 }}
     >
-      <HStack className="justify-center items-center rounded-xl">
-        <Link href="/mypage">
+      <HStack className="justify-center items-center rounded-xl
+      *:flex *:flex-row *:min-h-6 *:gap-2 *:p-4 *:pb-2 *:w-full *:justify-center *:align-middle">
+
+        <Link className='
+        hover:light:bg-light-back-2
+        hover:dark:bg-dark-back-4' href="/mypage">
           <ProfileIcon />
-          마이페이지
+          <span>마이페이지</span> 
         </Link>
-        <Link href="/logout">
+        <Link className='
+        hover:light:bg-light-back-2
+        hover:dark:bg-dark-back-4' href="/logout">
           <LogoutIcon />
-          로그아웃
+          <span>로그아웃</span>
         </Link>
       </HStack>
     </Popover>

@@ -2,7 +2,7 @@ export const ProfileIcon = () => (
   <svg width="1em" height="1em" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M15 14.9996V13.4441C15 12.619 14.6313 11.8277 13.9749 11.2442C13.3185 10.6608 12.4283 10.333 11.5 10.333H4.5C3.57174 10.333 2.6815 10.6608 2.02513 11.2442C1.36875 11.8277 1 12.619 1 13.4441V14.9996"
-      stroke="#9B9B9B"
+      stroke="currentColor"
       stroke-width="1.5"
       stroke-linecap="round"
       stroke-linejoin="round"
