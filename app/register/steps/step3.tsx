@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 
 import { HStack, VStack } from '@/components/basic/stack';
 import { apiDuplicateName, apiSignup } from '@/lib/api/login';
@@ -13,12 +13,12 @@ import ErrorLabel from '@/components/basic/errorlabel';
 import { departments } from './departments';
 
 const validatePw = (pw: string) => {
-  const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,24}$/;
+  const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W]{8,24}$/;
   return re.test(String(pw));
 };
 
 const validateNum = (num: string) => {
-  const re = /^\d{7}$/;
+  const re = /^[A-Za-z\d]{7}$/;
   return re.test(String(num));
 };
 
@@ -77,18 +77,26 @@ export default function Step3({
   }
 
   async function handleRegister() {
-    if (nameCheck.isChecked !== 'SUCCESS' || nameCheck.username !== input.username) {
+    if (pwcheck !== input.password || !isPwValid) {
+      window.alert('비밀번호를 확인해주세요.');
+    } else if (nameCheck.isChecked !== 'SUCCESS' || nameCheck.username !== input.username) {
       setNameCheck({ ...nameCheck, error: true });
-      return;
-    }
-
-    const response = await apiSignup({ ...input } as SignupRequest);
-
-    if (response.status === 'SUCCESS') {
-      nextStep();
+      window.alert('닉네임 중복을 확인해주세요.');
+    } else if (!isNumValid) {
+      window.alert('학번 앞 7자를 입력해주세요.');
+    } else if (!departments.includes(input.department)) {
+      window.alert('유효한 학과명을 입력해주세요.');
+    } else if (input.semester == null) {
+      window.alert('학기를 입력해주세요.');
     } else {
-      window.alert(`회원가입에 실패했습니다.
+      const response = await apiSignup({ ...input } as SignupRequest);
+
+      if (response.status === 'SUCCESS') {
+        nextStep();
+      } else {
+        window.alert(`회원가입에 실패했습니다.
         ${response.message}`);
+      }
     }
   }
 
@@ -172,7 +180,9 @@ export default function Step3({
       />
       <ErrorLabel
         label={
-          !isPwValid && input.password !== '' ? '영문과 숫자를 조합하여 8 - 24 자리의 비밀번호를 입력해주세요.' : ''
+          !isPwValid && input.password !== ''
+            ? '영문자, 숫자, 또는 특수문자로 이루어진 8 - 24 자리의 비밀번호를 입력해주세요.'
+            : ''
         }
       />
       <span className="text-xl">비밀번호 확인</span>
@@ -207,7 +217,7 @@ export default function Step3({
       />
       <span className="text-xl">학번</span>
       <Input required type="text" id="student_id" label="학번" onChange={handleInput} style={{ width: '100%' }} />
-      <ErrorLabel label={!isNumValid && input.student_id !== '' ? '7자리 학번을 입력해주세요.' : ''} />
+      <ErrorLabel label={!isNumValid && input.student_id !== '' ? '학번 앞 7자를 입력해주세요.' : ''} />
       <span className="text-xl">학과</span>
       <div
         onBlur={() => {
