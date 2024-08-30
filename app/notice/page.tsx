@@ -1,7 +1,7 @@
-'use client';
-
 import { HStack } from '@/components/basic/stack';
-import NoticeResultsView from './fetch';
+import dynamic from 'next/dynamic';
+
+const NoticeResultsView = dynamic(() => import('./fetch'), { ssr: false }) 
 
 export default function NoticePage() {
   return (

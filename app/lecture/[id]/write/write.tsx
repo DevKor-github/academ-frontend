@@ -1,6 +1,5 @@
-import { apiInsertComment, CommentNewReq } from '@/lib/api/course';
+import { apiInsertComment } from '@/lib/api/course';
 import { useState } from 'react';
-import { Course } from '@/lib/models/course';
 import Submitted from './submitted';
 
 import WriteOrEditComment from '@/components/composite/form';
@@ -32,7 +31,7 @@ function NewCommentWithId(id: number) {
 export default function WriteComment({ course }: { course: Course }) {
   const sessionId = useSessionId();
 
-  const [input, setInput] = useState<CommentNewReq>(NewCommentWithId(course.course_id));
+  const [input, setInput] = useState<AcdCommentNewReq>(NewCommentWithId(course.course_id));
   const [submitted, setSubmitted] = useState<boolean | null>(null);
 
   function handleSubmit() {

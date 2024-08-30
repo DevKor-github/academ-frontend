@@ -6,7 +6,6 @@ import BasicInfoView from './components/basicinfo';
 import CommentsView from './components/comments';
 import SummaryView from './components/summary';
 
-import { CourseWithBookmark } from '@/lib/models/course';
 import Link from 'next/link';
 import { IssueIcon } from '@/icons';
 

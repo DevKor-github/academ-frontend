@@ -1,5 +1,3 @@
-import { Course } from '../models/course';
-
 export function getTagFromCourse(course: Course) {
   const threshhold = 0.5;
 

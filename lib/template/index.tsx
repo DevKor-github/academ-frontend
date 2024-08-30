@@ -4,7 +4,9 @@ import Button from '@/components/basic/button';
 import BackButton from './backbutton';
 import ErrorIllust from './inner/erroricon';
 
-export default function ErrorTemplate({ title, subtitle, back }: { title: string; subtitle: string; back?: string }) {
+export default function ErrorTemplate({ title, subtitle
+  // back
+}: { title: string; subtitle: string; back?: string }) {
   return (
     <main>
       <HStack className="pt-24 pb-24 pl-8 pr-8 text-center items-center justify-center">

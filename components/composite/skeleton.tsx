@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './skeleton.module.css';
 
-export default function Skeleton({ placeholder }: { placeholder: string }) {
+export default function Skeleton({ placeholder }: { placeholder: React.ReactNode }) {
   return <span className={`${styles.skeleton}`}>{placeholder}</span>;
 }
 

@@ -1,12 +1,9 @@
 import { HStack } from '@/components/basic/stack';
 
 import dynamic from 'next/dynamic';
+import LoginPageLoading from './aux';
 
-function LoginFormLoading() {
-  return <HStack gap="48px">(로딩화면, 나중에 채울 것)</HStack>;
-}
-
-const LoginForm = dynamic(() => import('./client'), { ssr: false, loading: LoginFormLoading });
+const LoginForm = dynamic(() => import('./client'), { ssr: false, loading: LoginPageLoading });
 
 export default function LoginPage() {
   return (

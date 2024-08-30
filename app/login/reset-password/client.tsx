@@ -63,7 +63,7 @@ export default function FindPWPageClient() {
           <Button
             type="submit"
             kind="filled"
-            disabled={wip}
+            disabled={wip || input.email === ''}
             accnet="0"
             variant="contained"
             color="primary"

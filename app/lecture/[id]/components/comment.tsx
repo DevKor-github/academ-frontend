@@ -4,13 +4,11 @@ import { Star1 } from '@/components/composite/starIndicator';
 import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
 import Button from '@/components/basic/button';
-import { Comment } from '@/lib/models/comment';
 import { useState } from 'react';
 
-import { useApiStartUpdateComment, apiDeleteComment } from '@/lib/api/course';
+import { apiDeleteComment } from '@/lib/api/course';
 
 import { decode } from '@/lib/jwt';
-import { JWTDecoded } from '@/lib/models/user';
 
 import Link from 'next/link';
 import { useSessionId } from '@/context/SessionIdContext';
@@ -24,7 +22,7 @@ function quaternary<T>(that: number, standard: number, gt: T, eq: T, lt: T) {
   return lt;
 }
 
-function getTag(comment: Comment) {
+function getTag(comment: AcdComment) {
   return [
     comment.teach_t1_theory ? ['이론 수업'] : [],
     comment.teach_t2_practice ? ['실습 수업'] : [],
@@ -38,7 +36,7 @@ function getTag(comment: Comment) {
   ].flat(1);
 }
 
-function Left({ comment }: { comment: Comment }) {
+function Left({ comment }: { comment: AcdComment }) {
   return (
     <HStack
       className="items-center justify-start flex-nowrap md:border-r md:border-r-neutral-200 md:pr-4"
@@ -82,7 +80,7 @@ function Right({
   setDel,
 }: {
   editable: boolean;
-  comment: Comment;
+  comment: AcdComment;
   setDel: React.Dispatch<boolean>;
 }) {
   return (
@@ -142,7 +140,7 @@ function Right({
   );
 }
 
-export default function CommentView({ comment }: { comment: Comment }) {
+export default function CommentView({ comment }: { comment: AcdComment }) {
   const [jwt] = useSessionId();
 
   const editable = jwt === null ? true : comment.profile_id === decode<JWTDecoded>(jwt.accessToken).memberId;

@@ -1,14 +1,14 @@
-import { apiUpdateComment, CommentEditReq } from '@/lib/api/course';
+import { apiUpdateComment } from '@/lib/api/course';
 import { useEffect, useState } from 'react';
 import Submitted from './submitted';
 import { useSessionId } from '@/context/SessionIdContext';
 
 import WriteOrEditComment from '@/components/composite/form';
 
-export default function EditComment({ comment, courseName }: { comment: CommentEditReq; courseName: string }) {
+export default function EditComment({ comment, courseName }: { comment: AcdCommentEditReq; courseName: string }) {
   const [jwt] = useSessionId();
 
-  const [input, setInput] = useState<CommentEditReq>(comment);
+  const [input, setInput] = useState<AcdCommentEditReq>(comment);
 
   const [submitted, setSubmitted] = useState<boolean | null>(null);
 

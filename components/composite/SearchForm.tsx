@@ -8,6 +8,8 @@ import Button from '@/components/basic/button';
 import { RightIcon } from '@/icons';
 import ErrorLabel from '../basic/errorlabel';
 
+import { useAnimationTimeout } from '@/lib/hooks/timeout';
+
 interface SearchFormProp {
   className?: string;
   defaultValue?: string;
@@ -18,6 +20,7 @@ interface SearchFormProp {
 export default function SearchForm({ autoFocus, className, defaultValue, style }: SearchFormProp) {
   const [query, setQuery] = useState(defaultValue || '');
   const [error, setError] = useState('');
+  const [isAnimation, resetAnimation] = useAnimationTimeout(600);
 
   const combinedStyle = {
     ...style,
@@ -27,6 +30,7 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
   function submitHanlder(event: React.FormEvent<HTMLFormElement>) {
     if (query === '') {
       event.preventDefault();
+      resetAnimation();
       setError('검색어를 1자 이상 입력해주세요.');
     }
   }
@@ -35,7 +39,7 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
     <form className={className} method="get" action="/lecture" style={combinedStyle} onSubmit={submitHanlder}>
       <VStack
         gap="2px"
-        className="transition-all justify-center items-center light:bg-neutral-100 dark:bg-neutral-900
+        className=" transition-all justify-center items-center light:bg-neutral-100 dark:bg-neutral-900
        pl-5 pr-5 border border-neutral-200 dark:border-neutral-800 rounded-3xl focus-within:shadow-xl dark:shadow-dark-back-6
        "
       >
@@ -60,7 +64,7 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
           <RightIcon />
         </Button>
       </VStack>
-      <ErrorLabel className={'text-primary-500 '} label={error} />
+      <ErrorLabel className='mt-4' label={error} shake={isAnimation} />
     </form>
   );
 }

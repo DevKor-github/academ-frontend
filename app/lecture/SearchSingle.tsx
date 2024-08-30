@@ -1,4 +1,3 @@
-import { CourseWithBookmark } from '@/lib/models/course';
 import { StarIcon } from '@/icons';
 import { HStack, VStack } from '@/components/basic/stack';
 import Link from 'next/link';

@@ -1,4 +1,3 @@
-import { UpdateProfileReq } from '@/lib/api/mypage';
 import Button from '@/components/basic/button';
 import Link from 'next/link';
 

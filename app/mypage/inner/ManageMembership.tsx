@@ -1,6 +1,5 @@
 'use client';
 
-import { UserProfile } from '@/lib/models/user';
 import { apiBuyAcess } from '@/lib/api/membership';
 import { useSessionId } from '@/context/SessionIdContext';
 

@@ -24,10 +24,10 @@ export default function LoginPage() {
       <HStack className="text-lg" gap="48px" style={{ width: '400px' }}>
         <span style={{ textAlign: 'center' }}>
           <span className="text-4xl" >
-            비밀번호 찾기<br />
+            비밀번호 초기화<br />
           </span>
           <span>
-            이메일을 입력하여 임시 비밀번호를 발급받을 수 있습니다.
+            비밀번호를 잊은 경우 이메일을 입력하여 임시 비밀번호를 발급받을 수 있습니다.
           </span>
         </span>
 

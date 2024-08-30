@@ -7,7 +7,7 @@ export function TopNavInnerLeft() {
   return (
     <Link
       href="/"
-      className="items-center justify-start flex text-black dark:text-white p-2"
+      className="items-center justify-start flex p-2"
       style={{ height: '64px', width: '108px' }}
     >
         <LogoIconRich />
@@ -22,9 +22,9 @@ function NavButton({ label, desiredPath, currentPath, wip }: {
   wip?: true;
 }) {
   return (
-    <Link href={desiredPath} className={' p-2 ' + (currentPath === desiredPath ? 'text-primary-500' : 'text-black dark:text-white ')}>
+    <Link href={desiredPath} className={' p-2 ' + (currentPath === desiredPath ? 'text-primary-500' : '')}>
       {wip ? (
-        <span>{label} <sup className="rounded-full ">준비 중</sup></span>
+        <span>{label} <sup className="rounded-full border border-light-back-2 dark:border-dark-back-4 p-1">준비 중</sup></span>
       ) : label}
     </Link>
   );
@@ -48,7 +48,7 @@ export const TopNavInnerMid = ({
       className={`overflow-y-hidden transition-all ${height} md:h-16 items-center justify-start flex flex-col md:flex-row`}
       style={{ rowGap: '10px' }}
     >
-      <div className="md:hidden text-black dark:text-white ">
+      <div className="md:hidden">
         <Button kind="blank" style={{ minHeight: '64px' }} onClick={() => setSpreaded(!spreaded)}>
           {spreaded ? <UpIcon /> : <DownIcon />}
         </Button>

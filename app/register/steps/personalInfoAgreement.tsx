@@ -175,7 +175,7 @@ const PersonalInfoAgreement: React.FC = () => {
       </p>
 
       <h3 style={{ fontWeight: 'bold' }}>제17조(광고성 정보의 전송 조치)</h3>
-      <p style={{ marginBottom: '1em' }}>
+      <p>
         1. 회사는 전자적 전송매체를 이용하여 영리목적의 광고성 정보를 전송하는 경우 이용자의 명시적인 사전동의를
         받습니다. 다만, 다음 각호 어느 하나에 해당하는 경우에는 사전 동의를 받지 않습니다
       </p>

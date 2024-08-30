@@ -13,7 +13,7 @@ const config: Config = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  darkMode: 'class',
+  darkMode: 'media',
   theme: {
     extend: {
       height: {
@@ -127,9 +127,19 @@ const config: Config = {
           '10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-4px)' },
           '20%, 40%, 60%, 80%': { transform: 'translateX(4px)' },
         },
+        pulse: {
+          '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+          '50%': { transform: 'scale(0.8)', opacity: '0.8' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
       },
       animation: {
-        shake: 'shake 0.6s ease-in-out',
+        shake: 'shake 0.6s ease-in-out infinite',
+        pulse: 'pulse 0.8s ease-in-out infinite',
+        fade: 'fadeIn 0.2s ease-in-out',
       },
     },
   },

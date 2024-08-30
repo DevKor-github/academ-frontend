@@ -1,6 +1,5 @@
 'use client';
 
-import { Course } from '@/lib/models/course';
 import { useEffect, useState } from 'react';
 
 import { useApiCourseDetail } from '@/lib/api/course';

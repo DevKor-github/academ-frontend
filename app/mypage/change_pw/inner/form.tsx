@@ -1,4 +1,3 @@
-import { UpdatePWExtended } from '@/lib/api/mypage';
 import Button from '@/components/basic/button';
 
 export default function UpdateBasicForm({

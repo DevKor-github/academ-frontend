@@ -1,4 +1,3 @@
-import { CommentJoin } from '@/lib/api/course';
 import Button from '@/components/basic/button';
 import Tag from '@/components/basic/tag';
 
@@ -124,7 +123,7 @@ function InputToggleTag({
   );
 }
 
-export default function WriteOrEditComment<Req extends CommentJoin>({
+export default function WriteOrEditComment<Req extends AcdCommentJoin>({
   title,
   handleSubmit,
   input,
@@ -159,7 +158,7 @@ export default function WriteOrEditComment<Req extends CommentJoin>({
     });
   }
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const textarea = useRef<HTMLTextAreaElement>(null);
   const handleResizeHeight = () => {
@@ -275,26 +274,31 @@ export default function WriteOrEditComment<Req extends CommentJoin>({
         </div>
 
         <div className="pt-8 pb-8 border-b border-b-neutral-500">
-          <span className="text-lg inline-block mb-10">강의평 작성 <button
-            className='bg-none border border-primary-500 text-primary-500 aspect-square pl-2 pr-2 text-sm rounded-full'
-            type='button'
-            onClick={() => setOpen((b) => !b)}
-          >
-          ?
-          </button>
-            {open && <Popover onPageClick={() => setOpen(false)}>
-              <div className='border border-light-back-1 rounded-md p-4 mt-4'>
-              <div className='text-sm pb-2'>질문 리스트</div>
-              <ul>
-                <li className='text-xs'>과제의 주기는 어떤가요?</li>
-                <li className='text-xs'>수업 방식은 어떤가요?</li>
-                <li className='text-xs'>어떤 내용을 배울 수 있나요?</li>
-                <li className='text-xs'>어떤 배경지식이 있으면 좋을까요?</li>
-                <li className='text-xs'>수업이 연구하는데 도움이 되었나요?</li>
-                <li className='text-xs'>시험은 어떻게 준비하면 좋을까요?</li>
-                <li className='text-xs'>과제의 주기는 어떤까요?</li>
-              </ul>
-            </div></Popover>}
+          <span className="text-lg inline-block mb-10">
+            강의평 작성{' '}
+            <button
+              className="bg-none border border-primary-500 text-primary-500 aspect-square pl-2 pr-2 text-sm rounded-full"
+              type="button"
+              onClick={() => setOpen((b) => !b)}
+            >
+              ?
+            </button>
+            {open && (
+              <Popover onPageClick={() => setOpen(false)}>
+                <div className="border border-light-back-1 rounded-md p-4 mt-4">
+                  <div className="text-sm pb-2">질문 리스트</div>
+                  <ul>
+                    <li className="text-xs">과제의 주기는 어떤가요?</li>
+                    <li className="text-xs">수업 방식은 어떤가요?</li>
+                    <li className="text-xs">어떤 내용을 배울 수 있나요?</li>
+                    <li className="text-xs">어떤 배경지식이 있으면 좋을까요?</li>
+                    <li className="text-xs">수업이 연구하는데 도움이 되었나요?</li>
+                    <li className="text-xs">시험은 어떻게 준비하면 좋을까요?</li>
+                    <li className="text-xs">과제의 주기는 어떤까요?</li>
+                  </ul>
+                </div>
+              </Popover>
+            )}
           </span>
 
           <div className="light:bg-neutral-100 dark:bg-dark-back-6">
