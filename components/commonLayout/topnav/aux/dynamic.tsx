@@ -15,6 +15,7 @@ import { ApiResponse } from '@/lib/api/builder';
 import Skeleton from '@/components/composite/skeleton';
 
 import { LogoutIcon, ProfileIcon } from './icons';
+import { DownIcon } from '@/icons';
 
 function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => void }) {
   return (
@@ -48,7 +49,7 @@ function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => vo
 function LoginButton() {
   return (
     <Link href="/login">
-      <Button>로그인</Button>
+      <Button>로그인/회원가입</Button>
     </Link>
   );
 }
@@ -67,7 +68,7 @@ function ProfileButton() {
   if (state === null) {
     return (
       <Button>
-        <Skeleton placeholder="로그인" />
+        <Skeleton placeholder="로그인/회원가입" />
       </Button>
     );
   }
@@ -77,12 +78,12 @@ function ProfileButton() {
   } else {
     return (
       <div>
-        <Button onClick={() => setOpen((v) => !v)}>
+        <Button className='rounded-full bg-primary-500 text-white p-2 pl-2 pr-2 cursor-pointer' onClick={() => setOpen((v) => !v)}>
           <span
             className="under-md:max-w-24"
             style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
           >
-            {state.data.username}님
+            <span className='flex flex-row'>마이페이지 <DownIcon /></span>
           </span>
         </Button>
         {open && <ProfilePopover setOpenPopover={setOpen} />}
