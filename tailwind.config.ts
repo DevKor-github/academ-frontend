@@ -131,10 +131,15 @@ const config: Config = {
           '0%, 100%': { transform: 'scale(1)', opacity: '1' },
           '50%': { transform: 'scale(0.8)', opacity: '0.8' },
         },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
       },
       animation: {
         shake: 'shake 0.6s ease-in-out infinite',
         pulse: 'pulse 0.8s ease-in-out infinite',
+        fade: 'fadeIn 0.2s ease-in-out',
       },
     },
   },

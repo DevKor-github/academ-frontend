@@ -72,7 +72,7 @@ export default function NoticeResultsView() {
   }, [page]);
 
   if (notices === null) {
-    return <Skeleton placeholder='공지사항 로딩 중' />;
+    return <div />;
   } else {
     return <NoticeListView notices={notices} setPage={setPage} eon={EON} />;
   }

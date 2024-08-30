@@ -4,7 +4,6 @@ import { useSessionId } from '@/context/SessionIdContext';
 import { useApiNoticeDetail } from '@/lib/api/notice';
 import NoticeView from './main';
 import ErrorTemplate from '@/lib/template';
-import { NoticeLoadingView } from './main';
 
 
 export default function NoticeDetailPage({ params: { id } }: { params: { id: number } }) {
@@ -13,7 +12,7 @@ export default function NoticeDetailPage({ params: { id } }: { params: { id: num
   const notice = useApiNoticeDetail({ notice_id: id }, { token: jwt?.accessToken });
   // 데이터가 없으면 에러 처리
   if (notice === null) {
-    return <NoticeLoadingView />;
+    return <div />;
   }
 
   return notice.status === 'SUCCESS' ? (
