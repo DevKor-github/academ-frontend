@@ -1,13 +1,11 @@
 'use client';
 
 import { useSessionId } from '../../context/SessionIdContext';
-import CommentsView from '../lecture/[id]/components/comments';
 
 import { useApiMyPageBasics } from '@/lib/api/mypage';
 
-import SearchSingle from '../lecture/SearchSingle';
-import { HStack, VStack } from '@/components/basic/stack';
-
+import MyCommentsView from './inner/MyCommentsView';
+import BookmarksView from './inner/BookmarksView';
 import ManageMembership from './inner/ManageMembership';
 import UserDataOverview from './inner/UserdataOverview';
 
@@ -17,26 +15,6 @@ function NoSessionIdFallback() {
   return <div>이 기능을 사용하려면 로그인해야 합니다.</div>;
 }
 
-function CoursesView({ courses }: { courses: CourseWithBookmark[] }) {
-  return (
-    <HStack
-      className="pl-2 pr-2 md:pl-8 md:pr-8 pt-24 h-full transition-all
-  light:bg-light-back-1 dark:bg-dark-back-1
-  "
-    >
-      <VStack className="items-center justify-start gap-2">
-        <span className="text-2xl">강의 책갈피</span>
-      </VStack>
-      <div className="overflow-scroll w-full">
-        <div className="flex flex-row w-fit gap-4 p-8">
-          {courses.flatMap((v) => (
-            <SearchSingle course={v} />
-          ))}
-        </div>
-      </div>
-    </HStack>
-  );
-}
 
 export default function MyPage() {
   const [jwt] = useSessionId();
@@ -56,8 +34,8 @@ export default function MyPage() {
       <main className="w-full flex-grow">
         <UserDataOverview userprofile={myprofile.data} />
         <ManageMembership profile={myprofile.data} />
-        {/* <CoursesView courses={myprofile.data.courses} /> */}
-        {/* <CommentsView comments={myprofile.data.comments} /> */}
+        <BookmarksView />
+        <MyCommentsView />
       </main>
     );
   } else {
