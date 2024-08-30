@@ -41,13 +41,13 @@ function CoursesView({ courses }: { courses: CourseWithBookmark[] }) {
 export default function MyPage() {
   const [jwt] = useSessionId();
 
-  const myprofile = useApiMyPageBasics({}, { token: jwt?.accessToken });
+  const { loading, response : myprofile } = useApiMyPageBasics({}, { token: jwt?.accessToken });
 
   if (jwt === null) {
     return <NoSessionIdFallback />;
   }
 
-  if (myprofile === null) {
+  if (loading) {
     return <div>로딩중</div>;
   }
 

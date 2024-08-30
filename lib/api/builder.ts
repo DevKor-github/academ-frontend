@@ -143,57 +143,74 @@ export function build<Req, Res>(method: 'POST' | 'GET', path: string, config: Ax
   };
 }
 
+export type ApiState<T> =
+  | {
+      loading: true;
+      response: unknown;
+    }
+  | {
+      loading: false;
+      response: ApiResponse<T>;
+    };
+
 export function createApiHook<Req, Res>(apicall: (a: Req, ctx?: ApiCTX) => Promise<ApiResponse<Res>>) {
-  return function (req: Req, ctx?: ApiCTX): ApiResponse<Res> | null {
-    const [r, setR] = useState<ApiResponse<Res> | null>(null);
+  return function (req: Req, ctx?: ApiCTX): ApiState<Res> {
+    const [loading, setLoading] = useState<boolean>(true);
+    const [response, setResponse] = useState<ApiResponse<Res> | null>(null);
 
     useEffect(() => {
-      apicall(req, ctx).then((a) => setR(a));
+      apicall(req, ctx).then((a) => {
+        setResponse(a);
+        setLoading(false);
+      });
     }, []);
 
-    return r;
+    return { response, loading } as ApiState<Res>;
   };
 }
 
-export type HookResult<T> = {
-  success: false;
-  failure: false;
-  error: false;
-  loading: true;
+export type HookResult<T> =
+  | {
+      success: false;
+      failure: false;
+      error: false;
+      loading: true;
 
-  data: unknown;
-  message: unknown;
-} | {
-  success: true;
-  failure: false;
-  error: false;
-  loading: false;
+      data: unknown;
+      message: unknown;
+    }
+  | {
+      success: true;
+      failure: false;
+      error: false;
+      loading: false;
 
-  data: T;
-  message: unknown;
-} | {
-  success: false;
-  failure: true;
-  error: false;
-  loading: false;
+      data: T;
+      message: unknown;
+    }
+  | {
+      success: false;
+      failure: true;
+      error: false;
+      loading: false;
 
-  data: unknown;
-  message: string;
-} | {
-  success: false;
-  failure: false;
-  error: true;
-  loading: false;
+      data: unknown;
+      message: string;
+    }
+  | {
+      success: false;
+      failure: false;
+      error: true;
+      loading: false;
 
-  data: unknown;
-  message: string;
-}
+      data: unknown;
+      message: string;
+    };
 
 export function createApiHook2<Req, Res>(apicall: (a: Req, ctx?: ApiCTX) => Promise<ApiResponse<Res>>) {
   return function (req: Req, ctx?: ApiCTX): HookResult<Res> {
     const [r, setR] = useState<ApiResponse<Res> | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-
 
     useEffect(() => {
       apicall(req, ctx).then((a) => {
@@ -206,7 +223,7 @@ export function createApiHook2<Req, Res>(apicall: (a: Req, ctx?: ApiCTX) => Prom
       return { loading, success: false, failure: false, error: false, data: undefined, message: '로딩 중입니다.' };
     }
 
-    // @ts-ignore 
+    // @ts-ignore
     return {
       success: r?.status === 'SUCCESS',
       failure: r?.status === 'FAILURE',

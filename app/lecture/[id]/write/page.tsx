@@ -14,9 +14,9 @@ const WriteComment = dynamic(() => import('./write'), { ssr: false, loading: Wri
 export default function WritePage({ params: { id } }: { params: { id: number } }) {
   const [jwt] = useSessionId();
 
-  const writable = useApiStartNewComment({ course_id: id }, { token: jwt?.accessToken });
+  const { loading, response : writable} = useApiStartNewComment({ course_id: id }, { token: jwt?.accessToken });
 
-  if (writable === null) {
+  if (loading) {
     return <WriteLoading />;
   }
 

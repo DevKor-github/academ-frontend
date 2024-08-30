@@ -9,9 +9,9 @@ import ErrorTemplate from '@/lib/template';
 export default function NoticeDetailPage({ params: { id } }: { params: { id: number } }) {
   const [jwt] = useSessionId();
 
-  const notice = useApiNoticeDetail({ notice_id: id }, { token: jwt?.accessToken });
-  // 데이터가 없으면 에러 처리
-  if (notice === null) {
+  const { loading, response: notice} = useApiNoticeDetail({ notice_id: id }, { token: jwt?.accessToken });
+
+  if (loading) {
     return <div />;
   }
 

@@ -13,9 +13,9 @@ const EditComment = dynamic(() => import('./edit'), { ssr: false, loading: EditL
 export default function EditPage({ params: { comment_id } }: { params: { comment_id: number } }) {
   const [jwt] = useSessionId();
 
-  const editable = useApiStartUpdateComment({ comment_id }, { token: jwt?.accessToken });
+  const { loading, response : editable } = useApiStartUpdateComment({ comment_id }, { token: jwt?.accessToken });
 
-  if (editable === null) {
+  if (loading) {
     return <EditLoading />;
   }
 

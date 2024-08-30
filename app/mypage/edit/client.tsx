@@ -37,9 +37,13 @@ function MyPageEditBasicWithProfile({
 export default function MyPageEditBasic() {
   const [jwt] = useSessionId();
 
-  const profile = useApiMyPageBasics({}, { token: jwt?.accessToken });
+  const { loading, response: profile } = useApiMyPageBasics({}, { token: jwt?.accessToken });
+  
+  if (loading) {
+    return <div />;
+  }
 
-  if (profile?.status === 'SUCCESS') {
+  if (profile.status === 'SUCCESS') {
     return <MyPageEditBasicWithProfile profile={profile.data} />;
   }
 
