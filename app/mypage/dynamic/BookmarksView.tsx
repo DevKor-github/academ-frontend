@@ -36,7 +36,7 @@ export default function BookmarksView() {
       <div className="overflow-scroll w-full">
         <div className="flex flex-row w-fit gap-4 p-8">
           {pages.data.flatMap((v) => (
-            <SearchSingle course={v} />
+            <SearchSingle key={v.course_id} course={v} />
           ))}
         </div>
       </div>
