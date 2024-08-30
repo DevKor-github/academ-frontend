@@ -25,7 +25,7 @@ export type Paged<T> =
       page: number;
     };
 
-export function usePagenation<Req extends { page: number }, Res>(
+export function usePagination<Req extends { page: number }, Res>(
   apiCall: ApiCall<Req, Array<Res>>,
   // checkEoc: (r: Res) => boolean,
 ): [Paged<Res>, (r: Req, ctx?: ApiCTX) => void, () => void] {
@@ -61,7 +61,7 @@ export function usePagenation<Req extends { page: number }, Res>(
     });
   }
 
-  function resetPagenation() {
+  function resetPagination() {
     setNeverLoaded(true);
     setPage(firstPage);
     setData(null);
@@ -69,5 +69,5 @@ export function usePagenation<Req extends { page: number }, Res>(
     setFailwith(null);
   }
 
-  return [{ neverLoaded, data, eoc, page, failwith } as Paged<Res>, fetchThis, resetPagenation];
+  return [{ neverLoaded, data, eoc, page, failwith } as Paged<Res>, fetchThis, resetPagination];
 }

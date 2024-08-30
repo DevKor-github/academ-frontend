@@ -12,7 +12,7 @@ import Button from '@/components/basic/button';
 import Select from '@/components/basic/select';
 import { DownIcon } from '@/icons';
 
-import { usePagenation } from '@/lib/hooks/pagenation';
+import { usePagination } from '@/lib/hooks/pagination';
 
 function Box({ children }: { children: React.ReactNode }) {
   return (
@@ -58,7 +58,7 @@ function SearchResultsArrayView({
 export default function SearchResultsView({ query: keyword }: { query: string }) {
   const [jwt] = useSessionId();
 
-  const [pages, fetchThis, reset] = usePagenation(apiSearch);
+  const [pages, fetchThis, reset] = usePagination(apiSearch);
   const [order, setOrder] = useState<SearchOrdering>('NEWEST');
 
 
