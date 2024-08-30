@@ -8,6 +8,7 @@ import { HStack } from '@/components/basic/stack';
 import { Notice } from '@/lib/api/notice';
 import Button from '@/components/basic/button';
 import { DownIcon } from '@/icons';
+import Skeleton from '@/components/composite/skeleton';
 
 function NoticeListView({
   notices,
@@ -71,7 +72,7 @@ export default function NoticeResultsView() {
   }, [page]);
 
   if (notices === null) {
-    return <div>공지사항이 없습니다.</div>;
+    return <Skeleton placeholder='공지사항 로딩 중' />;
   } else {
     return <NoticeListView notices={notices} setPage={setPage} eon={EON} />;
   }
