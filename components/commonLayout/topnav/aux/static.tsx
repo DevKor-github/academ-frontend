@@ -24,7 +24,7 @@ function NavButton({ label, desiredPath, currentPath, wip }: {
   return (
     <Link href={desiredPath} className={' p-2 ' + (currentPath === desiredPath ? 'text-primary-500' : '')}>
       {wip ? (
-        <span>{label} <sup className="rounded-full border p-1">준비 중</sup></span>
+        <span>{label} <sup className="rounded-full border border-light-back-2 dark:border-dark-back-4 p-1">준비 중</sup></span>
       ) : label}
     </Link>
   );
