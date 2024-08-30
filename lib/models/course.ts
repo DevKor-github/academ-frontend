@@ -31,11 +31,14 @@ interface CourseWithBookmark extends Course {
   isBookmark: boolean;
 }
 
+type SearchOrdering = 'NEWEST' | 'RATING_DESC' | 'RATING_ASC';
+
 interface SearchRequest {
   keyword: string;
-  order: 'NEWEST' | 'RATING_DESC' | 'RATING_ASC';
+  order: SearchOrdering
   page: number;
 }
+
 
 interface CourseId {
   course_id: number;

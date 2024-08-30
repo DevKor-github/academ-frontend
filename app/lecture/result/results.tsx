@@ -12,6 +12,8 @@ import Button from '@/components/basic/button';
 import Select from '@/components/basic/select';
 import { DownIcon } from '@/icons';
 
+import { usePagenation } from '@/lib/hooks/pagenation';
+
 function Box({ children }: { children: React.ReactNode }) {
   return (
     <HStack className="pb-8 pt-8 bg-neutral-50 dark:bg-neutral-950 flex-grow text-xl text-center pl-8 pr-8 md:pl-24 md:pr-24">
@@ -22,12 +24,12 @@ function Box({ children }: { children: React.ReactNode }) {
 
 function SearchResultsArrayView({
   courses,
-  setCond,
-  eoc,
+  setOrder,
+  nextButton,
 }: {
   courses: CourseWithBookmark[];
-  setCond: React.Dispatch<React.SetStateAction<Omit<SearchRequest, 'keyword'>>>;
-  eoc: boolean;
+  setOrder: React.Dispatch<React.SetStateAction<SearchOrdering>>;
+  nextButton: React.ReactNode;
 }) {
   if (courses.length === 0) {
     return <Box>검색 결과가 없습니다.</Box>;
@@ -36,70 +38,66 @@ function SearchResultsArrayView({
     <Box>
       <Select
         defaultLabel="최신순"
-        setValue={setCond}
+        setValue={setOrder}
         items={[
-          { value: { order: 'NEWEST', page: 1 }, label: '최신순' },
-          { value: { order: 'RATING_DESC', page: 1 }, label: '별점 높은순' },
-          { value: { order: 'RATING_ASC', page: 1 }, label: '별점 낮은순' },
-        ]}
+          { value: 'NEWEST' , label: '최신순' },
+          { value: 'RATING_DESC', label: '별점 높은순' },
+          { value: 'RATING_ASC', label: '별점 낮은순' },
+        ] as const}
       />
       <div className={styles.container}>
         {courses.map((course) => (
           <SearchSingle key={course.course_id} course={course} />
         ))}
       </div>
-      {eoc || (
-        <div className="w-full pt-6 flex flex-col justify-center items-center">
-          <Button
-            onClick={() =>
-              setCond((v) => {
-                return { ...v, page: v.page + 1 };
-              })
-            }
-          >
-            <DownIcon />
-          </Button>
-        </div>
-      )}
+      {nextButton}
     </Box>
   );
 }
 
 export default function SearchResultsView({ query: keyword }: { query: string }) {
   const [jwt] = useSessionId();
-  const [courses, setCourses] = useState<null | CourseWithBookmark[]>(null);
-  const [EOC, setEOC] = useState<boolean>(false);
-  const [cond, setCond] = useState<Omit<SearchRequest, 'keyword'>>({ order: 'NEWEST', page: 1 });
+
+  const [pages, fetchThis, reset] = usePagenation(apiSearch);
+  const [order, setOrder] = useState<SearchOrdering>('NEWEST');
+
+
+  useEffect(
+    () => {
+        fetchThis({ keyword, page: pages.page + 1, order: order }, { token: jwt?.accessToken });
+    }
+    , []);
+  
+  useEffect(
+    () => {
+      reset()
+      fetchThis({ keyword, page: pages.page + 1, order: order }, { token: jwt?.accessToken });
+    }
+    , [order]);
+  
+  function fetchNext() {
+    fetchThis({ keyword, page: pages.page + 1, order: order }, { token: jwt?.accessToken });
+  }
+
+  const nextButton = (pages.eoc ? <div>모두 로드했습니다.</div> :
+    <div className="w-full pt-6 flex flex-col justify-center items-center">
+      {pages.failwith !== null && <div>오류!!</div>}
+      <Button
+        onClick={fetchNext}
+      >
+        <DownIcon />
+      </Button>
+    </div>);
+  
 
   if (keyword === '') {
     return <Box>강의명, 교수명, 학수번호로 검색해보세요.</Box>;
   }
 
-  useEffect(() => {
-    apiSearch({ keyword, page: cond.page, order: cond.order }, { token: jwt?.accessToken }).then((a) => {
-      if (a.status === 'SUCCESS') {
-        if (a.data.length < 10) {
-          setEOC(true);
-        }
-
-        if (cond.page === 1) {
-          setCourses(a.data);
-        } else {
-          setCourses((courses || []).concat(a.data));
-        }
-      } else if (a.statusCode === 404) {
-        setCourses(courses || []);
-        setEOC(true);
-      } else {
-      }
-    });
-  }, [cond]);
-
-  if (courses === null) {
-    return <SearchBotLoading />;
-  } else if (typeof courses === 'string') {
-    return <div></div>;
-  } else {
-    return <SearchResultsArrayView setCond={setCond} courses={courses} eoc={EOC} />;
+  if (pages.neverLoaded) {
+    return <div />;
   }
+  
+  return <SearchResultsArrayView setOrder={setOrder} courses={pages.data} nextButton={nextButton} />;
+
 }

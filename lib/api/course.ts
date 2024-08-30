@@ -1,11 +1,11 @@
-import { build, createApiHook, createApiHook2 } from '@/lib/api/builder';
+import { build, createApiHook } from '@/lib/api/builder';
 
 export const apiSearch = build<SearchRequest, CourseWithBookmark[]>('GET', '/api/course/search');
 export const apiBookmark = build<CourseId, string>('GET', '/api/course/bookmark');
 
 export const apiCourseDetail = build<CourseDetailRequest, CourseWithBookmark>('GET', '/api/course/detail');
 
-export const useApiSearch = createApiHook2(apiSearch);
+export const useApiSearch = createApiHook(apiSearch);
 export const useApiCourseDetail = createApiHook(apiCourseDetail);
 
 /**
