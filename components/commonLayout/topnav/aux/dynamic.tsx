@@ -24,15 +24,8 @@ function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => vo
       style={{ zIndex: 100 }}
     >
       <HStack className="justify-center items-center rounded-xl">
-        <Link href="/mypage">
-          <Button kind="blank">마이페이지</Button>
-        </Link>
-        <Link href="/logout">
-          <Button kind="blank">로그아웃</Button>
-        </Link>
-        <Button kind="blank" onClick={() => setOpenPopover(false)}>
-          닫기
-        </Button>
+        <Link href="/mypage">마이페이지</Link>
+        <Link href="/logout">로그아웃</Link>
       </HStack>
     </Popover>
   );

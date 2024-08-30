@@ -6,9 +6,9 @@ import { usePathname } from 'next/navigation'
 
 import { VStack } from '@/components/basic/stack';
 
-import { TopNavInnerLeft, TopNavInnerMid, TopNavRightLoading } from './inner/static';
+import { TopNavInnerLeft, TopNavInnerMid, TopNavRightLoading } from './aux/static';
 
-const TopNavRightClient = dynamic(() => import('./inner/dynamic'), { ssr: false, loading: TopNavRightLoading });
+const TopNavRightClient = dynamic(() => import('./aux/dynamic'), { ssr: false, loading: TopNavRightLoading });
 
 const TopNavInnerRight = () => {
   return (
