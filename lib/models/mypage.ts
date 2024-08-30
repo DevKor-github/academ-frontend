@@ -22,3 +22,10 @@ interface UpdatePWExtended extends UpdatePWReq {
   // old_password: string;
   password_check: string;
 }
+
+interface MembershipData {
+  item: string;
+  day: number;
+  price: number;
+  iconLevel: 1 | 2 | 3;
+}
