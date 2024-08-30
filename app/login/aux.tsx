@@ -15,20 +15,21 @@ export default function LoginPageLoading() {
     >
       <HStack gap="48px">
         <HStack gap="16px">
-          <Input
+          <input
             // required
             id="email"
             placeholder="이메일을 입력해주세요"
-            onChange={() => null}
+            disabled
+            defaultValue=''
             style={{ padding: '16px' }}
           />
-          <Input
+          <input
             // required 
+            disabled
+            defaultValue=''
             id="password"
             type="password"
             placeholder="비밀번호를 입력해주세요"
-            onChange={() => null}
-            value=''
             style={{ padding: '16px' }}
           />
 
