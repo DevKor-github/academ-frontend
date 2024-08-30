@@ -160,6 +160,21 @@ export type ApiState<T> =
       response: ApiResponse<T>;
     };
 
+export function useApi<Req, Res>(apiCall: ApiCall<Req, Res>, req: Req, ctx?: ApiCTX) {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [response, setResponse] = useState<ApiResponse<Res> | null>(null);
+
+  useEffect(() => {
+    apiCall(req, ctx).then((a) => {
+      setResponse(a);
+      setLoading(false);
+    });
+  }, []);
+
+  return { response, loading } as ApiState<Res>;
+}
+
+/** @deprecated use useApi(f : ApiCall) instead */
 export const createApiHook =
   <Req, Res>(apicall: (a: Req, ctx?: ApiCTX) => Promise<ApiResponse<Res>>) =>
   (req: Req, ctx?: ApiCTX): ApiState<Res> => {

@@ -1,5 +1,4 @@
 import { build } from './builder';
-import { createApiHook } from './builder';
 
 export interface Notice {
   notice_id: number;
@@ -17,6 +16,4 @@ export interface NoticeDetailRequest {
 }
 
 export const apiNoticeList = build<NoticeListRequest, Notice[]>('GET', '/api/notice/list');
-export const useApiNoticeList = createApiHook(apiNoticeList);
 export const apiNoticeDetail = build<NoticeDetailRequest, Notice>('GET', '/api/notice/detail');
-export const useApiNoticeDetail = createApiHook(apiNoticeDetail);

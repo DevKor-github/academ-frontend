@@ -1,6 +1,7 @@
 'use client';
 
-import { useApiCourseDetail, useApiStartNewComment } from '@/lib/api/course';
+import { apiStartNewComment } from '@/lib/api/course';
+import { useApi } from '@/lib/api/builder';
 
 import ErrorTemplate from '@/lib/template';
 import WriteLoading from './loading';
@@ -14,7 +15,7 @@ const WriteComment = dynamic(() => import('./write'), { ssr: false, loading: Wri
 export default function WritePage({ params: { id } }: { params: { id: number } }) {
   const [jwt] = useSessionId();
 
-  const { loading, response : writable} = useApiStartNewComment({ course_id: id }, { token: jwt?.accessToken });
+  const { loading, response : writable} = useApi(apiStartNewComment, { course_id: id }, { token: jwt?.accessToken });
 
   if (loading) {
     return <WriteLoading />;
