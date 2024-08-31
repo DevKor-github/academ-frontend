@@ -21,7 +21,7 @@ export default function BookmarksView() {
 
   useEffect(fetchNext, []);
   
-  if (pages.neverLoaded) {
+  if (pages.loadingState === 'bot') {
     return <div />;
   }
 

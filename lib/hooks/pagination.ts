@@ -2,23 +2,38 @@ import { useState } from 'react';
 
 import { ApiCall, ApiCTX, ApiResponse } from '@/lib/api/builder';
 
+/**
+ * LoadingState는 Paged<T>의 로딩 상태를 나타냅니다.
+ * 'bot' - 페이지를 로드하려는 시도를 하지 않은 초기 상태입니다.
+ * 'done' - 페이지를 1개 이상 로드한 상태입니다.
+ * 'never' - 페이지 로딩에 완전히 실패하였습니다.
+ */
+export type LoadingState = 'bot' | 'done' | 'never';
+
 export type Paged<T> =
   | {
-      neverLoaded: true;
+      loadingState: 'bot';
       failwith: unknown;
       data: unknown;
       eoc: unknown;
       page: number;
     }
   | {
-      neverLoaded: false;
+      loadingState: 'done';
       failwith: null;
       data: T[];
       eoc: boolean;
       page: number;
     }
   | {
-      neverLoaded: false;
+      loadingState: 'done';
+      failwith: ApiResponse<T[]>;
+      data: T[];
+      eoc: boolean;
+      page: number;
+    }
+  | {
+      loadingState: 'never';
       failwith: ApiResponse<T[]>;
       data: T[];
       eoc: boolean;
@@ -31,7 +46,7 @@ export function usePagination<Req extends { page: number }, Res>(
 ): [Paged<Res>, (r: Req, ctx?: ApiCTX) => void, () => void] {
   const firstPage = 0;
 
-  const [neverLoaded, setNeverLoaded] = useState<boolean>(true);
+  const [loadingState, setLoadingState] = useState<LoadingState>('bot');
   const [data, setData] = useState<Res[] | null>(null);
   const [eoc, setEoc] = useState<boolean>(false);
   const [failwith, setFailwith] = useState<null | ApiResponse<Res[]>>(null);
@@ -55,19 +70,23 @@ export function usePagination<Req extends { page: number }, Res>(
         setFailwith(a);
       }
 
-      if (neverLoaded) {
-        setNeverLoaded(false);
+      if (loadingState === 'bot') {
+        if (a.status === 'SUCCESS') {
+          setLoadingState('done');
+        } else {
+          setLoadingState('never');
+        }
       }
     });
   }
 
   function resetPagination() {
-    setNeverLoaded(true);
+    setLoadingState('bot');
     setPage(firstPage);
     setData(null);
     setEoc(false);
     setFailwith(null);
   }
 
-  return [{ neverLoaded, data, eoc, page, failwith } as Paged<Res>, fetchThis, resetPagination];
+  return [{ loadingState, data, eoc, page, failwith } as Paged<Res>, fetchThis, resetPagination];
 }

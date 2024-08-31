@@ -19,7 +19,7 @@ export default function MyCommentsView() {
     }
     , []);
   
-  if (pages.neverLoaded) {
+  if (pages.loadingState === 'bot') {
     return <div />;
   }
 

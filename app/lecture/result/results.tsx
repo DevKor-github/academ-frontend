@@ -94,8 +94,12 @@ export default function SearchResultsView({ query: keyword }: { query: string })
     return <Box>강의명, 교수명, 학수번호로 검색해보세요.</Box>;
   }
 
-  if (pages.neverLoaded) {
+  if (pages.loadingState === 'bot') {
     return <div />;
+  }
+
+  if (pages.loadingState === 'never') {
+    return <div>{pages.failwith.message}</div>;
   }
   
   return <SearchResultsArrayView setOrder={setOrder} courses={pages.data} nextButton={nextButton} />;

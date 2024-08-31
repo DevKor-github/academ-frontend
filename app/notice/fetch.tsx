@@ -40,7 +40,7 @@ export default function NoticeResultsView() {
   
   useEffect(fetchNext, []);
 
-  if (pages.neverLoaded) {
+  if (pages.loadingState === 'bot') {
     return <div />;
   }
 
