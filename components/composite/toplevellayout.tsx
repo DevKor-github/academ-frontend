@@ -6,7 +6,7 @@ export default function CommonLayout({ children }: React.PropsWithChildren<{}>) 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <TopNav />
-      <main className={'flex-grow'}>{children}</main>
+      <main className='flex-grow'>{children}</main>
       <Footer />
     </div>
   );

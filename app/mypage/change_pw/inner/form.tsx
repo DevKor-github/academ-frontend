@@ -7,7 +7,7 @@ export default function UpdateBasicForm({
 }: {
   handleSubmit: (input: UpdatePWExtended) => void;
   input: UpdatePWExtended;
-  setInput: StateChange<UpdatePWExtended>;
+  setInput: SetState<UpdatePWExtended>;
 }) {
   return (
     <main className="pt-8 pb-8 h-full transition-all">

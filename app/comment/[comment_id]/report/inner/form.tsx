@@ -8,7 +8,7 @@ const reasons = [
   { reason: 'OTHER', text: '기타' },
 ] as const;
 
-function ReasonPicker({ setInput, input }: { input: AcdCommentReportReq; setInput: StateChange<AcdCommentReportReq> }) {
+function ReasonPicker({ setInput, input }: { input: AcdCommentReportReq; setInput: SetState<AcdCommentReportReq> }) {
   return (
     <fieldset className="flex flex-row flex-wrap justify-center mt-4 gap-4 w-full">
       {reasons.flatMap((i) => (
@@ -44,7 +44,7 @@ export default function ReportCommentForm({
 }: {
   handleSubmit: (input: AcdCommentReportReq) => void;
   input: AcdCommentReportReq;
-  setInput: StateChange<AcdCommentReportReq>;
+  setInput: SetState<AcdCommentReportReq>;
 }) {
   return (
     <main className="pt-8 pb-8 h-full transition-all pl-16 pr-16">

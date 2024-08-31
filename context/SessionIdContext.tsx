@@ -7,7 +7,7 @@ import { apiCheckLogin } from '@/lib/api/login';
 import { apiJWTRefresh } from '@/lib/api/authHelper';
 import { Try } from '@/lib/types/result';
 
-export type SessionIdContextType = [SessionId, StateChange<SessionId>];
+export type SessionIdContextType = [SessionId, SetState<SessionId>];
 
 const SessionIdContext = createContext<SessionIdContextType>([null, () => {}]);
 

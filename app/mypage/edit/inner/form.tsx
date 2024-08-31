@@ -10,7 +10,7 @@ function MyInput({
   value: string;
   name: keyof UpdateProfileReq;
   placeholder: string;
-  setInput: StateChange<UpdateProfileReq>;
+  setInput: SetState<UpdateProfileReq>;
 }) {
   return (
     <input
@@ -37,7 +37,7 @@ export default function UpdateBasicForm({
 }: {
   handleSubmit: (input: UpdateProfileReq) => void;
   input: UpdateProfileReq;
-  setInput: StateChange<UpdateProfileReq>;
+  setInput: SetState<UpdateProfileReq>;
 }) {
   return (
     <main className="pt-8 pb-8 h-full transition-all">
