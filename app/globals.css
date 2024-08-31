@@ -57,3 +57,7 @@ body {
 a {
   text-decoration: none;
 }
+
+svg {
+  display: inline-block;
+}
