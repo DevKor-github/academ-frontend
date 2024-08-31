@@ -5,7 +5,6 @@ import styles from './results.module.css';
 import SearchSingle from '../SearchSingle';
 
 import { apiSearch } from '@/lib/api/course';
-import { SearchBotLoading } from '../loading';
 import { useSessionId } from '@/context/SessionIdContext';
 import { useEffect, useState } from 'react';
 import Button from '@/components/basic/button';
@@ -99,7 +98,7 @@ export default function SearchResultsView({ query: keyword }: { query: string })
   }
 
   if (pages.loadingState === 'never') {
-    return <div>{pages.failwith.message}</div>;
+    return <Box>{pages.failwith.message}</Box>;
   }
   
   return <SearchResultsArrayView setOrder={setOrder} courses={pages.data} nextButton={nextButton} />;
