@@ -22,7 +22,6 @@ export default function LectureIcon({ code, kind = 'SMALL' }: { code: string; ki
         height: scale,
         maxWidth: scale,
         maxHeight: scale,
-        borderRadius: scale,
         overflow: 'clip',
       }}
     >
