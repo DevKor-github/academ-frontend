@@ -8,16 +8,14 @@ import { HStack } from '@/components/basic/stack';
 import { Notice } from '@/lib/api/notice';
 import Button from '@/components/basic/button';
 import { DownIcon } from '@/icons';
-import Skeleton from '@/components/composite/skeleton';
+import { usePagination } from '@/lib/hooks/pagination';
 
 function NoticeListView({
   notices,
-  setPage,
-  eon,
+  showMoreButton,
 }: {
-  notices: Notice[];
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  eon: boolean;
+    notices: Notice[];
+    showMoreButton : React.ReactNode
 }) {
   return (
     <div>
@@ -27,19 +25,7 @@ function NoticeListView({
             <NoticeSingle key={notice.notice_id} notice={notice} />
           ))}
         </div>
-        {eon || (
-          <div className="w-full pt-6 flex flex-col justify-center items-center">
-            <Button
-              onClick={() =>
-                setPage((v) => {
-                  return v + 1;
-                })
-              }
-            >
-              <DownIcon />
-            </Button>
-          </div>
-        )}
+        {showMoreButton}
       </HStack>
     </div>
   );
@@ -47,33 +33,23 @@ function NoticeListView({
 
 export default function NoticeResultsView() {
   const [jwt] = useSessionId();
-  const [notices, setNotices] = useState<null | Notice[]>(null);
-  const [page, setPage] = useState(1);
-  const [EON, setEON] = useState<boolean>(false);
 
-  useEffect(() => {
-    apiNoticeList({ page: page }, { token: jwt?.accessToken }).then((a) => {
-      if (a.status === 'SUCCESS') {
-        if (a.data.length < 10) {
-          setEON(true);
-        }
+  const [pages, fetchThis] = usePagination(apiNoticeList);
 
-        if (page === 1) {
-          setNotices(a.data);
-        } else {
-          setNotices((notices || []).concat(a.data));
-        }
-      } else if (a.statusCode == 404) {
-        setNotices(notices || []);
-        setEON(true);
-      } else {
-      }
-    });
-  }, [page]);
+  const fetchNext = () => fetchThis({ page: pages.page + 1 }, { token: jwt?.accessToken });
+  
+  useEffect(fetchNext, []);
 
-  if (notices === null) {
+  if (pages.neverLoaded) {
     return <div />;
-  } else {
-    return <NoticeListView notices={notices} setPage={setPage} eon={EON} />;
   }
+
+  const showMoreButton = (
+    <div className="w-full pt-6 flex flex-col justify-center items-center">
+    {(pages.eoc ? <div>모두 불러왔습니다.</div>  : <Button kind='blank' onClick={fetchNext}>
+      <DownIcon />
+    </Button>)}
+  </div>)
+
+  return <NoticeListView notices={pages.data} showMoreButton={showMoreButton} />;
 }
