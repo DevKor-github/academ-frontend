@@ -7,22 +7,27 @@ import { apiMyPageBookmarks } from "@/lib/api/mypage";
 import { usePagination } from "@/lib/hooks/pagination";
 import { useEffect } from "react";
 import { useSessionId } from "@/context/SessionIdContext";
+import Button from "@/components/basic/button";
+import { RightIcon } from "@/icons";
 
 export default function BookmarksView() {
 
   const [jwt] = useSessionId();
   const [pages, fetchThis] = usePagination(apiMyPageBookmarks);
 
+  function fetchNext() {
+    fetchThis({ page: pages.page + 1 }, { token: jwt?.accessToken });
+  }
 
-  useEffect(
-    () => {
-      fetchThis({page : pages.page + 1}, {token : jwt?.accessToken });
-    }
-    , []);
+  useEffect(fetchNext, []);
   
   if (pages.neverLoaded) {
     return <div />;
   }
+
+  const showMoreButton = (
+    pages.eoc ? <div /> : <Button kind="blank" onClick={fetchNext}><RightIcon /></Button>
+  );
 
   return (
     <HStack
@@ -38,6 +43,7 @@ export default function BookmarksView() {
           {pages.data.flatMap((v) => (
             <SearchSingle key={v.course_id} course={v} />
           ))}
+          {showMoreButton}
         </div>
       </div>
     </HStack>
