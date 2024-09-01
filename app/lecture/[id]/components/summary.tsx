@@ -69,8 +69,8 @@ export function CriteriaIndicator({ name, low, high, rate, style, reverse }: Cri
         className="border-neutral-200 border"
       >
         <VStack style={{ justifyContent: 'space-between' }}>
-          <Tag className="bg-neutral-100">{low}</Tag>
-          <Tag className="bg-neutral-100">{high}</Tag>
+          <Tag>{low}</Tag>
+          <Tag>{high}</Tag>
         </VStack>
         <Progress rate={rate / 5} reverse={reverse} />
       </HStack>

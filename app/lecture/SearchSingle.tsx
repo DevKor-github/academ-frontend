@@ -53,7 +53,7 @@ function Down({ course }: { course: CourseWithBookmark }) {
         {tags.length === 0 ? (
           <span className="text-base text-neutral-400">태그 없음</span>
         ) : (
-          tags.flatMap((v) => <Tag className=" bg-neutral-100 ">{v}</Tag>)
+          tags.flatMap((v) => <Tag>{v}</Tag>)
         )}
       </div>
 

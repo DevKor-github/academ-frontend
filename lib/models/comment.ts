@@ -20,6 +20,7 @@ interface AcdComment {
   likes: number;
   created_at: string;
   updated_at: string;
+  already_like: boolean;
 }
 
 interface AcdCommentRelated {
