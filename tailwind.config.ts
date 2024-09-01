@@ -141,6 +141,9 @@ const config: Config = {
         pulse: 'pulse 0.8s ease-in-out infinite',
         fade: 'fadeIn 0.2s ease-in-out',
       },
+      screens: {
+        'not-md': { max: '768px' },
+      },
     },
   },
   plugins: [plugin(containerPlugin)],
