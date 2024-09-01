@@ -48,9 +48,25 @@ export default function Carousel({ className, style, children }: CarouselProps) 
     return () => clearInterval(interval);
   }, [children.length]);
 
+  const controlBar = (
+    <div className="z-10 justify-center flex pt-2 pb-2">
+      {children.map((_, index) => (
+        <span
+          key={index}
+          className={
+            'inline-block h-1 cursor-pointer transition-all ml-1 mr-1 ' +
+            'bg-neutral-950 dark:bg-neutral-50 ' +
+            (index === currentIndex ? 'background-color: white; w-10' : 'w-5 opacity-50')
+          }
+          onClick={() => goToSlide(index)}
+        />
+      ))}
+    </div>
+  );
+
   return (
     <HStack className="relative top-0 h-96 md:h-128 overflow-hidden transition-all">
-      <div className={`overflow-hidden  transition-all ralative bg-cyan-500 top-0 h-96  md:h-128  w-full ${className}`}>
+      <div className={`overflow-hidden transition-all ralative h-96 md:h-128 w-full ${className}`}>
         <div
           className="flex flew-row transition-all bg-red-600 absolute top-0 w-full"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -66,19 +82,7 @@ export default function Carousel({ className, style, children }: CarouselProps) 
           ))}
         </div>
       </div>
-      <div className="z-10 justify-center flex pt-2 pb-2">
-        {children.map((_, index) => (
-          <span
-            key={index}
-            className={
-              'inline-block h-1 cursor-pointer transition-all ml-1 mr-1 ' +
-              'bg-neutral-950 dark:bg-neutral-50 ' +
-              (index === currentIndex ? 'background-color: white; w-10' : 'w-5 opacity-50')
-            }
-            onClick={() => goToSlide(index)}
-          />
-        ))}
-      </div>
+      {controlBar}
     </HStack>
   );
 }
