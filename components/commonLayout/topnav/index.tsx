@@ -29,30 +29,30 @@ export default function TopNav() {
 
   const [spreaded, setSpreaded] = useState(false);
 
-  return (<>
-    <nav className='fixed z-50 top-0 w-full backdrop-blur-lg'>
+  return (
+    <nav>
       <div className={
+        'fixed z-50 top-0 w-full'+
         (overlap ? ' text-white bg-black bg-opacity-75 ' : ' border-b light:border-b-light-back-2 dark:border-b-dark-back-4')
       }>
-      <VStack
-          className={`pl-2 pr-2 md:pl-8 md:pr-8 ${className} flex flex-nowrap items-start flex-row justify-between w-full transition-all 
-          `
-            +
-            (spreaded ? `h-72 md:h-16 md:bg-transparent ` : ' backdrop-blur-xl h-16 ')
-            +
-            (spreaded && overlap /* dark */ ? ' bg-black ' : '')
-            +
-            (spreaded && !overlap ? ' text-black dark:text-white bg-white dark:bg-dark-back-5 ' : '')
-        
-      }
-      >
+        <div
+            className={`flex flex-row backdrop-blur-xl transform-gpu pl-2 pr-2 md:pl-8 md:pr-8 ${className} flex flex-nowrap items-start flex-row justify-between w-full transition-all 
+            `
+              +
+              (spreaded ? `h-72 md:h-16 md:bg-transparent ` : ' h-16 ')
+              +
+              (spreaded && overlap /* dark */ ? ' bg-black ' : '')
+              +
+              (spreaded && !overlap ? ' text-black dark:text-white bg-white dark:bg-dark-back-5 ' : '')
+          
+        }
+        >
           <TopNavInnerLeft />
           <TopNavInnerMid path={path} spreaded={spreaded} setSpreaded={setSpreaded} />
           <TopNavInnerRight />
-        </VStack>
+        </div>
       </div>
+      <div className={(overlap ? 'hidden' : 'relative min-h-16')} />
     </nav>
-    <div className={(overlap ? 'hidden' : 'relative min-h-16')} />
-    </>
   );
 }
