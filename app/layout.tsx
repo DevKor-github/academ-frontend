@@ -12,6 +12,9 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Academ',
   description: 'Academ - 수강 정보 공유',
+  verification: {
+    google: '_NL4wQPyV47BZYbkarGUOD_GXxApdaj2fQyBPbCoTvU'
+  }
 };
 
 
