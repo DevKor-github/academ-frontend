@@ -8,7 +8,7 @@ import { apiMyPageBasics } from "@/lib/api/mypage";
 import { useApi } from "@/lib/api/builder";
 
 function NoSessionIdFallback() {
-  return <div>이 기능을 사용하려면 로그인해야 합니다.</div>;
+  return <div className="animate-fade p-8 text-center w-full text-2xl">이 기능을 사용하려면 로그인해야 합니다.</div>;
 }
 
 export default function ProfileOverviewWithMemberShip() {

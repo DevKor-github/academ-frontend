@@ -13,6 +13,12 @@ export default function MyCommentsView() {
   const [jwt] = useSessionId();
   const [pages, fetchThis] = usePagination(apiMyPageComments);
 
+  if (jwt === null) {
+    // silent kill
+    return <div />;
+  }
+
+
   useEffect(
     () => {
       fetchThis({page : pages.page + 1}, {token : jwt?.accessToken });

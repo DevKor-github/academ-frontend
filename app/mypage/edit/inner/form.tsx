@@ -51,7 +51,7 @@ export default function UpdateBasicForm({
       >
         <div className="w-full flex flex-row justify-between">
           <div className="pl-8 pr-8 font-bold text-xl">프로필 수정</div>
-          <Link href="/mypage/edit" className="self-end ml-auto">
+          <Link href="/mypage/change-pw" className="self-end ml-auto">
             <button className="border border-primary-400 rounded-full text-sm pt-1 pb-1 pl-4 pr-4 text-primary-400">
               비밀번호 수정하기
             </button>

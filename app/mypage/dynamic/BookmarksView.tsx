@@ -15,6 +15,11 @@ export default function BookmarksView() {
   const [jwt] = useSessionId();
   const [pages, fetchThis] = usePagination(apiMyPageBookmarks);
 
+  if (jwt === null) {
+    // silent kill
+    return <div />;
+  }
+
   function fetchNext() {
     fetchThis({ page: pages.page + 1 }, { token: jwt?.accessToken });
   }
