@@ -25,6 +25,7 @@ function NewCommentWithId(id: number) {
     learn_t2_thesis: false,
     learn_t3_exam: false,
     learn_t4_industry: false,
+    already_like: false,
   };
 }
 

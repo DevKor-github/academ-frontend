@@ -6,12 +6,13 @@ import Tag from '@/components/basic/tag';
 import Button from '@/components/basic/button';
 import { useState } from 'react';
 
-import { apiDeleteComment } from '@/lib/api/course';
+import { apiDeleteComment, apiLikeComment } from '@/lib/api/course';
 
 import { decode } from '@/lib/jwt';
 
 import Link from 'next/link';
 import { useSessionId } from '@/context/SessionIdContext';
+import { ThumbUpIcon } from '@/icons';
 
 function quaternary<T>(that: number, standard: number, gt: T, eq: T, lt: T) {
   if (that === standard) {
@@ -37,37 +38,50 @@ function getTag(comment: AcdComment) {
 }
 
 function Left({ comment }: { comment: AcdComment }) {
+  const green = '!bg-green-500/10 !text-green-500';
+  const yellow = '!bg-yellow-400/20 !text-yellow-500';
+  const red = '!bg-red-600/10 !text-red-600';
+
   return (
     <HStack
-      className="items-center justify-start flex-nowrap md:border-r md:border-r-neutral-200 md:pr-4"
+      className="items-center justify-evenly md:border-r md:border-r-neutral-200 w-fit h-full"
       gap="20px"
       style={{
-        minWidth: '96px',
-        padding: '0px 16px 0px 0px',
+        minWidth: '260px',
         flexWrap: 'wrap',
       }}
     >
-      <span className="text-4xl font-bold flex flex-row">
+      <span className="text-5xl font-semibold flex flex-row items-center gap-2">
         <Star1 rate={comment.rating / 5} px={36} />
-        {comment.rating}
+        {comment.rating.toFixed(1)}
       </span>
 
-      <div className="flex flex-row md:flex-col flex-wrap">
-        <VStack gap="8px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-          <span className="text-xl">학습량</span>
-          <Tag>{quaternary(comment.r1_amount_of_studying, 3, '많음', '보통', '적음')}</Tag>
+      <div className="border-t border-t-neutral-200 w-full" />
+
+      <div className="grid grid-cols-2 auto-cols-auto gap-x-9 gap-y-6 text-sm">
+        <VStack gap="4px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+          <span className="text-base">학습량</span>
+          <Tag className={`${quaternary(comment.r1_amount_of_studying, 3, red, yellow, green)} h-fit py-1 x-fit px-3`}>
+            {quaternary(comment.r1_amount_of_studying, 3, '많음', '보통', '적음')}
+          </Tag>
         </VStack>
-        <VStack gap="8px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-          <span className="text-xl">성적</span>
-          <Tag>{quaternary(comment.r2_difficulty, 3, '많음', '보통', '적음')}</Tag>
+        <VStack gap="4px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+          <span className="text-base">난이도</span>
+          <Tag className={`${quaternary(comment.r2_difficulty, 3, red, yellow, green)} h-fit py-1 x-fit px-3`}>
+            {quaternary(comment.r2_difficulty, 3, '높음', '보통', '낮음')}
+          </Tag>
         </VStack>
-        <VStack gap="8px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-          <span className="text-xl">강의력</span>
-          <Tag>{quaternary(comment.r3_delivery_power, 3, '많음', '보통', '적음')}</Tag>
+        <VStack gap="4px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+          <span className="text-base">전달력</span>
+          <Tag className={`${quaternary(comment.r3_delivery_power, 3, green, yellow, red)} h-fit py-1 x-fit px-3`}>
+            {quaternary(comment.r3_delivery_power, 3, '좋음', '보통', '나쁨')}
+          </Tag>
         </VStack>
-        <VStack gap="8px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-          <span className="text-xl">난이도</span>
-          <Tag>{quaternary(comment.r4_grading, 3, '높음', '중간', '낮음')}</Tag>
+        <VStack gap="16px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+          <span className="text-base">학점</span>
+          <Tag className={`${quaternary(comment.r4_grading, 3, green, yellow, red)} h-fit py-1 x-fit px-3`}>
+            {quaternary(comment.r4_grading, 3, '높음', '보통', '낮음')}
+          </Tag>
         </VStack>
       </div>
     </HStack>
@@ -83,26 +97,38 @@ function Right({
   comment: AcdComment;
   setDel: React.Dispatch<boolean>;
 }) {
+  const textColorClass = comment.already_like
+    ? 'text-red-600 border-red-600/50'
+    : 'text-neutral-400 border-neutral-400';
+
   return (
     <HStack className="w-full h-full" gap="8px">
-      {/* style={{ padding: '0px 0px 0px 16px' }} */}
       <VStack
         style={{
           overflow: 'hidden',
           height: 'min-content',
           flexWrap: 'wrap',
           gap: '4px',
+          paddingTop: '20px',
         }}
+        className="text-base justify-between"
       >
-        <span>닉네임 {comment.username}</span>
-        <span>작성일 {comment.updated_at}</span>
+        <div className="flex gap-2">
+          <span className="text-neutral-400">닉네임</span>
+          <span className="font-semibold mr-2">{comment.username}</span>
+          <span className="text-neutral-400">작성일</span>
+          <span className="font-normal">{comment.updated_at}</span>
+        </div>
 
-        {getTag(comment).flatMap((v, i) => (
-          <Tag key={i}>{v}</Tag>
-        ))}
+        <div className="flex flex-row w-max gap-4">
+          {getTag(comment).flatMap((v, i) => (
+            <Tag key={i}>{v}</Tag>
+          ))}
+        </div>
       </VStack>
-      <span className="text-xl flex-grow" style={{ lineHeight: '150%', lineBreak: 'anywhere', whiteSpace: 'pre-line' }}>
-        <div style={{ color: 'grey' }}>작성내용</div> {comment.review}
+      <span className="flex flex-row text-xl font-normal flex-grow gap-4 mt-8 mb-2">
+        <div className="text-neutral-400 text-base w-max">작성내용</div>
+        <div className="break-words whitespace-pre-line">{comment.review}</div>
       </span>
       <VStack className="self-end" gap="4px">
         {editable ? (
@@ -131,9 +157,23 @@ function Right({
         ) : (
           <></>
         )}
-        <Button kind="blank">강의평 좋아요 ({comment.likes})</Button>
+        <button
+          className={`flex flex-row justify-center items-center px-4 py-1 border rounded-full gap-2 ${textColorClass}`}
+          onClick={() => {
+            apiLikeComment({ comment_id: comment.comment_id }).then((a) => {
+              if (a.status === 'SUCCESS') {
+              } else {
+                alert('강의평 좋아요에 실패하였습니다. 잠시 후 다시 시도해주세요.');
+              }
+            });
+          }}
+        >
+          <ThumbUpIcon /> 이 글 추천하기 ({comment.likes})
+        </button>
         <Link href={`/comment/${comment.comment_id}/report`}>
-          <Button kind="blank">신고 </Button>
+          <button className="flex justify-center items-center px-4 py-1 border rounded-full border-neutral-400 text-neutral-400">
+            신고{' '}
+          </button>
         </Link>
       </VStack>
     </HStack>
@@ -149,7 +189,7 @@ export default function CommentView({ comment }: { comment: AcdComment }) {
 
   return (
     <div
-      className={`${del ? 'hidden' : ''} flex flex-col md:flex-row mt-3 p-4 rounded-3xl gap-5 border
+      className={`${del ? 'hidden' : ''} flex flex-col md:flex-row items-center mt-3 p-4 rounded-3xl gap-5 border
   
   light:bg-white dark:bg-dark-back-2
   light:border-light-back-4 dark:border-dark-back-4`}

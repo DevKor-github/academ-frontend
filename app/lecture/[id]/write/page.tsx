@@ -15,7 +15,7 @@ const WriteComment = dynamic(() => import('./write'), { ssr: false, loading: Wri
 export default function WritePage({ params: { id } }: { params: { id: number } }) {
   const [jwt] = useSessionId();
 
-  const { loading, response : writable} = useApi(apiStartNewComment, { course_id: id }, { token: jwt?.accessToken });
+  const { loading, response: writable } = useApi(apiStartNewComment, { course_id: id }, { token: jwt?.accessToken });
 
   if (loading) {
     return <WriteLoading />;
@@ -26,7 +26,8 @@ export default function WritePage({ params: { id } }: { params: { id: number } }
   ) : (
     <ErrorTemplate
       title={writable.statusCode.toString()}
-      subtitle={'강의평을 작성할 수 없습니다. 다음 메시지와 함께 실패하였습니다: ' + writable.message}
+      subtitle={`강의평을 작성할 수 없습니다.
+        ${writable.message}`}
     />
   );
 }

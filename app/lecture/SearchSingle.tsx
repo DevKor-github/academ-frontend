@@ -13,13 +13,23 @@ import { getTagFromCourse } from '@/lib/process/tag';
 
 function Up({ course }: { course: CourseWithBookmark }) {
   return (
-    <VStack style={{ justifyContent: 'space-between', alignItems: 'flex-start' }}>
+    <VStack
+      className="border-b border-b-neutral-400 pb-3"
+      style={{ justifyContent: 'space-between', alignItems: 'flex-start' }}
+    >
       <LectureIcon code={course.course_code} />
-      <HStack className="items-start text-left w-full pl-2">
-        <span className="text-lg" style={{ wordBreak: 'break-all' }}>
+      <HStack className="items-start text-left w-full pl-2 ">
+        <span className="text-lg font-semibold" style={{ wordBreak: 'break-all' }}>
           {course.name}
         </span>
         <span className="text-base">{course.professor}</span>
+        <VStack className="justify-between text-xs text-neutral-600 text-justify w-full mt-4">
+          <span>{course.course_code}</span>
+          <span className="border-r border-r-neutral-400" />
+          <span>
+            {course.year}-{course.semester}
+          </span>
+        </VStack>
       </HStack>
 
       <BookmarkToggleButton
@@ -34,38 +44,27 @@ function Up({ course }: { course: CourseWithBookmark }) {
   );
 }
 
-function Mid({ course }: { course: CourseWithBookmark }) {
-  return (
-    <span
-      className={' border-b border-b-neutral-400 text-base flex flex-row flex-grow pt-2 gap-1'}
-      style={{ paddingBottom: '24px' }}
-    >
-      <Tag className=" light:bg-neutral-100 dark:bg-dark-back-6">{course.credit}학점</Tag>
-      <Tag className="  light:bg-neutral-100 dark:bg-dark-back-6 ">{course.course_code}</Tag>
-      <Tag className="  light:bg-neutral-100 dark:bg-dark-back-6">
-        {course.year}-{course.semester}
-      </Tag>
-    </span>
-  );
-}
 function Down({ course }: { course: CourseWithBookmark }) {
   const tags = getTagFromCourse(course);
 
   return (
-    <VStack className={styles.star + ' pt-6 flex-wrap items-center justify-start gap-1'}>
-      {tags.length === 0 ? (
-        <span className="text-base text-neutral-400">태그 없음</span>
-      ) : (
-        tags.flatMap((v) => <Tag className=" bg-neutral-100 ">{v}</Tag>)
-      )}
+    <VStack className={styles.star + ' pt-4 flex-wrap items-center justify-start gap-2'}>
+      <div className="grid grid-cols-2 gap-1">
+        {tags.length === 0 ? (
+          <span className="text-base text-neutral-400">태그 없음</span>
+        ) : (
+          tags.flatMap((v) => <Tag>{v}</Tag>)
+        )}
+      </div>
 
-      <span className="text-xl flex flex-row items-center justify-end flex-grow">
+      <span className="text-2xl font-semibold flex flex-row justify-end self-end flex-grow gap-1">
         {course.count_comments === 0 ? (
-          <span className="text-base text-neutral-400">평가 없음</span>
+          <span className="text-base font-normal text-neutral-400">평가 없음</span>
         ) : (
           <>
             <StarIcon />
-            {course.avg_rating}/5({course.count_comments})
+            {course.avg_rating.toFixed(1)}
+            <span className="text-neutral-400 text-base font-normal self-end">/5 ({course.count_comments})</span>
           </>
         )}
       </span>
@@ -74,9 +73,8 @@ function Down({ course }: { course: CourseWithBookmark }) {
 }
 export default function SearchSingle({ course }: { course: CourseWithBookmark }) {
   return (
-    <Link className={styles.resultBox + ' p-6 flex flex-col justify-between'} href={`/lecture/${course.course_id}`}>
+    <Link className={styles.resultBox + ' p-8 flex flex-col justify-between'} href={`/lecture/${course.course_id}`}>
       <Up course={course} />
-      <Mid course={course} />
       <Down course={course} />
     </Link>
   );

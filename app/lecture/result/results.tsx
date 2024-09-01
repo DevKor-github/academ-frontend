@@ -11,6 +11,8 @@ import Button from '@/components/basic/button';
 import Select from '@/components/basic/select';
 import { DownIcon } from '@/icons';
 
+import Spinner from '@/components/basic/spinner';
+
 import { usePagination } from '@/lib/hooks/pagination';
 
 function Box({ children }: { children: React.ReactNode }) {
@@ -73,7 +75,7 @@ function SearchResultsViewWithOrder({ query: keyword, order }: { query: string; 
   }
 
   if (pages.loadingState === 'bot') {
-    return <div />;
+    return <div className='w-full flex flex-row justify-center'><Spinner scale='48px' /></div>;
   }
 
   if (pages.loadingState === 'never') {

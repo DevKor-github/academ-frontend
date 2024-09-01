@@ -12,12 +12,12 @@ function RateSummary({ course }: { course: Course }) {
   return (
     <HStack
       className="border-neutral-200 border"
-      style={{ borderRadius: '20px', padding: '80px 40px', width: '480px', maxWidth: '100%' }}
+      style={{ borderRadius: '20px', padding: '80px 40px', width: '440px', maxWidth: '100%' }}
     >
       <VStack
         gap="4px"
         style={{
-          borderBottom: '1px solid var(--dbdbdb)',
+          borderBottom: '1px solid #D4D4D4',
           alignItems: 'end',
           paddingBottom: '20px',
           marginBottom: '20px',
@@ -25,15 +25,9 @@ function RateSummary({ course }: { course: Course }) {
         }}
       >
         <span style={{ whiteSpace: 'nowrap' }}>
-          <span className="text-6xl font-bold">{course.avg_rating}</span>
-          <span className="text-4xl" style={{ color: 'grey' }}>
-            {' '}
-            /5
-          </span>
-          <span className="text-4xl" style={{ color: 'grey' }}>
-            {' '}
-            ({course.count_comments})
-          </span>
+          <span className="text-6xl font-semibold">{course.avg_rating.toFixed(1)}</span>
+          <span className="text-3xl text-neutral-600"> /5</span>
+          <span className="text-3xl text-neutral-400"> ({course.count_comments})</span>
         </span>
         <Star5 rate={course.avg_rating / 5} px={32} />
       </VStack>
@@ -42,7 +36,7 @@ function RateSummary({ course }: { course: Course }) {
           <span>태그가 없습니다.</span>
         ) : (
           tags.map((t) => (
-            <Tag key={t} style={{ margin: '6px 6px 0px 0px' }}>
+            <Tag key={t} style={{ margin: '6px 6px 0px 0px' }} className="bg-neutral-100">
               {t}
             </Tag>
           ))
@@ -58,46 +52,45 @@ interface CriteriaIndicatorProp {
   high: string;
   rate: number;
   style?: React.CSSProperties;
+  reverse: boolean;
 }
 
-export function CriteriaIndicator({ name, low, high, rate, style }: CriteriaIndicatorProp) {
+export function CriteriaIndicator({ name, low, high, rate, style, reverse }: CriteriaIndicatorProp) {
   return (
-    <VStack className="justify-between w-full" style={style}>
-      <VStack style={{ justifyContent: 'between', alignItems: 'center' }} gap="8px">
+    <HStack className="justify-between w-full gap-4" style={style}>
+      <VStack style={{ justifyContent: 'between', alignItems: 'end' }} gap="10px">
         <span className="text-xl">{name}</span>
-        <span className="text-xl font-bold">{rate}</span>
+        <span className="text-2xl font-bold">{rate.toFixed(1)}</span>
       </VStack>
       <HStack
         gap="10px"
-        style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--d4d4d4)', width: '300px' }}
+        style={{ padding: '20px', borderRadius: '12px', width: '300px' }}
+        className="border-neutral-200 border"
       >
         <VStack style={{ justifyContent: 'space-between' }}>
-          <Tag className="bg-neutral-100">{low}</Tag>
-          <Tag className="bg-neutral-100">{high}</Tag>
+          <Tag>{low}</Tag>
+          <Tag>{high}</Tag>
         </VStack>
-        <Progress rate={rate / 5} />
+        <Progress rate={rate / 5} reverse={reverse} />
       </HStack>
-    </VStack>
+    </HStack>
   );
 }
 
 function Criteria({ course }: { course: Course }) {
   return (
-    <HStack
-      className="border-neutral-200 border"
-      style={{ borderRadius: '20px', padding: '80px 40px', width: '480px', maxWidth: '100%' }}
-    >
-      <CriteriaIndicator name="학습량" low="1" high="5" rate={course.avg_r1_amount_of_studying} />
-      <CriteriaIndicator name="성적" low="낮음" high="높음" rate={course.avg_r2_difficulty} />
-      <CriteriaIndicator name="강의력" low="나쁨" high="좋음" rate={course.avg_r3_delivery_power} />
-      <CriteriaIndicator name="난이도" low="낮음" high="높음" rate={course.avg_r4_grading} />
-    </HStack>
+    <div className="grid grid-cols-2 px-10 w-fit max-w-full gap-x-8 gap-y-8">
+      <CriteriaIndicator name="학습량" low="적음" high="많음" rate={course.avg_r1_amount_of_studying} reverse={true} />
+      <CriteriaIndicator name="난이도" low="낮음" high="높음" rate={course.avg_r2_difficulty} reverse={true} />
+      <CriteriaIndicator name="전달력" low="나쁨" high="좋음" rate={course.avg_r3_delivery_power} reverse={false} />
+      <CriteriaIndicator name="학점" low="낮음" high="높음" rate={course.avg_r4_grading} reverse={false} />
+    </div>
   );
 }
 
 export default function SummaryView({ course }: { course: Course }) {
   return (
-    <HStack gap="30px" className="pl-8 pr-8 pb-8" style={{ marginTop: '160px' }}>
+    <HStack gap="30px" className="pl-8 pr-8 pb-8" style={{ marginTop: '60px' }}>
       <span className="text-2xl">평가 한눈에 보기</span>
 
       <VStack
@@ -106,7 +99,7 @@ export default function SummaryView({ course }: { course: Course }) {
           rowGap: '20px',
           justifyContent: 'space-evenly',
           flexWrap: 'wrap',
-          alignItems: 'start',
+          alignItems: 'center',
           margin: '20px 0px',
         }}
       >
