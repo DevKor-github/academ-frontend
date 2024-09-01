@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { ApiCall, ApiCTX, ApiResponse } from '@/lib/api/builder';
 
@@ -43,7 +43,7 @@ export type Paged<T> =
 export function usePagination<Req extends { page: number }, Res>(
   apiCall: ApiCall<Req, Array<Res>>,
   // checkEoc: (r: Res) => boolean,
-): [Paged<Res>, (r: Req, ctx?: ApiCTX) => void, () => void] {
+): [Paged<Res>, VoidifyReturn<typeof apiCall>] {
   const firstPage = 0;
 
   const [loadingState, setLoadingState] = useState<LoadingState>('bot');
@@ -80,13 +80,5 @@ export function usePagination<Req extends { page: number }, Res>(
     });
   }
 
-  function resetPagination() {
-    setLoadingState('bot');
-    setPage(firstPage);
-    setData(null);
-    setEoc(false);
-    setFailwith(null);
-  }
-
-  return [{ loadingState, data, eoc, page, failwith } as Paged<Res>, fetchThis, resetPagination];
+  return [{ loadingState, data, eoc, page, failwith } as Paged<Res>, fetchThis];
 }
