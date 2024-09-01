@@ -13,5 +13,7 @@ export function getTagFromCourse(course: Course) {
     course.count_learn_t2_thesis / course.count_comments > threshhold ? ['논문 작성에 도움'] : [],
     course.count_learn_t3_exam / course.count_comments > threshhold ? ['시험 대비에 도움'] : [],
     course.count_learn_t4_industry / course.count_comments > threshhold ? ['실무 적용에 도움'] : [],
-  ].flat(1);
+  ]
+    .flat(1)
+    .slice(0, 3);
 }

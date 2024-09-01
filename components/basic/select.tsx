@@ -20,17 +20,22 @@ export default function Select<T>({
   const [selected, setSelected] = useState<string>(defaultLabel);
 
   return (
-    <div className="flex flex-row text-sm pb-2">
+    <div className="flex flex-row text-sm pb-4 gap-2">
       {items.map((v) => (
         <Button
-          kind="blank"
+          kind="outline"
           key={v.label}
           onClick={() => {
             setValue(v.value);
             setSelected(v.label);
           }}
+          className={`!border !rounded-full px-4 ${
+            selected === v.label
+              ? '!text-primary-500 !bg-primary-500/10 !border-primary-500'
+              : '!text-light-fore-10 !bg-neutral-100 !border-neutral-400'
+          }`}
         >
-          <span className={selected === v.label ? 'text-primary-500' : 'text-light-fore-10'}>{v.label}</span>
+          <span>{v.label}</span>
         </Button>
       ))}
     </div>

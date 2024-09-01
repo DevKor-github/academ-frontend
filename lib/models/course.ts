@@ -33,12 +33,13 @@ interface CourseWithBookmark extends Course {
 
 type SearchOrdering = 'NEWEST' | 'RATING_DESC' | 'RATING_ASC';
 
+type CommentsOrdering = 'NEWEST' | 'POPEST';
+
 interface SearchRequest {
   keyword: string;
-  order: SearchOrdering
+  order: SearchOrdering;
   page: number;
 }
-
 
 interface CourseId {
   course_id: number;
@@ -56,11 +57,9 @@ type AcdCommentNewReq = Omit<
 
 type AcdCommentEditReq = Omit<AcdComment, 'username' | 'profile_id' | 'created_at' | 'updated_at' | 'likes'>;
 
-
 type AcdCommentMeet = AcdComment & AcdCommentNewReq & AcdCommentEditReq;
 
 type AcdCommentJoin = AcdComment | AcdCommentNewReq | AcdCommentEditReq;
-
 
 interface AcdCommentReportReq extends AcdCommentRelated {
   reason: 'PROFANITY' | 'INSINCERE' | 'SEXUAL' | 'PERSONAL' | 'OTHER';

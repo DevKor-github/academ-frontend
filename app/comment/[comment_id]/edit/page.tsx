@@ -14,7 +14,7 @@ const EditComment = dynamic(() => import('./edit'), { ssr: false, loading: EditL
 export default function EditPage({ params: { comment_id } }: { params: { comment_id: number } }) {
   const [jwt] = useSessionId();
 
-  const { loading, response : editable } = useApi(apiStartUpdateComment, { comment_id }, { token: jwt?.accessToken });
+  const { loading, response: editable } = useApi(apiStartUpdateComment, { comment_id }, { token: jwt?.accessToken });
 
   if (loading) {
     return <EditLoading />;
@@ -25,7 +25,8 @@ export default function EditPage({ params: { comment_id } }: { params: { comment
   ) : (
     <ErrorTemplate
       title={editable.statusCode.toString()}
-      subtitle={'강의평을 작성할 수 없습니다. 다음 메시지와 함께 실패하였습니다: ' + editable.message}
+      subtitle={`강의평을 작성할 수 없습니다.
+        ${editable.message}`}
     />
   );
 }
