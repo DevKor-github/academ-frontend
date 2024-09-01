@@ -9,9 +9,11 @@ import ErrorLabel from '@/components/basic/errorlabel';
 
 import { HStack, VStack } from '@/components/basic/stack';
 
+import { useAnimationTimeout } from '@/lib/hooks/timeout';
+
 import { RightIcon } from '@/icons';
 import { apiSendEmail } from '@/lib/api/login';
-import Spinner from '@/components/basic/spinner';
+import { Spinner2 } from '@/components/basic/spinner';
 
 const validateEmail = (email: string) => {
   const re = /^[^\s@]+@korea\.ac\.kr$/;
@@ -41,6 +43,8 @@ export default function Step1({
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
+  const [timeout, resetTimeout] = useAnimationTimeout(200);
+
   useEffect(() => {
     setIsEmailValid(validateEmail(input.email));
   }, [input.email]);
@@ -58,6 +62,7 @@ export default function Step1({
       setError(
         '인증번호 발송을 실패하였습니다. 잠시 후 다시 시도해주세요. 계속해서 실패하는 경우 서버 상의 문제일 수 있습니다.',
       );
+      resetTimeout();
     }
   }
 
@@ -66,10 +71,10 @@ export default function Step1({
       <span className="text-4xl">환영합니다!</span>
       <span className="text-2xl">고려대학교 이메일로 학생인증을 해주세요.</span>
       <Input required type="email" id="email" label="example@korea.ac.kr" onChange={handleInput} autoFocus />
-      <ErrorLabel className="text-primary-500" label={error} />
+      <ErrorLabel className="text-primary-500" label={error} shake={timeout} />
       <VStack className="w-full h-fit justify-end" gap="36px">
         {loading ? (
-          <Spinner scale="24px" />
+          <span className='text-6xl text-primary-500'><Spinner2 /></span>
         ) : (
           <Button
             kind="outline"

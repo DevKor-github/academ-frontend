@@ -25,7 +25,7 @@ export default function MyCommentsView() {
     }
     , []);
   
-  if (pages.loadingState === 'bot') {
+  if (pages.totalLoadingState === 'bot') {
     return <div />;
   }
 

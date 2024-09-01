@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { apiSendEmail } from '@/lib/api/login';
 import { HStack, VStack } from '@/components/basic/stack';
 import { RightIcon } from '@/icons';
 import Input from '@/components/basic/input';
 import Button from '@/components/basic/button';
 import ErrorLabel from '@/components/basic/errorlabel';
+
+import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
 import { apiCheckEmail } from '@/lib/api/login';
 
@@ -20,6 +21,7 @@ export default function Step2({
   setInput: React.Dispatch<SignupRequest>;
 }) {
   const [error, setError] = useState<string>('');
+  const [timeout, resetTimeout] = useAnimationTimeout(200);
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
@@ -34,12 +36,15 @@ export default function Step2({
         nextStep();
       } else if (response.status === 'ERROR' && response.statusCode === 400) {
         setError(response.message);
+        resetTimeout();
       } else {
         alert(response.message);
         setError('인증번호 처리에 실패하였습니다.');
+        resetTimeout();
       }
     } catch (e) {
       setError('인증번호 확인 도중 예기치 못한 에러가 발생하였습니다. ');
+      resetTimeout();
     }
   }
 
@@ -57,7 +62,7 @@ export default function Step2({
         onChange={handleInput}
         autoFocus
       />
-      <ErrorLabel className={'text-primary-500 '} label={error} />
+      <ErrorLabel className={'text-primary-500 '} label={error} shake={timeout} />
       <VStack className="w-full h-fit justify-end" gap="36px">
         <Button
           kind="outline"

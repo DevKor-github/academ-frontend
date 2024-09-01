@@ -12,29 +12,33 @@ export type LoadingState = 'bot' | 'done' | 'never';
 
 export type Paged<T> =
   | {
-      loadingState: 'bot';
+      totalLoadingState: 'bot';
       failwith: unknown;
+      loading: false;
       data: unknown;
       eoc: unknown;
       page: number;
     }
   | {
-      loadingState: 'done';
+      totalLoadingState: 'done';
       failwith: null;
+      loading: boolean;
       data: T[];
       eoc: boolean;
       page: number;
     }
   | {
-      loadingState: 'done';
+      totalLoadingState: 'done';
       failwith: ApiResponse<T[]>;
+      loading: boolean;
       data: T[];
       eoc: boolean;
       page: number;
     }
   | {
-      loadingState: 'never';
+      totalLoadingState: 'never';
       failwith: ApiResponse<T[]>;
+      loading: boolean;
       data: T[];
       eoc: boolean;
       page: number;
@@ -46,13 +50,15 @@ export function usePagination<Req extends { page: number }, Res>(
 ): [Paged<Res>, VoidifyReturn<typeof apiCall>] {
   const firstPage = 0;
 
-  const [loadingState, setLoadingState] = useState<LoadingState>('bot');
+  const [totalLoadingState, setTotalLoadingState] = useState<LoadingState>('bot');
+  const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<Res[] | null>(null);
   const [eoc, setEoc] = useState<boolean>(false);
   const [failwith, setFailwith] = useState<null | ApiResponse<Res[]>>(null);
   const [page, setPage] = useState<number>(firstPage);
 
   function fetchThis(req: Req, ctx?: ApiCTX) {
+    setLoading(true);
     setPage(req.page);
     apiCall(req, ctx).then((a) => {
       if (a.statusCode === 404) {
@@ -70,15 +76,17 @@ export function usePagination<Req extends { page: number }, Res>(
         setFailwith(a);
       }
 
-      if (loadingState === 'bot') {
+      if (totalLoadingState === 'bot') {
         if (a.status === 'SUCCESS') {
-          setLoadingState('done');
+          setTotalLoadingState('done');
         } else {
-          setLoadingState('never');
+          setTotalLoadingState('never');
         }
       }
+
+      setLoading(false);
     });
   }
 
-  return [{ loadingState, data, eoc, page, failwith } as Paged<Res>, fetchThis];
+  return [{ totalLoadingState, loading, data, eoc, page, failwith } as Paged<Res>, fetchThis];
 }

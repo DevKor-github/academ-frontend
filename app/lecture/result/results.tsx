@@ -11,7 +11,7 @@ import Button from '@/components/basic/button';
 import Select from '@/components/basic/select';
 import { DownIcon } from '@/icons';
 
-import Spinner from '@/components/basic/spinner';
+import { Spinner2 } from '@/components/basic/spinner';
 
 import { usePagination } from '@/lib/hooks/pagination';
 
@@ -74,11 +74,11 @@ function SearchResultsViewWithOrder({ query: keyword, order }: { query: string; 
     return <Box>강의명, 교수명, 학수번호로 검색해보세요.</Box>;
   }
 
-  if (pages.loadingState === 'bot') {
-    return <div className='w-full flex flex-row justify-center'><Spinner scale='48px' /></div>;
+  if (pages.totalLoadingState === 'bot') {
+    return <Box><span className='text-8xl'><Spinner2 /></span></Box>;
   }
 
-  if (pages.loadingState === 'never') {
+  if (pages.totalLoadingState === 'never') {
     return <Box>{pages.failwith.message}</Box>;
   }
   
