@@ -12,9 +12,9 @@ export default function Home() {
         <span className="font-bold text-3xl text-center">어떤 강의를 찾으시나요?</span>
         <span className="text-xl text-center">강의명, 교수명, 학수번호로 검색해보세요.</span>
       </HStack>
-      <VStack className="w-full flex justify-center items-center">
+      <div className="w-full flex justify-center items-center">
         <SearchForm className="w-11/12 md:w-4/6" />
-      </VStack>
+      </div>
     </HStack>
   );
 }
