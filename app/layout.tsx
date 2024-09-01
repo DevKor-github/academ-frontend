@@ -28,13 +28,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${pretendard.variable}`}>
-      <SessionIdProvider>
-        <ThemeProvider>
-          <body className={`${inter.className} ${pretendard.className}`}>
+      <head>
+        <meta name="theme-color" content="#7c0b22" />
+      </head>
+      <body className={`${inter.className} ${pretendard.className}`}>
+        <SessionIdProvider>
+          <ThemeProvider>
             <TopLevelLayout>{children}</TopLevelLayout>
-          </body>
-        </ThemeProvider>
-      </SessionIdProvider>
+          </ThemeProvider>
+        </SessionIdProvider>
+      </body>
     </html>
   );
 }
