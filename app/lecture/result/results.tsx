@@ -23,56 +23,35 @@ function Box({ children }: { children: React.ReactNode }) {
 
 function SearchResultsArrayView({
   courses,
-  setOrder,
   nextButton,
 }: {
   courses: CourseWithBookmark[];
-  setOrder: React.Dispatch<React.SetStateAction<SearchOrdering>>;
   nextButton: React.ReactNode;
 }) {
   if (courses.length === 0) {
     return <Box>검색 결과가 없습니다.</Box>;
   }
-  return (
-    <Box>
-      <Select
-        defaultLabel="최신순"
-        setValue={setOrder}
-        items={[
-          { value: 'NEWEST' , label: '최신순' },
-          { value: 'RATING_DESC', label: '별점 높은순' },
-          { value: 'RATING_ASC', label: '별점 낮은순' },
-        ] as const}
-      />
+  return (<>
       <div className={styles.container}>
         {courses.map((course) => (
           <SearchSingle key={course.course_id} course={course} />
         ))}
       </div>
-      {nextButton}
-    </Box>
+    {nextButton}
+  </>
   );
 }
 
-export default function SearchResultsView({ query: keyword }: { query: string }) {
+function SearchResultsViewWithOrder({ query: keyword, order }: { query: string; order: SearchOrdering }) {
   const [jwt] = useSessionId();
 
-  const [pages, fetchThis, reset] = usePagination(apiSearch);
-  const [order, setOrder] = useState<SearchOrdering>('NEWEST');
-
+  const [pages, fetchThis] = usePagination(apiSearch);
 
   useEffect(
     () => {
         fetchThis({ keyword, page: pages.page + 1, order: order }, { token: jwt?.accessToken });
     }
     , []);
-  
-  useEffect(
-    () => {
-      reset()
-      fetchThis({ keyword, page: pages.page + 1, order: order }, { token: jwt?.accessToken });
-    }
-    , [order]);
   
   function fetchNext() {
     fetchThis({ keyword, page: pages.page + 1, order: order }, { token: jwt?.accessToken });
@@ -101,6 +80,29 @@ export default function SearchResultsView({ query: keyword }: { query: string })
     return <Box>{pages.failwith.message}</Box>;
   }
   
-  return <SearchResultsArrayView setOrder={setOrder} courses={pages.data} nextButton={nextButton} />;
+  return <SearchResultsArrayView courses={pages.data} nextButton={nextButton} />;
+
+} 
+
+export default function SearchResultsView({ query }: { query: string }) {
+  
+  const [order, setOrder] = useState<SearchOrdering>('NEWEST');
+
+  useEffect(() => {
+
+  }, [order]);
+
+  return (<Box>
+    <Select
+      defaultLabel="최신순"
+      setValue={setOrder}
+      items={[
+        { value: 'NEWEST', label: '최신순' },
+        { value: 'RATING_DESC', label: '별점 높은순' },
+        { value: 'RATING_ASC', label: '별점 낮은순' },
+      ] as const}
+    />
+    {<SearchResultsViewWithOrder key={order} query={query} order={order} />}
+  </Box>);
 
 }
