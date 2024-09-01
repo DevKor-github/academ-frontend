@@ -5,12 +5,22 @@ import { ThemeProvider } from '@/context/ThemeContext';
 import { SessionIdProvider } from '@/context/SessionIdContext';
 import TopLevelLayout from '@/components/composite/toplevellayout';
 
+import type { Viewport } from 'next'
+
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Academ',
   description: 'Academ - 수강 정보 공유',
 };
+
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#7c0b22' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
+  ],
+}
 
 import localFont from "next/font/local";
 
@@ -28,9 +38,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${pretendard.variable}`}>
-      <head>
-        <meta name="theme-color" content="#7c0b22" />
-      </head>
       <body className={`${inter.className} ${pretendard.className}`}>
         <SessionIdProvider>
           <ThemeProvider>
