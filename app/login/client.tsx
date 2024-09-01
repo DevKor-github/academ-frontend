@@ -15,6 +15,7 @@ import ErrorLabel from '@/components/basic/errorlabel';
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
 import { keyForStorage } from '../../context/SessionIdContext';
+import { Spinner2 } from '@/components/basic/spinner';
 
 export default function LoginPageClient() {
   const [input, setInput] = useState({
@@ -26,6 +27,8 @@ export default function LoginPageClient() {
 
   const [_, setSessionId] = useSessionId();
   const [shake, resetShake] = useAnimationTimeout(600);
+  const [loading, setLoading] = useState<boolean>(false);
+
 
   const [saveLoginInfo, setSaveLoginInfo] = useState(false);
   const [loginError, setLoginError] = useState('');
@@ -40,12 +43,14 @@ export default function LoginPageClient() {
   async function handleLogin() {
     //input.email // input.password
 
+    setLoading(true);
+
     if (input.email === '' || input.password === '') {
       setLoginError('이메일 및 비밀번호를 모두 입력하세요.');
       resetShake();
+      setLoading(false);
       return;
     }
-
 
     await apiLogin({ email: input.email, password: input.password, 'remember-me': false }).then((s) => {
       if (s.status === 'SUCCESS') {
@@ -60,14 +65,17 @@ export default function LoginPageClient() {
             );
             resetShake();
             setSessionId(null);
+            setLoading(false);
           }
         });
       } else if (s.status === 'ERROR') {
         setLoginError('로그인에 실패했습니다. 없는 계정이거나 비밀번호가 일치하지 않습니다.');
         resetShake();
+        setLoading(false);
       } else {
         setLoginError(s.message);
         resetShake();
+        setLoading(false);
       }
     });
   }
@@ -121,13 +129,13 @@ export default function LoginPageClient() {
           <Button
             type="submit"
             kind="filled"
-            disabled={input.email === '' && input.password === ''}
+            disabled={(input.email === '' && input.password === '') || loading}
             accnet="0"
             variant="contained"
             color="primary"
             style={{ padding: '16px', width: '100%' }}
           >
-            <div>로그인</div>
+            {loading ? <Spinner2 /> : <div>로그인</div>}
           </Button>
           <span style={{ textAlign: 'center' }}>
             계정이 없으신가요? <A href="/register">회원가입</A>
