@@ -22,8 +22,10 @@ function NavButton({ label, desiredPath, currentPath, wip, onClick }: {
   wip?: true;
   onClick: () => void;
 }) {
+
+  const accent: boolean = currentPath === desiredPath || currentPath.startsWith(desiredPath + '/');
   return (
-    <Link href={desiredPath} onClick={onClick}  className={' p-2 ' + (currentPath === desiredPath ? 'text-primary-500' : '')}>
+    <Link href={desiredPath} onClick={onClick}  className={' p-2 ' + (accent ? 'text-primary-500' : '')}>
       {wip ? (
         <span>{label} <sup className="rounded-full border border-light-back-2 dark:border-dark-back-4 p-1">준비 중</sup></span>
       ) : label}
