@@ -14,6 +14,7 @@ export type Paged<T> =
   | {
       totalLoadingState: 'bot';
       failwith: unknown;
+      loading: false;
       data: unknown;
       eoc: unknown;
       page: number;
@@ -21,6 +22,7 @@ export type Paged<T> =
   | {
       totalLoadingState: 'done';
       failwith: null;
+      loading: boolean;
       data: T[];
       eoc: boolean;
       page: number;
@@ -28,6 +30,7 @@ export type Paged<T> =
   | {
       totalLoadingState: 'done';
       failwith: ApiResponse<T[]>;
+      loading: boolean;
       data: T[];
       eoc: boolean;
       page: number;
@@ -35,6 +38,7 @@ export type Paged<T> =
   | {
       totalLoadingState: 'never';
       failwith: ApiResponse<T[]>;
+      loading: boolean;
       data: T[];
       eoc: boolean;
       page: number;
@@ -47,12 +51,14 @@ export function usePagination<Req extends { page: number }, Res>(
   const firstPage = 0;
 
   const [totalLoadingState, setTotalLoadingState] = useState<LoadingState>('bot');
+  const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<Res[] | null>(null);
   const [eoc, setEoc] = useState<boolean>(false);
   const [failwith, setFailwith] = useState<null | ApiResponse<Res[]>>(null);
   const [page, setPage] = useState<number>(firstPage);
 
   function fetchThis(req: Req, ctx?: ApiCTX) {
+    setLoading(true);
     setPage(req.page);
     apiCall(req, ctx).then((a) => {
       if (a.statusCode === 404) {
@@ -77,8 +83,10 @@ export function usePagination<Req extends { page: number }, Res>(
           setTotalLoadingState('never');
         }
       }
+
+      setLoading(false);
     });
   }
 
-  return [{ totalLoadingState, data, eoc, page, failwith } as Paged<Res>, fetchThis];
+  return [{ totalLoadingState, loading, data, eoc, page, failwith } as Paged<Res>, fetchThis];
 }

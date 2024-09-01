@@ -3,9 +3,12 @@ import { VStack } from '@/components/basic/stack';
 
 import dynamic from 'next/dynamic';
 
-import { SearchBotLoading } from './loading';
+import { Spinner2 } from '@/components/basic/spinner';
 
-const SearchResultsView = dynamic(() => import('./result/results'), { ssr: false, loading: SearchBotLoading });
+const SearchResultsView = dynamic(() => import('./result/results'), {
+  ssr: false, loading: () => 
+  (<div className='w-full p-8 flex flex-row justify-center items-center text-6xl'><Spinner2 /></div>)
+ });
 
 const SearchTopView = ({ query }: { query: string }) => {
   return query ? (

@@ -47,9 +47,9 @@ export default function NoticeResultsView() {
 
   const showMoreButton = (
     <div className="w-full pt-6 flex flex-col justify-center items-center">
-    {(pages.eoc ? <div>모두 불러왔습니다.</div>  : <Button kind='blank' onClick={fetchNext}>
+    {(pages.loading ? <Spinner2 /> : (pages.eoc ? <div>모두 불러왔습니다.</div>  : <Button kind='blank' onClick={fetchNext}>
       <DownIcon />
-    </Button>)}
+    </Button>))}
   </div>)
 
   return <NoticeListView notices={pages.data} showMoreButton={showMoreButton} />;

@@ -15,7 +15,7 @@ export default function Spinner({ scale }: { scale: string }) {
 export function Spinner2() {
   return (
     <div>
-      <svg fill="none" height="1em" viewBox="-12 -12 24 24" width="1em" xmlns="http://www.w3.org/2000/svg" strokeWidth="1.5">
+      <svg fill="none" height="1em" viewBox="-7 -7 14 14" width="1em" xmlns="http://www.w3.org/2000/svg" strokeWidth="1.5">
       <path className={styles["animate-5"]}  d="M 0 2.1 l 0 4" stroke="currentColor"  strokeLinecap="round" strokeLinejoin="round" />
       <path className={styles["animate-1"]} d="M 0 -2.1 l 0 -4" stroke="currentColor"  strokeLinecap="round" strokeLinejoin="round" />
       <path className={styles["animate-75"]} d="M 2.1 0 l 4 0" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" />
