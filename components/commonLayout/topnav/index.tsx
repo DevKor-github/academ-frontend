@@ -35,15 +35,16 @@ export default function TopNav() {
         'fixed z-50 top-0 w-full ' +
         (overlap ? ' text-white  ' : ' border-b light:border-b-light-back-2 dark:border-b-dark-back-4 ')}>
       <VStack
-          className={`pl-2 pr-2 md:pl-8 md:pr-8 ${className} flex flex-nowrap items-start flex-row justify-between w-full transition-all `
+          className={`pl-2 pr-2 md:pl-8 md:pr-8 ${className} flex flex-nowrap items-start flex-row justify-between w-full transition-all 
+          backdrop-blur-lg `
             +
-            (spreaded ? `h-72 md:h-16 md:bg-transparent ` : ' h-16 backdrop-blur-lg ')
+            (spreaded ? `h-72 md:h-16 md:bg-transparent ` : ' h-16 ')
             +
             (spreaded && overlap /* dark */ ? ' bg-dark-back-5 ' : '')
             +
             (!spreaded && overlap ? ' bg-dark-back-1 bg-opacity-50 ' : ' ')
             +
-            (spreaded && !overlap ? ' text-black dark:text-white bg-white dark:bg-dark-back-5 backdrop-blur-lg backdrop-brightness-90 ' : '')
+            (spreaded && !overlap ? ' text-black dark:text-white bg-white dark:bg-dark-back-5 ' : '')
         
       }
       >
@@ -52,7 +53,7 @@ export default function TopNav() {
           <TopNavInnerRight />
         </VStack>
       </div>
-      <div className={'min-h-16 ' +  (overlap ? 'bg-dark-back-0' : '')} />
+      <div className={(overlap ? 'hidden' : 'min-h-16')} />
     </nav>
   );
 }

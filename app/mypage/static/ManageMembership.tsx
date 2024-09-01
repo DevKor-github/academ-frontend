@@ -15,7 +15,7 @@ export default function ManageMembership({ profile }: { profile: UserProfile }) 
     const diffDay = Math.ceil(diff / (1000 * 3600 * 24));
 
     if (diffDay > 0) {
-      return `D-${diffDay}`;
+      return `만료예정: D-${diffDay}`;
     } else if (diffDay === 0) {
       return '오늘 만료';
     } else {
@@ -24,11 +24,12 @@ export default function ManageMembership({ profile }: { profile: UserProfile }) 
   })();
 
   return (
-    <div className="animate-fade p-8 mt-8 border-t border-t-light-back-8 pb-16">
+    <div className="animate-fade p-8 pb-16 mt-8 border-t
+    light:border-t-light-back-8 dark:border-t-dark-back-8 ">
       <div className="flex flex-row text-2xl mt-8 pb-2">
         <span>강의 열람권</span>
         <div className="inline-block ml-auto">
-          <span className="rounded-lg text-base bg-primary-400 text-white p-1 shadow-lg shadow-primary-400">
+          <span className="rounded-lg text-base bg-primary-400 text-white p-2 transition-shadow hover:shadow-lg hover:shadow-primary-500">
             {expireLabel}
           </span>
         </div>
