@@ -46,7 +46,7 @@ export default function TopNav() {
             +
             (spreaded && !overlap ? ' text-black dark:text-white bg-white dark:bg-dark-back-5 ' : '')
             +
-            (!spreaded && !overlap ? ' light:bg-white dark:bg-black opacity-75 ' : '')
+            (!spreaded && !overlap ? ' bg-none ' : '')
         
       }
       >
