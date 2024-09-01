@@ -27,7 +27,8 @@ function NavButton({ label, desiredPath, currentPath, wip, onClick }: {
   return (
     <Link href={desiredPath} onClick={onClick}  className={' p-2 ' + (accent ? 'text-primary-500' : '')}>
       {wip ? (
-        <span>{label} <sup className="rounded-full border border-light-back-2 dark:border-dark-back-4 p-1">준비 중</sup></span>
+        <span>{label} <sup className={`transition-all rounded-full border p-1
+          ${accent ? 'border-primary-500 ': 'light:border-light-back-2 dark:border-dark-back-4 '}`}>준비 중</sup></span>
       ) : label}
     </Link>
   );
@@ -67,7 +68,7 @@ export const TopNavInnerMid = ({
 export function TopNavRightLoading() {
   return (
     <Button>
-      <Skeleton placeholder="로그인/회원가입" />
+      <Skeleton placeholder={<span className="whitespace-nowrap">로그인/회원가입</span>} />
     </Button>
   );
 }

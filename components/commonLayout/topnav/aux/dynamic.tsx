@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Link from 'next/link';
 
@@ -10,8 +10,8 @@ import Button from '@/components/basic/button';
 import Popover from '@/components/basic/popover';
 import { HStack } from '@/components/basic/stack';
 
+import { useApi } from '@/lib/api/builder';
 import { apiMyPageBasics } from '@/lib/api/mypage';
-import { ApiResponse } from '@/lib/api/builder';
 import Skeleton from '@/components/composite/skeleton';
 
 import { LogoutIcon, ProfileIcon } from './icons';
@@ -49,7 +49,7 @@ function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => vo
 function LoginButton() {
   return (
     <Link href="/login">
-      <Button>로그인/회원가입</Button>
+      <Button><span className='whitespace-nowrap'>로그인/회원가입</span></Button>
     </Link>
   );
 }
@@ -58,18 +58,13 @@ function ProfileButton() {
   const [jwt] = useSessionId();
 
   const [open, setOpen] = useState<boolean>(false);
+  const { loading, response: state } = useApi < {}, MyPageBasicInfo>(apiMyPageBasics, {}, { token: jwt?.accessToken });
 
-  let [state, setState] = useState<null | ApiResponse<UserProfile>>(null);
-
-  useEffect(() => {
-    apiMyPageBasics({}, { token: jwt?.accessToken }).then((v) => setState(v));
-  }, [jwt]);
-
-  if (state === null) {
+  if (loading) {
     return (
       <Button>
-        <Skeleton placeholder="로그인/회원가입" />
-      </Button>
+      <Skeleton placeholder={<span className="whitespace-nowrap">로그인/회원가입</span>} />
+    </Button>
     );
   }
 
