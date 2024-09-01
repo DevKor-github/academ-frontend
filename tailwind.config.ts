@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import type { Config } from 'tailwindcss';
 import plugin from 'tailwindcss/plugin';
 import { PluginCreator } from 'tailwindcss/types/config';
@@ -35,6 +36,41 @@ const config: Config = {
           700: '#710a1f',
           800: '#67091c',
           900: '#5d0819',
+        },
+        dynamic: {
+          DEFAULT: 'var(--dyn-000000)',
+          0: 'var(--dyn-000000)',
+          1: 'var(--dyn-080808)',
+          2: 'var(--dyn-101010)',
+          3: 'var(--dyn-181818)',
+          4: 'var(--dyn-202020)',
+          5: 'var(--dyn-282828)',
+          6: 'var(--dyn-303030)',
+          7: 'var(--dyn-383838)',
+          8: 'var(--dyn-404040)',
+          9: 'var(--dyn-484848)',
+          10: 'var(--dyn-505050)',
+          11: 'var(--dyn-585858)',
+          12: 'var(--dyn-606060)',
+          13: 'var(--dyn-686868)',
+          14: 'var(--dyn-707070)',
+          15: 'var(--dyn-787878)',
+          16: 'var(--dyn-808080)',
+          17: 'var(--dyn-888888)',
+          18: 'var(--dyn-909090)',
+          19: 'var(--dyn-989898)',
+          20: 'var(--dyn-a0a0a0)',
+          21: 'var(--dyn-a8a8a8)',
+          22: 'var(--dyn-b0b0b0)',
+          23: 'var(--dyn-b8b8b8)',
+          24: 'var(--dyn-c0c0c0)',
+          25: 'var(--dyn-c8c8c8)',
+          26: 'var(--dyn-d0d0d0)',
+          27: 'var(--dyn-d8d8d8)',
+          28: 'var(--dyn-e0e0e0)',
+          29: 'var(--dyn-e8e8e8)',
+          30: 'var(--dyn-f0f0f0)',
+          31: 'var(--dyn-ffffff)',
         },
         light: {
           fore: {

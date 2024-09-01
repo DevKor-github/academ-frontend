@@ -3,20 +3,84 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-end-rgb: 255, 255, 255;
+  --dyn-000000: #000000;
+  --dyn-080808: #080808;
+  --dyn-101010: #101010;
+  --dyn-181818: #181818;
+  --dyn-202020: #202020;
+  --dyn-282828: #282828;
+  --dyn-303030: #303030;
+  --dyn-383838: #383838;
+  --dyn-404040: #404040;
+  --dyn-484848: #484848;
+  --dyn-505050: #505050;
+  --dyn-585858: #585858;
+  --dyn-606060: #606060;
+  --dyn-686868: #686868;
+  --dyn-707070: #707070;
+  --dyn-787878: #787878;
+  --dyn-808080: #808080;
+  --dyn-888888: #888888;
+  --dyn-909090: #909090;
+  --dyn-989898: #989898;
+  --dyn-a0a0a0: #a0a0a0;
+  --dyn-a8a8a8: #a8a8a8;
+  --dyn-b0b0b0: #b0b0b0;
+  --dyn-b8b8b8: #b8b8b8;
+  --dyn-c0c0c0: #c0c0c0;
+  --dyn-c8c8c8: #c8c8c8;
+  --dyn-d0d0d0: #d0d0d0;
+  --dyn-d8d8d8: #d8d8d8;
+  --dyn-e0e0e0: #e0e0e0;
+  --dyn-e8e8e8: #e8e8e8;
+  --dyn-f0f0f0: #f0f0f0;
+  --dyn-f8f8f8: #f8f8f8;
+  --dyn-ffffff: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-end-rgb: 20, 20, 20;
+    /* --foreground-rgb: 255, 255, 255; (usage: background: rgb(var(--background-end-rgb));) */
+    /* --background-end-rgb: 20, 20, 20; */
+    --dyn-000000: #ffffff;
+    --dyn-080808: #f8f8f8;
+    --dyn-101010: #f0f0f0;
+    --dyn-181818: #e8e8e8;
+    --dyn-202020: #e0e0e0;
+    --dyn-282828: #d8d8d8;
+    --dyn-303030: #d0d0d0;
+    --dyn-383838: #c8c8c8;
+    --dyn-404040: #c0c0c0;
+    --dyn-484848: #b8b8b8;
+    --dyn-505050: #b0b0b0;
+    --dyn-585858: #a8a8a8;
+    --dyn-606060: #a0a0a0;
+    --dyn-686868: #989898;
+    --dyn-707070: #909090;
+    --dyn-787878: #888888;
+    --dyn-808080: #808080;
+    --dyn-888888: #787878;
+    --dyn-909090: #707070;
+    --dyn-989898: #686868;
+    --dyn-a0a0a0: #606060;
+    --dyn-a8a8a8: #585858;
+    --dyn-b0b0b0: #505050;
+    --dyn-b8b8b8: #484848;
+    --dyn-c0c0c0: #404040;
+    --dyn-c8c8c8: #383838;
+    --dyn-d0d0d0: #303030;
+    --dyn-d8d8d8: #282828;
+    --dyn-e0e0e0: #202020;
+    --dyn-e8e8e8: #181818;
+    --dyn-f0f0f0: #101010;
+    --dyn-f8f8f8: #080808;
+    --dyn-ffffff: #000000;
   }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-end-rgb));
+  color: var(--dyn-000000);
+  background: var(--dyn-ffffff);
   /* styles/globals.css */
   font-family: 'Pretendard', sans-serif;
 }
