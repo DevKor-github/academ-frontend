@@ -1,7 +1,6 @@
 'use client';
 
-import { apiProfileUpdateBasic } from '@/lib/api/mypage';
-import { useApiMyPageBasics } from '@/lib/api/mypage';
+import { apiMyPageBasics, apiProfileUpdateBasic } from '@/lib/api/mypage';
 import { useState } from 'react';
 import Submitted from './inner/submitted';
 import { useSessionId } from '@/context/SessionIdContext';
@@ -9,6 +8,7 @@ import { retryWithJWTRefresh } from '@/lib/api/authHelper';
 
 import UpdateBasicForm from './inner/form';
 import ErrorTemplate from '@/lib/template';
+import { useApi } from '@/lib/api/builder';
 
 function MyPageEditBasicWithProfile({
   profile: { username, student_id, degree, semester, department },
@@ -37,7 +37,7 @@ function MyPageEditBasicWithProfile({
 export default function MyPageEditBasic() {
   const [jwt] = useSessionId();
 
-  const { loading, response: profile } = useApiMyPageBasics({}, { token: jwt?.accessToken });
+  const { loading, response: profile } = useApi(apiMyPageBasics, {}, { token: jwt?.accessToken });
   
   if (loading) {
     return <div />;
