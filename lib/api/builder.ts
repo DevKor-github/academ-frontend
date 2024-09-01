@@ -1,6 +1,6 @@
 'use client';
 
-import axios, { AxiosHeaders, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { AxiosError } from 'axios';
 import { AxiosRequestConfig } from 'axios';
 
@@ -12,15 +12,6 @@ const backend = axios.create({
   maxRedirects: 0,
   withCredentials: true,
 });
-
-class ApiError extends Error {
-  code: number | undefined;
-
-  constructor(code?: number) {
-    super();
-    this.code = code;
-  }
-}
 
 const buildUrlWithParams = (baseUrl: string, req: Record<string, string | number>) => {
   const newReq = Object.keys(req).reduce((acc: Record<string, string>, key) => {

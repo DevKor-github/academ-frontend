@@ -4,7 +4,6 @@ export default function LectureIcon({ code, kind = 'SMALL' }: { code: string; ki
   })(code);
 
   const scale = kind === 'BIG' ? '80px' : '48px';
-  const smallScale = kind === 'BIG' ? '12px' : '4px';
   const imageUrl = `url(${imageMap[code.substring(0, 3)] || '/cicon/ku.jpg'})`;
 
   return (

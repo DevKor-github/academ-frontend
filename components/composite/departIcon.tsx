@@ -1,4 +1,4 @@
-export default function DepartIcon({ code, kind = 'SMALL' }: { code: string; kind?: 'BIG' | 'SMALL' }) {
+export default function DepartIcon({ code }: { code: string; kind?: 'BIG' | 'SMALL' }) {
   (function ignore(r) {
     return r;
   })(code);

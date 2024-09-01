@@ -1,5 +1,5 @@
+import { useState } from 'react';
 import { apiUpdateComment } from '@/lib/api/course';
-import { useEffect, useState } from 'react';
 import Submitted from './submitted';
 import { useSessionId } from '@/context/SessionIdContext';
 
