@@ -29,16 +29,10 @@ export default function TopNav() {
 
   const [spreaded, setSpreaded] = useState(false);
 
-  return (
-    <nav>
+  return (<>
+    <nav className='fixed z-50 top-0 w-full backdrop-blur-lg'>
       <div className={
-        'fixed z-50 top-0 w-full backdrop-blur-lg ' +
-
-
         (overlap ? ' text-white bg-black bg-opacity-75 ' : ' border-b light:border-b-light-back-2 dark:border-b-dark-back-4')
-      
-      
-      
       }>
       <VStack
           className={`pl-2 pr-2 md:pl-8 md:pr-8 ${className} flex flex-nowrap items-start flex-row justify-between w-full transition-all 
@@ -57,7 +51,8 @@ export default function TopNav() {
           <TopNavInnerRight />
         </VStack>
       </div>
-      <div className={(overlap ? 'hidden' : 'min-h-16')} />
     </nav>
+    <div className={(overlap ? 'hidden' : 'relative min-h-16')} />
+    </>
   );
 }
