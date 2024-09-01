@@ -15,16 +15,20 @@ export function TopNavInnerLeft() {
   );
 }
 
-function NavButton({ label, desiredPath, currentPath, wip }: {
+function NavButton({ label, desiredPath, currentPath, wip, onClick }: {
   label: string;
   desiredPath: string;
   currentPath: string;
   wip?: true;
+  onClick: () => void;
 }) {
+
+  const accent: boolean = currentPath === desiredPath || currentPath.startsWith(desiredPath + '/');
   return (
-    <Link href={desiredPath} className={' p-2 ' + (currentPath === desiredPath ? 'text-primary-500' : '')}>
+    <Link href={desiredPath} onClick={onClick}  className={' p-2 ' + (accent ? 'text-primary-500' : '')}>
       {wip ? (
-        <span>{label} <sup className="rounded-full border border-light-back-2 dark:border-dark-back-4 p-1">준비 중</sup></span>
+        <span>{label} <sup className={`transition-all rounded-full border p-1
+          ${accent ? 'border-primary-500 ': 'light:border-light-back-2 dark:border-dark-back-4 '}`}>준비 중</sup></span>
       ) : label}
     </Link>
   );
@@ -37,7 +41,7 @@ export const TopNavInnerMid = ({
 }: {
   path: string;
   spreaded: boolean;
-    setSpreaded: (b: boolean) => void;
+  setSpreaded: SetState<boolean>
 }) => {
   const nbsp = '\u00A0';
 
@@ -53,10 +57,10 @@ export const TopNavInnerMid = ({
           {spreaded ? <UpIcon /> : <DownIcon />}
         </Button>
       </div>
-      <NavButton currentPath={path} desiredPath="/lecture" label={`강의${nbsp}검색`} />
-      <NavButton wip currentPath={path} desiredPath="/curation" label={`강의${nbsp}추천`} />
-      <NavButton wip currentPath={path} desiredPath="/timetable" label={`시간표`} />
-      <NavButton currentPath={path} desiredPath="/notice" label={`공지사항`} />
+      <NavButton currentPath={path} desiredPath="/lecture" label={`강의${nbsp}검색`} onClick={() => setSpreaded(false)} />
+      <NavButton wip currentPath={path} desiredPath="/curation" label={`강의${nbsp}추천`} onClick={() => setSpreaded(false)} />
+      <NavButton wip currentPath={path} desiredPath="/timetable" label={`시간표`} onClick={() => setSpreaded(false)} />
+      <NavButton currentPath={path} desiredPath="/notice" label={`공지사항`} onClick={() => setSpreaded(false)} />
     </div>
   );
 };
@@ -64,7 +68,7 @@ export const TopNavInnerMid = ({
 export function TopNavRightLoading() {
   return (
     <Button>
-      <Skeleton placeholder="로그인" />
+      <Skeleton placeholder={<span className="whitespace-nowrap">로그인/회원가입</span>} />
     </Button>
   );
 }

@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from 'react';
 
-import { useApiCourseDetail } from '@/lib/api/course';
+import { useApi } from '@/lib/api/builder';
+
+import { apiCourseDetail } from '@/lib/api/course';
 import LectureLoading from './loading';
 
 import dynamic from 'next/dynamic';
@@ -16,9 +18,9 @@ export default function LectureFetch({ params: { id } }: { params: { id: number 
   const [jwt] = useSessionId();
   const [page, setPage] = useState(1);
 
-  const course = useApiCourseDetail({ course_id: id, order: 'NEWEST', page }, { token: jwt?.accessToken });
+  const { loading, response : course} = useApi(apiCourseDetail, { course_id: id, order: 'NEWEST', page }, { token: jwt?.accessToken });
 
-  if (course === null) {
+  if (loading) {
     return <LectureLoading />;
   }
 

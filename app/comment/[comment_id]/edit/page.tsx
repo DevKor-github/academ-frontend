@@ -1,6 +1,7 @@
 'use client';
 
-import { useApiCourseDetail, useApiStartUpdateComment } from '@/lib/api/course';
+import { apiStartUpdateComment } from '@/lib/api/course';
+import { useApi } from '@/lib/api/builder';
 
 import ErrorTemplate from '@/lib/template';
 import EditLoading from './loading';
@@ -13,9 +14,9 @@ const EditComment = dynamic(() => import('./edit'), { ssr: false, loading: EditL
 export default function EditPage({ params: { comment_id } }: { params: { comment_id: number } }) {
   const [jwt] = useSessionId();
 
-  const editable = useApiStartUpdateComment({ comment_id }, { token: jwt?.accessToken });
+  const { loading, response : editable } = useApi(apiStartUpdateComment, { comment_id }, { token: jwt?.accessToken });
 
-  if (editable === null) {
+  if (loading) {
     return <EditLoading />;
   }
 

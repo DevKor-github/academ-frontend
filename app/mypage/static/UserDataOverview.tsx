@@ -1,5 +1,3 @@
-'use client';
-
 import Link from 'next/link';
 
 import DepartIcon from '@/components/composite/departIcon';
@@ -9,7 +7,7 @@ export default function UserDataOverview({ userprofile }: { userprofile: UserPro
     userprofile.degree === 'MASTER' ? '석사과정' : userprofile.degree === 'DOCTOR' ? '박사과정' : '?과정';
 
   return (
-    <div className="p-8 text-xl flex flex-row flex-wrap gap-16 w-full justify-start items-start">
+    <div className="animate-fade p-8 text-xl flex flex-row flex-wrap gap-16 w-full justify-start items-start">
       <div
         className="block bg-white rounded-2xl p-4 border border-light-back-4"
         style={{ width: '192px', height: '128px' }}

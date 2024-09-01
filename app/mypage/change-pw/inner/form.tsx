@@ -7,7 +7,7 @@ export default function UpdateBasicForm({
 }: {
   handleSubmit: (input: UpdatePWExtended) => void;
   input: UpdatePWExtended;
-  setInput: StateChange<UpdatePWExtended>;
+  setInput: SetState<UpdatePWExtended>;
 }) {
   return (
     <main className="pt-8 pb-8 h-full transition-all">
@@ -24,11 +24,25 @@ export default function UpdateBasicForm({
         <input
           required
           type="password"
+          autoComplete="current-password"
+          placeholder="기존 비밀번호"
+          className="bg-light-back-1 dark:bg-dark-back-2 p-4  rounded-2xl"
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            setInput((v) => {
+              return { ...v, ...{ old_password: event.target.value } };
+            });
+          }}
+        />
+
+        <input
+          required
+          autoComplete="new-password"
+          type="password"
           placeholder="새 비밀번호"
           className="bg-light-back-1 dark:bg-dark-back-2 p-4  rounded-2xl"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setInput((v) => {
-              return { ...v, ...{ password: event.target.value } };
+              return { ...v, ...{ new_password: event.target.value } };
             });
           }}
         />
@@ -36,11 +50,12 @@ export default function UpdateBasicForm({
         <input
           required
           type="password"
+          autoComplete="new-password"
           placeholder="새 비밀번호 확인"
           className="bg-light-back-1 dark:bg-dark-back-2 p-4 rounded-2xl"
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setInput((v) => {
-              return { ...v, ...{ password_check: event.target.value } };
+              return { ...v, ...{ new_password_check: event.target.value } };
             });
           }}
         />

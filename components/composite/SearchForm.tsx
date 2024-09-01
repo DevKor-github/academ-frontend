@@ -28,10 +28,10 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
   };
 
   function submitHanlder(event: React.FormEvent<HTMLFormElement>) {
-    if (query === '') {
+    if (query.length < 2) {
       event.preventDefault();
       resetAnimation();
-      setError('검색어를 1자 이상 입력해주세요.');
+      setError('검색어를 2자 이상 입력해주세요.');
     }
   }
 

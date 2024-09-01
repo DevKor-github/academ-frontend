@@ -1,6 +1,6 @@
 'use client';
 
-import axios, { AxiosHeaders, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { AxiosError } from 'axios';
 import { AxiosRequestConfig } from 'axios';
 
@@ -12,15 +12,6 @@ const backend = axios.create({
   maxRedirects: 0,
   withCredentials: true,
 });
-
-class ApiError extends Error {
-  code: number | undefined;
-
-  constructor(code?: number) {
-    super();
-    this.code = code;
-  }
-}
 
 const buildUrlWithParams = (baseUrl: string, req: Record<string, string | number>) => {
   const newReq = Object.keys(req).reduce((acc: Record<string, string>, key) => {
@@ -105,7 +96,7 @@ function resolvify<Res>(promise: Promise<AxiosResponse<ApiResponse<Res>, any>>) 
  * @param config
  * @returns
  */
-export function build<Req, Res>(method: 'POST' | 'GET', path: string, config: AxiosRequestConfig = {}) {
+export const build: Builder = <Req, Res>(method: 'POST' | 'GET', path: string, config: AxiosRequestConfig = {}) => {
   return async function (req: Req, ctx?: ApiCTX): Promise<ApiResponse<Res>> {
     (function prepareConfig() {
       if (config.headers === undefined) {
@@ -141,79 +132,35 @@ export function build<Req, Res>(method: 'POST' | 'GET', path: string, config: Ax
 
     return firstResult;
   };
-}
+};
 
-export function createApiHook<Req, Res>(apicall: (a: Req, ctx?: ApiCTX) => Promise<ApiResponse<Res>>) {
-  return function (req: Req, ctx?: ApiCTX): ApiResponse<Res> | null {
-    const [r, setR] = useState<ApiResponse<Res> | null>(null);
+export type ApiCall<Req, Res> = (req: Req, ctx?: ApiCTX) => Promise<ApiResponse<Res>>;
+export type Builder = <Req, Res>(
+  method: 'POST' | 'GET',
+  path: string,
+  config?: AxiosRequestConfig,
+) => ApiCall<Req, Res>;
 
-    useEffect(() => {
-      apicall(req, ctx).then((a) => setR(a));
-    }, []);
-
-    return r;
-  };
-}
-
-export type HookResult<T> = {
-  success: false;
-  failure: false;
-  error: false;
-  loading: true;
-
-  data: unknown;
-  message: unknown;
-} | {
-  success: true;
-  failure: false;
-  error: false;
-  loading: false;
-
-  data: T;
-  message: unknown;
-} | {
-  success: false;
-  failure: true;
-  error: false;
-  loading: false;
-
-  data: unknown;
-  message: string;
-} | {
-  success: false;
-  failure: false;
-  error: true;
-  loading: false;
-
-  data: unknown;
-  message: string;
-}
-
-export function createApiHook2<Req, Res>(apicall: (a: Req, ctx?: ApiCTX) => Promise<ApiResponse<Res>>) {
-  return function (req: Req, ctx?: ApiCTX): HookResult<Res> {
-    const [r, setR] = useState<ApiResponse<Res> | null>(null);
-    const [loading, setLoading] = useState<boolean>(true);
-
-
-    useEffect(() => {
-      apicall(req, ctx).then((a) => {
-        setLoading(false);
-        setR(a);
-      });
-    }, []);
-
-    if (loading) {
-      return { loading, success: false, failure: false, error: false, data: undefined, message: '로딩 중입니다.' };
+export type ApiState<T> =
+  | {
+      loading: true;
+      response: unknown;
     }
-
-    // @ts-ignore 
-    return {
-      success: r?.status === 'SUCCESS',
-      failure: r?.status === 'FAILURE',
-      error: r?.status === 'ERROR',
-      data: r?.data,
-      message: r?.message || '알 수 없는 오류가 발생했습니다.',
-      loading: false,
+  | {
+      loading: false;
+      response: ApiResponse<T>;
     };
-  };
+
+export function useApi<Req, Res>(apiCall: ApiCall<Req, Res>, req: Req, ctx?: ApiCTX) {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [response, setResponse] = useState<ApiResponse<Res> | null>(null);
+
+  useEffect(() => {
+    apiCall(req, ctx).then((a) => {
+      setResponse(a);
+      setLoading(false);
+    });
+  }, []);
+
+  return { response, loading } as ApiState<Res>;
 }

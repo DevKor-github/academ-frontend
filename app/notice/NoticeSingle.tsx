@@ -8,7 +8,9 @@ export default function NoticeSingle({ notice }: { notice: Notice }) {
         <span className="text-base font-medium">{notice.title}</span>
         <span className="text-base font-normal text-gray-400">{notice.created_at}</span>
       </Link>
-      <div className="w-full my-4 border border-gray-300" />
+      <div className="w-full my-4 border
+      light:border-light-back-5
+      dark:border-dark-back-5" />
     </div>
   );
 }

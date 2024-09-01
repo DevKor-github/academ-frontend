@@ -1,4 +1,3 @@
-import { StarIcon } from '@/icons';
 import Tag from '@/components/basic/tag';
 import { HStack, VStack } from '@/components/basic/stack';
 import Progress from '@/components/basic/progress';

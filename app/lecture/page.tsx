@@ -11,28 +11,22 @@ const SearchTopView = ({ query }: { query: string }) => {
   return query ? (
     <VStack
       gap="20px"
-      className="border-b light:border-b-light-back-5 dark:border-b-dark-back-8 "
+      className="border-b light:border-b-light-back-5 dark:border-b-dark-back-8 flex-wrap justify-between items-center"
       style={{
         padding: '110px 40px 110px 40px',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
       }}
     >
       <span className="text-2xl" style={{ wordBreak: 'break-word' }}>
         <span className="text-4xl">&quot;{query}&quot;</span> 강의 검색 결과
       </span>
 
-      <SearchForm className="w-full md:w-[70%] md:max-w-[800px]" defaultValue={query} />
+      <SearchForm className="sticky top-8 w-full md:w-[70%] md:max-w-[800px]" defaultValue={query} />
     </VStack>
   ) : (
     <VStack
-      className="border-b light:border-b-light-back-1 dark:border-b-dark-back-5 "
+      className="border-b light:border-b-light-back-1 dark:border-b-dark-back-5 flex-wrap justify-center items-center"
       style={{
         padding: '110px 40px 110px 40px',
-        alignItems: 'center',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
       }}
     >
       <SearchForm className="w-full md:w-[70%] md:max-w-[800px]" defaultValue={query} />

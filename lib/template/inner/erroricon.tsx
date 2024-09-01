@@ -2,7 +2,7 @@ export default function ErrorIllust() {
   return (
     <svg width="358" height="341" viewBox="0 0 358 341" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g filter="url(#filter0_f_1718_953)">
-        <path d="M308 291H135.412H131.529L80 242H256.471L308 291Z" fill="#B7A1A1" fill-opacity="0.7" />
+        <path d="M308 291H135.412H131.529L80 242H256.471L308 291Z" fill="#B7A1A1" fillOpacity="0.7" />
       </g>
       <g filter="url(#filter1_ii_1718_953)">
         <rect
@@ -13,7 +13,7 @@ export default function ErrorIllust() {
           rx="20"
           transform="rotate(16.7124 149.76 90.0368)"
           fill="url(#paint0_linear_1718_953)"
-          fill-opacity="0.6"
+          fillOpacity="0.6"
         />
       </g>
       <rect
@@ -24,8 +24,8 @@ export default function ErrorIllust() {
         rx="18.5"
         transform="rotate(16.7124 150.765 91.9048)"
         stroke="url(#paint1_linear_1718_953)"
-        stroke-opacity="0.7"
-        stroke-width="3"
+        strokeOpacity="0.7"
+        strokeWidth="3"
       />
       <g filter="url(#filter2_dd_1718_953)">
         <path
@@ -37,15 +37,15 @@ export default function ErrorIllust() {
         <path
           d="M103.679 30C111.377 16.6667 130.622 16.6667 138.321 30L208.469 151.5C216.167 164.833 206.544 181.5 191.148 181.5H50.8519C35.4559 181.5 25.8334 164.833 33.5314 151.5L103.679 30Z"
           fill="url(#paint2_linear_1718_953)"
-          fill-opacity="0.3"
-          shape-rendering="crispEdges"
+          fillOpacity="0.3"
+          shapeRendering="crispEdges"
         />
         <path
           d="M105.412 31C112.34 19 129.66 19 136.588 31L206.737 152.5C213.665 164.5 205.004 179.5 191.148 179.5H50.8519C36.9955 179.5 28.3353 164.5 35.2635 152.5L105.412 31Z"
           stroke="url(#paint3_linear_1718_953)"
-          stroke-opacity="0.5"
-          stroke-width="4"
-          shape-rendering="crispEdges"
+          strokeOpacity="0.5"
+          strokeWidth="4"
+          shapeRendering="crispEdges"
         />
       </g>
       <g filter="url(#filter4_ddii_1718_953)">
@@ -62,9 +62,9 @@ export default function ErrorIllust() {
           width="328"
           height="149"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
           <feGaussianBlur stdDeviation="25" result="effect1_foregroundBlur_1718_953" />
         </filter>
@@ -75,9 +75,9 @@ export default function ErrorIllust() {
           width="213.053"
           height="213.052"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
           <feColorMatrix
             in="SourceAlpha"
@@ -109,9 +109,9 @@ export default function ErrorIllust() {
           width="74.0195"
           height="130.887"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -143,9 +143,9 @@ export default function ErrorIllust() {
           width="222.355"
           height="191.5"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -199,9 +199,9 @@ export default function ErrorIllust() {
           width="30"
           height="104"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
@@ -256,9 +256,9 @@ export default function ErrorIllust() {
           y2="417.571"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="white" />
-          <stop offset="0.24" stop-color="#DC143C" />
-          <stop offset="0.555" stop-color="#FDCED1" />
+          <stop stopColor="white" />
+          <stop offset="0.24" stopColor="#DC143C" />
+          <stop offset="0.555" stopColor="#FDCED1" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_1718_953"
@@ -268,10 +268,10 @@ export default function ErrorIllust() {
           y2="262.565"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#DC143C" stop-opacity="0.8" />
-          <stop offset="0.245" stop-color="white" />
-          <stop offset="0.66" stop-color="#DC143C" stop-opacity="0.8" />
-          <stop offset="0.96" stop-color="white" />
+          <stop stopColor="#DC143C" stopOpacity="0.8" />
+          <stop offset="0.245" stopColor="white" />
+          <stop offset="0.66" stopColor="#DC143C" stopOpacity="0.8" />
+          <stop offset="0.96" stopColor="white" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_1718_953"
@@ -281,8 +281,8 @@ export default function ErrorIllust() {
           y2="242"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.675" stop-color="white" />
-          <stop offset="1" stop-color="#DC143C" />
+          <stop offset="0.675" stopColor="white" />
+          <stop offset="1" stopColor="#DC143C" />
         </linearGradient>
         <linearGradient
           id="paint3_linear_1718_953"
@@ -292,10 +292,10 @@ export default function ErrorIllust() {
           y2="224.374"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="white" />
-          <stop offset="0.295" stop-color="#DADADA" stop-opacity="0" />
-          <stop offset="0.51" stop-color="#DC143C" />
-          <stop offset="1" stop-color="white" stop-opacity="0" />
+          <stop stopColor="white" />
+          <stop offset="0.295" stopColor="#DADADA" stopOpacity="0" />
+          <stop offset="0.51" stopColor="#DC143C" />
+          <stop offset="1" stopColor="white" stopOpacity="0" />
         </linearGradient>
       </defs>
     </svg>

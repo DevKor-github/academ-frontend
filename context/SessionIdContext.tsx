@@ -2,12 +2,14 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode, useLayoutEffect } from 'react';
 
+import { isDebug } from '@/lib/directive';
+
 import { apiLogout } from '@/lib/api/login';
 import { apiCheckLogin } from '@/lib/api/login';
 import { apiJWTRefresh } from '@/lib/api/authHelper';
 import { Try } from '@/lib/types/result';
 
-export type SessionIdContextType = [SessionId, StateChange<SessionId>];
+export type SessionIdContextType = [SessionId, SetState<SessionId>];
 
 const SessionIdContext = createContext<SessionIdContextType>([null, () => {}]);
 
@@ -30,7 +32,7 @@ const useTabTracker = (s: SessionId, setS: React.Dispatch<React.SetStateAction<S
       const count = Number(localStorage.getItem('tabCount') || '0');
 
       // Since React dev mode render twice;
-      const i = process.env.NODE_ENV === 'development' ? 2 : 1;
+      const i = isDebug ? 2 : 1;
       localStorage.setItem('tabCount', String(count - i));
 
       if (count <= 0) {
@@ -79,5 +81,5 @@ export function SessionIdProvider({ children }: SessionIdProviderProps) {
     });
   }, []);
 
-  return <SessionIdContext.Provider value={[sessionId, setSessionId]}>{children}</SessionIdContext.Provider>;
+  return <SessionIdContext.Provider key={sessionId?.accessToken || sessionId?.refreshToken} value={[sessionId, setSessionId]}>{children}</SessionIdContext.Provider>;
 }

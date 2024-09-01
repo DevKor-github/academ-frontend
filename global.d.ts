@@ -1,7 +1,7 @@
 export {};
 
 declare global {
-  type StateChange<T> = React.Dispatch<React.SetStateAction<T>>;
+  type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
   type JWT = string;
 

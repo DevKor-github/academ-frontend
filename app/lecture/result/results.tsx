@@ -5,12 +5,13 @@ import styles from './results.module.css';
 import SearchSingle from '../SearchSingle';
 
 import { apiSearch } from '@/lib/api/course';
-import { SearchBotLoading } from '../loading';
 import { useSessionId } from '@/context/SessionIdContext';
 import { useEffect, useState } from 'react';
 import Button from '@/components/basic/button';
 import Select from '@/components/basic/select';
 import { DownIcon } from '@/icons';
+
+import { usePagination } from '@/lib/hooks/pagination';
 
 function Box({ children }: { children: React.ReactNode }) {
   return (
@@ -22,84 +23,86 @@ function Box({ children }: { children: React.ReactNode }) {
 
 function SearchResultsArrayView({
   courses,
-  setCond,
-  eoc,
+  nextButton,
 }: {
   courses: CourseWithBookmark[];
-  setCond: React.Dispatch<React.SetStateAction<Omit<SearchRequest, 'keyword'>>>;
-  eoc: boolean;
+  nextButton: React.ReactNode;
 }) {
   if (courses.length === 0) {
     return <Box>검색 결과가 없습니다.</Box>;
   }
-  return (
-    <Box>
-      <Select
-        defaultLabel="최신순"
-        setValue={setCond}
-        items={[
-          { value: { order: 'NEWEST', page: 1 }, label: '최신순' },
-          { value: { order: 'RATING_DESC', page: 1 }, label: '별점 높은순' },
-          { value: { order: 'RATING_ASC', page: 1 }, label: '별점 낮은순' },
-        ]}
-      />
+  return (<>
       <div className={styles.container}>
         {courses.map((course) => (
           <SearchSingle key={course.course_id} course={course} />
         ))}
       </div>
-      {eoc || (
-        <div className="w-full pt-6 flex flex-col justify-center items-center">
-          <Button
-            onClick={() =>
-              setCond((v) => {
-                return { ...v, page: v.page + 1 };
-              })
-            }
-          >
-            <DownIcon />
-          </Button>
-        </div>
-      )}
-    </Box>
+    {nextButton}
+  </>
   );
 }
 
-export default function SearchResultsView({ query: keyword }: { query: string }) {
+function SearchResultsViewWithOrder({ query: keyword, order }: { query: string; order: SearchOrdering }) {
   const [jwt] = useSessionId();
-  const [courses, setCourses] = useState<null | CourseWithBookmark[]>(null);
-  const [EOC, setEOC] = useState<boolean>(false);
-  const [cond, setCond] = useState<Omit<SearchRequest, 'keyword'>>({ order: 'NEWEST', page: 1 });
+
+  const [pages, fetchThis] = usePagination(apiSearch);
+
+  useEffect(
+    () => {
+        fetchThis({ keyword, page: pages.page + 1, order: order }, { token: jwt?.accessToken });
+    }
+    , []);
+  
+  function fetchNext() {
+    fetchThis({ keyword, page: pages.page + 1, order: order }, { token: jwt?.accessToken });
+  }
+
+  const nextButton = (pages.eoc ? <div>모두 로드했습니다.</div> :
+    <div className="w-full pt-6 flex flex-col justify-center items-center">
+      {pages.failwith !== null && <div>오류!!</div>}
+      <Button
+        onClick={fetchNext}
+      >
+        <DownIcon />
+      </Button>
+    </div>);
+  
 
   if (keyword === '') {
     return <Box>강의명, 교수명, 학수번호로 검색해보세요.</Box>;
   }
 
-  useEffect(() => {
-    apiSearch({ keyword, page: cond.page, order: cond.order }, { token: jwt?.accessToken }).then((a) => {
-      if (a.status === 'SUCCESS') {
-        if (a.data.length < 10) {
-          setEOC(true);
-        }
-
-        if (cond.page === 1) {
-          setCourses(a.data);
-        } else {
-          setCourses((courses || []).concat(a.data));
-        }
-      } else if (a.statusCode === 404) {
-        setCourses(courses || []);
-        setEOC(true);
-      } else {
-      }
-    });
-  }, [cond]);
-
-  if (courses === null) {
-    return <SearchBotLoading />;
-  } else if (typeof courses === 'string') {
-    return <div></div>;
-  } else {
-    return <SearchResultsArrayView setCond={setCond} courses={courses} eoc={EOC} />;
+  if (pages.loadingState === 'bot') {
+    return <div />;
   }
+
+  if (pages.loadingState === 'never') {
+    return <Box>{pages.failwith.message}</Box>;
+  }
+  
+  return <SearchResultsArrayView courses={pages.data} nextButton={nextButton} />;
+
+} 
+
+export default function SearchResultsView({ query }: { query: string }) {
+  
+  const [order, setOrder] = useState<SearchOrdering>('NEWEST');
+
+  useEffect(() => {
+
+  }, [order]);
+
+  return (<Box>
+    <Select
+      defaultLabel="최신순"
+      setValue={setOrder}
+      items={[
+        { value: 'NEWEST', label: '최신순' },
+        { value: 'RATING_DESC', label: '별점 높은순' },
+        { value: 'RATING_ASC', label: '별점 낮은순' },
+      ] as const}
+    />
+    {<SearchResultsViewWithOrder key={order} query={query} order={order} />}
+  </Box>);
+
 }
