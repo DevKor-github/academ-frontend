@@ -13,3 +13,55 @@
     transform: rotate(360deg);
   }
 }
+
+
+.animate-1 {
+  animation: fadeOff 1s infinite;
+  animation-delay: 0ms;
+}
+
+.animate-125 {
+  animation: fadeOff 1s infinite;
+  animation-delay: -125ms;
+}
+
+.animate-25 {
+  animation: fadeOff 1s infinite;
+  animation-delay: -250ms;
+}
+
+.animate-375 {
+  animation: fadeOff 1s infinite;
+  animation-delay: -375ms;
+}
+
+.animate-5 {
+  animation: fadeOff 1s infinite;
+  animation-delay: -500ms;
+}
+
+.animate-625 {
+  animation: fadeOff 1s infinite;
+  animation-delay: -625ms;
+}
+
+.animate-75 {
+  animation: fadeOff 1s infinite;
+  animation-delay: -750ms;
+}
+
+.animate-875 {
+  animation: fadeOff 1s infinite;
+  animation-delay: -875ms;
+}
+
+
+@keyframes fadeOff {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.2;
+  }
+}
