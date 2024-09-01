@@ -15,12 +15,12 @@ interface MyPageBasicInfo {
 type UpdateProfileReq = Pick<MyPageBasicInfo, 'username' | 'student_id' | 'degree' | 'semester' | 'department'>;
 
 interface UpdatePWReq {
-  password: string;
+  old_password: string;
+  new_password: string;
 }
 
 interface UpdatePWExtended extends UpdatePWReq {
-  // old_password: string;
-  password_check: string;
+  new_password_check: string;
 }
 
 interface MembershipData {
