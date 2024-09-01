@@ -33,20 +33,22 @@ export default function TopNav() {
     <nav>
       <div className={
         'fixed z-50 top-0 w-full backdrop-blur-lg ' +
-        (overlap ? ' text-white  ' : ' border-b light:border-b-light-back-2 dark:border-b-dark-back-4')}>
+
+
+        (overlap ? ' text-white bg-black bg-opacity-75 ' : ' border-b light:border-b-light-back-2 dark:border-b-dark-back-4')
+      
+      
+      
+      }>
       <VStack
           className={`pl-2 pr-2 md:pl-8 md:pr-8 ${className} flex flex-nowrap items-start flex-row justify-between w-full transition-all 
           `
             +
-            (spreaded ? `h-72 md:h-16 md:bg-transparent ` : ' h-16 ')
+            (spreaded ? `h-72 md:h-16 md:bg-transparent ` : ' backdrop-blur-xl h-16 ')
             +
             (spreaded && overlap /* dark */ ? ' bg-black ' : '')
             +
-            (!spreaded && overlap ? ' bg-dark-back-1 bg-opacity-20 backdrop-blur-xl ' : ' ')
-            +
             (spreaded && !overlap ? ' text-black dark:text-white bg-white dark:bg-dark-back-5 ' : '')
-            +
-            (!spreaded && !overlap ? ' bg-none ' : '')
         
       }
       >
