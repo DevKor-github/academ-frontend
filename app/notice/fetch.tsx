@@ -2,13 +2,14 @@
 
 import { useSessionId } from '@/context/SessionIdContext';
 import { apiNoticeList } from '@/lib/api/notice';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import NoticeSingle from './NoticeSingle';
 import { HStack } from '@/components/basic/stack';
 import { Notice } from '@/lib/api/notice';
 import Button from '@/components/basic/button';
 import { DownIcon } from '@/icons';
 import { usePagination } from '@/lib/hooks/pagination';
+import {Spinner2} from '@/components/basic/spinner';
 
 function NoticeListView({
   notices,
@@ -40,8 +41,8 @@ export default function NoticeResultsView() {
   
   useEffect(fetchNext, []);
 
-  if (pages.loadingState === 'bot') {
-    return <div />;
+  if (pages.totalLoadingState === 'bot') {
+    return (<div className='w-full p-8 flex flex-row justify-center items-center text-6xl'><Spinner2 /></div>);
   }
 
   const showMoreButton = (

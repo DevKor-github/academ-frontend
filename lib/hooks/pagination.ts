@@ -12,28 +12,28 @@ export type LoadingState = 'bot' | 'done' | 'never';
 
 export type Paged<T> =
   | {
-      loadingState: 'bot';
+      totalLoadingState: 'bot';
       failwith: unknown;
       data: unknown;
       eoc: unknown;
       page: number;
     }
   | {
-      loadingState: 'done';
+      totalLoadingState: 'done';
       failwith: null;
       data: T[];
       eoc: boolean;
       page: number;
     }
   | {
-      loadingState: 'done';
+      totalLoadingState: 'done';
       failwith: ApiResponse<T[]>;
       data: T[];
       eoc: boolean;
       page: number;
     }
   | {
-      loadingState: 'never';
+      totalLoadingState: 'never';
       failwith: ApiResponse<T[]>;
       data: T[];
       eoc: boolean;
@@ -46,7 +46,7 @@ export function usePagination<Req extends { page: number }, Res>(
 ): [Paged<Res>, VoidifyReturn<typeof apiCall>] {
   const firstPage = 0;
 
-  const [loadingState, setLoadingState] = useState<LoadingState>('bot');
+  const [totalLoadingState, setTotalLoadingState] = useState<LoadingState>('bot');
   const [data, setData] = useState<Res[] | null>(null);
   const [eoc, setEoc] = useState<boolean>(false);
   const [failwith, setFailwith] = useState<null | ApiResponse<Res[]>>(null);
@@ -70,15 +70,15 @@ export function usePagination<Req extends { page: number }, Res>(
         setFailwith(a);
       }
 
-      if (loadingState === 'bot') {
+      if (totalLoadingState === 'bot') {
         if (a.status === 'SUCCESS') {
-          setLoadingState('done');
+          setTotalLoadingState('done');
         } else {
-          setLoadingState('never');
+          setTotalLoadingState('never');
         }
       }
     });
   }
 
-  return [{ loadingState, data, eoc, page, failwith } as Paged<Res>, fetchThis];
+  return [{ totalLoadingState, data, eoc, page, failwith } as Paged<Res>, fetchThis];
 }
