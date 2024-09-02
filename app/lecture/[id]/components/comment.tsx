@@ -34,7 +34,9 @@ function getTag(comment: AcdComment) {
     comment.learn_t2_thesis ? ['논문 작성에 도움'] : [],
     comment.learn_t3_exam ? ['시험 대비에 도움'] : [],
     comment.learn_t4_industry ? ['현업 적용에 도움'] : [],
-  ].flat(1);
+  ]
+    .flat(1)
+    .slice(0, 3);
 }
 
 function Left({ comment }: { comment: AcdComment }) {
@@ -108,12 +110,12 @@ function Right({
           overflow: 'hidden',
           height: 'min-content',
           flexWrap: 'wrap',
-          gap: '4px',
+          gap: '12px',
           paddingTop: '20px',
         }}
         className="text-base justify-between"
       >
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           <span className="text-neutral-400">닉네임</span>
           <span className="font-semibold mr-2">{comment.username}</span>
           <span className="text-neutral-400">작성일</span>
@@ -128,7 +130,7 @@ function Right({
       </VStack>
       <span className="flex flex-row text-xl font-normal flex-grow gap-4 mt-8 mb-2">
         <div className="text-neutral-400 text-base w-max">작성내용</div>
-        <div className="break-words whitespace-pre-line">{comment.review}</div>
+        <div className="break-keep whitespace-pre-line">{comment.review}</div>
       </span>
       <VStack className="self-end" gap="4px">
         {editable ? (
