@@ -7,16 +7,6 @@ interface AdaptiveStackProps extends React.DetailedHTMLProps<React.HTMLAttribute
   style?: React.CSSProperties;
 }
 
-function AdaptiveStack({ className = '', vGap, hGap, children, style }: AdaptiveStackProps) {
-  const combinedStyle: React.CSSProperties = { ...style, ...{ columnGap: vGap, rowGap: hGap } };
-
-  return (
-    <div className={'flex flex-col md:flex-row ' + className} style={combinedStyle}>
-      {children}
-    </div>
-  );
-}
-
 import Link from 'next/link';
 import { LogoIconRich } from '@/icons';
 
