@@ -150,12 +150,17 @@ export default function WriteOrEditComment<Req extends AcdCommentJoin>({
     });
   }
 
+  const [tagNum, setTagNum] = useState<number>(0);
+
   function handleInputBoolean(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { value } = event.target;
-    setInput({
-      ...input,
-      [event.target.id]: value === 'on' ? true : false,
-    });
+    if (tagNum < 3 || value == 'off') {
+      setInput({
+        ...input,
+        [event.target.id]: value === 'on' ? true : false,
+      });
+      value === 'on' ? setTagNum(tagNum + 1) : setTagNum(tagNum - 1);
+    } else alert('태그는 최대 3개까지 선택 가능합니다.');
   }
 
   const [open, setOpen] = useState(false);
