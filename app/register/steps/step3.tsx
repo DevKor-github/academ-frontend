@@ -163,7 +163,7 @@ export default function Step3({
         required
         type="email"
         id="email"
-        label={input.email}
+        placeholder={input.email}
         onChange={handleInput}
         disabled={true}
         style={{ width: '100%' }}
@@ -173,7 +173,7 @@ export default function Step3({
         required
         type="password"
         id="password"
-        label="비밀번호를 입력해주세요"
+        placeholder="비밀번호를 입력해주세요"
         onChange={handleInput}
         autoFocus
         style={{ width: '100%' }}
@@ -200,7 +200,7 @@ export default function Step3({
       </span>
       <VStack gap="10px" className="w-100% justify-between">
         <div className="grow">
-          <Input required type="text" id="username" label="닉네임 (1-10자)" onChange={handleInput} />
+          <Input required type="text" id="username" placeholder="닉네임 (1-10자)" onChange={handleInput} />
         </div>
         <Button kind="filled" className="px-4 grow-0" onClick={handleDuplicateName}>
           닉네임 중복 확인
@@ -216,7 +216,7 @@ export default function Step3({
         }
       />
       <span className="text-xl">학번</span>
-      <Input required type="text" id="student_id" label="학번" onChange={handleInput} style={{ width: '100%' }} />
+      <Input required type="text" id="student_id" placeholder="학번" onChange={handleInput} style={{ width: '100%' }} />
       <ErrorLabel label={!isNumValid && input.student_id !== '' ? '학번 앞 7자를 입력해주세요.' : ''} />
       <span className="text-xl">학과</span>
       <div
@@ -229,7 +229,7 @@ export default function Step3({
           required
           type="text"
           id="department"
-          label="학과"
+          placeholder="학과"
           autoComplete="off"
           value={input.department}
           onChange={changeInputValue}
