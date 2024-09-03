@@ -4,7 +4,7 @@ import { Star1 } from '@/components/composite/starIndicator';
 import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
 import Button from '@/components/basic/button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { apiDeleteComment, apiLikeComment } from '@/lib/api/course';
 
@@ -12,7 +12,8 @@ import { decode } from '@/lib/jwt';
 
 import Link from 'next/link';
 import { useSessionId } from '@/context/SessionIdContext';
-import { ThumbUpIcon } from '@/icons';
+import { SelectedThumbUpIcon, ThumbUpIcon } from '@/icons';
+import { retryWithJWTRefresh } from '@/lib/api/authHelper';
 
 function quaternary<T>(that: number, standard: number, gt: T, eq: T, lt: T) {
   if (that === standard) {
@@ -99,9 +100,18 @@ function Right({
   comment: AcdComment;
   setDel: React.Dispatch<boolean>;
 }) {
+  const sessionId = useSessionId();
+  const [newLike, setNewLike] = useState<boolean>(false);
+
+  useEffect(() => setNewLike(false), []);
+
   const textColorClass = comment.already_like
-    ? 'text-red-600 border-red-600/50'
-    : 'text-neutral-400 border-neutral-400';
+    ? newLike
+      ? 'text-neutral-400 border-neutral-400'
+      : 'text-red-600 border-red-600/50'
+    : newLike
+      ? 'text-red-600 border-red-600/50'
+      : 'text-neutral-400 border-neutral-400';
 
   return (
     <HStack className="w-full h-full" gap="8px">
@@ -132,7 +142,7 @@ function Right({
         <div className="text-neutral-400 text-base w-max">작성내용</div>
         <div className="break-keep whitespace-pre-line">{comment.review}</div>
       </span>
-      <VStack className="self-end" gap="4px">
+      <VStack className="self-end items-center" gap="6px">
         {editable ? (
           <>
             <Link href={`/comment/${comment.comment_id}/edit`}>
@@ -142,7 +152,10 @@ function Right({
               kind="blank"
               onClick={() => {
                 if (confirm('정말 삭제하시겠습니까?') == true) {
-                  apiDeleteComment({ comment_id: comment.comment_id }).then((a) => {
+                  retryWithJWTRefresh(
+                    apiDeleteComment,
+                    sessionId,
+                  )({ comment_id: comment.comment_id }).then((a) => {
                     if (a.status === 'SUCCESS') {
                       setDel(true);
                       alert('성공적으로 삭제했습니다.');
@@ -162,15 +175,38 @@ function Right({
         <button
           className={`flex flex-row justify-center items-center px-4 py-1 border rounded-full gap-2 ${textColorClass}`}
           onClick={() => {
-            apiLikeComment({ comment_id: comment.comment_id }).then((a) => {
-              if (a.status === 'SUCCESS') {
+            retryWithJWTRefresh(
+              apiLikeComment,
+              sessionId,
+            )({ comment_id: comment.comment_id }).then((s) => {
+              if (s.status === 'SUCCESS') {
+                setNewLike(!newLike);
               } else {
                 alert('강의평 좋아요에 실패하였습니다. 잠시 후 다시 시도해주세요.');
               }
             });
           }}
         >
-          <ThumbUpIcon /> 이 글 추천하기 ({comment.likes})
+          {comment.already_like ? (
+            newLike ? (
+              <ThumbUpIcon />
+            ) : (
+              <SelectedThumbUpIcon />
+            )
+          ) : newLike ? (
+            <SelectedThumbUpIcon />
+          ) : (
+            <ThumbUpIcon />
+          )}
+          이 글 추천하기 (
+          {comment.already_like
+            ? newLike
+              ? comment.likes - 1
+              : comment.likes
+            : newLike
+              ? comment.likes + 1
+              : comment.likes}
+          )
         </button>
         <Link href={`/comment/${comment.comment_id}/report`}>
           <button className="flex justify-center items-center px-4 py-1 border rounded-full border-neutral-400 text-neutral-400">

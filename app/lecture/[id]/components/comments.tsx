@@ -7,6 +7,7 @@ import Select from '@/components/basic/select';
 
 export default function CommentsView({ course_id, comments }: { course_id?: number; comments: AcdComment[] }) {
   const [order, setOrder] = useState<CommentsOrdering>('NEWEST');
+
   return (
     <HStack
       className="pl-2 pr-2 md:pl-8 md:pr-8 pt-12 pb-12 h-full transition-all
@@ -37,7 +38,9 @@ export default function CommentsView({ course_id, comments }: { course_id?: numb
         </VStack>
       </VStack>
 
-      {comments?.map((t) => <CommentView key={t.comment_id} comment={t} />)}
+      {order === 'POPEST'
+        ? comments?.toSorted((a, b) => b.likes - a.likes).map((t) => <CommentView key={t.comment_id} comment={t} />)
+        : comments.map((t) => <CommentView key={t.comment_id} comment={t} />)}
     </HStack>
   );
 }
