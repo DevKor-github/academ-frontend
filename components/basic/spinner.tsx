@@ -3,7 +3,7 @@ import styles from './spinner.module.css';
 //  border: 16px solid #f3f3f3;
 //border-top: 16px solid #3498db;
 
-export function Spinner() {
+export default function Spinner() {
   return (
     <div>
       <svg fill="none" height="1em" viewBox="-7 -7 14 14" width="1em" xmlns="http://www.w3.org/2000/svg" strokeWidth="1.5">
