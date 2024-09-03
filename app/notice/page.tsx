@@ -1,10 +1,10 @@
-import { Spinner2 } from '@/components/basic/spinner';
+import Spinner from '@/components/basic/spinner';
 import { HStack } from '@/components/basic/stack';
 import dynamic from 'next/dynamic';
 
 const NoticeResultsView = dynamic(() => import('./fetch'), {
   ssr: false, loading: () => (
-    <div className='w-full p-8 flex flex-row justify-center items-center text-6xl'><Spinner2 /></div>
+    <div className='w-full p-8 flex flex-row justify-center items-center text-6xl'><Spinner /></div>
   )
     , }) 
 

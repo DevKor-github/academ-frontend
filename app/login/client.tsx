@@ -15,7 +15,7 @@ import ErrorLabel from '@/components/basic/errorlabel';
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
 import { keyForStorage } from '../../context/SessionIdContext';
-import { Spinner2 } from '@/components/basic/spinner';
+import Spinner from '@/components/basic/spinner';
 
 export default function LoginPageClient() {
   const [input, setInput] = useState({
@@ -135,7 +135,7 @@ export default function LoginPageClient() {
             color="primary"
             style={{ padding: '16px', width: '100%' }}
           >
-            {loading ? <Spinner2 /> : <div>로그인</div>}
+            {loading ? <Spinner /> : <div>로그인</div>}
           </Button>
           <span style={{ textAlign: 'center' }}>
             계정이 없으신가요? <A href="/register">회원가입</A>

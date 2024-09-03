@@ -13,7 +13,7 @@ import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
 import { RightIcon } from '@/icons';
 import { apiSendEmail } from '@/lib/api/login';
-import { Spinner2 } from '@/components/basic/spinner';
+import Spinner from '@/components/basic/spinner';
 
 const validateEmail = (email: string) => {
   const re = /^[^\s@]+@korea\.ac\.kr$/;
@@ -74,7 +74,7 @@ export default function Step1({
       <ErrorLabel className="text-primary-500" label={error} shake={timeout} />
       <VStack className="w-full h-fit justify-end" gap="36px">
         {loading ? (
-          <span className='text-6xl text-primary-500'><Spinner2 /></span>
+          <span className='text-6xl text-primary-500'><Spinner /></span>
         ) : (
           <Button
             kind="outline"
