@@ -135,7 +135,7 @@ export default function LoginPageClient() {
             color="primary"
             style={{ padding: '16px', width: '100%' }}
           >
-            {loading ? <Spinner /> : <div>로그인</div>}
+            {loading ? <span><Spinner /> 처리 중...</span> : <div>로그인</div>}
           </Button>
           <span style={{ textAlign: 'center' }}>
             계정이 없으신가요? <A href="/register">회원가입</A>
