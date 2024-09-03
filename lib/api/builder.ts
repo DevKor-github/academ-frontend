@@ -4,11 +4,11 @@ import axios, { AxiosResponse } from 'axios';
 import { AxiosError } from 'axios';
 import { AxiosRequestConfig } from 'axios';
 
-import { useEffect, useState } from 'react';
-import { isDebug } from '../directive';
+import { useEffect, useLayoutEffect, useState } from 'react';
+import { isDebug, backendBaseUrl } from '../directive';
 
 const backend = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_API_URL,
+  baseURL: backendBaseUrl,
   maxRedirects: 0,
   withCredentials: true,
 });
@@ -156,6 +156,20 @@ export function useApi<Req, Res>(apiCall: ApiCall<Req, Res>, req: Req, ctx?: Api
   const [response, setResponse] = useState<ApiResponse<Res> | null>(null);
 
   useEffect(() => {
+    apiCall(req, ctx).then((a) => {
+      setResponse(a);
+      setLoading(false);
+    });
+  }, []);
+
+  return { response, loading } as ApiState<Res>;
+}
+
+export function useLayoutApi<Req, Res>(apiCall: ApiCall<Req, Res>, req: Req, ctx?: ApiCTX) {
+  const [loading, setLoading] = useState<boolean>(true);
+  const [response, setResponse] = useState<ApiResponse<Res> | null>(null);
+
+  useLayoutEffect(() => {
     apiCall(req, ctx).then((a) => {
       setResponse(a);
       setLoading(false);
