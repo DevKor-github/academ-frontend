@@ -1,10 +1,10 @@
 export const CloseIcon = () => (
   <svg
-    className="stroke-neutral-950 dark:stroke-neutral-50"
     viewBox="0 0 32 32"
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
     height="1em"
+    stroke = "currentColor"
   >
     <line x1="2" y1="2" x2="30" y2="30" strokeWidth="3" />
     <line x1="2" y1="30" x2="30" y2="2" strokeWidth="3" />
@@ -15,8 +15,8 @@ export const LeftIcon = () => (
   <svg
     width="1em"
     height="1em"
-    className="stroke-neutral-950 dark:stroke-neutral-50"
     xmlns="http://www.w3.org/2000/svg"
+    stroke = "currentColor"
   >
     <path d="M 15 2 L 2 16 L 15 30" strokeWidth="3" fill="none" />
   </svg>
