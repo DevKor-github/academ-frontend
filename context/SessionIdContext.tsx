@@ -28,7 +28,7 @@ const useTabTracker = (s: SessionId, setS: React.Dispatch<React.SetStateAction<S
     const prevCount = Number(localStorage.getItem('tabCount') || '0');
     localStorage.setItem('tabCount', String(prevCount + 1));
 
-    const onUnload = () => {
+    const onHide = () => {
       const count = Number(localStorage.getItem('tabCount') || '0');
 
       // Since React dev mode render twice;
@@ -42,10 +42,10 @@ const useTabTracker = (s: SessionId, setS: React.Dispatch<React.SetStateAction<S
       }
     };
 
-    window.addEventListener('beforeunload', onUnload);
+    window.addEventListener('pagehide', onHide);
 
     // Cleanup function
-    return () => window.removeEventListener('beforeunload', onUnload);
+    return () => window.removeEventListener('pagehide', onHide);
   }, []);
 };
 
