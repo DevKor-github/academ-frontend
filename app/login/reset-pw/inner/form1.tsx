@@ -1,5 +1,7 @@
 import { HStack } from '@/components/basic/stack';
 
+import { handleInputBuilder } from '@/lib/form/handler';
+
 import Button from '@/components/basic/button';
 import Input from '@/components/basic/input';
 import Spinner from '@/components/basic/spinner';
@@ -9,10 +11,7 @@ export default function ResetPwForm1({ input, handleInput, handleSubmit, submitt
   
   return (<form
     method="post"
-    onSubmit={(e) => {
-      e.preventDefault();
-      handleSubmit();
-    }}
+    onSubmit={handleSubmit}
   >
     <HStack gap="48px">
       <HStack gap="16px">

@@ -6,9 +6,9 @@ import { useState } from 'react';
 
 import { apiResetPassword } from '@/lib/api/login';
 import { apiSendEmail } from '@/lib/api/login';
-import { handleInputBuilder } from '@/lib/form/handler';
 import ResetPwForm1 from './inner/form1';
 import ResetPwForm2 from './inner/form2';
+import { handleInputBuilder } from '@/lib/form/handler';
 
 export default function FindPWPageClient() {
   const [input, setInput] = useState<ResetPwReq>({
@@ -20,9 +20,8 @@ export default function FindPWPageClient() {
 
   const route = useRouter();
 
-  const handleInput = handleInputBuilder(input, setInput);
-
-  function handleSendcode() {
+  function handleSendcode(e: React.FormEvent) {
+    e.preventDefault();
     setWip(true);
     apiSendEmail({ email: (input.email.split('@')[0] || '')}).then((s) => {
       if (s.status === 'SUCCESS') {
@@ -35,8 +34,8 @@ export default function FindPWPageClient() {
     });
   }
 
-  function handleResetPw() {
-    //input.email // input.password
+  function handleResetPw(e: React.FormEvent) {
+    e.preventDefault();
     setWip(true);
     apiResetPassword({ email: input.email, code: input.code }).then((s) => {
       if (s.status === 'SUCCESS') {
@@ -50,6 +49,6 @@ export default function FindPWPageClient() {
   }
 
   return (step === 1 ?
-    <ResetPwForm1 input={input} handleInput={handleInput} handleSubmit={handleSendcode} submitting={wip} /> :
-    <ResetPwForm2 input={input} handleInput={handleInput} handleSubmit={handleResetPw} submitting={wip} />);
+    <ResetPwForm1 input={input} handleInput={handleInputBuilder(input, setInput)} handleSubmit={handleSendcode} submitting={wip} /> :
+    <ResetPwForm2 input={input} handleInput={handleInputBuilder(input, setInput)} handleSubmit={handleResetPw} submitting={wip} />);
 }
