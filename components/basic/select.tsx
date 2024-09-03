@@ -32,7 +32,7 @@ export default function Select<T>({
           className={`!border !rounded-full px-4 ${
             selected === v.label
               ? '!text-primary-500 !bg-primary-500/10 !border-primary-500'
-              : '!text-light-fore-10 !bg-neutral-100 !border-neutral-400'
+              : 'light:!text-light-fore-10 dark:!text-dark-fore-10 light:!bg-light-back-1 dark:!bg-dark-back-1 light:!border-light-back-4 dark:!border-dark-back-4'
           }`}
         >
           <span>{v.label}</span>
