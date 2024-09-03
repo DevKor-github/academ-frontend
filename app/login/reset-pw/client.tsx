@@ -1,34 +1,36 @@
 'use client';
 
+
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { HStack } from '@/components/basic/stack';
 
-import Button from '@/components/basic/button';
-import Input from '@/components/basic/input';
 import { apiResetPassword } from '@/lib/api/login';
+import { apiSendEmail } from '@/lib/api/login';
+import { handleInputBuilder } from '@/lib/form/handler';
+import ResetPwForm1 from './inner/form1';
+import ResetPwForm2 from './inner/form2';
 
 export default function FindPWPageClient() {
-  const [input, setInput] = useState({
-    email: '',
+  const [input, setInput] = useState<ResetPwReq>({
+    email: '', code: ''
   });
+
+  const [step, setStep] = useState<1 | 2 | 3>(1);
 
   const route = useRouter();
 
 
-  const [wip, setWip] = useState(false);
+  
+  const handleInput = handleInputBuilder(input, setInput);
 
-  function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
-    setInput({
-      ...input,
-      [event.target.id]: event.target.value,
-    });
+  function handleSendcode() {
+
   }
 
-  function handleFindPW() {
+  function handleReset() {
     //input.email // input.password
     setWip(true);
-    apiResetPassword({ email: (input.email.split('@')[0] || '') }).then((s) => {
+    apiResetPassword({ email: (input.email.split('@')[0] || ''), code: (input.code) }).then((s) => {
       if (s.status === 'SUCCESS') {
         alert(s.message);
         route.push('/login');
@@ -39,40 +41,9 @@ export default function FindPWPageClient() {
     });
   }
 
-  return (
-    <form
-      method="post"
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleFindPW();
-      }}
-    >
-      <HStack gap="48px">
-        <HStack gap="16px">
-          <Input
-            required
-            id="email"
-            placeholder="이메일을 입력해주세요"
-            onChange={handleInput}
-            value={input.email}
-            style={{ padding: '16px' }}
-          />
-        </HStack>
 
-        <HStack style={{}} gap="20px">
-          <Button
-            type="submit"
-            kind="filled"
-            disabled={wip || input.email === ''}
-            accnet="0"
-            variant="contained"
-            color="primary"
-            style={{ padding: '16px', width: '100%' }}
-          >
-            <div>{wip ? "전송 중..." : "비밀번호 초기화" }</div>
-          </Button>
-        </HStack>
-      </HStack>
-    </form>
-  );
+
+  return (step === 1 ?
+    <ResetPwForm1 input={input} handleInput={handleInput} handleSubmit={handleSendcode}  /> :
+    <ResetPwForm2 input={input} handleInput={handleInput} handleSubmit={handleSendcode}  />);
 }
