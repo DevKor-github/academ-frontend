@@ -17,6 +17,7 @@ export default function ResetPwForm1({ input, handleInput, handleSubmit, submitt
       <HStack gap="16px">
         <Input
           required
+          readOnly={handleInput === undefined}
           id="email"
           type='email'
           autoComplete='username'

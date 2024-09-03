@@ -17,6 +17,7 @@ export default function ResetPwForm2({ input, handleInput, handleSubmit, submitt
         <Input
           disabled
           required
+          readOnly={handleInput === undefined}
           id="email"
           placeholder="이메일을 입력해주세요"
           onChange={handleInput}
@@ -26,6 +27,7 @@ export default function ResetPwForm2({ input, handleInput, handleSubmit, submitt
 
         <Input
           required
+          readOnly={handleInput === undefined}
           id="code"
           placeholder="인증번호를 입력해주세요"
           autoComplete='one-time-code'
