@@ -9,6 +9,12 @@ import SummaryView from './components/summary';
 import Link from 'next/link';
 import { IssueIcon } from '@/icons';
 
+function WriteNewMobile({ course_id } : {course_id : number}) {
+  return (<Link className='fixed aspect-square bg-primary-500 p-4 bottom-8 right-8 z-20 rounded-full md:hidden' href={`/lecture/${course_id}/write`}>
+   …
+  </Link>)
+}
+
 export default function LectureView({ course }: { course: CourseWithBookmark }) {
   if (course.comments.length === 0) {
     return (
@@ -29,6 +35,7 @@ export default function LectureView({ course }: { course: CourseWithBookmark }) 
         <BasicInfoView course={course} />
         <SummaryView course={course} />
         <CommentsView course_id={course.course_id} comments={course.comments} />
+        <WriteNewMobile course_id={course.course_id} />
       </HStack>
     );
   }
