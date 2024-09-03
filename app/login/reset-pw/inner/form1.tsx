@@ -1,22 +1,17 @@
-'use client';
-
-import { useState } from 'react';
-
 import { HStack } from '@/components/basic/stack';
 
 import Button from '@/components/basic/button';
 import Input from '@/components/basic/input';
+import Spinner from '@/components/basic/spinner';
 
-export default function ResetPwForm1({ input, handleInput, handleSubmit }: FormProps<ResetPwReq>) {
-  
-  const [wip, setWip] = useState<boolean>(false);
+export default function ResetPwForm1({ input, handleInput, handleSubmit, submitting }: FormProps<ResetPwReq>) {
+
   
   return (<form
     method="post"
     onSubmit={(e) => {
       e.preventDefault();
-      setWip(true)
-      handleSubmit().then(() => setWip(false));
+      handleSubmit();
     }}
   >
     <HStack gap="48px">
@@ -24,6 +19,8 @@ export default function ResetPwForm1({ input, handleInput, handleSubmit }: FormP
         <Input
           required
           id="email"
+          type='email'
+          autoComplete='username'
           placeholder="이메일을 입력해주세요"
           onChange={handleInput}
           value={input.email}
@@ -35,13 +32,13 @@ export default function ResetPwForm1({ input, handleInput, handleSubmit }: FormP
         <Button
           type="submit"
           kind="filled"
-          disabled={wip || input.email === ''}
+          disabled={submitting || input.email === ''}
           accnet="0"
           variant="contained"
           color="primary"
           style={{ padding: '16px', width: '100%' }}
         >
-          <div>{wip ? "전송 중..." : "비밀번호 초기화"}</div>
+          <div>{submitting ? <span><Spinner /> 전송 중...</span> : "인증번호 전송"}</div>
         </Button>
       </HStack>
     </HStack>

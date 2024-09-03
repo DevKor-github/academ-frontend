@@ -16,21 +16,29 @@ export default function FindPWPageClient() {
   });
 
   const [step, setStep] = useState<1 | 2 | 3>(1);
+  const [wip, setWip] = useState<boolean>(false); // wip means working in progress; 'application is busy'
 
   const route = useRouter();
 
-
-  
   const handleInput = handleInputBuilder(input, setInput);
 
   function handleSendcode() {
-
+    setWip(true);
+    apiSendEmail({ email: (input.email.split('@')[0] || '')}).then((s) => {
+      if (s.status === 'SUCCESS') {
+        setStep(2);
+        setWip(false);
+      } else {
+        alert(s.message);
+        setWip(false);
+      }
+    });
   }
 
-  function handleReset() {
+  function handleResetPw() {
     //input.email // input.password
     setWip(true);
-    apiResetPassword({ email: (input.email.split('@')[0] || ''), code: (input.code) }).then((s) => {
+    apiResetPassword({ email: input.email, code: input.code }).then((s) => {
       if (s.status === 'SUCCESS') {
         alert(s.message);
         route.push('/login');
@@ -41,9 +49,7 @@ export default function FindPWPageClient() {
     });
   }
 
-
-
   return (step === 1 ?
-    <ResetPwForm1 input={input} handleInput={handleInput} handleSubmit={handleSendcode}  /> :
-    <ResetPwForm2 input={input} handleInput={handleInput} handleSubmit={handleSendcode}  />);
+    <ResetPwForm1 input={input} handleInput={handleInput} handleSubmit={handleSendcode} submitting={wip} /> :
+    <ResetPwForm2 input={input} handleInput={handleInput} handleSubmit={handleResetPw} submitting={wip} />);
 }
