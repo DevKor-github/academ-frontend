@@ -39,7 +39,7 @@ export default function LoginPageLoading() {
               value={false}
               label="로그인 정보 저장"
             />
-            <A href="/login/reset-password">비밀번호 초기화</A>
+            <A href="/login/reset-pw">비밀번호 초기화</A>
           </VStack>
         </HStack>
 
