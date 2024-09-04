@@ -2,7 +2,7 @@ import { HStack } from '@/components/basic/stack';
 import parse from 'html-react-parser';
 import { ssget } from '@/lib/api/ssg';
 import { ApiResponse } from '@/lib/api/builder';
-import { Notice, NoticeDetailRequest } from '@/lib/api/notice';
+import { NoticeDetailed, NoticeDetailRequest } from '@/lib/api/notice';
 
 // This function gets called at build time
 export async function generateStaticParams() {
@@ -26,7 +26,7 @@ export async function generateStaticParams() {
 
 export default async function NoticeView({ params }: { params: { id: string } }) {
   
-  const res = await ssget<NoticeDetailRequest , ApiResponse<Notice>>('/api/notice/detail', { notice_id : Number(params.id) });
+  const res = await ssget<NoticeDetailRequest , ApiResponse<NoticeDetailed>>('/api/notice/detail', { notice_id : Number(params.id) });
 
   if (res.status !== 'SUCCESS') {
     throw Error("Failed to get detailed notice content")

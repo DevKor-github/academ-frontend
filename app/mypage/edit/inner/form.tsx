@@ -1,53 +1,20 @@
 import Button from '@/components/basic/button';
 import Link from 'next/link';
+import Input from '@/components/basic/input';
+import Spinner from '@/components/basic/spinner';
 
-function MyInput({
-  name,
-  placeholder,
-  setInput,
-  value,
-}: {
-  value: string;
-  name: keyof UpdateProfileReq;
-  placeholder: string;
-  setInput: SetState<UpdateProfileReq>;
-}) {
-  return (
-    <input
-      required
-      placeholder={placeholder}
-      value={value}
-      className="bg-light-back-1 dark:bg-dark-back-2 p-8"
-      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-        setInput((v) => {
-          const ret = { ...v };
-          // @ts-ignore
-          ret[name] = event.target.value;
-          return ret;
-        });
-      }}
-    />
-  );
-}
-
-export default function UpdateBasicForm({
+export default function MyPageEditBasicForm({
   handleSubmit,
   input,
-  setInput,
-}: {
-  handleSubmit: (input: UpdateProfileReq) => void;
-  input: UpdateProfileReq;
-  setInput: SetState<UpdateProfileReq>;
-}) {
+  handleInput,
+  submitting,
+}: FormProps<UpdateProfileReq>) {
   return (
     <main className="pt-8 pb-8 h-full transition-all">
       <form
         className="flex flex-col gap-8"
         method="post"
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit(input);
-        }}
+        onSubmit={handleSubmit}
       >
         <div className="w-full flex flex-row justify-between">
           <div className="pl-8 pr-8 font-bold text-xl">프로필 수정</div>
@@ -58,15 +25,15 @@ export default function UpdateBasicForm({
           </Link>
         </div>
 
-        <MyInput name="username" placeholder="닉네임" value={input.username} setInput={setInput} />
-        <MyInput name="student_id" placeholder="학번" value={input.student_id} setInput={setInput} />
+        <Input id="username" placeholder="닉네임" value={input.username} onChange={handleInput} readOnly={handleInput === undefined} />
+        <Input id="student_id" placeholder="학번" value={input.student_id} onChange={handleInput} readOnly={handleInput === undefined} />
         {/* <MyInput name="username" placeholder="닉네임" value={input.username} setInput={setInput} /> */}
-        <MyInput name="semester" placeholder="학기" value={String(input.semester)} setInput={setInput} />
-        <MyInput name="department" placeholder="소속" value={input.department} setInput={setInput} />
+        <Input id="semester" placeholder="학기" value={String(input.semester)} onChange={handleInput} readOnly={handleInput === undefined} />
+        <Input id="department" placeholder="소속" value={input.department} onChange={handleInput} readOnly={handleInput === undefined} />
 
         <div className="flex flex-row justify-center items-center mt-8">
           <Button kind="filled" type="submit">
-            프로필 수정하기
+            {submitting ? <span><Spinner /> 처리 중...</span> : "프로필 수정하기"}
           </Button>
         </div>
       </form>

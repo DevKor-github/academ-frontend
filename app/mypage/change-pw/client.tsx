@@ -2,38 +2,43 @@
 
 import { apiProfileUpdatePW } from '@/lib/api/mypage';
 import { useState } from 'react';
-import Submitted from './inner/submitted';
 import { useSessionId } from '@/context/SessionIdContext';
 import { retryWithJWTRefresh } from '@/lib/api/authHelper';
 
-import UpdateBasicForm from './inner/form';
+import { useRouter } from 'next/navigation';
+
+import ChangePwForm from './inner/form';
+import { handleInputBuilder } from '@/lib/form/handler';
 
 export default function ChangePW() {
   const [input, setInput] = useState<UpdatePWExtended>({ old_password: '', new_password: '', new_password_check: '' });
 
-  const [submitted, setSubmitted] = useState<boolean | null>(null);
+  const [busy, setBusy] = useState<boolean>(false);
 
   const sessionIdState = useSessionId();
+  const router = useRouter();
 
-  function handleSubmit(finalInput: UpdatePWExtended) {
-    if (finalInput.new_password !== finalInput.new_password_check) {
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    if (input.new_password !== input.new_password_check) {
+      setBusy(false);
       return alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
     }
 
-    retryWithJWTRefresh(apiProfileUpdatePW, sessionIdState)({ old_password: finalInput.old_password, new_password : finalInput.new_password }, {}).then((s) => {
-      setSubmitted(s.status === 'SUCCESS');
+    retryWithJWTRefresh(apiProfileUpdatePW, sessionIdState)({ old_password: input.old_password, new_password: input.new_password }, {}).then((s) => {
+      if (s.status === 'SUCCESS') {
+        alert(`비밀번호 변경에 성공했습니다.`)
+        router.push('/mypage?pwchanged');
+      } else {
+        alert(`변경에 실패했습니다: ${s.message}`)
+      }
     });
+    setBusy(false);
   }
 
-  if (submitted !== null) {
-    return <Submitted back={'/'} success={submitted} />;
-  }
 
   return (
-    <div className="w-full justify-center items-center flex flex-row">
-      <div className="pl-2 pr-2 w-full md:w-1/2">
-        <UpdateBasicForm handleSubmit={handleSubmit} input={input} setInput={setInput} />
-      </div>
-    </div>
+    <ChangePwForm handleSubmit={handleSubmit} handleInput={handleInputBuilder(input, setInput)} input={input} submitting={busy} />
   );
 }
