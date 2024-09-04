@@ -2,7 +2,7 @@
 
 import { apiMyPageBasics, apiProfileUpdateBasic } from '@/lib/api/mypage';
 import { useState } from 'react';
-import Submitted from './inner/submitted';
+import { useRouter } from 'next/navigation';
 import { useSessionId } from '@/context/SessionIdContext';
 import { retryWithJWTRefresh } from '@/lib/api/authHelper';
 
@@ -17,10 +17,11 @@ function MyPageEditBasicWithProfile({
   profile: { username, student_id, degree, semester, department },
 }: {
   profile: UserProfile;
-}) {
+  }) {
+  
+  const router = useRouter();
+  
   const [input, setInput] = useState<UpdateProfileReq>({ username, student_id, degree, semester, department });
-
-  const [submitted, setSubmitted] = useState<boolean | null>(null);
   const [busy, setBusy] = useState<boolean>(false);
 
   const sessionIdState = useSessionId();
@@ -30,12 +31,9 @@ function MyPageEditBasicWithProfile({
     setBusy(true);
     retryWithJWTRefresh(apiProfileUpdateBasic, sessionIdState)(input, {}).then((s) => {
       setBusy(false);
-      setSubmitted(s.status === 'SUCCESS');
+      alert("프로필 수정을 완료했습니다.");
+      router.push('/mypage?profilechanged');
     });
-  }
-
-  if (submitted !== null) {
-    return <Submitted back={'/'} success={submitted} />;
   }
 
   return <UpdateBasicForm handleSubmit={handleSubmit} input={input} handleInput={handleInputBuilder(input, setInput)} submitting={busy} />;
