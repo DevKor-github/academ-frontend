@@ -1,9 +1,10 @@
-import { build } from './builder';
-
 export interface Notice {
   notice_id: number;
   title: string;
   created_at: string;
+}
+
+export interface NoticeDetailed extends Notice {
   detail: string;
 }
 
@@ -14,6 +15,3 @@ export interface NoticeListRequest {
 export interface NoticeDetailRequest {
   notice_id: number;
 }
-
-export const apiNoticeList = build<NoticeListRequest, Notice[]>('GET', '/api/notice/list');
-export const apiNoticeDetail = build<NoticeDetailRequest, Notice>('GET', '/api/notice/detail');

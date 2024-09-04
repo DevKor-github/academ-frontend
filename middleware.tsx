@@ -4,9 +4,9 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Check if the pathname starts with /house/
+  // more redirects in next.config.mjs
+
   if (pathname.startsWith('/course/')) {
-    // Replace /house/ with /home/
     const newPathname = pathname.replace('/course/', '/lecture/');
     return NextResponse.redirect(new URL(newPathname, request.url));
   }
