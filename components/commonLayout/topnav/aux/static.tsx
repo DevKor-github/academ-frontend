@@ -25,10 +25,10 @@ function NavButton({ label, desiredPath, currentPath, wip, onClick }: {
 
   const accent: boolean = currentPath === desiredPath || currentPath.startsWith(desiredPath + '/');
   return (
-    <Link href={desiredPath} onClick={onClick}  className={' p-2 ' + (accent ? 'text-primary-500' : '')}>
+    <Link href={desiredPath} onClick={onClick}  className={'whitespace-nowrap p-2 ' + (accent ? 'text-primary-500' : '')}>
       {wip ? (
         <span>{label} <sup className={`transition-all rounded-full border p-1
-          ${accent ? 'border-primary-500 ': 'light:border-light-back-2 dark:border-dark-back-4 '}`}>준비 중</sup></span>
+          ${accent ? 'border-primary-500 ': 'light:border-light-fore-2 dark:border-dark-fore-4 '}`}>준비 중</sup></span>
       ) : label}
     </Link>
   );
@@ -49,7 +49,7 @@ export const TopNavInnerMid = ({
 
   return (
     <div
-      className={`overflow-y-hidden transition-all ${height} md:h-16 items-center justify-start flex flex-col md:flex-row`}
+      className={`${spreaded ? 'overflow-visible' : 'overflow-y-hidden'} transition-all ${height} md:h-16 items-center justify-start flex flex-col md:flex-row`}
       style={{ rowGap: '10px' }}
     >
       <div className="md:hidden">

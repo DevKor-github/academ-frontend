@@ -2,11 +2,11 @@ import { HStack } from '@/components/basic/stack';
 
 import dynamic from 'next/dynamic';
 
-function FindPWFormLoading() {
-  return <HStack gap="48px">(로딩화면, 나중에 채울 것)</HStack>;
-}
+import ResetPwForm1 from './inner/form1';
 
-const FindPWForm = dynamic(() => import('./client'), { ssr: false, loading: FindPWFormLoading });
+const FindPWForm = dynamic(() => import('./client'), {
+  ssr: false, loading: () => (<ResetPwForm1 input={{email : '', code: ''}} submitting={false} />)
+ });
 
 export default function LoginPage() {
   return (

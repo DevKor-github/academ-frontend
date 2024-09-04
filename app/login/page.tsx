@@ -1,9 +1,13 @@
 import { HStack } from '@/components/basic/stack';
 
 import dynamic from 'next/dynamic';
-import LoginPageLoading from './aux';
 
-const LoginForm = dynamic(() => import('./client'), { ssr: false, loading: LoginPageLoading });
+import LoginForm from './form';
+
+const LoginClientForm = dynamic(() => import('./client'), {
+  ssr: false, loading: () => (
+  <LoginForm input={{email: '', password: '', 'remember-me': false}} submitting={false} shake={false} loginError='' />
+) });
 
 export default function LoginPage() {
   return (
@@ -22,7 +26,7 @@ export default function LoginPage() {
         <span className="text-4xl" style={{ textAlign: 'center' }}>
           로그인
         </span>
-        <LoginForm />
+        <LoginClientForm />
       </HStack>
     </span>
   );

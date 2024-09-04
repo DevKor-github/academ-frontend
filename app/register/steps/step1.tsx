@@ -13,7 +13,7 @@ import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
 import { RightIcon } from '@/icons';
 import { apiSendEmail } from '@/lib/api/login';
-import { Spinner2 } from '@/components/basic/spinner';
+import Spinner from '@/components/basic/spinner';
 
 const validateEmail = (email: string) => {
   const re = /^[^\s@]+@korea\.ac\.kr$/;
@@ -70,11 +70,11 @@ export default function Step1({
     <HStack gap="20px">
       <span className="text-4xl">환영합니다!</span>
       <span className="text-2xl">고려대학교 이메일로 학생인증을 해주세요.</span>
-      <Input required type="email" id="email" label="example@korea.ac.kr" onChange={handleInput} autoFocus />
+      <Input required type="email" id="email" placeholder="example@korea.ac.kr" onChange={handleInput} autoFocus />
       <ErrorLabel className="text-primary-500" label={error} shake={timeout} />
       <VStack className="w-full h-fit justify-end" gap="36px">
         {loading ? (
-          <span className='text-6xl text-primary-500'><Spinner2 /></span>
+          <span className='text-6xl text-primary-500'><Spinner /></span>
         ) : (
           <Button
             kind="outline"

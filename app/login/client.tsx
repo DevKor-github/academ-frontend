@@ -1,48 +1,34 @@
 'use client';
 
-import A from '@/components/basic/a';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { HStack, VStack } from '@/components/basic/stack';
 import { useSessionId } from '../../context/SessionIdContext';
-
-import Button from '@/components/basic/button';
-import Radio from '@/components/basic/radio';
-import Input from '@/components/basic/input';
 import { apiLogin, apiCheckLogin } from '@/lib/api/login';
-import ErrorLabel from '@/components/basic/errorlabel';
 
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
 import { keyForStorage } from '../../context/SessionIdContext';
-import { Spinner2 } from '@/components/basic/spinner';
+
+import LoginForm from './form';
+import { handleInputBuilder } from '@/lib/form/handler';
 
 export default function LoginPageClient() {
-  const [input, setInput] = useState({
+  const [input, setInput] = useState<LoginRequest>({
     email: '',
     password: '',
+    "remember-me" : false,
   });
 
   const route = useRouter();
 
   const [_, setSessionId] = useSessionId();
-  const [shake, resetShake] = useAnimationTimeout(600);
   const [loading, setLoading] = useState<boolean>(false);
 
-
-  const [saveLoginInfo, setSaveLoginInfo] = useState(false);
   const [loginError, setLoginError] = useState('');
+  const [shake, resetShake] = useAnimationTimeout(600);
 
-  function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
-    setInput({
-      ...input,
-      [event.target.id]: event.target.value,
-    });
-  }
-
-  async function handleLogin() {
-    //input.email // input.password
-
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
     setLoading(true);
 
     if (input.email === '' || input.password === '') {
@@ -81,67 +67,6 @@ export default function LoginPageClient() {
   }
 
   return (
-    <form
-      method="post"
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleLogin();
-      }}
-    >
-      <HStack gap="48px">
-        <HStack gap="16px">
-          <Input
-            // required
-            id="email"
-            placeholder="이메일을 입력해주세요"
-            onChange={handleInput}
-            value={input.email}
-            style={{ padding: '16px' }}
-          />
-          <Input
-            // required 
-            id="password"
-            type="password"
-            placeholder="비밀번호를 입력해주세요"
-            onChange={handleInput}
-            value={input.password}
-            style={{ padding: '16px' }}
-          />
-          <ErrorLabel className="text-primary-500" label={loginError} shake={shake} />
-
-          <VStack className="pt-4 pb-4 items-center justify-between">
-            <Radio
-              id="save"
-              value={saveLoginInfo}
-              onChange={
-                (/* event: React.FormEvent<HTMLDivElement> */) => {
-                  // event.stopPropagation();
-                  setSaveLoginInfo(!saveLoginInfo);
-                }
-              }
-              label="로그인 정보 저장"
-            />
-            <A href="/login/reset-password">비밀번호 초기화</A>
-          </VStack>
-        </HStack>
-
-        <HStack style={{}} gap="20px">
-          <Button
-            type="submit"
-            kind="filled"
-            disabled={(input.email === '' && input.password === '') || loading}
-            accnet="0"
-            variant="contained"
-            color="primary"
-            style={{ padding: '16px', width: '100%' }}
-          >
-            {loading ? <Spinner2 /> : <div>로그인</div>}
-          </Button>
-          <span style={{ textAlign: 'center' }}>
-            계정이 없으신가요? <A href="/register">회원가입</A>
-          </span>
-        </HStack>
-      </HStack>
-    </form>
+    <LoginForm input={input} handleInput={handleInputBuilder(input, setInput)} handleSubmit={handleLogin} submitting={loading} loginError={loginError} shake={shake} />
   );
 }

@@ -11,7 +11,7 @@ import Button from '@/components/basic/button';
 import Select from '@/components/basic/select';
 import { DownIcon } from '@/icons';
 
-import { Spinner2 } from '@/components/basic/spinner';
+import Spinner from '@/components/basic/spinner';
 
 import { usePagination } from '@/lib/hooks/pagination';
 
@@ -75,7 +75,7 @@ function SearchResultsViewWithOrder({ query: keyword, order }: { query: string; 
   }
 
   if (pages.totalLoadingState === 'bot') {
-    return <Box><span className='text-8xl'><Spinner2 /></span></Box>;
+    return <Box><span className='text-8xl'><Spinner /></span></Box>;
   }
 
   if (pages.totalLoadingState === 'never') {

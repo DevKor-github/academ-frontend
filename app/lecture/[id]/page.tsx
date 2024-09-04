@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import { Spinner2 } from '@/components/basic/spinner';
+import Spinner from '@/components/basic/spinner';
 
 import { useApi } from '@/lib/api/builder';
 
@@ -15,11 +15,11 @@ import { useSessionId } from '@/context/SessionIdContext';
 
 const ErrorTemplate = dynamic(() => import('@/lib/template'), {
   ssr: false, loading: () =>
-  (<div className='w-full p-8 flex flex-row justify-center items-center text-6xl'><Spinner2 /></div>)
+  (<div className='w-full p-8 flex flex-row justify-center items-center text-6xl'><Spinner /></div>)
  });
 const LectureView = dynamic(() => import('./main'), {
   ssr: false, loading: () =>
-  (<div className='w-full p-8 flex flex-row justify-center items-center text-6xl'><Spinner2 /></div>)
+  (<div className='w-full p-8 flex flex-row justify-center items-center text-6xl'><Spinner /></div>)
  });
 
 export default function LectureFetch({ params: { id } }: { params: { id: number } }) {
@@ -29,7 +29,7 @@ export default function LectureFetch({ params: { id } }: { params: { id: number 
   const { loading, response : course} = useApi(apiCourseDetail, { course_id: id, order: 'NEWEST', page }, { token: jwt?.accessToken });
 
   if (loading) {
-    return <div className='w-full p-8 flex flex-row justify-center items-center text-6xl'><Spinner2 /></div>;
+    return <div className='w-full p-8 flex flex-row justify-center items-center text-6xl'><Spinner /></div>;
   }
 
   return course.status === 'SUCCESS' ? (
