@@ -6,6 +6,11 @@ const nextConfig = {
         source: '/about',
         destination: '/notice/0',
         permanent: false,
+      },
+      {
+        source: '/notice',
+        destination: '/notice/list/1',
+        permanent: false,
       }
     ]
   }
