@@ -86,7 +86,7 @@ export default function Step3({
       window.alert('학번 앞 7자를 입력해주세요.');
     } else if (!departments.includes(input.department)) {
       window.alert('유효한 학과명을 입력해주세요.');
-    } else if (input.semester == null) {
+    } else if (input.semester == 0) {
       window.alert('학기를 입력해주세요.');
     } else {
       const response = await apiSignup({ ...input } as SignupRequest);

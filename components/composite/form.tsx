@@ -150,12 +150,17 @@ export default function WriteOrEditComment<Req extends AcdCommentJoin>({
     });
   }
 
+  const [tagNum, setTagNum] = useState<number>(0);
+
   function handleInputBoolean(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { value } = event.target;
-    setInput({
-      ...input,
-      [event.target.id]: value === 'on' ? true : false,
-    });
+    if (tagNum < 3 || value == 'off') {
+      setInput({
+        ...input,
+        [event.target.id]: value === 'on' ? true : false,
+      });
+      value === 'on' ? setTagNum(tagNum + 1) : setTagNum(tagNum - 1);
+    } else alert('태그는 최대 3개까지 선택 가능합니다.');
   }
 
   const [open, setOpen] = useState(false);
@@ -285,9 +290,9 @@ export default function WriteOrEditComment<Req extends AcdCommentJoin>({
             </button>
             {open && (
               <Popover onPageClick={() => setOpen(false)}>
-                <div className="border border-light-back-1 rounded-md p-4 mt-4">
+                <div className="border border-neutral-200 rounded-md p-4 mt-4 text-neutral-600">
                   <div className="text-sm pb-2">질문 리스트</div>
-                  <ul>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 auto-cols-max list-disc list-inside gap-x-4">
                     <li className="text-xs">과제의 주기는 어떤가요?</li>
                     <li className="text-xs">수업 방식은 어떤가요?</li>
                     <li className="text-xs">어떤 내용을 배울 수 있나요?</li>

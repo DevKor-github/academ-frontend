@@ -20,7 +20,7 @@ export default function LectureView({ course }: { course: CourseWithBookmark }) 
     return (
       <HStack className="w-full h-full">
         <BasicInfoView course={course} />
-        <div className="flex flex-col justify-center items-center gap-6 h-full">
+        <div className="flex flex-col justify-center items-center gap-6 h-full min-h-[300px]">
           <IssueIcon />
           <span className="w-fulltext-center text-2xl text-center">강의평이 없습니다.</span>
           <span className="w-fulltext-center text-base text-center text-primary-500 underline">
