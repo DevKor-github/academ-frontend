@@ -9,7 +9,7 @@ export function useTemporal<T>(ms : number, initial: T, temporal: T) {
         setV(initial);
       }, ms);
     }
-    }, [v, temporal, initial]);
+    }, [v]);
   
   function resetV() {
     setV(temporal);
