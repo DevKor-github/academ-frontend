@@ -1,7 +1,8 @@
 'use client';
 
 import { HStack, VStack } from "@/components/basic/stack";
-import SearchSingle from "@/app/lecture/SearchSingle";
+
+import CoursePreview from "@/components/view/CoursePreview";
 
 import { apiMyPageBookmarks } from "@/lib/api/mypage";
 import { usePagination } from "@/lib/hooks/pagination";
@@ -15,16 +16,16 @@ export default function BookmarksView() {
   const [jwt] = useSessionId();
   const [pages, fetchThis] = usePagination(apiMyPageBookmarks);
 
-  if (jwt === null) {
-    // silent kill
-    return <div />;
-  }
-
   function fetchNext() {
     fetchThis({ page: pages.page + 1 }, { token: jwt?.accessToken });
   }
 
   useEffect(fetchNext, []);
+
+  if (jwt === null) {
+    // silent kill
+    return <div />;
+  }
   
   if (pages.totalLoadingState === 'bot') {
     return <div />;
@@ -46,7 +47,7 @@ export default function BookmarksView() {
       <div className="overflow-scroll w-full">
         <div className="flex flex-row w-fit gap-4 p-8">
           {pages.data.flatMap((v) => (
-            <SearchSingle key={v.course_id} course={v} />
+            <CoursePreview key={v.course_id} course={v} />
           ))}
           {showMoreButton}
         </div>

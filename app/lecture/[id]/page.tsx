@@ -1,13 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Spinner from '@/components/basic/spinner';
 
 import { useApi } from '@/lib/api/builder';
 
 import { apiCourseDetail } from '@/lib/api/course';
-import LectureLoading from './loading';
 
 import dynamic from 'next/dynamic';
 
