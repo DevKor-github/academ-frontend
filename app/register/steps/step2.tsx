@@ -30,7 +30,7 @@ export default function Step2({
 
   async function handleCode() {
     try {
-      const response = await apiCheckEmail({ email: input.email.split('@')[0] || '', code: input.code });
+      const response = await apiCheckEmail({ email: input.email, code: input.code });
 
       if (response.status === 'SUCCESS') {
         nextStep();

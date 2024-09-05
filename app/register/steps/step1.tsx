@@ -50,7 +50,7 @@ export default function Step1({
   async function handleSendEmail() {
     setLoading(true);
 
-    const response = await apiSendEmail({ email: input.email.split('@')[0] || '' });
+    const response = await apiSendEmail({ email: input.email });
 
     if (response.status === 'SUCCESS') {
       const id = input.email;
