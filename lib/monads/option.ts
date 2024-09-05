@@ -76,7 +76,9 @@ export class Some<T> implements BaseOption<T> {
     return this.value;
   }
 
-  unwrapOr(optb: T): T {
+  // intended unusing
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  unwrapOr(optv: T): T {
     return this.value;
   }
 
