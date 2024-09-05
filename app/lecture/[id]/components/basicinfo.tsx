@@ -3,7 +3,7 @@ import Tag from '@/components/basic/tag';
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
 import LectureIcon from '@/components/composite/lectureIcon';
 
-export default function BasicInfoView({ course }: { course: CourseWithBookmark }) {
+export default function BasicInfoView({ course }: { course: Course }) {
   return (
     <VStack
       className={` pl-8 pr-8  border-b-black bg-neutral-50 dark:bg-neutral-950`}

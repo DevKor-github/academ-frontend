@@ -6,7 +6,12 @@ import { useState } from 'react';
 import Select from '@/components/basic/select';
 
 export default function CommentsView({ course_id, comments }: { course_id?: number; comments: AcdComment[] }) {
+
   const [order, setOrder] = useState<CommentsOrdering>('NEWEST');
+
+  function handleValue(e: React.FormEvent<HTMLInputElement>) {
+    setOrder((e.target as HTMLInputElement).value as CommentsOrdering)
+  }
 
   return (
     <HStack
@@ -26,8 +31,8 @@ export default function CommentsView({ course_id, comments }: { course_id?: numb
 
         <VStack className="items-center justify-end gap-2">
           <Select
-            defaultLabel="최신순"
-            setValue={setOrder}
+            value={order}
+            handleValue={handleValue}
             items={
               [
                 { value: 'NEWEST', label: '최신순' },

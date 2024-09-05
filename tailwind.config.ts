@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic';
 import type { Config } from 'tailwindcss';
 import plugin from 'tailwindcss/plugin';
 import { PluginCreator } from 'tailwindcss/types/config';
@@ -24,6 +23,9 @@ const config: Config = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      boxShadow: {
+        'glow-md' : '0px 0px 8px rgba(0 0 0 / 0.1)',
+      },
       colors: {
         primary: {
           DEFAULT: '#dc143c',
@@ -36,6 +38,41 @@ const config: Config = {
           700: '#710a1f',
           800: '#67091c',
           900: '#5d0819',
+        },
+        base: {
+          0: '#000000',
+          1: '#080808',
+          2: '#101010',
+          3: '#181818',
+          4: '#202020',
+          5: '#282828',
+          6: '#303030',
+          7: '#383838',
+          8: '#404040',
+          9: '#484848',
+          10: '#505050',
+          11: '#585858',
+          12: '#606060',
+          13: '#686868',
+          14: '#707070',
+          15: '#787878',
+          16: '#808080',
+          17: '#888888',
+          18: '#909090',
+          19: '#989898',
+          20: '#A0A0A0',
+          21: '#A8A8A8',
+          22: '#B0B0B0',
+          23: '#B8B8B8',
+          24: '#C0C0C0',
+          25: '#C8C8C8',
+          26: '#D0D0D0',
+          27: '#D8D8D8',
+          28: '#E0E0E0',
+          29: '#E8E8E8',
+          30: '#F0F0F0',
+          31: '#F8F8F8',
+          32: '#FFFFFF',
         },
         dynamic: {
           DEFAULT: 'var(--dyn-000000)',

@@ -25,9 +25,6 @@ interface Course {
   count_learn_t3_exam: number;
   count_learn_t4_industry: number;
   comments: AcdComment[];
-}
-
-interface CourseWithBookmark extends Course {
   isBookmark: boolean;
 }
 

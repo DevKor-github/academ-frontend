@@ -4,8 +4,6 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation'
 
-import { VStack } from '@/components/basic/stack';
-
 import { TopNavInnerLeft, TopNavInnerMid, TopNavRightLoading } from './aux/static';
 
 const TopNavRightClient = dynamic(() => import('./aux/dynamic'), { ssr: false, loading: TopNavRightLoading });
@@ -23,7 +21,7 @@ const TopNavInnerRight = () => {
 
 export default function TopNav() {
 
-  const path = usePathname();
+  const path = usePathname() || '';
   const overlap = path === '/' ;
   const className = overlap ? 'absolute top-0 z-50' : 'relative';
 

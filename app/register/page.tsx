@@ -1,11 +1,8 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { HStack } from '@/components/basic/stack';
-
-import { apiSendEmail, apiSignup } from '@/lib/api/login';
 
 import Step0 from './steps/step0';
 import Step1 from './steps/step1';

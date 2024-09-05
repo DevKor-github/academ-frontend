@@ -6,4 +6,4 @@ export const apiProfileUpdatePW = build<UpdatePWReq, null>('POST', '/api/mypage/
 
 export const apiMyPageBasics = build<{}, MyPageBasicInfo>('GET', '/api/mypage/info');
 export const apiMyPageComments = build<{ page: number }, AcdComment[]>('GET', '/api/mypage/my-comments');
-export const apiMyPageBookmarks = build<{ page: number }, CourseWithBookmark[]>('GET', '/api/mypage/my-bookmarks');
+export const apiMyPageBookmarks = build<{ page: number }, Course[]>('GET', '/api/mypage/my-bookmarks');

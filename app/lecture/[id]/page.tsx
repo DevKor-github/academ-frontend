@@ -1,13 +1,12 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import Spinner from '@/components/basic/spinner';
 
 import { useApi } from '@/lib/api/builder';
 
 import { apiCourseDetail } from '@/lib/api/course';
-import LectureLoading from './loading';
 
 import dynamic from 'next/dynamic';
 
@@ -24,6 +23,9 @@ const LectureView = dynamic(() => import('./main'), {
 
 export default function LectureFetch({ params: { id } }: { params: { id: number } }) {
   const [jwt] = useSessionId();
+
+  // TODO : refactor to use usePagination.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [page, setPage] = useState(1);
 
   const { loading, response : course} = useApi(apiCourseDetail, { course_id: id, order: 'NEWEST', page }, { token: jwt?.accessToken });

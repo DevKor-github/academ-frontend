@@ -1,6 +1,6 @@
 'use client';
 
-import { HStack, VStack } from '@/components/basic/stack';
+import { HStack } from '@/components/basic/stack';
 
 import BasicInfoView from './components/basicinfo';
 import CommentsView from './components/comments';
@@ -15,7 +15,7 @@ function WriteNewMobile({ course_id } : {course_id : number}) {
   </Link>)
 }
 
-export default function LectureView({ course }: { course: CourseWithBookmark }) {
+export default function LectureView({ course }: { course: Course }) {
   if (course.comments.length === 0) {
     return (
       <HStack className="w-full h-full">

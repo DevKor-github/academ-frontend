@@ -1,8 +1,6 @@
 'use client';
 
-import { HStack } from '@/components/basic/stack';
-import styles from './results.module.css';
-import SearchSingle from '../SearchSingle';
+import CoursePreview from '@/components/view/CoursePreview';
 
 import { apiSearch } from '@/lib/api/course';
 import { useSessionId } from '@/context/SessionIdContext';
@@ -15,34 +13,29 @@ import Spinner from '@/components/basic/spinner';
 
 import { usePagination } from '@/lib/hooks/pagination';
 
-function Box({ children }: { children: React.ReactNode }) {
-  return (
-    <HStack className="pb-8 pt-8 bg-neutral-50 dark:bg-neutral-950 flex-grow text-xl text-center pl-8 pr-8 md:pl-24 md:pr-24">
-      {children}
-    </HStack>
-  );
-}
+import { Box, Grid } from './aux';
+
 
 function SearchResultsArrayView({
   courses,
   nextButton,
 }: {
-  courses: CourseWithBookmark[];
+  courses: Course[];
   nextButton: React.ReactNode;
 }) {
   if (courses.length === 0) {
     return <Box>검색 결과가 없습니다.</Box>;
   }
   return (<>
-      <div className={styles.container}>
-        {courses.map((course) => (
-          <SearchSingle key={course.course_id} course={course} />
-        ))}
-      </div>
+    <Grid>
+      {courses.map((course) => (
+        <CoursePreview key={course.course_id} course={course} />
+      ))}
+    </Grid>
     {nextButton}
   </>
   );
-}
+} 
 
 function SearchResultsViewWithOrder({ query: keyword, order }: { query: string; order: SearchOrdering }) {
   const [jwt] = useSessionId();
@@ -90,14 +83,14 @@ export default function SearchResultsView({ query }: { query: string }) {
   
   const [order, setOrder] = useState<SearchOrdering>('NEWEST');
 
-  useEffect(() => {
-
-  }, [order]);
+  function handleValue(e: React.FormEvent<HTMLInputElement>) {
+    setOrder((e.target as HTMLInputElement).value as SearchOrdering);
+  }
 
   return (<Box>
     <Select
-      defaultLabel="최신순"
-      setValue={setOrder}
+      value={order}
+      handleValue={handleValue}
       items={[
         { value: 'NEWEST', label: '최신순' },
         { value: 'RATING_DESC', label: '별점 높은순' },

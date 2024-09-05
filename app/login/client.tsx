@@ -21,6 +21,7 @@ export default function LoginPageClient() {
 
   const route = useRouter();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, setSessionId] = useSessionId();
   const [loading, setLoading] = useState<boolean>(false);
 

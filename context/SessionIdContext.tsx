@@ -7,7 +7,7 @@ import { isDebug } from '@/lib/directive';
 import { apiLogout } from '@/lib/api/login';
 import { apiCheckLogin } from '@/lib/api/login';
 import { apiJWTRefresh } from '@/lib/api/authHelper';
-import { Try } from '@/lib/types/result';
+import { Try } from '@/lib/monads/result';
 
 export type SessionIdContextType = [SessionId, SetState<SessionId>];
 
@@ -56,6 +56,9 @@ export function SessionIdProvider({ children }: SessionIdProviderProps) {
 
   useTabTracker(sessionId, setSessionId);
 
+  // Temporal patch - use less traffic
+
+  /*
   useEffect(() => {
     apiCheckLogin({}, { token: sessionId?.accessToken }).then((a) => {
       if (a.status === 'SUCCESS') {
@@ -80,6 +83,7 @@ export function SessionIdProvider({ children }: SessionIdProviderProps) {
       }
     });
   }, []);
+  */
 
   return <SessionIdContext.Provider key={sessionId?.accessToken || sessionId?.refreshToken} value={[sessionId, setSessionId]}>{children}</SessionIdContext.Provider>;
 }

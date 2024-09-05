@@ -1,9 +1,4 @@
-import { VStack, HStack } from '@/components/basic/stack';
-// import BookmarkToggleButton from "@/components/composite/bookmarkToggleButton";
-import Tag from '@/components/basic/tag';
-import Skeleton from '@/components/composite/skeleton';
-
-import Spinner from '@/components/basic/spinner';
+import Spinner from "@/components/basic/spinner";
 
 /** TODO : use skeleton loading screen */
 export default function LectureLoading() {
