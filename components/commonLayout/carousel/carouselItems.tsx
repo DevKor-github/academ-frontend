@@ -1,8 +1,31 @@
 import Link from 'next/link';
 
-import { CarouselItem } from './carousel';
+import Image from 'next/image';
+
 import { HStack, VStack } from '@/components/basic/stack';
 import { BookIcon } from '@/icons';
+
+export function CarouselItem({ url, children }: { url: string; children?: React.ReactNode }) {
+  return (
+    <div
+      className={`flex justify-center items-center dark h-full relative`}
+      style={{ backgroundColor: 'black', minWidth: '100%' }}
+    >
+      <Image
+        className="absolute z-10"
+        loading="eager"
+        src={url}
+        alt="banner image"
+        fill
+        sizes="100vw"
+        style={{
+          objectFit: 'cover',
+        }}
+      />
+      <div className="z-10 size-full flex justify-center items-center pt-20">{children}</div>
+    </div>
+  );
+}
 
 
 const carouselItems = [

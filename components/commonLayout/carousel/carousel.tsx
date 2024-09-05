@@ -4,33 +4,9 @@ import React, { useEffect, useState } from 'react';
 
 import { HStack } from '@/components/basic/stack';
 
-import Image from 'next/image';
-
 interface CarouselProps {
   children: React.ReactNode[];
   className?: string;
-}
-
-export function CarouselItem({ url, children }: { url: string; children?: React.ReactNode }) {
-  return (
-    <div
-      className={`flex justify-center items-center dark h-full relative`}
-      style={{ backgroundColor: 'black', minWidth: '100%' }}
-    >
-      <Image
-        className="absolute z-10"
-        loading="eager"
-        src={url}
-        alt="banner image"
-        fill
-        sizes="100vw"
-        style={{
-          objectFit: 'cover',
-        }}
-      />
-      <div className="z-10 size-full flex justify-center items-center pt-20">{children}</div>
-    </div>
-  );
 }
 
 export default function Carousel({ className, children }: CarouselProps) {
