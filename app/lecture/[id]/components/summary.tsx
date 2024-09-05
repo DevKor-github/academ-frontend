@@ -79,7 +79,7 @@ export function CriteriaIndicator({ name, low, high, rate, style, reverse }: Cri
 
 function Criteria({ course }: { course: Course }) {
   return (
-    <div className="grid grid-cols-2 px-10 w-fit max-w-full gap-x-8 gap-y-8">
+    <div className="grid grid-cols-1 sm:grid-cols-2 self-center w-fit max-w-full gap-x-8 gap-y-8">
       <CriteriaIndicator name="학습량" low="적음" high="많음" rate={course.avg_r1_amount_of_studying} reverse={true} />
       <CriteriaIndicator name="난이도" low="낮음" high="높음" rate={course.avg_r2_difficulty} reverse={true} />
       <CriteriaIndicator name="전달력" low="나쁨" high="좋음" rate={course.avg_r3_delivery_power} reverse={false} />
