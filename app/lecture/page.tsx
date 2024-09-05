@@ -1,10 +1,8 @@
-'use server';
-
 import SearchForm from '@/components/composite/SearchForm';
 import { VStack } from '@/components/basic/stack';
 
 import dynamic from 'next/dynamic';
-import { Box, SkeletonLoader } from './aux';
+import { Box } from './aux';
 import Select from '@/components/basic/select';
 
 const SearchTopView = ({ query }: { query: string }) => {
@@ -34,35 +32,41 @@ const SearchTopView = ({ query }: { query: string }) => {
   );
 };
 
+const sortCriterias = [
+  { value: 'NEWEST', label: '최신순' },
+  { value: 'RATING_DESC', label: '별점 높은순' },
+  { value: 'RATING_ASC', label: '별점 낮은순' },
+] as const
+
 export default async function SearchPage({
   searchParams,
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
-  const qCand = searchParams?.q;
+  const { q: qCand, s: sCand } = searchParams || {};
+  
   const q = (Array.isArray(qCand) ? qCand[0] : qCand) || '';
+  const s = (Array.isArray(sCand) ? sCand[0] : sCand) || '';
+  const sort : SearchOrdering = (sortCriterias.map(({ value }) => value).includes(s as SearchOrdering)) ? (s as SearchOrdering) : 'NEWEST'
 
-const SearchResultsView = dynamic(() => import('./results'), {
-  ssr: false, loading: () => 
-  (
-    <Box>
-      <Select
-        value={'NEWEST'}
-        items={[
-          { value: 'NEWEST', label: '최신순' },
-          { value: 'RATING_DESC', label: '별점 높은순' },
-          { value: 'RATING_ASC', label: '별점 낮은순' },
-        ] as const}
-      />
-      { q ? <SkeletonLoader /> : <Box>강의명, 교수명, 학수번호로 검색해보세요.</Box>}
-    </Box>
-  )
- });
+
+  const SearchResultsView = dynamic(() => import('./results'), {
+    ssr: false, loading: () => 
+    (
+      <Box>
+        <Select
+          value={sort}
+          items={sortCriterias}
+        />
+        { q ? <div /> : <span>강의명, 교수명, 학수번호로 검색해보세요.</span>}
+      </Box>
+    )
+  });
 
   return (
     <div className="flex flex-col h-full">
-      <SearchTopView query={q} />
-      <SearchResultsView query={q} />
+      <SearchTopView key={q} query={q}  />
+      <SearchResultsView query={q} sort={sort} />
     </div>
   );
 }

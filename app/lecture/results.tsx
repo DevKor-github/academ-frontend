@@ -9,33 +9,11 @@ import Button from '@/components/basic/button';
 import Select from '@/components/basic/select';
 import { DownIcon } from '@/icons';
 
-import Spinner from '@/components/basic/spinner';
-
+import { useRouter } from 'next/navigation';
 import { usePagination } from '@/lib/hooks/pagination';
 
-import { Box, Grid } from './aux';
+import { Box, Grid, LoaderItems, SkeletonLoader } from './aux';
 
-
-function SearchResultsArrayView({
-  courses,
-  nextButton,
-}: {
-  courses: Course[];
-  nextButton: React.ReactNode;
-}) {
-  if (courses.length === 0) {
-    return <Box>검색 결과가 없습니다.</Box>;
-  }
-  return (<>
-    <Grid>
-      {courses.map((course) => (
-        <CoursePreview key={course.course_id} course={course} />
-      ))}
-    </Grid>
-    {nextButton}
-  </>
-  );
-} 
 
 function SearchResultsViewWithOrder({ query: keyword, order }: { query: string; order: SearchOrdering }) {
   const [jwt] = useSessionId();
@@ -64,28 +42,51 @@ function SearchResultsViewWithOrder({ query: keyword, order }: { query: string; 
   
 
   if (keyword === '') {
-    return <Box>강의명, 교수명, 학수번호로 검색해보세요.</Box>;
+    return <p>강의명, 교수명, 학수번호로 검색해보세요.</p>;
   }
 
   if (pages.totalLoadingState === 'bot') {
-    return <Box><span className='text-8xl'><Spinner /></span></Box>;
+    return <SkeletonLoader />;
   }
 
   if (pages.totalLoadingState === 'never') {
-    return <Box>{pages.failwith.message}</Box>;
+    return <p>{pages.failwith.message}</p>;
   }
   
-  return <SearchResultsArrayView courses={pages.data} nextButton={nextButton} />;
+
+
+  if (pages.data.length === 0) {
+    return <p>검색 결과가 없습니다.</p>;
+  }
+  return (<>
+    <Grid>
+      {pages.data.map((course) => (
+        <div key={course.course_id} className='animate-fade'>
+          <CoursePreview key={course.course_id} course={course} />
+        </div>
+      ))}
+      {pages.loading && <LoaderItems />}
+    </Grid>
+    {pages.loading || nextButton}
+  </>
+  );
 
 } 
 
-export default function SearchResultsView({ query }: { query: string }) {
+export default function SearchResultsView({ query, sort }: { query: string; sort: SearchOrdering }) {
   
-  const [order, setOrder] = useState<SearchOrdering>('NEWEST');
+  const route = useRouter();
+  const [order, setOrder] = useState<SearchOrdering>(sort);
 
   function handleValue(e: React.FormEvent<HTMLInputElement>) {
     setOrder((e.target as HTMLInputElement).value as SearchOrdering);
   }
+
+  useEffect(
+    () => {
+      route.replace(`/lecture?q=${query}&s=${order}`);
+    }, [order]
+  );
 
   return (<Box>
     <Select
@@ -97,7 +98,7 @@ export default function SearchResultsView({ query }: { query: string }) {
         { value: 'RATING_ASC', label: '별점 낮은순' },
       ] as const}
     />
-    {<SearchResultsViewWithOrder key={order} query={query} order={order} />}
-  </Box>);
+      <SearchResultsViewWithOrder key={order} query={query} order={order} />
+    </Box>);
 
 }

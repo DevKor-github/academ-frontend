@@ -7,6 +7,23 @@ const containerPlugin: PluginCreator = ({ addVariant }) => {
   addVariant('under-md', '@media (max-width: 768px)');
 };
 
+const animationDelayPlugin: PluginCreator = ({ matchUtilities }) => {
+  // Custom utility for animation delay
+  matchUtilities({
+    'animate-pulse': (value) => ({
+      animation: 'pulse .75s ease-in-out infinite',
+      'animation-delay': value, // Add arbitrary delay value
+    }),
+    'animate-fade': (value) => ({
+      animation: 'fadeIn 0.6s ease-in-out',
+      'animation-delay': value, // Add arbitrary delay value
+    }),
+  }, {
+    values: { },
+    supportsNegativeValues: true,
+  });
+};
+
 const config: Config = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -25,6 +42,7 @@ const config: Config = {
       },
       boxShadow: {
         'glow-md' : '0px 0px 8px rgba(0 0 0 / 0.1)',
+        'glow-lg' : '0px 0px 16px rgba(0 0 0 / 0.1)',
       },
       colors: {
         primary: {
@@ -201,6 +219,10 @@ const config: Config = {
           '20%, 40%, 60%, 80%': { transform: 'translateX(4px)' },
         },
         pulse: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0' },
+        },
+        'pulse-beat': {
           '0%, 100%': { transform: 'scale(1)', opacity: '1' },
           '50%': { transform: 'scale(0.8)', opacity: '0.8' },
         },
@@ -208,10 +230,16 @@ const config: Config = {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' },
         },
+        zeroFadeIn: {
+          to: {
+            opacity: '1' 
+          }
+        }
       },
       animation: {
         shake: 'shake 0.6s ease-in-out infinite',
-        pulse: 'pulse 0.8s ease-in-out infinite',
+        pulse: 'pulse 0.6s linear infinite',
+        'pulse-beat': 'pulse-beat 0.8s ease-in-out infinite',
         fade: 'fadeIn 0.2s ease-in-out',
       },
       screens: {
@@ -219,6 +247,6 @@ const config: Config = {
       },
     },
   },
-  plugins: [plugin(containerPlugin)],
+  plugins: [plugin(containerPlugin), plugin(animationDelayPlugin)],
 };
 export default config;

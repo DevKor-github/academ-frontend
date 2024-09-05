@@ -68,7 +68,7 @@ export const TopNavInnerMid = ({
 export function TopNavRightLoading() {
   return (
     <Button>
-      <Skeleton placeholder={<span className="whitespace-nowrap">로그인/회원가입</span>} />
+      <Skeleton className="rounded-md bg-primary-300" placeholder={<span className="whitespace-nowrap">로그인/회원가입</span>} />
     </Button>
   );
 }
