@@ -1,12 +1,4 @@
 import { isDebug } from '@/lib/directive';
-interface AdaptiveStackProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-  className?: string;
-  vGap?: string | number;
-  hGap?: string | number;
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-}
-
 import Link from 'next/link';
 import { LogoIconRich } from '@/icons';
 

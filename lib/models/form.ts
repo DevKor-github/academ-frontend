@@ -11,3 +11,8 @@ interface FormProps<T> {
   handleSubmit?: (e: React.FormEvent) => void;
   submitting: boolean;
 }
+
+interface SelectOpts<T> {
+  value: T;
+  label: string;
+}

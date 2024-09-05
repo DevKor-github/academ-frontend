@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 
 import Button from '@/components/basic/button';
 import Input from '@/components/basic/input';
@@ -29,7 +28,6 @@ export default function Step1({
   input: SignupRequest;
   setInput: React.Dispatch<SignupRequest>;
 }) {
-  const route = useRouter();
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;

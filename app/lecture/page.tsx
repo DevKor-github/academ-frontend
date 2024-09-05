@@ -1,14 +1,11 @@
+'use server';
+
 import SearchForm from '@/components/composite/SearchForm';
 import { VStack } from '@/components/basic/stack';
 
 import dynamic from 'next/dynamic';
-
-import Spinner from '@/components/basic/spinner';
-
-const SearchResultsView = dynamic(() => import('./result/results'), {
-  ssr: false, loading: () => 
-  (<div className='w-full p-8 flex flex-row justify-center items-center text-6xl'><Spinner /></div>)
- });
+import { Box, SkeletonLoader } from './aux';
+import Select from '@/components/basic/select';
 
 const SearchTopView = ({ query }: { query: string }) => {
   return query ? (
@@ -37,13 +34,30 @@ const SearchTopView = ({ query }: { query: string }) => {
   );
 };
 
-export default function SearchPage({
+export default async function SearchPage({
   searchParams,
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const qCand = searchParams?.q;
   const q = (Array.isArray(qCand) ? qCand[0] : qCand) || '';
+
+const SearchResultsView = dynamic(() => import('./results'), {
+  ssr: false, loading: () => 
+  (
+    <Box>
+      <Select
+        value={'NEWEST'}
+        items={[
+          { value: 'NEWEST', label: '최신순' },
+          { value: 'RATING_DESC', label: '별점 높은순' },
+          { value: 'RATING_ASC', label: '별점 낮은순' },
+        ] as const}
+      />
+      { q ? <SkeletonLoader /> : <Box>강의명, 교수명, 학수번호로 검색해보세요.</Box>}
+    </Box>
+  )
+ });
 
   return (
     <div className="flex flex-col h-full">

@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useRef } from 'react';
+import React, { forwardRef } from 'react';
 
 interface WrapperProps {
   children: React.ReactNode;
@@ -24,8 +24,11 @@ interface PopoverProps {
   keep?: boolean;
 }
 
-const Popover = React.memo<PopoverProps>((props) => {
-  const { onPageClick, children } = props;
+const Popover = React.memo<PopoverProps>(({
+  // onPageClick,
+  children,
+  style,
+  className }) => {
 
   // const settingsWindowRef = useRef<HTMLDivElement>(null);
 
@@ -43,11 +46,11 @@ const Popover = React.memo<PopoverProps>((props) => {
   //   };
   // });
 
-  const combined: React.CSSProperties = { zIndex: 100, ...props.style };
+  const combined: React.CSSProperties = { zIndex: 100, ...style };
 
   return (
     <Wrapper
-      className={props.className}
+      className={className}
       style={combined}
       // ref={settingsWindowRef}
     >

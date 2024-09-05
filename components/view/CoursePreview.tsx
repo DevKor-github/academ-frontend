@@ -5,13 +5,11 @@ import Tag from '@/components/basic/tag';
 
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
 
-import styles from './SearchSingle.module.css';
-
 import LectureIcon from '@/components/composite/lectureIcon';
 
 import { getTagFromCourse } from '@/lib/process/tag';
 
-function Up({ course }: { course: CourseWithBookmark }) {
+function Up({ course }: { course: Course }) {
   return (
     <VStack
       className="border-b border-b-neutral-400 pb-3"
@@ -35,20 +33,16 @@ function Up({ course }: { course: CourseWithBookmark }) {
       <BookmarkToggleButton
         id={course.course_id}
         defaultValue={course.isBookmark}
-        onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-          event.preventDefault();
-          event.stopPropagation();
-        }}
       />
     </VStack>
   );
 }
 
-function Down({ course }: { course: CourseWithBookmark }) {
+function Down({ course }: { course: Course }) {
   const tags = getTagFromCourse(course);
 
   return (
-    <VStack className={styles.star + ' pt-4 flex-wrap items-center justify-start gap-2'}>
+    <VStack className={'pt-4 flex-wrap items-center justify-start gap-2'}>
       <div className="grid grid-cols-2 gap-1">
         {tags.length === 0 ? (
           <span className="text-base text-neutral-400">태그 없음</span>
@@ -61,8 +55,10 @@ function Down({ course }: { course: CourseWithBookmark }) {
         {course.count_comments === 0 ? (
           <span className="text-base font-normal text-neutral-400">평가 없음</span>
         ) : (
-          <>
-            <StarIcon />
+            <>
+            <span className='text-primary-500'>
+              <StarIcon />
+            </span>
             {course.avg_rating.toFixed(1)}
             <span className="text-neutral-400 text-base font-normal self-end">/5 ({course.count_comments})</span>
           </>
@@ -71,9 +67,14 @@ function Down({ course }: { course: CourseWithBookmark }) {
     </VStack>
   );
 }
-export default function SearchSingle({ course }: { course: CourseWithBookmark }) {
+export default function CoursePreview({ course }: { course: Course }) {
   return (
-    <Link className={styles.resultBox + ' p-8 flex flex-col justify-between'} href={`/lecture/${course.course_id}`}>
+    <Link className='
+    transition-all overflow-hidden h-fit w-full rounded-3xl cursor-pointer p-8 flex flex-col justify-between hover:-translate-y-2
+    hover:border light:border-base-12 dark:border-primary-500
+    light:bg-base-32 hover:light:shadow-xl hover:light:shadow-base-27 
+    dark:bg-base-4 hover:dark:shadow-glow-md hover:dark:shadow-primary-500
+    ' href={`/lecture/${course.course_id}`}>
       <Up course={course} />
       <Down course={course} />
     </Link>

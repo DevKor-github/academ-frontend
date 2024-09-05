@@ -13,24 +13,22 @@ export default function MyCommentsView() {
   const [jwt] = useSessionId();
   const [pages, fetchThis] = usePagination(apiMyPageComments);
 
-  if (jwt === null) {
-    // silent kill
-    return <div />;
-  }
-
-
-  useEffect(
-    () => {
-      fetchThis({page : pages.page + 1}, {token : jwt?.accessToken });
-    }
-    , []);
-  
-  if (pages.totalLoadingState === 'bot') {
-    return <div />;
-  }
 
   function fetchNext() {
     fetchThis({ page: pages.page + 1 }, { token: jwt?.accessToken });
+  }
+
+  useEffect(
+    fetchNext
+    , []);
+  
+  if (jwt === null) {
+    // silent kill
+    return <div />;
+  }  
+  
+  if (pages.totalLoadingState === 'bot') {
+    return <div />;
   }
 
   const nextButton = (pages.eoc ? <div>모두 로드했습니다.</div> :

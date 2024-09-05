@@ -1,21 +1,21 @@
 import { build } from '@/lib/api/builder';
 
-export const apiSearch = build<SearchRequest, CourseWithBookmark[]>('GET', '/api/course/search');
+export const apiSearch = build<SearchRequest, Course[]>('GET', '/api/course/search');
 export const apiBookmark = build<CourseId, string>('GET', '/api/course/bookmark');
-export const apiCourseDetail = build<CourseDetailRequest, CourseWithBookmark>('GET', '/api/course/detail');
+export const apiCourseDetail = build<CourseDetailRequest, Course>('GET', '/api/course/detail');
 
 /**
  * Comments
  */
 
-export const apiStartNewComment = build<CourseId, CourseWithBookmark>('GET', '/api/course/start-insert-comment');
+export const apiStartNewComment = build<CourseId, Course>('GET', '/api/course/start-insert-comment');
 export const apiInsertComment = build<AcdCommentNewReq, string>('POST', '/api/course/insert-comment');
 export const apiStartUpdateComment = build<AcdCommentRelated, Course & AcdCommentEditReq>(
   'GET',
   '/api/course/start-update-comment',
 );
 export const apiUpdateComment = build<AcdCommentEditReq, string>('POST', '/api/course/update-comment');
-export const apiDeleteComment = build<AcdCommentRelated, Course>('POST', '/api/course/delete-comment');
+export const apiDeleteComment = build<AcdCommentRelated, Omit<Course, 'isBookmark'>>('POST', '/api/course/delete-comment');
 export const apiMyComments = build<{}, AcdComment[]>('GET', '/api/course/my-comments');
 export const apiLikeComment = build<AcdCommentRelated, AcdComment[]>('POST', '/api/course/like-comment');
 

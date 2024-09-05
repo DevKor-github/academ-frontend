@@ -9,11 +9,9 @@ import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
 export default function BookmarkToggleButton({
   id,
-  onClick,
   defaultValue,
 }: {
   id: number;
-  onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   defaultValue: boolean;
 }) {
   const [b, setB] = useState(defaultValue);
@@ -42,7 +40,8 @@ export default function BookmarkToggleButton({
       <Button
         kind="blank"
         onClick={(e) => {
-          onClick && onClick(e);
+          e.stopPropagation();
+          e.preventDefault;
           sendApiThenSetB(!b);
         }}
       >
