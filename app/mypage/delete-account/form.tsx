@@ -28,12 +28,12 @@ export default function DeleteAccountForm(props: FormProps<DeleteAccountInputExt
     </div>
     <div className="flex flex-col *:w-full gap-8">
     <Input id="password" type="password" placeholder="비밀번호 입력" onChange={props.handleInput} readOnly={props.handleInput === undefined} />
-    <label htmlFor="check">
+    <label htmlFor="checked">
         <input id="checked" type='checkbox' onChange={props.handleInput} className="accent-primary-500" readOnly={props.handleInput === undefined}
     checked={props.input.checked} />
         예, 계정을 삭제하면 삭제된 포인트를 다시 복구할 수 없으며 접근 권한을 잃어버림을 이해했습니다.
       </label>
-      <Button disabled={props.handleInput === undefined || props.input.password === '' && props.input.checked || props.submitting} type="submit">{
+      <Button disabled={props.handleInput === undefined || props.input.password === '' || (!props.input.checked) || props.submitting} type="submit">{
         props.submitting ? <Spinner /> : "탈퇴하기"
       }</Button>
     </div>

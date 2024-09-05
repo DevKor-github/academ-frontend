@@ -28,6 +28,7 @@ export default function DeleteAccountClient() {
           route.push('/');
         } else {
           alert(`계정 삭제에 실패했습니다: ${s.message}`);
+          setBusy(false);
         }
       }
     )
