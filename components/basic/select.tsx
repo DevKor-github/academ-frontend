@@ -1,42 +1,35 @@
-'use client';
-
-import Button from './button';
-import { useState } from 'react';
-
-interface SelectOpts<T> {
-  value: T;
-  label: string;
-}
-
-export default function Select<T>({
+export default function Select<T extends string>({
   items,
-  setValue,
-  defaultLabel,
+  handleValue,
+  value,
 }: {
   items: SelectOpts<T>[];
-  setValue: React.Dispatch<React.SetStateAction<T>>;
-  defaultLabel: string;
+  handleValue?: React.FormEventHandler<HTMLInputElement>
+  value: T;
 }) {
-  const [selected, setSelected] = useState<string>(defaultLabel);
 
   return (
     <div className="flex flex-row text-sm pb-4 gap-2">
       {items.map((v) => (
-        <Button
-          kind="outline"
+        <label
           key={v.label}
-          onClick={() => {
-            setValue(v.value);
-            setSelected(v.label);
-          }}
-          className={`!border !rounded-full px-4 ${
-            selected === v.label
-              ? '!text-primary-500 !bg-primary-500/10 !border-primary-500'
-              : 'light:!text-light-fore-10 dark:!text-dark-fore-10 light:!bg-light-back-1 dark:!bg-dark-back-1 light:!border-light-back-4 dark:!border-dark-back-4'
-          }`}
-        >
-          <span>{v.label}</span>
-        </Button>
+        className={`!border !rounded-full px-4 p-2 cursor-pointer ${
+          value === v.value
+            ? '!text-primary-500 !bg-primary-500/10 !border-primary-500'
+            : 'light:!text-light-fore-10 dark:!text-dark-fore-10 light:!bg-light-back-1 dark:!bg-dark-back-1 light:!border-light-back-4 dark:!border-dark-back-4'
+            }`}
+          htmlFor={v.value}
+        >{v.label}
+          <input
+            hidden
+            type='radio'
+            id={v.value}
+            value={v.value}
+            checked={value === v.value}
+          onClick={handleValue}
+          readOnly={handleValue === undefined}
+          />
+          </label>
       ))}
     </div>
   );
