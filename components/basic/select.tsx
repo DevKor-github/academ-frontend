@@ -3,13 +3,13 @@ export default function Select<T extends string>({
   handleValue,
   value,
 }: {
-  items: SelectOpts<T>[];
+  items: readonly SelectOpts<T>[];
   handleValue?: React.FormEventHandler<HTMLInputElement>
   value: T;
 }) {
 
   return (
-    <div className="flex flex-row text-sm pb-4 gap-2">
+    <div className="flex flex-row text-sm gap-2">
       {items.map((v) => (
         <label
           key={v.label}

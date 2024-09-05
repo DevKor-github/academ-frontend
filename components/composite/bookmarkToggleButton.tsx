@@ -34,7 +34,7 @@ export default function BookmarkToggleButton({
   return (
     <span className={`
       ${b ? 'text-primary-500' : 'text-neutral-400 dark:text-neutral-600'}
-      ${pulse ? 'animate-pulse' : ''}
+      ${pulse ? 'animate-pulse-beat' : ''}
       ${shake ? 'animate-shake' : ''}
       `}>
       <Button

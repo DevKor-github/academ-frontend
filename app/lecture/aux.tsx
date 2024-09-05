@@ -1,8 +1,8 @@
-import { SkeletonDiv } from "@/components/composite/skeleton";
+import { CoursePreviewLoading } from "@/components/view/CoursePreview";
 
 export function Box({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className="flex flex-col pb-8 pt-8 bg-neutral-50 dark:bg-neutral-950 flex-grow text-xl text-center pl-8 pr-8 md:pl-24 md:pr-24">
+    <div className="flex flex-col px-8 py-8 bg-neutral-50 dark:bg-neutral-950 flex-grow text-xl text-center md:px-24 gap-8">
       {children}
     </div>
   );
@@ -10,7 +10,7 @@ export function Box({ children }: React.PropsWithChildren<{}>) {
 
 export function Grid({ children }: React.PropsWithChildren<{}>) {
   return (
-    <div className='grid gap-5 items-start justify-evenly'
+    <div className={'grid gap-5 items-start justify-evenly'}
       style={{
         gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))'
       }}>
@@ -19,10 +19,23 @@ export function Grid({ children }: React.PropsWithChildren<{}>) {
   );
 }
 
+export function LoaderItems() {
+  return (<>
+        <div className="animate-pulse-[0ms]"><CoursePreviewLoading /></div>
+    <div className="animate-pulse-[-100ms]"><CoursePreviewLoading /></div>
+    <div className="animate-pulse-[-200ms]"><CoursePreviewLoading /></div>
+    <div className="animate-pulse-[-300ms]"><CoursePreviewLoading /></div>
+    <div className="animate-pulse-[-400ms]"><CoursePreviewLoading /></div>
+    <div className="animate-pulse-[-500ms]"><CoursePreviewLoading /></div>
+    <div className="animate-pulse-[-600ms]"><CoursePreviewLoading /></div>
+    <div className="animate-pulse-[-700ms]"><CoursePreviewLoading /></div>
+    <div className="animate-pulse-[-800ms]"><CoursePreviewLoading /></div>
+    <div className="animate-pulse-[-900ms]"><CoursePreviewLoading /></div>
+  </>)
+}
+
 export function SkeletonLoader() {
-  return <Grid>
-    <SkeletonDiv>asdf</SkeletonDiv>
-    <SkeletonDiv>asdf</SkeletonDiv>
-    <SkeletonDiv>asdf</SkeletonDiv>
-  </Grid>
+  return (<Grid>
+    <LoaderItems />
+  </Grid>);
 }
