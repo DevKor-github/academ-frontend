@@ -1,6 +1,6 @@
 'use client';
 
-import { MouseEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { HStack, VStack } from '@/components/basic/stack';
 import { apiDuplicateName, apiSignup } from '@/lib/api/login';

@@ -8,7 +8,6 @@ import Image from 'next/image';
 
 interface CarouselProps {
   children: React.ReactNode[];
-  style?: React.CSSProperties;
   className?: string;
 }
 
@@ -34,7 +33,7 @@ export function CarouselItem({ url, children }: { url: string; children?: React.
   );
 }
 
-export default function Carousel({ className, style, children }: CarouselProps) {
+export default function Carousel({ className, children }: CarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const goToSlide = (index: number) => {

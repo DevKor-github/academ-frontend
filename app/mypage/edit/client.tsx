@@ -31,8 +31,12 @@ function MyPageEditBasicWithProfile({
     setBusy(true);
     retryWithJWTRefresh(apiProfileUpdateBasic, sessionIdState)(input, {}).then((s) => {
       setBusy(false);
-      alert("프로필 수정을 완료했습니다.");
-      router.push('/mypage?profilechanged');
+      if (s.status === 'SUCCESS') {
+        alert("프로필 수정을 완료했습니다.");
+        router.push('/mypage?profilechanged');
+      } else {
+        alert(`프로필 수정을 실패했습니다: ${s.message}`);
+      }
     });
   }
 

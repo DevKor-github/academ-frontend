@@ -29,7 +29,6 @@ export default function Step1({
   input: SignupRequest;
   setInput: React.Dispatch<SignupRequest>;
 }) {
-  const route = useRouter();
 
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
