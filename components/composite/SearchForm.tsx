@@ -1,13 +1,9 @@
 'use client';
 
-import { useState } from 'react';
-
-import { VStack } from '@/components/basic/stack';
-import { MagnifyIcon } from '@/icons';
-import Button from '@/components/basic/button';
-import { RightIcon } from '@/icons';
+import { MagnifyIcon, RightIcon } from '@/icons';
 import ErrorLabel from '../basic/errorlabel';
 
+import { useState } from 'react';
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
 interface SearchFormProp {
@@ -37,18 +33,15 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
 
   return (
     <form className={className} method="get" action="/lecture" style={combinedStyle} onSubmit={submitHanlder}>
-      <VStack
-        gap="2px"
-        className=" transition-all justify-center items-center light:bg-neutral-100 dark:bg-neutral-900
-       pl-5 pr-5 border border-neutral-200 dark:border-neutral-800 rounded-3xl focus-within:shadow-xl dark:shadow-dark-back-6
-       "
-      >
+      <div
+        className='flex flex-row gap-2 transition-all justify-center items-center light:bg-neutral-100 dark:bg-neutral-900
+       px-5 border border-neutral-200 dark:border-neutral-800 rounded-3xl focus-within:shadow-xl dark:shadow-dark-back-6'>
         <MagnifyIcon />
         <input
           // required
           autoFocus={autoFocus}
-          className="w-full pl-4 focus-within:outline-none"
-          id="text"
+          className="w-full px-8 focus-within:outline-none"
+          id="q"
           name="q"
           placeholder={'검색'}
           value={query}
@@ -60,10 +53,10 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
             background: 'none',
           }}
         />
-        <Button kind="blank" type="submit">
+        <button type="submit">
           <RightIcon />
-        </Button>
-      </VStack>
+        </button>
+      </div>
       <ErrorLabel className='mt-4' label={error} shake={isAnimation} />
     </form>
   );

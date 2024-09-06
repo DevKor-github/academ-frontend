@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
  
-Sitemap: https://academ.kr/sitemap.xml
+Sitemap: https://academ.devkor.club/sitemap.xml

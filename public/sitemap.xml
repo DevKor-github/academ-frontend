@@ -8,38 +8,28 @@
 
 
 <url>
-  <loc>https://academ.kr/</loc>
-  <lastmod>2024-09-01T12:06:17+00:00</lastmod>
+  <loc>https://academ.devkor.club/</loc>
+  <lastmod>2024-09-06T06:56:31+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://academ.kr/lecture</loc>
-  <lastmod>2024-09-01T12:06:17+00:00</lastmod>
+  <loc>https://academ.devkor.club/lecture</loc>
+  <lastmod>2024-09-06T06:56:31+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://academ.kr/curation</loc>
-  <lastmod>2024-09-01T12:06:17+00:00</lastmod>
+  <loc>https://academ.devkor.club/curation</loc>
+  <lastmod>2024-09-06T06:56:31+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://academ.kr/notice</loc>
-  <lastmod>2024-09-01T12:06:17+00:00</lastmod>
+  <loc>https://academ.devkor.club/notice/list/1</loc>
+  <lastmod>2024-09-06T06:56:31+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://academ.kr/notice/0</loc>
-  <lastmod>2024-09-01T12:06:17+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://academ.kr/about</loc>
-  <lastmod>2024-09-01T12:06:17+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
-<url>
-  <loc>https://academ.kr/policy</loc>
-  <lastmod>2024-09-01T12:06:17+00:00</lastmod>
+  <loc>https://academ.devkor.club/notice/detail/0</loc>
+  <lastmod>2024-09-06T06:56:31+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 
