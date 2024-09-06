@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: 'Academ',
   description: 'Academ - 수강 정보 공유',
   verification: {
-    google: '_NL4wQPyV47BZYbkarGUOD_GXxApdaj2fQyBPbCoTvU',
+    google: '_Z2qinMVs8kSNnx1bGzYvWePuA7VymxnuQG8Rhe2M2E',
   }
 };
 
@@ -42,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${pretendard.variable}`}>
       <head>
-        <meta name="naver-site-verification" content="bbc120075592b0f5ef91b02002159a5df8eb77d5" />
+        <meta name="naver-site-verification" content="dee9637347b73df323379604875290ad69eb2ee8" />
       </head>
       <body className={`${inter.className} ${pretendard.className}`}>
         <SessionIdProvider>
