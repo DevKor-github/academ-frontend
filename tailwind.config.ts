@@ -224,7 +224,7 @@ const config: Config = {
         },
         'pulse-beat': {
           '0%, 100%': { transform: 'scale(1)', opacity: '1' },
-          '50%': { transform: 'scale(0.8)', opacity: '0.8' },
+          '50%': { transform: 'scale(0.5)', opacity: '0.5' },
         },
         fadeIn: {
           '0%': { opacity: '0' },
@@ -239,7 +239,7 @@ const config: Config = {
       animation: {
         shake: 'shake 0.6s ease-in-out infinite',
         pulse: 'pulse 0.6s linear infinite',
-        'pulse-beat': 'pulse-beat 0.8s ease-in-out infinite',
+        'pulse-beat': 'pulse-beat 0.3s ease-in-out infinite',
         fade: 'fadeIn 0.2s ease-in-out',
       },
       screens: {
