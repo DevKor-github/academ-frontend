@@ -23,7 +23,7 @@ export const LeftIcon = () => (
 );
 
 export const RightIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="1em" height="1em" viewBox="0 0 22 22">
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="1em" height="1em" viewBox="-5 0 22 22">
     <path stroke="currentColor" strokeLinecap="square" strokeWidth="1.5" d="m2 2 10 9.5L2 21" />
   </svg>
 );
@@ -54,7 +54,7 @@ export const MagnifyIcon = () => (
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
     height="1em"
-    viewBox="0 0 24 24"
+    viewBox="2 2 21 21"
     fill="none"
     stroke="currentColor"
     strokeWidth="2"
@@ -117,9 +117,10 @@ export const LogoIconRich = () => (
 );
 
 export const BookmarkIcon = () => (
-  <svg stroke="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="1em" height="1em">
-    <path d="M6 2h12a2 2 0 0 1 2 2v18l-8-3-8 3V4a2 2 0 0 1 2-2z" fill="currentColor" />
+  <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M11 1H3C1.89543 1 1 1.89543 1 3V18L7 12.087L13 18V3C13 1.89543 12.1046 1 11 1Z" fill="currentColor" stroke="none"/>
   </svg>
+  
 );
 
 export const CheckIcon = () => (

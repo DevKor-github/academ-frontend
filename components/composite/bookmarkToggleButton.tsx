@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { BookmarkIcon } from '@/icons';
-import Button from '../basic/button';
 import { apiBookmark } from '@/lib/api/course';
 import { useSessionId } from '@/context/SessionIdContext';
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
@@ -37,16 +36,15 @@ export default function BookmarkToggleButton({
       ${pulse ? 'animate-pulse-beat' : ''}
       ${shake ? 'animate-shake' : ''}
       `}>
-      <Button
-        kind="blank"
-        onClick={(e) => {
+      <button
+        onClick={(e: React.MouseEvent) => {
+          e.preventDefault();
           e.stopPropagation();
-          e.preventDefault;
           sendApiThenSetB(!b);
         }}
       >
         <BookmarkIcon />
-      </Button>
+      </button>
     </span>
   );
 }
