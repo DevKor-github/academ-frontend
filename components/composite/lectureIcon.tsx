@@ -1,45 +1,18 @@
-export default function LectureIcon({ code, kind = 'SMALL' }: { code: string; kind?: 'BIG' | 'SMALL' }) {
-  (function ignore(r) {
-    return r;
-  })(code);
+export default function LectureIcon({ code }: { code: string }) {
 
-  const scale = kind === 'BIG' ? '80px' : '48px';
   const imageUrl = `url(${imageMap[code.substring(0, 3)] || '/cicon/ku.jpg'})`;
 
   return (
-    <div
-      className="flex flex-row justify-center items-center overflow-clip"
-      style={{
-        backgroundImage: imageUrl,
-        backgroundSize: 'contain',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        aspectRatio: 1,
-        minWidth: scale,
-        minHeight: scale,
-        width: scale,
-        height: scale,
-        maxWidth: scale,
-        maxHeight: scale,
-        overflow: 'clip',
-      }}
-    >
-      {/* <img
-        className="absolute z-10"
-        loading="eager"
-        src={imageUrl}
-        alt="banner image"
-        width={81}
-        height={105}
-        style={{
-          padding: smallScale,
-          // borderRadius: scale,
-          height: scale,
-          width: scale,
-          objectFit: 'contain',
-        }}
-      /> */}
-    </div>
+    <span className="inline-flex p-[0.25em] items-center justify-center bg-white rounded-full overflow-clip aspect-square">
+      <span
+          className="flex flex-row justify-center items-center bg-contain bg-center bg-no-repeat mt-[0.125em]"
+          style={{
+            backgroundImage: imageUrl,
+            width: '1em',
+            height: '1em',
+          }}
+        />
+    </span>
   );
 }
 

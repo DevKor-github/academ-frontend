@@ -17,10 +17,9 @@ function MyPageEditBasicWithProfile({
   profile: { username, student_id, degree, semester, department },
 }: {
   profile: UserProfile;
-  }) {
-  
+}) {
   const router = useRouter();
-  
+
   const [input, setInput] = useState<UpdateProfileReq>({ username, student_id, degree, semester, department });
   const [busy, setBusy] = useState<boolean>(false);
 
@@ -32,7 +31,7 @@ function MyPageEditBasicWithProfile({
     retryWithJWTRefresh(apiProfileUpdateBasic, sessionIdState)(input, {}).then((s) => {
       setBusy(false);
       if (s.status === 'SUCCESS') {
-        alert("프로필 수정을 완료했습니다.");
+        alert('프로필 수정을 완료했습니다.');
         router.push('/mypage?profilechanged');
       } else {
         alert(`프로필 수정을 실패했습니다: ${s.message}`);
@@ -40,16 +39,28 @@ function MyPageEditBasicWithProfile({
     });
   }
 
-  return <UpdateBasicForm handleSubmit={handleSubmit} input={input} handleInput={handleInputBuilder(input, setInput)} submitting={busy} />;
+  return (
+    <UpdateBasicForm
+      handleSubmit={handleSubmit}
+      input={input}
+      handleInput={handleInputBuilder(input, setInput)}
+      submitting={busy}
+    />
+  );
 }
 
 export default function MyPageEditBasic() {
   const [jwt] = useSessionId();
 
   const { loading, response: profile } = useApi(apiMyPageBasics, {}, { token: jwt?.accessToken });
-  
+
   if (loading) {
-    return <MyPageEditBasicForm input={{ username : '', student_id : '', degree: 'MASTER', semester: 0, department: '' }} submitting={false} />;
+    return (
+      <MyPageEditBasicForm
+        input={{ username: '', student_id: '', degree: 'MASTER', semester: 0, department: '' }}
+        submitting={false}
+      />
+    );
   }
 
   if (profile.status === 'SUCCESS') {

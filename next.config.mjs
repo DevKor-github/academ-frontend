@@ -11,9 +11,9 @@ const nextConfig = {
         source: '/notice',
         destination: '/notice/list/1',
         permanent: false,
-      }
-    ]
-  }
+      },
+    ];
+  },
 };
 
 export default nextConfig;

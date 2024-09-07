@@ -16,7 +16,7 @@ export default function LoginPageClient() {
   const [input, setInput] = useState<LoginRequest>({
     email: '',
     password: '',
-    "remember-me" : false,
+    'remember-me': false,
   });
 
   const route = useRouter();
@@ -68,6 +68,13 @@ export default function LoginPageClient() {
   }
 
   return (
-    <LoginForm input={input} handleInput={handleInputBuilder(input, setInput)} handleSubmit={handleLogin} submitting={loading} loginError={loginError} shake={shake} />
+    <LoginForm
+      input={input}
+      handleInput={handleInputBuilder(input, setInput)}
+      handleSubmit={handleLogin}
+      submitting={loading}
+      loginError={loginError}
+      shake={shake}
+    />
   );
 }

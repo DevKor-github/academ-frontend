@@ -6,11 +6,10 @@ import { useState } from 'react';
 import Select from '@/components/basic/select';
 
 export default function CommentsView({ course_id, comments }: { course_id?: number; comments: AcdComment[] }) {
-
   const [order, setOrder] = useState<CommentsOrdering>('NEWEST');
 
   function handleValue(e: React.FormEvent<HTMLInputElement>) {
-    setOrder((e.target as HTMLInputElement).value as CommentsOrdering)
+    setOrder((e.target as HTMLInputElement).value as CommentsOrdering);
   }
 
   return (

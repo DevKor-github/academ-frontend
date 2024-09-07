@@ -38,7 +38,7 @@ export type ApiResponse<T> =
       version: string;
     };
 
-function failWith(data: 'NO_RES' | 'NO_REQ' | 'FAIL_RES', message: string, statusCode: number): ApiResponse<any> {
+function failWith(data: 'NO_RES' | 'NO_REQ' | 'FAIL_RES', message: string, statusCode: number): ApiResponse<unknown> {
   return {
     status: 'FAILURE',
     statusCode,
@@ -59,7 +59,7 @@ export interface ApiCTX {
 /**
  * AxiosResponse Promise를 받아서 항상 resolve된 버전의 Promise로 바꿔줌
  */
-function resolvify<Res>(promise: Promise<AxiosResponse<ApiResponse<Res>, any>>) {
+function resolvify<Res>(promise: Promise<AxiosResponse<ApiResponse<Res>>>) {
   return promise
     .then((res) => {
       const data: ApiResponse<Res> = res.data;
@@ -68,23 +68,29 @@ function resolvify<Res>(promise: Promise<AxiosResponse<ApiResponse<Res>, any>>) 
     })
     .catch((error: AxiosError) => {
       if (error.response) {
-        return Promise.resolve(failWith('FAIL_RES', '실패한 응답을 받았습니다.', error.response.status));
+        return Promise.resolve(
+          failWith('FAIL_RES', '실패한 응답을 받았습니다.', error.response.status) as ApiResponse<Res>,
+        );
       } else if (error.request) {
         return Promise.resolve(
           failWith(
             'NO_RES',
             '응답을 수신하지 못했습니다. 장치가 네트워크에 연결되어 있지 않거나 서버가 오프라인입니다.',
             -2,
-          ),
+          ) as ApiResponse<Res>,
         );
       } else {
         return Promise.resolve(
-          failWith('NO_REQ', '요청을 전송하지 못했습니다. 장치가 네트워크에 연결 되지 않았나요?', -3),
+          failWith(
+            'NO_REQ',
+            '요청을 전송하지 못했습니다. 장치가 네트워크에 연결 되지 않았나요?',
+            -3,
+          ) as ApiResponse<Res>,
         );
       }
     })
     .catch(() => {
-      return Promise.resolve(failWith('NO_REQ', '알 수 없는 오류', -4));
+      return Promise.resolve(failWith('NO_REQ', '알 수 없는 오류', -4) as ApiResponse<Res>);
     });
 }
 

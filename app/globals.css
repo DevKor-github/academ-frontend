@@ -126,7 +126,6 @@ svg {
   display: inline-block;
 }
 
-
 /** fix : github.com/tailwindlabs/tailwindcss/discussions/7044#discussioncomment-4697891 */
 :root {
   --empty: ;

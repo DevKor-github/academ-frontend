@@ -1,5 +1,9 @@
 type VoidifyReturn<T> = T extends (...args: infer Args) => any ? (...args: Args) => void : never;
 
+type ReplaceValues<T, K> = {
+  [P in keyof T]: K;
+};
+
 /**
  * 이 코드는 Array를 Compile time에 검증하기 위한 코드입니다.
  * 예를 들어, 어떤 타입 T의 key로 이루어진 Array a가 T의 key만을 포함하면서, T의 key를 빠짐없이 포함하는지 확인합니다.ㄴ
