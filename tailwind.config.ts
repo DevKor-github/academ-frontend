@@ -242,8 +242,9 @@ const config: Config = {
       animation: {
         shake: 'shake 0.6s ease-in-out infinite',
         pulse: 'pulse 0.6s linear infinite',
+        'pulse-slow': 'pulse 2.5s linear infinite',
         'pulse-beat': 'pulse-beat 0.3s ease-in-out infinite',
-        fade: 'fadeIn 0.2s ease-in-out',
+        fade: 'fadeIn 0.125s ease-in-out',
       },
       screens: {
         'not-md': { max: '768px' },
