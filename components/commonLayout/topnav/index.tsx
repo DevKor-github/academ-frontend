@@ -27,7 +27,7 @@ export default function TopNav() {
   const [spreaded, setSpreaded] = useState(false);
 
   return (
-    <nav>
+    <header>
       <div
         className={
           'fixed z-50 top-0 w-full' +
@@ -51,6 +51,6 @@ export default function TopNav() {
         </div>
       </div>
       <div className={overlap ? 'hidden' : 'relative min-h-16'} />
-    </nav>
+    </header>
   );
 }
