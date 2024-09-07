@@ -9,9 +9,9 @@ import { backendBaseUrl } from '../directive';
  * @param params
  * @returns
  */
-export async function ssget<Req extends Record<string, any>, Res>(url: string, params: Req) {
+export async function ssget<Req extends NonNullable<unknown>, Res>(url: string, params: Req) {
   const encoded = Object.keys(params)
-    .map((k) => `${k}=${encodeURIComponent(params[k].toString())}`)
+    .map((k) => `${k}=${encodeURIComponent(String((params as Record<string, unknown>)[k]))}`)
     .join('&');
 
   return (await fetch(backendBaseUrl + url + (encoded === '' ? '' : '?' + encoded))).json() as Res;
