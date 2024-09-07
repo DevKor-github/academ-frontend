@@ -51,7 +51,7 @@ export default async function SearchPage({
     ? (s as SearchOrdering)
     : 'NEWEST';
 
-  const SearchResultsView = dynamic(() => import('./results'), {
+  const SearchResultsView = dynamic(() => import('./fetch'), {
     ssr: false,
     loading: () => (
       <Box>
