@@ -1,6 +1,5 @@
 'use client';
 
-
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -12,7 +11,8 @@ import { handleInputBuilder } from '@/lib/form/handler';
 
 export default function FindPWPageClient() {
   const [input, setInput] = useState<ResetPwReq>({
-    email: '', code: ''
+    email: '',
+    code: '',
   });
 
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -23,7 +23,7 @@ export default function FindPWPageClient() {
   function handleSendcode(e: React.FormEvent) {
     e.preventDefault();
     setWip(true);
-    apiSendEmail({ email: input.email}).then((s) => {
+    apiSendEmail({ email: input.email }).then((s) => {
       if (s.status === 'SUCCESS') {
         setStep(2);
         setWip(false);
@@ -48,7 +48,19 @@ export default function FindPWPageClient() {
     });
   }
 
-  return (step === 1 ?
-    <ResetPwForm1 input={input} handleInput={handleInputBuilder(input, setInput)} handleSubmit={handleSendcode} submitting={wip} /> :
-    <ResetPwForm2 input={input} handleInput={handleInputBuilder(input, setInput)} handleSubmit={handleResetPw} submitting={wip} />);
+  return step === 1 ? (
+    <ResetPwForm1
+      input={input}
+      handleInput={handleInputBuilder(input, setInput)}
+      handleSubmit={handleSendcode}
+      submitting={wip}
+    />
+  ) : (
+    <ResetPwForm2
+      input={input}
+      handleInput={handleInputBuilder(input, setInput)}
+      handleSubmit={handleResetPw}
+      submitting={wip}
+    />
+  );
 }

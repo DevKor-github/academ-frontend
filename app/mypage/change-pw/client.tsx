@@ -26,19 +26,26 @@ export default function ChangePW() {
       return alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
     }
 
-    retryWithJWTRefresh(apiProfileUpdatePW, sessionIdState)({ old_password: input.old_password, new_password: input.new_password }, {}).then((s) => {
+    retryWithJWTRefresh(apiProfileUpdatePW, sessionIdState)(
+      { old_password: input.old_password, new_password: input.new_password },
+      {},
+    ).then((s) => {
       if (s.status === 'SUCCESS') {
-        alert(`비밀번호 변경에 성공했습니다.`)
+        alert(`비밀번호 변경에 성공했습니다.`);
         router.push('/mypage?pwchanged');
       } else {
-        alert(`변경에 실패했습니다: ${s.message}`)
+        alert(`변경에 실패했습니다: ${s.message}`);
       }
     });
     setBusy(false);
   }
 
-
   return (
-    <ChangePwForm handleSubmit={handleSubmit} handleInput={handleInputBuilder(input, setInput)} input={input} submitting={busy} />
+    <ChangePwForm
+      handleSubmit={handleSubmit}
+      handleInput={handleInputBuilder(input, setInput)}
+      input={input}
+      submitting={busy}
+    />
   );
 }

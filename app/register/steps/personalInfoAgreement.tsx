@@ -1,5 +1,3 @@
-
-
 const PersonalInfoAgreement: React.FC = () => {
   return (
     <div style={{ lineHeight: '1.6' }}>
@@ -287,7 +285,9 @@ const PersonalInfoAgreement: React.FC = () => {
       <h3 style={{ fontWeight: 'bold' }}>제2조(개인정보 수집 및 이용 항목)</h3>
       <p style={{ marginBottom: '1em' }}>{`회사는 개인정보 수집 목적을 위하여 다음과 같은 정보를 수집합니다.`}</p>
       <ul>
-        <li style={{ marginBottom: '1em' }}>{`- 성명, 이메일 및 개인정보(닉네임, 아이디, 비밀번호, 학번, 학년, 학기)`}</li>
+        <li
+          style={{ marginBottom: '1em' }}
+        >{`- 성명, 이메일 및 개인정보(닉네임, 아이디, 비밀번호, 학번, 학년, 학기)`}</li>
       </ul>
       <h3 style={{ fontWeight: 'bold' }}>제3조(개인정보 보유 및 이용 기간)</h3>
       <p style={{ marginBottom: '1em' }}>

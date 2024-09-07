@@ -30,10 +30,7 @@ function Up({ course }: { course: Course }) {
         </VStack>
       </HStack>
 
-      <BookmarkToggleButton
-        id={course.course_id}
-        defaultValue={course.isBookmark}
-      />
+      <BookmarkToggleButton id={course.course_id} defaultValue={course.isBookmark} />
     </VStack>
   );
 }
@@ -55,8 +52,8 @@ function Down({ course }: { course: Course }) {
         {course.count_comments === 0 ? (
           <span className="text-base font-normal text-neutral-400">평가 없음</span>
         ) : (
-            <>
-            <span className='text-primary-500'>
+          <>
+            <span className="text-primary-500">
               <StarIcon />
             </span>
             {course.avg_rating.toFixed(1)}
@@ -69,20 +66,27 @@ function Down({ course }: { course: Course }) {
 }
 
 function CoursePreviewBox({ children, href = '' }: React.PropsWithChildren<{ href: string }>) {
-  return <Link className={`
+  return (
+    <Link
+      className={`
   transition-all overflow-hidden h-fit w-full rounded-3xl cursor-pointer p-8 flex flex-col justify-between hover:-translate-y-2
   border light:border-base-27 dark:border-base-7 hover:dark:border-primary-500
   light:bg-base-32 hover:light:shadow-xl hover:light:shadow-base-27 
   dark:bg-base-4 hover:dark:shadow-glow-lg hover:dark:shadow-primary-500
-  `} href={href}>
-    {children}
-  </Link>
+  `}
+      href={href}
+    >
+      {children}
+    </Link>
+  );
 }
 
 export function CoursePreviewLoading() {
-  return <CoursePreviewBox href=''>
-    <div className='h-36' />
-  </CoursePreviewBox>
+  return (
+    <CoursePreviewBox href="">
+      <div className="h-36" />
+    </CoursePreviewBox>
+  );
 }
 
 export default function CoursePreview({ course }: { course: Course }) {

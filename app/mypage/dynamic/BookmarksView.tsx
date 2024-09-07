@@ -1,18 +1,17 @@
 'use client';
 
-import { HStack, VStack } from "@/components/basic/stack";
+import { HStack, VStack } from '@/components/basic/stack';
 
-import CoursePreview from "@/components/view/CoursePreview";
+import CoursePreview from '@/components/view/CoursePreview';
 
-import { apiMyPageBookmarks } from "@/lib/api/mypage";
-import { usePagination } from "@/lib/hooks/pagination";
-import { useEffect } from "react";
-import { useSessionId } from "@/context/SessionIdContext";
-import Button from "@/components/basic/button";
-import { RightIcon } from "@/icons";
+import { apiMyPageBookmarks } from '@/lib/api/mypage';
+import { usePagination } from '@/lib/hooks/pagination';
+import { useEffect } from 'react';
+import { useSessionId } from '@/context/SessionIdContext';
+import Button from '@/components/basic/button';
+import { RightIcon } from '@/icons';
 
 export default function BookmarksView() {
-
   const [jwt] = useSessionId();
   const [pages, fetchThis] = usePagination(apiMyPageBookmarks);
 
@@ -26,13 +25,17 @@ export default function BookmarksView() {
     // silent kill
     return <div />;
   }
-  
+
   if (pages.totalLoadingState === 'bot') {
     return <div />;
   }
 
-  const showMoreButton = (
-    pages.eoc ? <div /> : <Button kind="blank" onClick={fetchNext}><RightIcon /></Button>
+  const showMoreButton = pages.eoc ? (
+    <div />
+  ) : (
+    <Button kind="blank" onClick={fetchNext}>
+      <RightIcon />
+    </Button>
   );
 
   return (

@@ -1,23 +1,12 @@
 export const CloseIcon = () => (
-  <svg
-    viewBox="0 0 32 32"
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    stroke = "currentColor"
-  >
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" stroke="currentColor">
     <line x1="2" y1="2" x2="30" y2="30" strokeWidth="3" />
     <line x1="2" y1="30" x2="30" y2="2" strokeWidth="3" />
   </svg>
 );
 
 export const LeftIcon = () => (
-  <svg
-    width="1em"
-    height="1em"
-    xmlns="http://www.w3.org/2000/svg"
-    stroke = "currentColor"
-  >
+  <svg width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
     <path d="M 15 2 L 2 16 L 15 30" strokeWidth="3" fill="none" />
   </svg>
 );
@@ -118,9 +107,12 @@ export const LogoIconRich = () => (
 
 export const BookmarkIcon = () => (
   <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M11 1H3C1.89543 1 1 1.89543 1 3V18L7 12.087L13 18V3C13 1.89543 12.1046 1 11 1Z" fill="currentColor" stroke="none"/>
+    <path
+      d="M11 1H3C1.89543 1 1 1.89543 1 3V18L7 12.087L13 18V3C13 1.89543 12.1046 1 11 1Z"
+      fill="currentColor"
+      stroke="none"
+    />
   </svg>
-  
 );
 
 export const CheckIcon = () => (

@@ -85,5 +85,12 @@ export function SessionIdProvider({ children }: SessionIdProviderProps) {
   }, []);
   */
 
-  return <SessionIdContext.Provider key={sessionId?.accessToken || sessionId?.refreshToken} value={[sessionId, setSessionId]}>{children}</SessionIdContext.Provider>;
+  return (
+    <SessionIdContext.Provider
+      key={sessionId?.accessToken || sessionId?.refreshToken}
+      value={[sessionId, setSessionId]}
+    >
+      {children}
+    </SessionIdContext.Provider>
+  );
 }

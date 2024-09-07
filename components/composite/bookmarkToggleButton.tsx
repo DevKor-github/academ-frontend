@@ -6,13 +6,7 @@ import { apiBookmark } from '@/lib/api/course';
 import { useSessionId } from '@/context/SessionIdContext';
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
-export default function BookmarkToggleButton({
-  id,
-  defaultValue,
-}: {
-  id: number;
-  defaultValue: boolean;
-}) {
+export default function BookmarkToggleButton({ id, defaultValue }: { id: number; defaultValue: boolean }) {
   const [b, setB] = useState(defaultValue);
   const [pulse, setPulse] = useState(false);
   const [shake, resetShake] = useAnimationTimeout(600);
@@ -31,11 +25,13 @@ export default function BookmarkToggleButton({
   }
 
   return (
-    <span className={`
+    <span
+      className={`
       ${b ? 'text-primary-500' : 'text-neutral-400 dark:text-neutral-600'}
       ${pulse ? 'animate-pulse-beat' : ''}
       ${shake ? 'animate-shake' : ''}
-      `}>
+      `}
+    >
       <button
         onClick={(e: React.MouseEvent) => {
           e.preventDefault();

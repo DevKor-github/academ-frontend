@@ -42,8 +42,9 @@ interface CourseId {
   course_id: number;
 }
 
+type AcdCommentOrdering = 'NEWEST' | 'RATING_DESC' | 'RATING_ASC' | 'LIKES_DESC' | 'LIKES_ASC';
 interface CourseDetailRequest extends CourseId {
-  order: 'NEWEST' | 'RATING_DESC' | 'RATING_ASC' | 'LIKES_DESC' | 'LIKES_ASC';
+  order: AcdCommentOrdering;
   page: number;
 }
 

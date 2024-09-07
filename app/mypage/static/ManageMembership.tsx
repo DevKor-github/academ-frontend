@@ -1,11 +1,10 @@
-import BuyMembershipButton from "../dynamic/BuyMembershipFunction";
+import BuyMembershipButton from '../dynamic/BuyMembershipFunction';
 
 const memberships: Array<MembershipData> = [
   { item: '30DAYS', day: 30, price: 100, iconLevel: 1 },
   { item: '90DAYS', day: 90, price: 200, iconLevel: 2 },
   { item: '180DAYS', day: 180, price: 400, iconLevel: 3 },
 ];
-
 
 export default function ManageMembership({ profile }: { profile: UserProfile }) {
   let expireLabel = (() => {
@@ -24,8 +23,10 @@ export default function ManageMembership({ profile }: { profile: UserProfile }) 
   })();
 
   return (
-    <div className="animate-fade p-8 pb-16 mt-8 border-t
-    light:border-t-light-back-8 dark:border-t-dark-back-8 ">
+    <div
+      className="animate-fade p-8 pb-16 mt-8 border-t
+    light:border-t-light-back-8 dark:border-t-dark-back-8 "
+    >
       <div className="flex flex-row text-2xl mt-8 pb-2">
         <span>강의 열람권</span>
         <div className="inline-block ml-auto">

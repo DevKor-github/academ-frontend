@@ -15,7 +15,10 @@ export const apiStartUpdateComment = build<AcdCommentRelated, Course & AcdCommen
   '/api/course/start-update-comment',
 );
 export const apiUpdateComment = build<AcdCommentEditReq, string>('POST', '/api/course/update-comment');
-export const apiDeleteComment = build<AcdCommentRelated, Omit<Course, 'isBookmark'>>('POST', '/api/course/delete-comment');
+export const apiDeleteComment = build<AcdCommentRelated, Omit<Course, 'isBookmark'>>(
+  'POST',
+  '/api/course/delete-comment',
+);
 export const apiMyComments = build<{}, AcdComment[]>('GET', '/api/course/my-comments');
 export const apiLikeComment = build<AcdCommentRelated, AcdComment[]>('POST', '/api/course/like-comment');
 

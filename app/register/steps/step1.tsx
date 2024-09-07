@@ -28,7 +28,6 @@ export default function Step1({
   input: SignupRequest;
   setInput: React.Dispatch<SignupRequest>;
 }) {
-
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
     setInput({
@@ -72,7 +71,9 @@ export default function Step1({
       <ErrorLabel className="text-primary-500" label={error} shake={timeout} />
       <VStack className="w-full h-fit justify-end" gap="36px">
         {loading ? (
-          <span className='text-6xl text-primary-500'><Spinner /></span>
+          <span className="text-6xl text-primary-500">
+            <Spinner />
+          </span>
         ) : (
           <Button
             kind="outline"

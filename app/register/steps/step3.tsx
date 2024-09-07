@@ -163,7 +163,7 @@ export default function Step3({
         required
         type="email"
         id="email"
-        autoComplete='username'
+        autoComplete="username"
         placeholder={input.email}
         onChange={handleInput}
         disabled={true}
@@ -174,7 +174,7 @@ export default function Step3({
         required
         type="password"
         id="password"
-        autoComplete='new-password'
+        autoComplete="new-password"
         placeholder="비밀번호를 입력해주세요"
         onChange={handleInput}
         autoFocus
@@ -192,7 +192,7 @@ export default function Step3({
         required
         type="password"
         id="pwcheck"
-        autoComplete='new-password'
+        autoComplete="new-password"
         value={pwcheck}
         placeholder="비밀번호를 다시 입력해주세요"
         onChange={handlepwCheck}
@@ -203,7 +203,14 @@ export default function Step3({
       </span>
       <VStack gap="10px" className="w-100% justify-between">
         <div className="grow">
-          <Input required type="text" id="username" autoComplete={undefined} placeholder="닉네임 (1-10자)" onChange={handleInput} />
+          <Input
+            required
+            type="text"
+            id="username"
+            autoComplete={undefined}
+            placeholder="닉네임 (1-10자)"
+            onChange={handleInput}
+          />
         </div>
         <Button kind="filled" className="px-4 grow-0" onClick={handleDuplicateName}>
           닉네임 중복 확인

@@ -26,18 +26,25 @@ function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => vo
       }
       style={{ zIndex: 100 }}
     >
-      <HStack className="justify-center items-center rounded-xl
-      *:flex *:flex-row *:min-h-6 *:gap-2 *:p-4 *:pb-2 *:w-full *:justify-center *:align-middle">
-
-        <Link className='
+      <HStack
+        className="justify-center items-center rounded-xl
+      *:flex *:flex-row *:min-h-6 *:gap-2 *:p-4 *:pb-2 *:w-full *:justify-center *:align-middle"
+      >
+        <Link
+          className="
         hover:light:bg-light-back-2
-        hover:dark:bg-dark-back-4' href="/mypage">
+        hover:dark:bg-dark-back-4"
+          href="/mypage"
+        >
           <ProfileIcon />
-          <span>마이페이지</span> 
+          <span>마이페이지</span>
         </Link>
-        <Link className='
+        <Link
+          className="
         hover:light:bg-light-back-2
-        hover:dark:bg-dark-back-4' href="/logout">
+        hover:dark:bg-dark-back-4"
+          href="/logout"
+        >
           <LogoutIcon />
           <span>로그아웃</span>
         </Link>
@@ -49,7 +56,9 @@ function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => vo
 function LoginButton() {
   return (
     <Link href="/login">
-      <Button><span className='whitespace-nowrap'>로그인/회원가입</span></Button>
+      <Button>
+        <span className="whitespace-nowrap">로그인/회원가입</span>
+      </Button>
     </Link>
   );
 }
@@ -58,13 +67,16 @@ function ProfileButton() {
   const [jwt] = useSessionId();
 
   const [open, setOpen] = useState<boolean>(false);
-  const { loading, response: state } = useApi < {}, MyPageBasicInfo>(apiMyPageBasics, {}, { token: jwt?.accessToken });
+  const { loading, response: state } = useApi<{}, MyPageBasicInfo>(apiMyPageBasics, {}, { token: jwt?.accessToken });
 
   if (loading) {
     return (
       <Button>
-      <Skeleton className='rounded-md bg-primary-300' placeholder={<span className="whitespace-nowrap">로그인/회원가입</span>} />
-    </Button>
+        <Skeleton
+          className="rounded-md bg-primary-300"
+          placeholder={<span className="whitespace-nowrap">로그인/회원가입</span>}
+        />
+      </Button>
     );
   }
 
@@ -73,12 +85,17 @@ function ProfileButton() {
   } else {
     return (
       <div>
-        <Button className='rounded-full bg-primary-500 text-white p-2 pl-2 pr-2 cursor-pointer' onClick={() => setOpen((v) => !v)}>
+        <Button
+          className="rounded-full bg-primary-500 text-white p-2 pl-2 pr-2 cursor-pointer"
+          onClick={() => setOpen((v) => !v)}
+        >
           <span
             className="under-md:max-w-24"
             style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
           >
-            <span className='flex flex-row'>마이페이지 <DownIcon /></span>
+            <span className="flex flex-row">
+              마이페이지 <DownIcon />
+            </span>
           </span>
         </Button>
         {open && <ProfilePopover setOpenPopover={setOpen} />}

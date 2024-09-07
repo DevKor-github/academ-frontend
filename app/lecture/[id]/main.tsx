@@ -1,5 +1,3 @@
-'use client';
-
 import { HStack } from '@/components/basic/stack';
 
 import BasicInfoView from './components/basicinfo';
@@ -8,7 +6,6 @@ import SummaryView from './components/summary';
 
 import Link from 'next/link';
 import { IssueIcon } from '@/icons';
-
 
 export default function LectureView({ course }: { course: Course }) {
   if (course.comments.length === 0) {
