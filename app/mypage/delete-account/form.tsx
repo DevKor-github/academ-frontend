@@ -1,4 +1,3 @@
-import Button from '@/components/basic/button';
 import Input from '@/components/basic/input';
 import Spinner from '@/components/basic/spinner';
 
@@ -40,14 +39,14 @@ export default function DeleteAccountForm(props: FormProps<DeleteAccountInputExt
           />
           예, 계정을 삭제하면 삭제된 포인트를 다시 복구할 수 없으며 접근 권한을 잃어버림을 이해했습니다.
         </label>
-        <Button
+        <button
           disabled={
             props.handleInput === undefined || props.input.password === '' || !props.input.checked || props.submitting
           }
           type="submit"
         >
           {props.submitting ? <Spinner /> : '탈퇴하기'}
-        </Button>
+        </button>
       </div>
     </form>
   );
