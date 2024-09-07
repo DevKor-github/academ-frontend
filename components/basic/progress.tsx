@@ -5,10 +5,6 @@ interface ProgressProps {
   reverse: boolean;
 }
 
-const interpolateColors = (color1: number[], color2: number[], t: number) => {
-  return color1.map((start, index) => Math.round(start + (color2[index] - start) * t));
-};
-
 const Progress: React.FC<ProgressProps> = ({ rate, style, reverse }) => {
   const rate100 = Math.min(1, Math.max(0, rate)) * 100;
 
