@@ -28,7 +28,7 @@ export default function MyCommentsView() {
   }
 
   const nextButton = pages.eoc ? (
-    <div>모두 로드했습니다.</div>
+    <div>모두 불러왔습니다</div>
   ) : (
     <div className="w-full pt-6 flex flex-col justify-center items-center">
       {pages.failwith !== null && <div>오류!!</div>}
