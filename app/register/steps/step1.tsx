@@ -40,7 +40,7 @@ export default function Step1({
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [timeout, resetTimeout] = useAnimationTimeout(200);
+  const [timeout, resetTimeout] = useAnimationTimeout(500);
 
   useEffect(() => {
     setIsEmailValid(validateEmail(input.email));
@@ -53,13 +53,18 @@ export default function Step1({
 
     if (response.status === 'SUCCESS') {
       const id = input.email;
-      setInput({ ...input, [input.email]: id.slice(0, -12) });
+      setInput({ ...input, [input.email]: id });
       nextStep();
     } else {
       setError(
         '인증번호 발송을 실패하였습니다. 잠시 후 다시 시도해주세요. 계속해서 실패하는 경우 서버 상의 문제일 수 있습니다.',
       );
       resetTimeout();
+
+      setTimeout(() => {
+        setLoading(false);
+        setError('');
+      }, 3000);
     }
   }
 
@@ -67,27 +72,35 @@ export default function Step1({
     <HStack gap="20px">
       <span className="text-4xl">환영합니다!</span>
       <span className="text-2xl">고려대학교 이메일로 학생인증을 해주세요.</span>
-      <Input required type="email" id="email" placeholder="example@korea.ac.kr" onChange={handleInput} autoFocus />
-      <ErrorLabel className="text-primary-500" label={error} shake={timeout} />
-      <VStack className="w-full h-fit justify-end" gap="36px">
-        {loading ? (
-          <span className="text-6xl text-primary-500">
-            <Spinner />
-          </span>
-        ) : (
-          <Button
-            kind="outline"
-            className="flex flex-row justify-around items-center text-xl gap-x-4 px-4"
-            variant="contained"
-            color="primary"
-            disabled={!isEmailValid}
-            onClick={isEmailValid ? handleSendEmail : () => undefined}
-          >
-            <span>다음</span>
-            <RightIcon />
-          </Button>
-        )}
-      </VStack>
+      <form
+        className="flex flex-col gap-5"
+        onSubmit={(e) => {
+          e.preventDefault();
+          isEmailValid ? handleSendEmail() : () => undefined;
+        }}
+      >
+        <Input required type="email" id="email" placeholder="example@korea.ac.kr" onChange={handleInput} autoFocus />
+        <ErrorLabel className="text-primary-500" label={error} shake={timeout} />
+        <VStack className="w-full h-fit justify-end" gap="36px">
+          {loading ? (
+            <span className="text-6xl text-primary-500">
+              <Spinner />
+            </span>
+          ) : (
+            <Button
+              kind="outline"
+              type="submit"
+              className="flex flex-row justify-around items-center text-xl gap-x-4 px-4"
+              variant="contained"
+              color="primary"
+              disabled={!isEmailValid}
+            >
+              <span>다음</span>
+              <RightIcon />
+            </Button>
+          )}
+        </VStack>
+      </form>
     </HStack>
   );
 }

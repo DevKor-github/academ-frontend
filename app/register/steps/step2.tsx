@@ -51,31 +51,40 @@ export default function Step2({
   return (
     <HStack style={{ justifyContent: 'center' }} gap="20px">
       <span className="text-xl">이메일로 인증번호가 발송되었습니다.</span>
-      <Input
-        required
-        type="text"
-        id="code"
-        autoComplete="one-time-code"
-        inputMode="numeric"
-        placeholder="인증번호를 입력해주세요"
-        value={input.code}
-        onChange={handleInput}
-        autoFocus
-      />
-      <ErrorLabel className={'text-primary-500 '} label={error} shake={timeout} />
-      <VStack className="w-full h-fit justify-end" gap="36px">
-        <Button
-          kind="outline"
-          className="flex flex-row justify-around items-center text-xl gap-x-4 px-4"
-          variant="contained"
-          color="primary"
-          disabled={input.code === ''}
-          onClick={handleCode}
-        >
-          <span>다음</span>
-          <RightIcon />
-        </Button>
-      </VStack>
+      <form
+        className="flex flex-col gap-5"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleCode();
+        }}
+      >
+        <Input
+          required
+          type="text"
+          id="code"
+          autoComplete="one-time-code"
+          inputMode="numeric"
+          maxLength={8}
+          placeholder="인증번호를 입력해주세요"
+          value={input.code}
+          onChange={handleInput}
+          autoFocus
+        />
+        <ErrorLabel className={'text-primary-500 '} label={error} shake={timeout} />
+        <VStack className="w-full h-fit justify-end" gap="36px">
+          <Button
+            kind="outline"
+            type="submit"
+            className="flex flex-row justify-around items-center text-xl gap-x-4 px-4"
+            variant="contained"
+            color="primary"
+            disabled={input.code === ''}
+          >
+            <span>다음</span>
+            <RightIcon />
+          </Button>
+        </VStack>
+      </form>
     </HStack>
   );
 }
