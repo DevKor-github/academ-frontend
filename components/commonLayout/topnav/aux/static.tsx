@@ -62,7 +62,7 @@ export const TopNavInnerMid = ({
   const height = spreaded ? ' h-72 ' : ' h-16 ';
 
   return (
-    <div
+    <nav
       className={`${spreaded ? 'overflow-visible' : 'overflow-y-hidden'} ${height} md:h-16 items-center justify-start flex flex-col md:flex-row`}
       style={{ rowGap: '10px' }}
     >
@@ -86,7 +86,7 @@ export const TopNavInnerMid = ({
       />
       <NavButton wip currentPath={path} desiredPath="/timetable" label={`시간표`} onClick={() => setSpreaded(false)} />
       <NavButton currentPath={path} desiredPath="/notice" label={`공지사항`} onClick={() => setSpreaded(false)} />
-    </div>
+    </nav>
   );
 };
 
