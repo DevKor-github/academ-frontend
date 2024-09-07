@@ -79,8 +79,12 @@ export default function Step3({
   async function handleRegister() {
     if (pwcheck !== input.password || !isPwValid) return window.alert('비밀번호를 확인해주세요.');
     if (nameCheck.isChecked !== 'SUCCESS' || nameCheck.username !== input.username) {
-      setNameCheck({ ...nameCheck, error: true });
-      return window.alert('닉네임 중복을 확인해주세요.');
+      const response = await apiDuplicateName({ username: input.username });
+
+      if (response.status !== 'SUCCESS') {
+        setNameCheck({ ...nameCheck, username: input.username, isChecked: response.status, error: true });
+        return window.alert('해당 닉네임은 이미 사용 중입니다.');
+      }
     }
     if (!isNumValid) return window.alert('학번 앞 7자를 입력해주세요.');
     if (!departments.includes(input.department)) return window.alert('유효한 학과명을 입력해주세요.');
@@ -221,15 +225,7 @@ export default function Step3({
             닉네임 중복 확인
           </Button>
         </VStack>
-        <ErrorLabel
-          label={
-            nameCheck.error
-              ? nameCheck.isChecked === 'ERROR'
-                ? '닉네임이 중복되었습니다. 다른 닉네임을 입력해주세요.'
-                : '닉네임이 중복되는지 확인해주세요.'
-              : ''
-          }
-        />
+        <ErrorLabel label={nameCheck.error ? '닉네임이 중복되었습니다. 다른 닉네임을 입력해주세요.' : ''} />
         <span className="text-xl">학번</span>
         <Input
           required
