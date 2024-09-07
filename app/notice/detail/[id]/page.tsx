@@ -7,7 +7,7 @@ import { NoticeDetailed, NoticeDetailRequest } from '@/lib/api/notice';
 // This function gets called at build time
 export async function generateStaticParams() {
   // Call an external API endpoint to get posts
-  const res = await ssget<{}, ApiResponse<number>>('/api/notice/count', {});
+  const res = await ssget<Record<string, never>, ApiResponse<number>>('/api/notice/count', {});
 
   if (res.status !== 'SUCCESS') {
     throw new Error('Failed to get number of notice from backend server - is backend server working?');

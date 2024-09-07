@@ -1,6 +1,6 @@
 import { CoursePreviewLoading } from '@/components/view/CoursePreview';
 
-export function Box({ children }: React.PropsWithChildren<{}>) {
+export function Box({ children }: React.PropsWithChildren<unknown>) {
   return (
     <div className="flex flex-col px-8 py-8 bg-neutral-50 dark:bg-neutral-950 flex-grow text-xl text-center md:px-24 gap-8">
       {children}
@@ -8,7 +8,7 @@ export function Box({ children }: React.PropsWithChildren<{}>) {
   );
 }
 
-export function Grid({ children }: React.PropsWithChildren<{}>) {
+export function Grid({ children }: React.PropsWithChildren<unknown>) {
   return (
     <div
       className={'grid gap-5 items-start justify-evenly *:min-h-50'}

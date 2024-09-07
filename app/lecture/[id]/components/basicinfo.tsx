@@ -56,7 +56,7 @@ function BasicInfoViewUnSafe(props: {
 
 export function BasicInfoViewLoading() {
   return (<BasicInfoViewUnSafe
-    lectureIcon={<LectureIcon kind="BIG" code='' />}
+    lectureIcon={<LectureIcon code='' />}
     year={<Skeleton placeholder='0000' />}
     semester={<Skeleton placeholder='0R' />}
     time_location={<Skeleton placeholder='?(?-?)' />}
@@ -71,7 +71,7 @@ export function BasicInfoViewLoading() {
 
 export default function BasicInfoView({ course }: { course: CourseOnly }) {
   return (<BasicInfoViewUnSafe
-    lectureIcon={<LectureIcon kind="BIG" code={course.course_code} />}
+    lectureIcon={<LectureIcon code={course.course_code} />}
     year={course.year}
     semester={course.semester}
     time_location={course.time_location}

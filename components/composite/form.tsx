@@ -16,9 +16,9 @@ function FieldSetStar<Req>({
   input: Req;
   name: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
-}) {
-  // @ts-ignore
-  const v_of_name: number = input[name];
+  }) {
+  
+  const v_of_name: number = (input as Record<string, number>)[name];
 
   return (
     <fieldset className="flex flex-row mt-4">
@@ -55,8 +55,8 @@ function FieldSet<Req>({
   name: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }) {
-  // @ts-ignore
-  const v_of_name = input[name];
+
+  const v_of_name = (input as Record<string, number>)[name];
 
   return (
     <fieldset className="flex flex-row my-7 mr-40">
@@ -112,7 +112,7 @@ function InputToggleTag({
         className={` transition-all cursor-pointer w-fit ${defaultChecked ? 'text-primary-500 bg-primary-100' : 'text-neutral-600 bg-neutral-100'} `}
         onClick={() =>
           onChange({
-            // @ts-ignore 임시조치..
+            // @ts-expect-error 임시조치..
             target: { id: name, value: defaultChecked ? 'off' : 'on' },
           })
         }

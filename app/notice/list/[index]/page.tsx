@@ -42,7 +42,7 @@ function NoticeListView({ notices, showMoreButton }: { notices: Notice[]; showMo
 // This function gets called at build time
 export async function generateStaticParams() {
   // Call an external API endpoint to get posts
-  const res = await ssget<{}, ApiResponse<number>>('/api/notice/count', {});
+  const res = await ssget<Record<string, never>, ApiResponse<number>>('/api/notice/count', {});
 
   if (res.status !== 'SUCCESS') {
     throw new Error('Failed to get number of notice from backend server - is backend server working?');
@@ -66,8 +66,8 @@ function generateNumberRange(n: number, MAX: number): number[] {
   const halfRange = Math.floor(rangeSize / 2);
 
   // 최소값과 최대값을 계산
-  let start = Math.max(n - halfRange, 1);
-  let end = Math.min(n + halfRange, MAX);
+  const start = Math.max(n - halfRange, 1);
+  const end = Math.min(n + halfRange, MAX);
 
   // 결과 배열 생성
   const result = [];
@@ -98,7 +98,7 @@ function NoticeListNavigate({ from, total }: { from: number; total: number }) {
 
 export default async function NoticeView({ params }: { params: { index: string } }) {
   ////
-  const countRes = await ssget<{}, ApiResponse<number>>('/api/notice/count', {});
+  const countRes = await ssget<Record<string, never>, ApiResponse<number>>('/api/notice/count', {});
 
   if (countRes.status !== 'SUCCESS') {
     throw new Error('Failed to get number of notice from backend server - is backend server working?');

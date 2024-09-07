@@ -20,7 +20,7 @@ function Footer() {
   );
 }
 
-export default function CommonLayout({ children }: React.PropsWithChildren<{}>) {
+export default function CommonLayout({ children }: React.PropsWithChildren<unknown>) {
   return (
     <div className='flex flex-col' style={{ minHeight: '100vh' }}>
       <TopNav />

@@ -1,7 +1,4 @@
 import Spinner from '@/components/basic/spinner';
-import { VStack, HStack } from '@/components/basic/stack';
-import Tag from '@/components/basic/tag';
-import Skeleton from '@/components/composite/skeleton';
 
 export default function WriteLoading() {
   return (

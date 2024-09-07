@@ -3,7 +3,7 @@ import Link from 'next/link';
 import DepartIcon from '@/components/composite/departIcon';
 
 export default function UserDataOverview({ userprofile }: { userprofile: UserProfile }) {
-  let degreePrint =
+  const degreePrint =
     userprofile.degree === 'MASTER' ? '석사과정' : userprofile.degree === 'DOCTOR' ? '박사과정' : '?과정';
 
   return (

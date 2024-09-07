@@ -67,7 +67,7 @@ function ProfileButton() {
   const [jwt] = useSessionId();
 
   const [open, setOpen] = useState<boolean>(false);
-  const { loading, response: state } = useApi<{}, MyPageBasicInfo>(apiMyPageBasics, {}, { token: jwt?.accessToken });
+  const { loading, response: state } = useApi<Record<string, never>, MyPageBasicInfo>(apiMyPageBasics, {}, { token: jwt?.accessToken });
 
   if (loading) {
     return (

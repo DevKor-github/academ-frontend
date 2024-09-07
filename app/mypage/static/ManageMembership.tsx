@@ -7,10 +7,10 @@ const memberships: Array<MembershipData> = [
 ];
 
 export default function ManageMembership({ profile }: { profile: UserProfile }) {
-  let expireLabel = (() => {
-    let now = new Date();
-    let expire = new Date(profile.access_expiration_date);
-    let diff = expire.getTime() - now.getTime();
+  const expireLabel = (() => {
+    const now = new Date();
+    const expire = new Date(profile.access_expiration_date);
+    const diff = expire.getTime() - now.getTime();
     const diffDay = Math.ceil(diff / (1000 * 3600 * 24));
 
     if (diffDay > 0) {

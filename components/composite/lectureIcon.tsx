@@ -1,9 +1,5 @@
-export default function LectureIcon({ code, kind = 'SMALL' }: { code: string; kind?: 'BIG' | 'SMALL' }) {
-  (function ignore(r) {
-    return r;
-  })(code);
+export default function LectureIcon({ code }: { code: string }) {
 
-  const scale = kind === 'BIG' ? '80px' : '48px';
   const imageUrl = `url(${imageMap[code.substring(0, 3)] || '/cicon/ku.jpg'})`;
 
   return (
