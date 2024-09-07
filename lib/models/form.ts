@@ -7,7 +7,6 @@ type InputHandler = (
 interface FormProps<T> {
   input: T;
   handleInput?: InputHandler;
-  // setInput?: SetState<T>;
   handleSubmit?: (e: React.FormEvent) => void;
   submitting: boolean;
 }

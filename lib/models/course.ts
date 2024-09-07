@@ -1,4 +1,4 @@
-interface Course {
+interface CourseOnly {
   course_id: number;
   course_code: string;
   graduate_school: string;
@@ -24,8 +24,11 @@ interface Course {
   count_learn_t2_thesis: number;
   count_learn_t3_exam: number;
   count_learn_t4_industry: number;
-  comments: AcdComment[];
   isBookmark: boolean;
+}
+
+interface Course extends CourseOnly {
+  comments: AcdComment[];
 }
 
 type SearchOrdering = 'NEWEST' | 'RATING_DESC' | 'RATING_ASC';
