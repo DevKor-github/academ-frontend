@@ -35,8 +35,8 @@ function NavButton({
         <span>
           {label}{' '}
           <sup
-            className={`transition-all rounded-full border p-1
-          ${accent ? 'border-primary-500 ' : 'light:border-light-fore-2 dark:border-dark-fore-4 '}`}
+            className={`rounded-full border p-1
+          ${accent ? 'border-primary-500 ' : '' /* overriding */}`}
           >
             준비 중
           </sup>
@@ -63,7 +63,7 @@ export const TopNavInnerMid = ({
 
   return (
     <div
-      className={`${spreaded ? 'overflow-visible' : 'overflow-y-hidden'} transition-all ${height} md:h-16 items-center justify-start flex flex-col md:flex-row`}
+      className={`${spreaded ? 'overflow-visible' : 'overflow-y-hidden'} ${height} md:h-16 items-center justify-start flex flex-col md:flex-row`}
       style={{ rowGap: '10px' }}
     >
       <div className="md:hidden">

@@ -32,8 +32,8 @@ export default function TopNav() {
         className={
           'fixed z-50 top-0 w-full' +
           (overlap
-            ? ' text-white bg-black bg-opacity-75 '
-            : ' border-b light:border-b-light-back-2 dark:border-b-dark-back-4')
+            ? ' text-white bg-black bg-opacity-75 border-base-32  '
+            : ' border-b light:border-b-light-back-2 dark:border-b-dark-back-4 *:light:border-base-4 *:dark:border-base-32 ')
         }
       >
         <div

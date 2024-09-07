@@ -22,7 +22,7 @@ function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => vo
     <Popover
       onPageClick={() => setOpenPopover(false)}
       className={
-        'absolute rounded-xl overflow-hidden border bg-l bg-white dark:bg-dark-back-1 border-light-back-2 dark:border-dark-back-4 right-2 md:right-8 top-14 shadow-lg '
+        'absolute rounded-xl overflow-hidden border bg-l bg-white dark:bg-dark-back-1 right-2 md:right-8 top-14 shadow-lg '
       }
       style={{ zIndex: 100 }}
     >
