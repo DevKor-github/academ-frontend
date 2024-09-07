@@ -77,18 +77,15 @@ export default function Step3({
   }
 
   async function handleRegister() {
-    if (pwcheck !== input.password || !isPwValid) {
-      window.alert('비밀번호를 확인해주세요.');
-    } else if (nameCheck.isChecked !== 'SUCCESS' || nameCheck.username !== input.username) {
+    if (pwcheck !== input.password || !isPwValid) return window.alert('비밀번호를 확인해주세요.');
+    if (nameCheck.isChecked !== 'SUCCESS' || nameCheck.username !== input.username) {
       setNameCheck({ ...nameCheck, error: true });
-      window.alert('닉네임 중복을 확인해주세요.');
-    } else if (!isNumValid) {
-      window.alert('학번 앞 7자를 입력해주세요.');
-    } else if (!departments.includes(input.department)) {
-      window.alert('유효한 학과명을 입력해주세요.');
-    } else if (input.semester == 0) {
-      window.alert('학기를 입력해주세요.');
-    } else {
+      return window.alert('닉네임 중복을 확인해주세요.');
+    }
+    if (!isNumValid) return window.alert('학번 앞 7자를 입력해주세요.');
+    if (!departments.includes(input.department)) return window.alert('유효한 학과명을 입력해주세요.');
+    if (input.semester == 0) return window.alert('학기를 입력해주세요.');
+    else {
       const response = await apiSignup({ ...input } as SignupRequest);
 
       if (response.status === 'SUCCESS') {
@@ -141,6 +138,7 @@ export default function Step3({
       }
 
       if (event.key === 'Enter' && dropDownItemIndex >= 0) {
+        event.preventDefault();
         clickDropDownItem(dropDownList[dropDownItemIndex]);
         setDropDownItemIndex(-1);
         setIsDropDown(false);
@@ -158,154 +156,185 @@ export default function Step3({
         <br />
         회원 정보를 입력해주세요.
       </span>
-      <span className="text-xl">아이디</span>
-      <Input
-        required
-        type="email"
-        id="email"
-        autoComplete='username'
-        placeholder={input.email}
-        onChange={handleInput}
-        disabled={true}
-        style={{ width: '100%' }}
-      />
-      <span className="text-xl">비밀번호</span>
-      <Input
-        required
-        type="password"
-        id="password"
-        autoComplete='new-password'
-        placeholder="비밀번호를 입력해주세요"
-        onChange={handleInput}
-        autoFocus
-        style={{ width: '100%' }}
-      />
-      <ErrorLabel
-        label={
-          !isPwValid && input.password !== ''
-            ? '영문자, 숫자, 또는 특수문자로 이루어진 8 - 24 자리의 비밀번호를 입력해주세요.'
-            : ''
-        }
-      />
-      <span className="text-xl">비밀번호 확인</span>
-      <Input
-        required
-        type="password"
-        id="pwcheck"
-        autoComplete='new-password'
-        value={pwcheck}
-        placeholder="비밀번호를 다시 입력해주세요"
-        onChange={handlepwCheck}
-      />
-      <ErrorLabel label={input.password !== pwcheck && pwcheck !== '' ? '비밀번호가 일치하지 않습니다.' : ''} />
-      <span className="text-xl" style={{ marginTop: '10px' }}>
-        닉네임
-      </span>
-      <VStack gap="10px" className="w-100% justify-between">
-        <div className="grow">
-          <Input required type="text" id="username" autoComplete={undefined} placeholder="닉네임 (1-10자)" onChange={handleInput} />
-        </div>
-        <Button kind="filled" className="px-4 grow-0" onClick={handleDuplicateName}>
-          닉네임 중복 확인
-        </Button>
-      </VStack>
-      <ErrorLabel
-        label={
-          nameCheck.error
-            ? nameCheck.isChecked === 'ERROR'
-              ? '닉네임이 중복되었습니다. 다른 닉네임을 입력해주세요.'
-              : '닉네임이 중복되는지 확인해주세요.'
-            : ''
-        }
-      />
-      <span className="text-xl">학번</span>
-      <Input required type="text" id="student_id" placeholder="학번" onChange={handleInput} style={{ width: '100%' }} />
-      <ErrorLabel label={!isNumValid && input.student_id !== '' ? '학번 앞 7자를 입력해주세요.' : ''} />
-      <span className="text-xl">학과</span>
-      <div
-        onBlur={() => {
-          setDropDownItemIndex(-1);
-          setIsDropDown(false);
+      <form
+        className="flex flex-col gap-5"
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleRegister();
         }}
       >
+        <span className="text-xl">아이디</span>
+        <Input
+          required
+          type="email"
+          id="email"
+          autoComplete="username"
+          placeholder={input.email}
+          onChange={handleInput}
+          disabled={true}
+          style={{ width: '100%' }}
+        />
+        <span className="text-xl">비밀번호</span>
+        <Input
+          required
+          type="password"
+          id="password"
+          autoComplete="new-password"
+          placeholder="비밀번호를 입력해주세요"
+          onChange={handleInput}
+          autoFocus
+          style={{ width: '100%' }}
+        />
+        <ErrorLabel
+          label={
+            !isPwValid && input.password !== ''
+              ? '영문자, 숫자, 또는 특수문자로 이루어진 8 - 24 자리의 비밀번호를 입력해주세요.'
+              : ''
+          }
+        />
+        <span className="text-xl">비밀번호 확인</span>
+        <Input
+          required
+          type="password"
+          id="pwcheck"
+          autoComplete="new-password"
+          value={pwcheck}
+          placeholder="비밀번호를 다시 입력해주세요"
+          onChange={handlepwCheck}
+        />
+        <ErrorLabel label={input.password !== pwcheck && pwcheck !== '' ? '비밀번호가 일치하지 않습니다.' : ''} />
+        <span className="text-xl" style={{ marginTop: '10px' }}>
+          닉네임
+        </span>
+        <VStack gap="10px" className="w-100% justify-between">
+          <div className="grow">
+            <Input
+              required
+              type="text"
+              id="username"
+              autoComplete={undefined}
+              placeholder="닉네임 (1-10자)"
+              onChange={handleInput}
+            />
+          </div>
+          <Button kind="filled" type="button" className="px-4 grow-0" onClick={handleDuplicateName}>
+            닉네임 중복 확인
+          </Button>
+        </VStack>
+        <ErrorLabel
+          label={
+            nameCheck.error
+              ? nameCheck.isChecked === 'ERROR'
+                ? '닉네임이 중복되었습니다. 다른 닉네임을 입력해주세요.'
+                : '닉네임이 중복되는지 확인해주세요.'
+              : ''
+          }
+        />
+        <span className="text-xl">학번</span>
         <Input
           required
           type="text"
-          id="department"
-          placeholder="학과"
-          autoComplete="off"
-          value={input.department}
-          onChange={changeInputValue}
-          onKeyDown={handleDropDownKey}
-          onFocus={() => {
-            setIsDropDown(true);
-          }}
-          style={
-            isDropDown ? { borderRadius: '0.5rem 0.5rem 0 0', zIndex: 10 } : { borderRadius: '0.5rem', zIndex: 10 }
-          }
+          id="student_id"
+          placeholder="학번"
+          maxLength={7}
+          onChange={handleInput}
+          style={{ width: '100%' }}
         />
-        {isDropDown && (
-          <ul className="block m-0 p-2 light:bg-white border light:border-light-back-2 dark:bg-neutral-900 dark:border-dark-back-2 rounded-b-lg z-10">
-            {dropDownList.length === 0 && <li className="p-2 text-gray-500">해당하는 단어가 없습니다</li>}
-            {dropDownList.map((dropDownItem, dropDownIndex) => (
-              <li
-                key={dropDownIndex}
-                onMouseDown={() => {
-                  clickDropDownItem(dropDownItem);
-                  setDropDownItemIndex(-1);
-                  setIsDropDown(false);
-                }}
-                onMouseOver={() => setDropDownItemIndex(dropDownIndex)}
-                className={`p-2 cursor-pointer ${dropDownItemIndex === dropDownIndex ? 'light:bg-gray-300 dark:bg-gray-700' : ''}`}
-              >
-                {dropDownItem}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-      <span className="text-xl">학위 / 학기</span>
-      <VStack style={{ justifyContent: 'space-between', marginBottom: '40px' }}>
-        <VStack gap="10px">
-          <Button
-            id="degree"
-            kind={input.degree === 'MASTER' ? 'filled' : 'outline'}
-            variant="contained"
-            color="primary"
-            onClick={() =>
-              setInput((input: SignupRequest) => {
-                return { ...input, degree: 'MASTER' };
-              })
+        <ErrorLabel label={!isNumValid && input.student_id !== '' ? '학번 앞 7자를 입력해주세요.' : ''} />
+        <span className="text-xl">학과</span>
+        <div
+          onBlur={() => {
+            setDropDownItemIndex(-1);
+            setIsDropDown(false);
+          }}
+        >
+          <Input
+            required
+            type="text"
+            id="department"
+            placeholder="학과"
+            autoComplete="off"
+            value={input.department}
+            onChange={changeInputValue}
+            onKeyDown={handleDropDownKey}
+            onFocus={() => {
+              setIsDropDown(true);
+            }}
+            style={
+              isDropDown ? { borderRadius: '0.5rem 0.5rem 0 0', zIndex: 10 } : { borderRadius: '0.5rem', zIndex: 10 }
             }
-          >
-            <span className="text-xl" style={{ margin: '5px 30px' }}>
-              석사
-            </span>
-          </Button>
-          <Button
-            id="degree"
-            kind={input.degree === 'DOCTOR' ? 'filled' : 'outline'}
-            variant="contained"
-            color="primary"
-            onClick={() =>
-              setInput((input: SignupRequest) => {
-                return { ...input, degree: 'DOCTOR' };
-              })
-            }
-          >
-            <span className="text-xl" style={{ margin: '5px 30px' }}>
-              박사
-            </span>
-          </Button>
+          />
+          {isDropDown && (
+            <ul className="block m-0 p-2 light:bg-white border light:border-light-back-2 dark:bg-neutral-900 dark:border-dark-back-2 rounded-b-lg z-10">
+              {dropDownList.length === 0 && <li className="p-2 text-gray-500">해당하는 단어가 없습니다</li>}
+              {dropDownList.map((dropDownItem, dropDownIndex) => (
+                <li
+                  key={dropDownIndex}
+                  onMouseDown={() => {
+                    clickDropDownItem(dropDownItem);
+                    setDropDownItemIndex(-1);
+                    setIsDropDown(false);
+                  }}
+                  onMouseOver={() => setDropDownItemIndex(dropDownIndex)}
+                  className={`p-2 cursor-pointer ${dropDownItemIndex === dropDownIndex ? 'light:bg-gray-300 dark:bg-gray-700' : ''}`}
+                >
+                  {dropDownItem}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <span className="text-xl">학위 / 학기</span>
+        <VStack style={{ justifyContent: 'space-between', marginBottom: '40px' }}>
+          <VStack gap="10px">
+            <Button
+              id="degree"
+              type="button"
+              kind={input.degree === 'MASTER' ? 'filled' : 'outline'}
+              variant="contained"
+              color="primary"
+              onClick={() =>
+                setInput((input: SignupRequest) => {
+                  return { ...input, degree: 'MASTER' };
+                })
+              }
+            >
+              <span className="text-xl" style={{ margin: '5px 30px' }}>
+                석사
+              </span>
+            </Button>
+            <Button
+              id="degree"
+              type="button"
+              kind={input.degree === 'DOCTOR' ? 'filled' : 'outline'}
+              variant="contained"
+              color="primary"
+              onClick={() =>
+                setInput((input: SignupRequest) => {
+                  return { ...input, degree: 'DOCTOR' };
+                })
+              }
+            >
+              <span className="text-xl" style={{ margin: '5px 30px' }}>
+                박사
+              </span>
+            </Button>
+          </VStack>
+          <VStack gap="10px" style={{ alignItems: 'center' }}>
+            <Input
+              required
+              type="number"
+              id="semester"
+              style={{ width: '60px', textAlign: 'center' }}
+              onChange={handleInput}
+            />
+            <span className="text-xl">학기</span>
+          </VStack>
         </VStack>
-        <VStack gap="10px" style={{ alignItems: 'center' }}>
-          <Input required type="text" id="semester" style={{ width: '50px' }} onChange={handleInput} />
-          <span className="text-xl">학기</span>
-        </VStack>
-      </VStack>
-      <Button kind="filled" variant="contained" color="primary" onClick={handleRegister}>
-        <span className="text-xl">완료</span>
-      </Button>
+        <Button kind="filled" type="submit" variant="contained" color="primary">
+          <span className="text-xl">완료</span>
+        </Button>
+      </form>
     </HStack>
   );
 }
