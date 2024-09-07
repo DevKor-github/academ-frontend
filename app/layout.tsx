@@ -1,7 +1,6 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
-import { ThemeProvider } from '@/context/ThemeContext';
 import { SessionIdProvider } from '@/context/SessionIdContext';
 import TopLevelLayout from '@/components/composite/toplevellayout';
 
@@ -45,9 +44,9 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} ${pretendard.className}`}>
         <SessionIdProvider>
-          <ThemeProvider>
-            <TopLevelLayout>{children}</TopLevelLayout>
-          </ThemeProvider>
+          <TopLevelLayout>
+            {children}
+          </TopLevelLayout>
         </SessionIdProvider>
       </body>
     </html>
