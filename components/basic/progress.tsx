@@ -12,34 +12,15 @@ const interpolateColors = (color1: number[], color2: number[], t: number) => {
 const Progress: React.FC<ProgressProps> = ({ rate, style, reverse }) => {
   const rate100 = Math.min(1, Math.max(0, rate)) * 100;
 
-  let startColor: number[], midColor: number[], endColor: number[];
-
-  const red = [220, 20, 60];
-  const yellow = [255, 255, 60];
-  const green = [27, 190, 102];
-
-  if (reverse) {
-    startColor = green;
-    midColor = yellow;
-    endColor = red;
-  } else {
-    startColor = red;
-    midColor = yellow;
-    endColor = green;
-  }
-
+  const color = ['#DC143C', '#FF8838', '#FFE66B', '#D2F749', '#1BBE66'];
   let gradientColor: string;
 
-  if (rate100 <= 50) {
-    // Interpolate between startColor and midColor
-    const t = rate100 / 50;
-    const [r, g, b] = interpolateColors(startColor, midColor, t);
-    gradientColor = `rgba(${r}, ${g}, ${b}, 1)`;
+  const idx = Math.floor((Math.max(20, rate100) - 20) / 17);
+
+  if (reverse) {
+    gradientColor = color.toReversed()[idx];
   } else {
-    // Interpolate between midColor and endColor
-    const t = (rate100 - 50) / 50;
-    const [r, g, b] = interpolateColors(midColor, endColor, t);
-    gradientColor = `rgba(${r}, ${g}, ${b}, 1)`;
+    gradientColor = color[idx];
   }
 
   const height = { height: '4px' };
