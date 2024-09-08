@@ -7,7 +7,7 @@ interface SimpleCheckLogin {
 type UserProfile = MyPageBasicInfo;
 
 interface JWTDecoded {
-  memberId: number;
+  profile_id: number;
   email: string;
   role: string;
   iat: number;

@@ -12,7 +12,7 @@ import { decode } from '@/lib/jwt';
 
 import Link from 'next/link';
 import { useSessionId } from '@/context/SessionIdContext';
-import { SelectedThumbUpIcon, ThumbUpIcon } from '@/icons';
+import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/icons';
 import { retryWithJWTRefresh } from '@/lib/api/authHelper';
 
 function quaternary<T>(that: number, standard: number, gt: T, eq: T, lt: T) {
@@ -24,7 +24,7 @@ function quaternary<T>(that: number, standard: number, gt: T, eq: T, lt: T) {
   return lt;
 }
 
-function getTag(comment: AcdComment) {
+function getTag(comment: AcdComment | AcdMyComment) {
   return [
     comment.teach_t1_theory ? ['이론 수업'] : [],
     comment.teach_t2_practice ? ['실습 수업'] : [],
@@ -40,7 +40,7 @@ function getTag(comment: AcdComment) {
     .slice(0, 3);
 }
 
-function Left({ comment }: { comment: AcdComment }) {
+function Left({ comment }: { comment: AcdComment | AcdMyComment }) {
   const green = '!bg-green-500/10 !text-green-500';
   const yellow = '!bg-yellow-400/20 !text-yellow-500';
   const red = '!bg-red-600/10 !text-red-600';
@@ -218,10 +218,78 @@ function Right({
   );
 }
 
+function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dispatch<boolean> }) {
+  const sessionId = useSessionId();
+
+  return (
+    <HStack className="w-full h-full" gap="8px">
+      <VStack
+        style={{
+          overflow: 'hidden',
+          height: 'min-content',
+          flexWrap: 'wrap',
+          gap: '12px',
+          paddingTop: '20px',
+        }}
+        className="text-base justify-between"
+      >
+        <div className="flex gap-2 items-baseline">
+          <span className="text-2xl font-semibold mr-2">{comment.name}</span>
+          <span className="font-normal">{comment.professor}</span>
+          <span className="text-sm text-neutral-400">교수님</span>
+        </div>
+
+        <div className="flex flex-row w-max gap-4">
+          {getTag(comment).flatMap((v, i) => (
+            <Tag key={i}>{v}</Tag>
+          ))}
+        </div>
+      </VStack>
+      <VStack className="gap-3 items-center">
+        <span className="text-neutral-400">작성일</span>
+        <span className="mr-3">{comment.updated_at}</span>
+        <ThumbUpIcon />
+        <span> {comment.likes}</span>
+      </VStack>
+      <span className="flex flex-row text-xl font-normal flex-grow gap-4 mt-4 mb-2">
+        <div className="break-keep whitespace-pre-line text-wrap">{comment.review}</div>
+      </span>
+      <VStack className="self-end items-center gap-4">
+        <Link href={`/comment/${comment.comment_id}/edit`}>
+          <button className="flex justify-center items-center gap-2 px-4 py-1 border rounded-full border-neutral-400 text-neutral-400">
+            <EditIcon />
+            수정
+          </button>
+        </Link>
+        <button
+          className="flex justify-center items-center px-4 py-1 border rounded-full border-neutral-400 text-neutral-400"
+          onClick={() => {
+            if (confirm('정말 삭제하시겠습니까?') == true) {
+              retryWithJWTRefresh(
+                apiDeleteComment,
+                sessionId,
+              )({ comment_id: comment.comment_id }).then((a) => {
+                if (a.status === 'SUCCESS') {
+                  setDel(true);
+                  alert('성공적으로 삭제했습니다.');
+                } else {
+                  alert('삭제하지 못했습니다. 잠시 후 다시 시도해주세요.');
+                }
+              });
+            }
+          }}
+        >
+          삭제
+        </button>
+      </VStack>
+    </HStack>
+  );
+}
+
 export default function CommentView({ comment }: { comment: AcdComment }) {
   const [jwt] = useSessionId();
 
-  const editable = jwt === null ? true : comment.profile_id === decode<JWTDecoded>(jwt.accessToken).memberId;
+  const editable = jwt === null ? true : comment.profile_id === decode<JWTDecoded>(jwt.accessToken).profile_id;
 
   const [del, setDel] = useState<boolean>(false);
 
@@ -234,6 +302,22 @@ export default function CommentView({ comment }: { comment: AcdComment }) {
     >
       <Left comment={comment} />
       <Right comment={comment} editable={editable} setDel={setDel} />
+    </div>
+  );
+}
+
+export function MyCommentView({ comment }: { comment: AcdMyComment }) {
+  const [del, setDel] = useState<boolean>(false);
+
+  return (
+    <div
+      className={`${del ? 'hidden' : ''} flex flex-col md:flex-row items-center mt-3 p-4 rounded-3xl gap-5 border
+  
+  light:bg-white dark:bg-dark-back-2
+  light:border-light-back-4 dark:border-dark-back-4`}
+    >
+      <Left comment={comment} />
+      <MyRight comment={comment} setDel={setDel} />
     </div>
   );
 }

@@ -53,7 +53,7 @@ export default function LectureView({ course }: { course: Course }) {
       <div className="flex flex-col w-full h-full">
         <BasicInfoView course={course} />
         <SummaryView course={course} />
-        <CommentsView course_id={course.course_id} comments={course.comments} />
+        <CommentsView comments={course.comments} />
         <WriteNewMobile course_id={course.course_id} />
       </div>
     );
