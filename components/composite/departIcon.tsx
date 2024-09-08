@@ -1,4 +1,4 @@
-export default function DepartIcon({ code }: { code: string; kind?: 'BIG' | 'SMALL' }) {
+export default function DepartIcon({ code }: { code: string }) {
   (function ignore(r) {
     return r;
   })(code);
@@ -6,32 +6,15 @@ export default function DepartIcon({ code }: { code: string; kind?: 'BIG' | 'SMA
   const imageUrl = `url(${'/cicon/ku.jpg'})`;
 
   return (
-    <div
-      className="flex flex-row justify-center items-center overflow-clip w-full h-full"
-      style={{
-        backgroundImage: imageUrl,
-        backgroundSize: 'contain',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        aspectRatio: 1,
-        overflow: 'clip',
-      }}
-    >
-      {/* <img
-        className="absolute z-10"
-        loading="eager"
-        src={imageUrl}
-        alt="banner image"
-        width={81}
-        height={105}
-        style={{
-          padding: smallScale,
-          // borderRadius: scale,
-          height: scale,
-          width: scale,
-          objectFit: 'contain',
-        }}
-      /> */}
-    </div>
+    <span className="inline-flex p-[0.25em] items-center justify-center bg-white rounded-full overflow-clip aspect-square">
+      <span
+          className="flex flex-row justify-center items-center bg-contain bg-center bg-no-repeat mt-[0.125em]"
+          style={{
+            backgroundImage: imageUrl,
+            width: '1em',
+            height: '1em',
+          }}
+        />
+    </span>
   );
 }
