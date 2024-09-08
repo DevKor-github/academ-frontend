@@ -52,7 +52,7 @@ function CourseBasicsViewUnsafe(props: {
               {props.year}-{props.semester}
             </span>
             <span className="border-r border-r-neutral-400" />
-            <span className="whitespace-pre-line">{props.time_location}</span>
+            <span className="whitespace-pre-line text-wrap">{props.time_location}</span>
           </div>
         </VStack>
       </HStack>

@@ -19,7 +19,7 @@ export default function ErrorTemplate({
         <ErrorIllust />
         <HStack className="pb-16" gap="16px">
           <span className="text-6xl font-bold">{title}</span>
-          <span className="text-xl whitespace-pre-line">{subtitle}</span>
+          <span className="text-xl whitespace-pre-line text-balance">{subtitle}</span>
         </HStack>
         <VStack className="pb-8 justify-center" gap="16px">
           <BackButton />

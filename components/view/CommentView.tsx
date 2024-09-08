@@ -140,7 +140,7 @@ function Right({
       </VStack>
       <span className="flex flex-row text-xl font-normal flex-grow gap-4 mt-8 mb-2">
         <div className="text-neutral-400 text-base w-max">작성내용</div>
-        <div className="break-keep whitespace-pre-line">{comment.review}</div>
+        <div className="break-keep whitespace-pre-line text-wrap">{comment.review}</div>
       </span>
       <VStack className="self-end items-center" gap="6px">
         {editable ? (
