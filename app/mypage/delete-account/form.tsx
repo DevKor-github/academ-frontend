@@ -9,10 +9,15 @@ export interface DeleteAccountInputExtended {
 
 export default function DeleteAccountForm(props: FormProps<DeleteAccountInputExtended>) {
   return (
-<form className="py-8 h-full transition-all self-center justify-center items-center pl-2 pr-2 flex flex-col gap-8 w-full md:w-1/2 *:w-full" method="post" onSubmit={props.handleSubmit}>
-      <span className="text-2xl font-bold text-center">계정 삭제
+    <form
+      className="py-8 h-full transition-all self-center justify-center items-center pl-2 pr-2 flex flex-col gap-8 w-full md:w-1/2 *:w-full"
+      method="post"
+      onSubmit={props.handleSubmit}
+    >
+      <span className="text-2xl font-bold text-center">
+        계정 삭제
         <br />
-      <span className='text-lg'>삭제하기 전에 다음 유의사항을 확인하세요.</span>
+        <span className="text-lg">삭제하기 전에 다음 유의사항을 확인하세요.</span>
       </span>
       <div className="bg-primary-500 bg-opacity-5 p-8 rounded-xl my-8 border border-primary-500">
         <li>{'계정을 삭제하면 모든 포인트가 소멸되며, 복구할 수 없습니다.'}</li>
