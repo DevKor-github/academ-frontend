@@ -130,7 +130,7 @@ export default function WriteOrEditComment<Req extends AcdCommentJoin>({
   setInput,
 }: {
   title: React.ReactNode;
-  handleSubmit: (req: Req) => void;
+  handleSubmit?: React.FormEventHandler;
   input: Req;
   setInput: React.Dispatch<React.SetStateAction<Req>>;
 }) {
@@ -174,14 +174,10 @@ export default function WriteOrEditComment<Req extends AcdCommentJoin>({
   };
 
   return (
-    <main className="p-2 md:p-8 h-full transition-all">
       <form
-        className="flex flex-col "
+        className="flex flex-col p-2 md:p-8 h-full transition-all"
         method="post"
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit(input);
-        }}
+        onSubmit={handleSubmit}
       >
         <div className="my-10">{title}</div>
 
@@ -237,7 +233,7 @@ export default function WriteOrEditComment<Req extends AcdCommentJoin>({
               label="세미나"
             />
             <InputToggleTag
-              name="teach_t4_discussion"
+            name="teach_t4_discussion"
               onChange={handleInputBoolean}
               defaultChecked={input.teach_t4_discussion}
               label="토론"
@@ -331,6 +327,5 @@ export default function WriteOrEditComment<Req extends AcdCommentJoin>({
           </Button>
         </div>
       </form>
-    </main>
   );
 }
