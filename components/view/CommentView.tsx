@@ -223,37 +223,39 @@ function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dis
 
   return (
     <HStack className="w-full h-full" gap="8px">
-      <VStack
-        style={{
-          overflow: 'hidden',
-          height: 'min-content',
-          flexWrap: 'wrap',
-          gap: '12px',
-          paddingTop: '20px',
-        }}
-        className="text-base justify-between"
-      >
-        <div className="flex gap-2 items-baseline">
-          <span className="text-2xl font-semibold mr-2">{comment.name}</span>
-          <span className="font-normal">{comment.professor}</span>
-          <span className="text-sm text-neutral-400">교수님</span>
-        </div>
+      <Link href={`/lecture/${comment.course_id}`}>
+        <VStack
+          style={{
+            overflow: 'hidden',
+            height: 'min-content',
+            flexWrap: 'wrap',
+            gap: '12px',
+            paddingTop: '20px',
+          }}
+          className="text-base justify-between"
+        >
+          <div className="flex gap-2 items-baseline">
+            <span className="text-2xl font-semibold mr-2">{comment.name}</span>
+            <span className="font-normal">{comment.professor}</span>
+            <span className="text-sm text-neutral-400">교수님</span>
+          </div>
 
-        <div className="flex flex-row w-max gap-4">
-          {getTag(comment).flatMap((v, i) => (
-            <Tag key={i}>{v}</Tag>
-          ))}
-        </div>
-      </VStack>
-      <VStack className="gap-3 items-center">
-        <span className="text-neutral-400">작성일</span>
-        <span className="mr-3">{comment.updated_at}</span>
-        <ThumbUpIcon />
-        <span> {comment.likes}</span>
-      </VStack>
-      <span className="flex flex-row text-xl font-normal flex-grow gap-4 mt-4 mb-2">
-        <div className="break-keep whitespace-pre-line text-wrap">{comment.review}</div>
-      </span>
+          <div className="flex flex-row w-max gap-4">
+            {getTag(comment).flatMap((v, i) => (
+              <Tag key={i}>{v}</Tag>
+            ))}
+          </div>
+        </VStack>
+        <VStack className="gap-3 items-center">
+          <span className="text-neutral-400">작성일</span>
+          <span className="mr-3">{comment.updated_at}</span>
+          <ThumbUpIcon />
+          <span> {comment.likes}</span>
+        </VStack>
+        <span className="flex flex-row text-xl font-normal flex-grow gap-4 mt-4 mb-2">
+          <div className="break-keep whitespace-pre-line text-wrap">{comment.review}</div>
+        </span>
+      </Link>
       <VStack className="self-end items-center gap-4">
         <Link href={`/comment/${comment.comment_id}/edit`}>
           <button className="flex justify-center items-center gap-2 px-4 py-1 border rounded-full border-neutral-400 text-neutral-400">
