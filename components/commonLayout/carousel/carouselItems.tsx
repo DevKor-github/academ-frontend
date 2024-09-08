@@ -41,7 +41,8 @@ const carouselItems = [
       <VStack gap="24px" style={{ alignItems: 'center' }}>
         <span className="text-lg leading-noraml">
           대학원생을 위한 <span className="font-bold">강의평가 공유 서비스</span>
-          <br />
+          <span className='md:hidden'>, </span>
+          <br className='not-md:hidden' />
           우리 학교 강의에 대한 다양한 정보와 이야기를 나누어요.
         </span>
         <Link href="/notice/detail/0">
