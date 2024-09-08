@@ -1,4 +1,4 @@
-import MyPageEditBasicForm from './inner/form';
+import MyPageEditBasicForm from './form';
 
 export default function EditPage() {
   return (
