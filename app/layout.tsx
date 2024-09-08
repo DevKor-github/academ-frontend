@@ -1,7 +1,7 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
-import { SessionIdProvider } from '@/context/SessionIdContext';
+import dynamic from 'next/dynamic';
 import TopLevelLayout from '@/components/composite/toplevellayout';
 
 import type { Viewport } from 'next';
@@ -31,6 +31,8 @@ const pretendard = localFont({
   weight: '45 920',
   variable: '--font-pretendard',
 });
+
+const SessionIdProvider = dynamic(() => import('@/context/SessionIdContext'), { ssr: false, loading: () => (<></>)});
 
 export default function RootLayout({
   children,
