@@ -17,7 +17,7 @@ function Up({ course }: { course: Course }) {
     >
       <LectureIcon code={course.course_code} />
       <HStack className="items-start text-left w-full pl-2 ">
-        <span className="text-lg font-semibold" style={{ wordBreak: 'break-all' }}>
+        <span className="text-lg font-semibold text-pretty" style={{ wordBreak: 'break-all' }}>
           {course.name}
         </span>
         <span className="text-base">{course.professor}</span>
