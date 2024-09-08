@@ -63,7 +63,13 @@ function SearchResultsViewWithOrder({ query: keyword, order }: { query: string; 
         ))}
         {pages.loading && <LoaderItems />}
       </Grid>
-      {pages.loading ? <div className='text-xl'><Spinner /></div> : nextButton}
+      {pages.loading ? (
+        <div className="text-xl">
+          <Spinner />
+        </div>
+      ) : (
+        nextButton
+      )}
     </>
   );
 }

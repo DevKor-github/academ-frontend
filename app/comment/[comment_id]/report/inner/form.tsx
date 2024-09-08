@@ -18,8 +18,8 @@ function ReasonPicker({ setInput, input }: { input: AcdCommentReportReq; setInpu
             className="accent-primary-500"
             type="radio"
             name="reason"
-            onChange={function () // e: React.ChangeEvent<HTMLInputElement>
-            {
+            onChange={function () {
+              // e: React.ChangeEvent<HTMLInputElement>
               setInput((v) => {
                 return { ...v, ...{ reason: i.reason } };
               });

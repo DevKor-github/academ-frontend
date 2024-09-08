@@ -42,11 +42,11 @@ function MyProfileMembershipsUnsafe({ expireLabel }: { expireLabel: React.ReactN
 }
 
 export function MyProfileMembershipsLoading() {
-  return <MyProfileMembershipsUnsafe expireLabel={<SkeletonSlow placeholder='D-???' />} />
+  return <MyProfileMembershipsUnsafe expireLabel={<SkeletonSlow placeholder="D-???" />} />;
 }
 
 export default function MyProfileMemberships({ access_expiration_date }: Pick<UserProfile, 'access_expiration_date'>) {
-  const expireLabel : string = (() => {
+  const expireLabel: string = (() => {
     const now = new Date();
     const expire = new Date(access_expiration_date);
     const diff = expire.getTime() - now.getTime();
@@ -61,6 +61,5 @@ export default function MyProfileMemberships({ access_expiration_date }: Pick<Us
     }
   })();
 
-  return <MyProfileMembershipsUnsafe expireLabel={expireLabel} />
-
+  return <MyProfileMembershipsUnsafe expireLabel={expireLabel} />;
 }

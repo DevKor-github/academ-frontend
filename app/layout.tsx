@@ -32,7 +32,7 @@ const pretendard = localFont({
   variable: '--font-pretendard',
 });
 
-const SessionIdProvider = dynamic(() => import('@/context/SessionIdContext'), { ssr: false, loading: () => (<></>) });
+const SessionIdProvider = dynamic(() => import('@/context/SessionIdContext'), { ssr: false, loading: () => <></> });
 
 import ClearStorageDependOnTabs from '@/context/ClearStorageDependOnTabs';
 
@@ -49,10 +49,8 @@ export default function RootLayout({
       <body className={`${inter.className} ${pretendard.className}`}>
         <ClearStorageDependOnTabs>
           <SessionIdProvider>
-            <TopLevelLayout>
-              {children}
-            </TopLevelLayout>
-            </SessionIdProvider>
+            <TopLevelLayout>{children}</TopLevelLayout>
+          </SessionIdProvider>
         </ClearStorageDependOnTabs>
       </body>
     </html>

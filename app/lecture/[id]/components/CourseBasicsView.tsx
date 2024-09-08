@@ -2,7 +2,7 @@ import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
 import LectureIcon from '@/components/composite/lectureIcon';
-import {SkeletonSlow} from '@/components/composite/skeleton';
+import { SkeletonSlow } from '@/components/composite/skeleton';
 
 function CourseBasicsViewUnsafe(props: {
   fade: boolean;
@@ -29,16 +29,21 @@ function CourseBasicsViewUnsafe(props: {
       }}
       gap="24px"
     >
-      <div className='text-5xl'>
-        {props.lectureIcon}
-      </div>
+      <div className="text-5xl">{props.lectureIcon}</div>
       <HStack gap="16px">
-        <VStack gap="40px" style={{ alignItems: 'center', flexWrap: 'wrap' }} className={`w-fit ${props.fade ? 'animate-fade' : ''}`}>
+        <VStack
+          gap="40px"
+          style={{ alignItems: 'center', flexWrap: 'wrap' }}
+          className={`w-fit ${props.fade ? 'animate-fade' : ''}`}
+        >
           <span className="text-3xl font-medium">{props.name}</span>
           <Tag className="bg-primary-100 text-primary-900 opacity-50">강의평 {props.count_comments}개</Tag>
           {props.bookmarkToggle}
         </VStack>
-        <VStack style={{ flexWrap: 'wrap' }} className={`items-center text-base font-normal gap-10 ${props.fade ? 'animate-fade' : ''}`}>
+        <VStack
+          style={{ flexWrap: 'wrap' }}
+          className={`items-center text-base font-normal gap-10 ${props.fade ? 'animate-fade' : ''}`}
+        >
           <span className="text-2xl">{props.professor}</span>
           <div className="flex flex-row text-neutral-600 justify-between gap-6">
             <span className="self-center">{props.course_code}</span>
@@ -56,33 +61,37 @@ function CourseBasicsViewUnsafe(props: {
 }
 
 export function CourseBasicsViewLoading() {
-  return (<CourseBasicsViewUnsafe
-    fade={false}
-    lectureIcon={<LectureIcon code='' />}
-    year={<SkeletonSlow placeholder='0000' />}
-    semester={<SkeletonSlow placeholder='0R' />}
-    time_location={<SkeletonSlow placeholder='?(?-?)' />}
-    name={<SkeletonSlow placeholder='과목 이름' />}
-    professor={<SkeletonSlow placeholder='교수명' />}
-    count_comments={<SkeletonSlow placeholder='0' />}
-    course_code={<SkeletonSlow placeholder='??????' />}
-    course_id={<SkeletonSlow placeholder='?' />}
-    bookmarkToggle={<div />}
-  />);
-};
+  return (
+    <CourseBasicsViewUnsafe
+      fade={false}
+      lectureIcon={<LectureIcon code="" />}
+      year={<SkeletonSlow placeholder="0000" />}
+      semester={<SkeletonSlow placeholder="0R" />}
+      time_location={<SkeletonSlow placeholder="?(?-?)" />}
+      name={<SkeletonSlow placeholder="과목 이름" />}
+      professor={<SkeletonSlow placeholder="교수명" />}
+      count_comments={<SkeletonSlow placeholder="0" />}
+      course_code={<SkeletonSlow placeholder="??????" />}
+      course_id={<SkeletonSlow placeholder="?" />}
+      bookmarkToggle={<div />}
+    />
+  );
+}
 
 export default function CourseBasicsView({ course }: { course: CourseOnly }) {
-  return (<CourseBasicsViewUnsafe
-    fade={true}
-    lectureIcon={<LectureIcon code={course.course_code} />}
-    year={course.year}
-    semester={course.semester}
-    time_location={course.time_location}
-    name={course.name}
-    professor={course.professor}
-    count_comments={course.count_comments}
-    course_code={course.course_code}
-    course_id={course.course_id}
-    bookmarkToggle={<BookmarkToggleButton defaultValue={course.isBookmark} id={course.course_id} />}
-  />);
+  return (
+    <CourseBasicsViewUnsafe
+      fade={true}
+      lectureIcon={<LectureIcon code={course.course_code} />}
+      year={course.year}
+      semester={course.semester}
+      time_location={course.time_location}
+      name={course.name}
+      professor={course.professor}
+      count_comments={course.count_comments}
+      course_code={course.course_code}
+      course_id={course.course_id}
+      bookmarkToggle={<BookmarkToggleButton defaultValue={course.isBookmark} id={course.course_id} />}
+    />
+  );
 }

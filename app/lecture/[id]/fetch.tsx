@@ -28,14 +28,12 @@ import LectureView from './CourseView';
 //   );
 // }
 
-
 export default function LectureFetch({ id }: { id: number }) {
   const [jwt] = useSessionId();
 
   // TODO : refactor to use usePagination.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [page, setPage] = useState(1);
-
 
   // const { loading, response: course } = useApi(
   //   apiCourseDetail,
@@ -49,7 +47,7 @@ export default function LectureFetch({ id }: { id: number }) {
   //   );
   // }
 
-  const course = use(apiCourseDetail({ course_id : id, order : 'NEWEST', page }, { token: jwt?.accessToken }));
+  const course = use(apiCourseDetail({ course_id: id, order: 'NEWEST', page }, { token: jwt?.accessToken }));
 
   return course.status === 'SUCCESS' ? (
     <LectureView course={course.data} />

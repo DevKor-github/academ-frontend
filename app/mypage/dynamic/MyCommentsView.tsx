@@ -10,7 +10,7 @@ import CommentsView from '@/app/lecture/[id]/components/comments';
 import { use } from 'react';
 
 export default function MyCommentsView() {
-  const [jwt] = use(SessionIdContext)
+  const [jwt] = use(SessionIdContext);
   const [pages, fetchThis] = usePagination(apiMyPageComments);
 
   function fetchNext() {

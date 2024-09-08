@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { createContext, useContext, ReactNode } from 'react';
 
@@ -7,7 +7,7 @@ import useTabSharedState from '@/lib/hooks/shared';
 import { keyForUserAuth } from '@/lib/directive';
 
 export type SessionIdContextType = [SessionId, SetState<SessionId>];
-export const SessionIdContext = createContext<SessionIdContextType>([null, () => { }]);
+export const SessionIdContext = createContext<SessionIdContextType>([null, () => {}]);
 
 export function useSessionId() {
   return useContext(SessionIdContext);

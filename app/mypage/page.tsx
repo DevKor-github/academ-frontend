@@ -21,7 +21,6 @@ function NoSessionIdFallback() {
 }
 
 export default function ProfileOverviewWithMemberShip() {
-
   const router = useRouter();
   const params = useSearchParams();
 
@@ -60,4 +59,3 @@ export default function ProfileOverviewWithMemberShip() {
     </div>
   );
 }
-

@@ -3,9 +3,13 @@ import Link from 'next/link';
 import DepartIcon from '@/components/composite/departIcon';
 import { SkeletonSlow } from '@/components/composite/skeleton';
 
-
-function MyProfileBasicsUnsafe({ degree, username, department, semester, point }: ReplaceValues<Pick<UserProfile, "username" | "department" | "semester" | "degree" | "point">, React.ReactNode>) {
-
+function MyProfileBasicsUnsafe({
+  degree,
+  username,
+  department,
+  semester,
+  point,
+}: ReplaceValues<Pick<UserProfile, 'username' | 'department' | 'semester' | 'degree' | 'point'>, React.ReactNode>) {
   return (
     <div className="p-8 text-xl flex flex-row flex-wrap gap-16 w-full justify-start items-start">
       <div
@@ -39,25 +43,28 @@ function MyProfileBasicsUnsafe({ degree, username, department, semester, point }
 }
 
 export function MyProfileBasicsLoading() {
-  return (<MyProfileBasicsUnsafe
-    username={<SkeletonSlow placeholder='???' />}
-    department={<SkeletonSlow placeholder='???' />}
-    degree={<SkeletonSlow placeholder='???' />}
-    semester={<SkeletonSlow placeholder='???' />}
-    point={<SkeletonSlow placeholder='???' />} />
+  return (
+    <MyProfileBasicsUnsafe
+      username={<SkeletonSlow placeholder="???" />}
+      department={<SkeletonSlow placeholder="???" />}
+      degree={<SkeletonSlow placeholder="???" />}
+      semester={<SkeletonSlow placeholder="???" />}
+      point={<SkeletonSlow placeholder="???" />}
+    />
   );
 }
- 
 
 export default function MyProfileBasics({ userprofile }: { userprofile: UserProfile }) {
   const degreePrint =
     userprofile.degree === 'MASTER' ? '석사과정' : userprofile.degree === 'DOCTOR' ? '박사과정' : '?과정';
 
-  return (<MyProfileBasicsUnsafe
-    username={userprofile.username}
-    department={userprofile.department}
-    degree={degreePrint}
-    semester={userprofile.semester}
-    point={userprofile.point} />
+  return (
+    <MyProfileBasicsUnsafe
+      username={userprofile.username}
+      department={userprofile.department}
+      degree={degreePrint}
+      semester={userprofile.semester}
+      point={userprofile.point}
+    />
   );
 }

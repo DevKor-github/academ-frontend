@@ -1,14 +1,15 @@
-
-import dynamic from "next/dynamic";
-import {CourseBasicsViewLoading} from "./components/CourseBasicsView";
+import dynamic from 'next/dynamic';
+import { CourseBasicsViewLoading } from './components/CourseBasicsView';
 
 const LectureFetch = dynamic(() => import('./fetch'), {
-  ssr: false, loading: () => (
+  ssr: false,
+  loading: () => (
     <div className="flex flex-col w-full h-full">
-    <CourseBasicsViewLoading />
+      <CourseBasicsViewLoading />
     </div>
-) });
+  ),
+});
 
 export default function LecturePage({ params: { id } }: { params: { id: number } }) {
-  return (<LectureFetch id={id} />);
+  return <LectureFetch id={id} />;
 }

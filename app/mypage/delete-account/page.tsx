@@ -19,12 +19,11 @@ export default function DeleteAccountClient() {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-
     if (input.password === '') {
       alert('비밀번호를 입력하세요.');
       return;
     }
-    
+
     if (!input.checked) {
       alert('주의사항을 읽고 모든 항목을 체크하세요.');
       return;
