@@ -7,7 +7,7 @@ import { apiLogin, apiCheckLogin } from '@/lib/api/login';
 
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
-import { keyForStorage } from '../../context/SessionIdContext';
+import { keyForUserAuth } from '@/lib/directive';
 
 import LoginForm from './form';
 import { handleInputBuilder } from '@/lib/form/handler';
@@ -44,7 +44,7 @@ export default function LoginPageClient() {
         apiCheckLogin({}, { token: s.data.accessToken }).then((a) => {
           if (a.status === 'SUCCESS') {
             setSessionId(s.data);
-            localStorage.setItem(keyForStorage, JSON.stringify(s.data));
+            localStorage.setItem(keyForUserAuth, JSON.stringify(s.data));
             return route.push('/');
           } else {
             setLoginError(

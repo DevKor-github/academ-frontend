@@ -2,9 +2,10 @@ import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
 import LectureIcon from '@/components/composite/lectureIcon';
-import Skeleton from '@/components/composite/skeleton';
+import {SkeletonSlow} from '@/components/composite/skeleton';
 
-function BasicInfoViewUnSafe(props: {
+function CourseBasicsViewUnsafe(props: {
+  fade: boolean;
   lectureIcon: React.ReactNode;
   course_code: React.ReactNode;
   course_id: React.ReactNode;
@@ -32,12 +33,12 @@ function BasicInfoViewUnSafe(props: {
         {props.lectureIcon}
       </div>
       <HStack gap="16px">
-        <VStack gap="40px" style={{ alignItems: 'center', flexWrap: 'wrap' }} className="w-fit animate-fade">
+        <VStack gap="40px" style={{ alignItems: 'center', flexWrap: 'wrap' }} className={`w-fit ${props.fade ? 'animate-fade' : ''}`}>
           <span className="text-3xl font-medium">{props.name}</span>
           <Tag className="bg-primary-100 text-primary-900 opacity-50">강의평 {props.count_comments}개</Tag>
           {props.bookmarkToggle}
         </VStack>
-        <VStack style={{ flexWrap: 'wrap' }} className="items-center text-base font-normal gap-10 animate-fade">
+        <VStack style={{ flexWrap: 'wrap' }} className={`items-center text-base font-normal gap-10 ${props.fade ? 'animate-fade' : ''}`}>
           <span className="text-2xl">{props.professor}</span>
           <div className="flex flex-row text-neutral-600 justify-between gap-6">
             <span className="self-center">{props.course_code}</span>
@@ -54,23 +55,25 @@ function BasicInfoViewUnSafe(props: {
   );
 }
 
-export function BasicInfoViewLoading() {
-  return (<BasicInfoViewUnSafe
+export function CourseBasicsViewLoading() {
+  return (<CourseBasicsViewUnsafe
+    fade={false}
     lectureIcon={<LectureIcon code='' />}
-    year={<Skeleton placeholder='0000' />}
-    semester={<Skeleton placeholder='0R' />}
-    time_location={<Skeleton placeholder='?(?-?)' />}
-    name={<Skeleton placeholder='과목 이름' />}
-    professor={<Skeleton placeholder='교수명' />}
-    count_comments={<Skeleton placeholder='0' />}
-    course_code={<Skeleton placeholder='??????' />}
-    course_id={<Skeleton placeholder='?' />}
+    year={<SkeletonSlow placeholder='0000' />}
+    semester={<SkeletonSlow placeholder='0R' />}
+    time_location={<SkeletonSlow placeholder='?(?-?)' />}
+    name={<SkeletonSlow placeholder='과목 이름' />}
+    professor={<SkeletonSlow placeholder='교수명' />}
+    count_comments={<SkeletonSlow placeholder='0' />}
+    course_code={<SkeletonSlow placeholder='??????' />}
+    course_id={<SkeletonSlow placeholder='?' />}
     bookmarkToggle={<div />}
   />);
 };
 
-export default function BasicInfoView({ course }: { course: CourseOnly }) {
-  return (<BasicInfoViewUnSafe
+export default function CourseBasicsView({ course }: { course: CourseOnly }) {
+  return (<CourseBasicsViewUnsafe
+    fade={true}
     lectureIcon={<LectureIcon code={course.course_code} />}
     year={course.year}
     semester={course.semester}

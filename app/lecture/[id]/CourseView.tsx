@@ -1,4 +1,4 @@
-import BasicInfoView from './components/basicinfo';
+import BasicInfoView from './components/CourseBasicsView';
 import CommentsView from './components/comments';
 import SummaryView from './components/summary';
 

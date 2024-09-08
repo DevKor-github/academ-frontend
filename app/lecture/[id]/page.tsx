@@ -1,11 +1,11 @@
 
 import dynamic from "next/dynamic";
-import {BasicInfoViewLoading} from "./components/basicinfo";
+import {CourseBasicsViewLoading} from "./components/CourseBasicsView";
 
 const LectureFetch = dynamic(() => import('./fetch'), {
   ssr: false, loading: () => (
     <div className="flex flex-col w-full h-full">
-    <BasicInfoViewLoading />
+    <CourseBasicsViewLoading />
     </div>
 ) });
 
