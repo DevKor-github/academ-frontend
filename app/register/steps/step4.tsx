@@ -3,6 +3,8 @@ import { FinishIcon } from '@/icons';
 import { HStack } from '@/components/basic/stack';
 import Button from '@/components/basic/button';
 
+import { LastImg } from './resultilust';
+
 export default function Step4() {
   const route = useRouter();
 
@@ -10,6 +12,14 @@ export default function Step4() {
     <HStack gap="25px" className="items-center">
       <FinishIcon />
       <span className="text-4xl font-medium">회원가입 완료!</span>
+      <span>
+        회원가입 후 한 달간은 열람권 없이<br />모든 강의평을 자유롭게 작성할 수 있습니다.
+      </span>
+      <LastImg />
+      <span>
+      내가 수강한 강의의 평가를 작성하고 포인트를 미리 적립해,<br />
+      이번 학기 내내 서비스를 끊김 없이 이용하세요!
+      </span>
       <Button
         kind="filled"
         className="w-full mt-20 text-2xl"
