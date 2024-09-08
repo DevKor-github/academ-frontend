@@ -1,17 +1,14 @@
-'use client';
+"use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode, useLayoutEffect } from 'react';
+import { createContext, useContext, ReactNode } from 'react';
 
-import { isDebug } from '@/lib/directive';
+import useSharedState from '@/lib/hooks/shared';
+import useTabTermination from '@/lib/hooks/tabs';
 
-import { apiLogout } from '@/lib/api/login';
-import { apiCheckLogin } from '@/lib/api/login';
-import { apiJWTRefresh } from '@/lib/api/authHelper';
-import { Try } from '@/lib/monads/result';
+import { keyForUserAuth } from '@/lib/directive';
 
 export type SessionIdContextType = [SessionId, SetState<SessionId>];
-
-const SessionIdContext = createContext<SessionIdContextType>([null, () => {}]);
+export const SessionIdContext = createContext<SessionIdContextType>([null, () => { }]);
 
 export function useSessionId() {
   return useContext(SessionIdContext);
@@ -21,40 +18,10 @@ interface SessionIdProviderProps {
   children: ReactNode;
 }
 
-export const keyForStorage = 'userSessionId';
+export default function SessionIdProvider({ children }: SessionIdProviderProps) {
+  const [sessionId, setSessionId] = useSharedState<SessionId | null>(keyForUserAuth, null);
 
-const useTabTracker = (s: SessionId, setS: React.Dispatch<React.SetStateAction<SessionId>>) => {
-  useEffect(() => {
-    const prevCount = Number(localStorage.getItem('tabCount') || '0');
-    localStorage.setItem('tabCount', String(prevCount + 1));
-
-    const onHide = () => {
-      const count = Number(localStorage.getItem('tabCount') || '0');
-
-      // Since React dev mode render twice;
-      const i = isDebug ? 2 : 1;
-      localStorage.setItem('tabCount', String(count - i));
-
-      if (count <= 0) {
-        apiLogout({}, { token: s?.accessToken });
-        setS(null);
-        localStorage.clear();
-      }
-    };
-
-    window.addEventListener('pagehide', onHide);
-
-    // Cleanup function
-    return () => window.removeEventListener('pagehide', onHide);
-  }, []);
-};
-
-export function SessionIdProvider({ children }: SessionIdProviderProps) {
-  const [sessionId, setSessionId] = useState<SessionId | null>(
-    Try(() => JSON.parse(globalThis?.localStorage?.getItem(keyForStorage) || 'null')).unwrapOrElse(() => null),
-  );
-
-  useTabTracker(sessionId, setSessionId);
+  useTabTermination(localStorage.clear);
 
   // Temporal patch - use less traffic
 
@@ -78,7 +45,7 @@ export function SessionIdProvider({ children }: SessionIdProviderProps) {
             }
           });
         }
-        localStorage.removeItem(keyForStorage);
+        localStorage.removeItem(keyForUserAuth);
         setSessionId(null);
       }
     });
