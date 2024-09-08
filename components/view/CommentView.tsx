@@ -3,7 +3,6 @@
 import { Star1 } from '@/components/composite/starIndicator';
 import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
-import Button from '@/components/basic/button';
 import { useEffect, useState } from 'react';
 
 import { apiDeleteComment, apiLikeComment } from '@/lib/api/course';
@@ -138,18 +137,21 @@ function Right({
           ))}
         </div>
       </VStack>
-      <span className="flex flex-row text-xl font-normal flex-grow gap-4 mt-8 mb-2">
+      <span className="flex flex-row text-xl font-normal flex-grow gap-4 mt-8 mb-4">
         <div className="text-neutral-400 text-base w-max">작성내용</div>
         <div className="break-keep whitespace-pre-line text-wrap">{comment.review}</div>
       </span>
-      <VStack className="self-end items-center" gap="6px">
+      <VStack className="self-end items-center" gap="12px">
         {editable ? (
           <>
             <Link href={`/comment/${comment.comment_id}/edit`}>
-              <Button kind="blank">수정</Button>
+              <button className="flex justify-center items-center gap-2 px-4 py-1 border rounded-full border-neutral-400 text-neutral-400">
+                <EditIcon />
+                수정
+              </button>
             </Link>
-            <Button
-              kind="blank"
+            <button
+              className="flex justify-center items-center px-4 py-1 border rounded-full border-neutral-400 text-neutral-400"
               onClick={() => {
                 if (confirm('정말 삭제하시겠습니까?') == true) {
                   retryWithJWTRefresh(
@@ -167,7 +169,7 @@ function Right({
               }}
             >
               삭제
-            </Button>
+            </button>
           </>
         ) : (
           <></>
