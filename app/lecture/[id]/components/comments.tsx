@@ -1,7 +1,5 @@
 import { HStack, VStack } from '@/components/basic/stack';
-import Button from '@/components/basic/button';
 import CommentView, { MyCommentView } from '@/components/view/CommentView';
-import Link from 'next/link';
 import { useState } from 'react';
 import Select from '@/components/basic/select';
 
