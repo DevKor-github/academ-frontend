@@ -1,11 +1,15 @@
+import Button from '@/components/basic/button';
 import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
 import LectureIcon from '@/components/composite/lectureIcon';
 import { SkeletonSlow } from '@/components/composite/skeleton';
+import { WriteIcon } from '@/icons';
+import Link from 'next/link';
 
 function CourseBasicsViewUnsafe(props: {
   fade: boolean;
+  id: number;
   lectureIcon: React.ReactNode;
   course_code: React.ReactNode;
   course_id: React.ReactNode;
@@ -56,6 +60,17 @@ function CourseBasicsViewUnsafe(props: {
           </div>
         </VStack>
       </HStack>
+      {props.id !== undefined && (
+        <Link href={`/lecture/${props.id}/write`} className="self-end hidden md:block ml-auto">
+          <Button
+            kind="outline"
+            className="flex flex-row gap-2 justify-center items-center !rounded-full px-3 text-primary-500 font-medium"
+          >
+            <WriteIcon />
+            강의평 작성
+          </Button>
+        </Link>
+      )}
     </VStack>
   );
 }
@@ -64,6 +79,7 @@ export function CourseBasicsViewLoading() {
   return (
     <CourseBasicsViewUnsafe
       fade={false}
+      id={0}
       lectureIcon={<LectureIcon code="" />}
       year={<SkeletonSlow placeholder="0000" />}
       semester={<SkeletonSlow placeholder="0R" />}
@@ -82,6 +98,7 @@ export default function CourseBasicsView({ course }: { course: CourseOnly }) {
   return (
     <CourseBasicsViewUnsafe
       fade={true}
+      id={course.course_id}
       lectureIcon={<LectureIcon code={course.course_code} />}
       year={course.year}
       semester={course.semester}

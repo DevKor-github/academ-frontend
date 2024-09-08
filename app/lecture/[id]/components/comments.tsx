@@ -21,11 +21,6 @@ export default function CommentsView({ course_id, comments }: { course_id?: numb
       <VStack className="items-center justify-between gap-2 mb-2">
         <VStack className="items-center justify-start gap-10">
           <span className="text-2xl">강의평 목록</span>
-          {course_id !== undefined && (
-            <Link href={`/lecture/${course_id}/write`}>
-              <Button> 강의평 작성하기</Button>
-            </Link>
-          )}
         </VStack>
 
         <VStack className="items-center justify-end gap-2">
