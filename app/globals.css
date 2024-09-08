@@ -79,8 +79,6 @@
 }
 
 body {
-  color: var(--dyn-000000);
-  background: var(--dyn-ffffff);
   /* styles/globals.css */
   font-family: 'Pretendard', sans-serif;
 }
