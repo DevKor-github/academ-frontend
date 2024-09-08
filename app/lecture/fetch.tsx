@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import Button from '@/components/basic/button';
 import Select from '@/components/basic/select';
 import { DownIcon } from '@/icons';
-
+import Spinner from '@/components/basic/spinner';
 import { useRouter } from 'next/navigation';
 import { usePagination } from '@/lib/hooks/pagination';
 
@@ -63,7 +63,7 @@ function SearchResultsViewWithOrder({ query: keyword, order }: { query: string; 
         ))}
         {pages.loading && <LoaderItems />}
       </Grid>
-      {pages.loading || nextButton}
+      {pages.loading ? <div className='text-xl'><Spinner /></div> : nextButton}
     </>
   );
 }
