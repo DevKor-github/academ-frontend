@@ -12,7 +12,7 @@ export function CarouselItem({ url, children }: { url: string; children?: React.
       style={{ backgroundColor: 'black', minWidth: '100%' }}
     >
       <Image
-        className="absolute z-10 animate-fade"
+        className="absolute z-10 animate-fade-slow"
         loading="eager"
         src={url}
         alt="banner image"
