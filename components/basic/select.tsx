@@ -26,7 +26,7 @@ export default function Select<T extends string>({
             id={v.value}
             value={v.value}
             checked={value === v.value}
-            onClick={handleValue}
+            onChange={handleValue}
             readOnly={handleValue === undefined}
           />
         </label>
