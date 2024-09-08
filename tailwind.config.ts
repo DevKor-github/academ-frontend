@@ -46,6 +46,8 @@ const config: Config = {
       boxShadow: {
         'glow-md': '0px 0px 8px rgba(0 0 0 / 0.1)',
         'glow-lg': '0px 0px 16px rgba(0 0 0 / 0.1)',
+        'glow-xl': '0px 0px 32px rgba(0 0 0 / 0.1)',
+        'glow-2xl': '0px 0px 64px rgba(0 0 0 / 0.1)',
       },
       colors: {
         primary: {
