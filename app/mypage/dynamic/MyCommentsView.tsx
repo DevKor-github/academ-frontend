@@ -5,11 +5,12 @@ import { DownIcon } from '@/icons';
 import { apiMyPageComments } from '@/lib/api/mypage';
 import { usePagination } from '@/lib/hooks/pagination';
 import { useEffect } from 'react';
-import { useSessionId } from '@/context/SessionIdContext';
+import { SessionIdContext } from '@/context/SessionIdContext';
 import CommentsView from '@/app/lecture/[id]/components/comments';
+import { use } from 'react';
 
 export default function MyCommentsView() {
-  const [jwt] = useSessionId();
+  const [jwt] = use(SessionIdContext)
   const [pages, fetchThis] = usePagination(apiMyPageComments);
 
   function fetchNext() {
