@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-export function useTemporal<T>(ms : number, initial: T, temporal: T) {
+export function useTemporal<T>(ms: number, initial: T, temporal: T) {
   const [v, setV] = useState(initial);
 
   useEffect(() => {
@@ -9,8 +9,8 @@ export function useTemporal<T>(ms : number, initial: T, temporal: T) {
         setV(initial);
       }, ms);
     }
-    }, [v]);
-  
+  }, [v]);
+
   function resetV() {
     setV(temporal);
   }
@@ -18,4 +18,4 @@ export function useTemporal<T>(ms : number, initial: T, temporal: T) {
   return [v, resetV] as const;
 }
 
-export const useAnimationTimeout = (ms : number) => useTemporal(ms, false, true)
+export const useAnimationTimeout = (ms: number) => useTemporal(ms, false, true);

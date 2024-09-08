@@ -1,23 +1,12 @@
 export const CloseIcon = () => (
-  <svg
-    viewBox="0 0 32 32"
-    xmlns="http://www.w3.org/2000/svg"
-    width="1em"
-    height="1em"
-    stroke = "currentColor"
-  >
+  <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" stroke="currentColor">
     <line x1="2" y1="2" x2="30" y2="30" strokeWidth="3" />
     <line x1="2" y1="30" x2="30" y2="2" strokeWidth="3" />
   </svg>
 );
 
 export const LeftIcon = () => (
-  <svg
-    width="1em"
-    height="1em"
-    xmlns="http://www.w3.org/2000/svg"
-    stroke = "currentColor"
-  >
+  <svg width="1em" height="1em" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
     <path d="M 15 2 L 2 16 L 15 30" strokeWidth="3" fill="none" />
   </svg>
 );
@@ -118,9 +107,12 @@ export const LogoIconRich = () => (
 
 export const BookmarkIcon = () => (
   <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M11 1H3C1.89543 1 1 1.89543 1 3V18L7 12.087L13 18V3C13 1.89543 12.1046 1 11 1Z" fill="currentColor" stroke="none"/>
+    <path
+      d="M11 1H3C1.89543 1 1 1.89543 1 3V18L7 12.087L13 18V3C13 1.89543 12.1046 1 11 1Z"
+      fill="currentColor"
+      stroke="none"
+    />
   </svg>
-  
 );
 
 export const CheckIcon = () => (
@@ -209,5 +201,45 @@ export const SelectedThumbUpIcon = () => (
       stroke-linecap="round"
       stroke-linejoin="round"
     />
+  </svg>
+);
+
+export const WriteIcon = () => (
+  <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="Group 12">
+      <g id="Vector">
+        <path d="M10 17.5605H19H10Z" fill="#DC143C" />
+        <path d="M10 17.5605H19" stroke="#DC143C" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
+      <path
+        id="Vector_2"
+        d="M14.5 2.02448C14.8978 1.64989 15.4374 1.43945 16 1.43945C16.2786 1.43945 16.5544 1.49112 16.8118 1.5915C17.0692 1.69188 17.303 1.83901 17.5 2.02448C17.697 2.20996 17.8532 2.43016 17.9598 2.67249C18.0665 2.91483 18.1213 3.17457 18.1213 3.43687C18.1213 3.69918 18.0665 3.95892 17.9598 4.20125C17.8532 4.44359 17.697 4.66379 17.5 4.84926L5 16.6192L1 17.5608L2 13.7944L14.5 2.02448Z"
+        fill="#DC143C"
+        stroke="#DC143C"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </g>
+  </svg>
+);
+
+export const EditIcon = () => (
+  <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g id="Group 12">
+      <g id="Vector">
+        <path d="M10 17.1211H19H10Z" fill="#7A7A7A" />
+        <path d="M10 17.1211H19" stroke="#7A7A7A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </g>
+      <path
+        id="Vector_2"
+        d="M14.5 1.58503C14.8978 1.21044 15.4374 1 16 1C16.2786 1 16.5544 1.05166 16.8118 1.15204C17.0692 1.25242 17.303 1.39955 17.5 1.58503C17.697 1.77051 17.8532 1.9907 17.9598 2.23304C18.0665 2.47538 18.1213 2.73512 18.1213 2.99742C18.1213 3.25973 18.0665 3.51946 17.9598 3.7618C17.8532 4.00414 17.697 4.22433 17.5 4.40981L5 16.1797L1 17.1213L2 13.3549L14.5 1.58503Z"
+        fill="#7A7A7A"
+        stroke="#7A7A7A"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </g>
   </svg>
 );

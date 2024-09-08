@@ -34,8 +34,9 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
   return (
     <form className={className} method="get" action="/lecture" style={combinedStyle} onSubmit={submitHanlder}>
       <div
-        className='flex flex-row gap-2 transition-all justify-center items-center light:bg-neutral-100 dark:bg-neutral-900
-       px-5 border border-neutral-200 dark:border-neutral-800 rounded-3xl focus-within:shadow-xl dark:shadow-dark-back-6'>
+        className="flex flex-row gap-2 transition-all justify-center items-center light:bg-neutral-100 dark:bg-neutral-900
+       px-5 border border-neutral-200 dark:border-neutral-800 rounded-3xl focus-within:shadow-xl dark:shadow-dark-back-6"
+      >
         <MagnifyIcon />
         <input
           // required
@@ -57,7 +58,7 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
           <RightIcon />
         </button>
       </div>
-      <ErrorLabel className='mt-4' label={error} shake={isAnimation} />
+      <ErrorLabel className="mt-4" label={error} shake={isAnimation} />
     </form>
   );
 }

@@ -5,9 +5,16 @@ import dynamic from 'next/dynamic';
 import LoginForm from './form';
 
 const LoginClientForm = dynamic(() => import('./client'), {
-  ssr: false, loading: () => (
-  <LoginForm input={{email: '', password: '', 'remember-me': false}} submitting={false} shake={false} loginError='' />
-) });
+  ssr: false,
+  loading: () => (
+    <LoginForm
+      input={{ email: '', password: '', 'remember-me': false }}
+      submitting={false}
+      shake={false}
+      loginError=""
+    />
+  ),
+});
 
 export default function LoginPage() {
   return (

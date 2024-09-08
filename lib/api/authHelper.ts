@@ -3,7 +3,7 @@ import { SessionIdContextType } from '@/context/SessionIdContext';
 
 type ApiFunction<Req, Res> = (req: Req, ctx?: ApiCTX) => Promise<ApiResponse<Res>>;
 
-export const apiJWTRefresh = build<{}, JWT>('GET', '/api/signup/check-email');
+export const apiJWTRefresh = build<Record<string, never>, JWT>('GET', '/api/signup/check-email');
 
 /**
  * Modify api-calling function to handle jwt refresh

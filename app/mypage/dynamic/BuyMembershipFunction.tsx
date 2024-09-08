@@ -27,13 +27,16 @@ export default function BuyMembershipButton({ membershipData }: { membershipData
   }
 
   return (
-    <button className="transition-all flex flex-row gap-16 p-8 rounded-xl border
+    <button
+      className="transition-all flex flex-row gap-16 p-8 rounded-xl border
     w-max
     hover:-translate-y-2 hover:light:shadow-xl
     hover:dark:shadow-md hover:dark:shadow-primary-500 hover:light:shadow-light-back-4
     
     light:border-light-back-4 dark:border-dark-back-7
-    " onClick={buyHandler}>
+    "
+      onClick={buyHandler}
+    >
       <div className="flex flex-col items-start">
         <span className="text-2xl font-bold">강의 열람권 ({membershipData.day}일)</span>
         <span>{membershipData.price}포인트</span>

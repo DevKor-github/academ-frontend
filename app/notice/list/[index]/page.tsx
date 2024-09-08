@@ -1,4 +1,3 @@
-
 import { ssget } from '@/lib/api/ssg';
 import { ApiResponse } from '@/lib/api/builder';
 import { NoticeListRequest } from '@/lib/api/notice';
@@ -7,28 +6,23 @@ import { Notice } from '@/lib/api/notice';
 import Link from 'next/link';
 import { elemPerPage } from '@/lib/directive';
 
-
 function NoticeSingle({ notice }: { notice: Notice }) {
   return (
-    <div className='animate-fade'>
+    <div className="animate-fade">
       <Link className="flex justify-between self-centers" href={`/notice/detail/${notice.notice_id}`}>
         <span className="text-base font-medium">{notice.title}</span>
         <span className="text-base font-normal text-gray-400">{notice.created_at}</span>
       </Link>
-      <div className="w-full my-4 border
+      <div
+        className="w-full my-4 border
       light:border-light-back-5
-      dark:border-dark-back-5" />
+      dark:border-dark-back-5"
+      />
     </div>
   );
 }
 
-function NoticeListView({
-  notices,
-  showMoreButton,
-}: {
-    notices: Notice[];
-    showMoreButton : React.ReactNode
-}) {
+function NoticeListView({ notices, showMoreButton }: { notices: Notice[]; showMoreButton: React.ReactNode }) {
   return (
     <div>
       <HStack gap="20px">
@@ -45,28 +39,26 @@ function NoticeListView({
 
 ////
 
-
 // This function gets called at build time
 export async function generateStaticParams() {
   // Call an external API endpoint to get posts
-  const res = await ssget <{}, ApiResponse<number>>('/api/notice/count', {});
+  const res = await ssget<Record<string, never>, ApiResponse<number>>('/api/notice/count', {});
 
   if (res.status !== 'SUCCESS') {
-    throw new Error("Failed to get number of notice from backend server - is backend server working?");
+    throw new Error('Failed to get number of notice from backend server - is backend server working?');
   }
 
   const countNotice = res.data;
   const countPages = Math.ceil(countNotice / elemPerPage);
 
-  const posts = (new Array(countPages)).fill(undefined)
- 
+  const posts = new Array(countPages).fill(undefined);
+
   // Get the paths we want to pre-render based on posts
   const paths = posts.map((_, postId) => ({
     index: String(postId + 1),
-  }))
- 
+  }));
+
   return paths;
-  
 }
 
 function generateNumberRange(n: number, MAX: number): number[] {
@@ -74,56 +66,62 @@ function generateNumberRange(n: number, MAX: number): number[] {
   const halfRange = Math.floor(rangeSize / 2);
 
   // 최소값과 최대값을 계산
-  let start = Math.max(n - halfRange, 1);
-  let end = Math.min(n + halfRange, MAX);
+  const start = Math.max(n - halfRange, 1);
+  const end = Math.min(n + halfRange, MAX);
 
   // 결과 배열 생성
   const result = [];
   for (let i = start; i <= end; i++) {
-      result.push(i);
+    result.push(i);
   }
 
   return result;
 }
 
 function NoticeListNavigate({ from, total }: { from: number; total: number }) {
-
   const lists: Array<number> = generateNumberRange(from, total);
 
   return (
-    <div className='flex flex-row w-full justify-center items-center gap-x-2'>
-      {lists.flatMap((v) => <Link key={v} href={`/notice/list/${v}`} className={'bg-dynamic-30 p-2 text-center rounded-md '+ (from === v ? 'text-primary-500' : '')}>{v}</Link>)}
+    <div className="flex flex-row w-full justify-center items-center gap-x-2">
+      {lists.flatMap((v) => (
+        <Link
+          key={v}
+          href={`/notice/list/${v}`}
+          className={'bg-dynamic-30 p-2 text-center rounded-md ' + (from === v ? 'text-primary-500' : '')}
+        >
+          {v}
+        </Link>
+      ))}
     </div>
   );
 }
 
-
 export default async function NoticeView({ params }: { params: { index: string } }) {
-
   ////
-  const countRes = await ssget <{}, ApiResponse<number>>('/api/notice/count', {});
+  const countRes = await ssget<Record<string, never>, ApiResponse<number>>('/api/notice/count', {});
 
   if (countRes.status !== 'SUCCESS') {
-    throw new Error("Failed to get number of notice from backend server - is backend server working?");
+    throw new Error('Failed to get number of notice from backend server - is backend server working?');
   }
 
   const countNotice = countRes.data;
   const countPages = Math.ceil(countNotice / 10);
   ////
 
-
-  const res = await ssget<NoticeListRequest , ApiResponse<Notice[]>>('/api/notice/list', { page : Number(params.index) });
+  const res = await ssget<NoticeListRequest, ApiResponse<Notice[]>>('/api/notice/list', { page: Number(params.index) });
 
   if (res.status !== 'SUCCESS') {
-    throw Error("Failed to get detailed notice content")
+    throw Error('Failed to get detailed notice content');
   }
 
   return (
     <HStack gap="20px" style={{ margin: '40px' }}>
       <div className="my-10 text-4xl font-medium">공지사항</div>
-      <div className="w-full border
+      <div
+        className="w-full border
     light:border-light-back-5
-    dark:border-dark-back-5" />
+    dark:border-dark-back-5"
+      />
       <NoticeListView notices={res.data} showMoreButton={<button />} />
       <NoticeListNavigate from={Number(params.index)} total={Number(countPages)} />
     </HStack>

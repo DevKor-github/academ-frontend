@@ -1,17 +1,13 @@
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode, useLayoutEffect } from 'react';
+import { createContext, useContext, ReactNode } from 'react';
 
-import { isDebug } from '@/lib/directive';
+import useTabSharedState from '@/lib/hooks/shared';
 
-import { apiLogout } from '@/lib/api/login';
-import { apiCheckLogin } from '@/lib/api/login';
-import { apiJWTRefresh } from '@/lib/api/authHelper';
-import { Try } from '@/lib/monads/result';
+import { keyForUserAuth } from '@/lib/directive';
 
 export type SessionIdContextType = [SessionId, SetState<SessionId>];
-
-const SessionIdContext = createContext<SessionIdContextType>([null, () => {}]);
+export const SessionIdContext = createContext<SessionIdContextType>([null, () => {}]);
 
 export function useSessionId() {
   return useContext(SessionIdContext);
@@ -21,40 +17,8 @@ interface SessionIdProviderProps {
   children: ReactNode;
 }
 
-export const keyForStorage = 'userSessionId';
-
-const useTabTracker = (s: SessionId, setS: React.Dispatch<React.SetStateAction<SessionId>>) => {
-  useEffect(() => {
-    const prevCount = Number(localStorage.getItem('tabCount') || '0');
-    localStorage.setItem('tabCount', String(prevCount + 1));
-
-    const onHide = () => {
-      const count = Number(localStorage.getItem('tabCount') || '0');
-
-      // Since React dev mode render twice;
-      const i = isDebug ? 2 : 1;
-      localStorage.setItem('tabCount', String(count - i));
-
-      if (count <= 0) {
-        apiLogout({}, { token: s?.accessToken });
-        setS(null);
-        localStorage.clear();
-      }
-    };
-
-    window.addEventListener('pagehide', onHide);
-
-    // Cleanup function
-    return () => window.removeEventListener('pagehide', onHide);
-  }, []);
-};
-
-export function SessionIdProvider({ children }: SessionIdProviderProps) {
-  const [sessionId, setSessionId] = useState<SessionId | null>(
-    Try(() => JSON.parse(globalThis?.localStorage?.getItem(keyForStorage) || 'null')).unwrapOrElse(() => null),
-  );
-
-  useTabTracker(sessionId, setSessionId);
+export default function SessionIdProvider({ children }: SessionIdProviderProps) {
+  const [sessionId, setSessionId] = useTabSharedState<SessionId | null>(keyForUserAuth, null);
 
   // Temporal patch - use less traffic
 
@@ -78,12 +42,19 @@ export function SessionIdProvider({ children }: SessionIdProviderProps) {
             }
           });
         }
-        localStorage.removeItem(keyForStorage);
+        localStorage.removeItem(keyForUserAuth);
         setSessionId(null);
       }
     });
   }, []);
   */
 
-  return <SessionIdContext.Provider key={sessionId?.accessToken || sessionId?.refreshToken} value={[sessionId, setSessionId]}>{children}</SessionIdContext.Provider>;
+  return (
+    <SessionIdContext.Provider
+      key={sessionId?.accessToken || sessionId?.refreshToken}
+      value={[sessionId, setSessionId]}
+    >
+      {children}
+    </SessionIdContext.Provider>
+  );
 }

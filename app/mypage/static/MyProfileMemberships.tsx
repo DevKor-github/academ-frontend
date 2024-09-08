@@ -1,4 +1,5 @@
-import BuyMembershipButton from "../dynamic/BuyMembershipFunction";
+import { SkeletonSlow } from '@/components/composite/skeleton';
+import BuyMembershipButton from '../dynamic/BuyMembershipFunction';
 
 const memberships: Array<MembershipData> = [
   { item: '30DAYS', day: 30, price: 100, iconLevel: 1 },
@@ -6,26 +7,12 @@ const memberships: Array<MembershipData> = [
   { item: '180DAYS', day: 180, price: 400, iconLevel: 3 },
 ];
 
-
-export default function ManageMembership({ profile }: { profile: UserProfile }) {
-  let expireLabel = (() => {
-    let now = new Date();
-    let expire = new Date(profile.access_expiration_date);
-    let diff = expire.getTime() - now.getTime();
-    const diffDay = Math.ceil(diff / (1000 * 3600 * 24));
-
-    if (diffDay > 0) {
-      return `만료예정: D-${diffDay}`;
-    } else if (diffDay === 0) {
-      return '오늘 만료';
-    } else {
-      return `만료됨 (D+${Math.abs(diffDay)})`;
-    }
-  })();
-
+function MyProfileMembershipsUnsafe({ expireLabel }: { expireLabel: React.ReactNode }) {
   return (
-    <div className="animate-fade p-8 pb-16 mt-8 border-t
-    light:border-t-light-back-8 dark:border-t-dark-back-8 ">
+    <div
+      className="p-8 pb-16 mt-8 border-t
+    light:border-t-light-back-8 dark:border-t-dark-back-8 "
+    >
       <div className="flex flex-row text-2xl mt-8 pb-2">
         <span>강의 열람권</span>
         <div className="inline-block ml-auto">
@@ -52,4 +39,27 @@ export default function ManageMembership({ profile }: { profile: UserProfile }) 
       </div>
     </div>
   );
+}
+
+export function MyProfileMembershipsLoading() {
+  return <MyProfileMembershipsUnsafe expireLabel={<SkeletonSlow placeholder="D-???" />} />;
+}
+
+export default function MyProfileMemberships({ access_expiration_date }: Pick<UserProfile, 'access_expiration_date'>) {
+  const expireLabel: string = (() => {
+    const now = new Date();
+    const expire = new Date(access_expiration_date);
+    const diff = expire.getTime() - now.getTime();
+    const diffDay = Math.ceil(diff / (1000 * 3600 * 24));
+
+    if (diffDay > 0) {
+      return `만료예정: D-${diffDay}`;
+    } else if (diffDay === 0) {
+      return '오늘 만료';
+    } else {
+      return `만료됨 (D+${Math.abs(diffDay)})`;
+    }
+  })();
+
+  return <MyProfileMembershipsUnsafe expireLabel={expireLabel} />;
 }

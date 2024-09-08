@@ -35,7 +35,8 @@ export default function WriteComment({ course }: { course: Course }) {
   const [input, setInput] = useState<AcdCommentNewReq>(NewCommentWithId(course.course_id));
   const [submitted, setSubmitted] = useState<boolean | null>(null);
 
-  function handleSubmit() {
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
     if (confirm('작성 완료하시겠습니까?') == true) {
       retryWithJWTRefresh(
         apiInsertComment,

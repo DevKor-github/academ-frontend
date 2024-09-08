@@ -4,40 +4,45 @@ import { useState } from 'react';
 
 import Link from 'next/link';
 
-import { useSessionId } from '@/context/SessionIdContext';
+import { SessionIdContext } from '@/context/SessionIdContext';
 
 import Button from '@/components/basic/button';
 import Popover from '@/components/basic/popover';
 import { HStack } from '@/components/basic/stack';
 
-import { useApi } from '@/lib/api/builder';
-import { apiMyPageBasics } from '@/lib/api/mypage';
-import Skeleton from '@/components/composite/skeleton';
-
 import { LogoutIcon, ProfileIcon } from './icons';
 import { DownIcon } from '@/icons';
+
+import { use } from 'react';
 
 function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => void }) {
   return (
     <Popover
       onPageClick={() => setOpenPopover(false)}
       className={
-        'absolute rounded-xl overflow-hidden border bg-l bg-white dark:bg-dark-back-1 border-light-back-2 dark:border-dark-back-4 right-2 md:right-8 top-14 shadow-lg '
+        'absolute rounded-xl overflow-hidden border bg-l bg-white dark:bg-dark-back-1 right-2 md:right-8 top-14 shadow-lg '
       }
       style={{ zIndex: 100 }}
     >
-      <HStack className="justify-center items-center rounded-xl
-      *:flex *:flex-row *:min-h-6 *:gap-2 *:p-4 *:pb-2 *:w-full *:justify-center *:align-middle">
-
-        <Link className='
+      <HStack
+        className="justify-center items-center rounded-xl
+      *:flex *:flex-row *:min-h-6 *:gap-2 *:p-4 *:pb-2 *:w-full *:justify-center *:align-middle"
+      >
+        <Link
+          className="
         hover:light:bg-light-back-2
-        hover:dark:bg-dark-back-4' href="/mypage">
+        hover:dark:bg-dark-back-4"
+          href="/mypage"
+        >
           <ProfileIcon />
-          <span>마이페이지</span> 
+          <span>마이페이지</span>
         </Link>
-        <Link className='
+        <Link
+          className="
         hover:light:bg-light-back-2
-        hover:dark:bg-dark-back-4' href="/logout">
+        hover:dark:bg-dark-back-4"
+          href="/logout"
+        >
           <LogoutIcon />
           <span>로그아웃</span>
         </Link>
@@ -49,44 +54,41 @@ function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => vo
 function LoginButton() {
   return (
     <Link href="/login">
-      <Button><span className='whitespace-nowrap'>로그인/회원가입</span></Button>
+      <Button>
+        <span className="whitespace-nowrap">로그인/회원가입</span>
+      </Button>
     </Link>
   );
 }
 
-function ProfileButton() {
-  const [jwt] = useSessionId();
-
+export default function TopNavInnerRightClient() {
+  const [jwt] = use(SessionIdContext);
   const [open, setOpen] = useState<boolean>(false);
-  const { loading, response: state } = useApi < {}, MyPageBasicInfo>(apiMyPageBasics, {}, { token: jwt?.accessToken });
+  // const state = use(apiMyPageBasics({}, { token: jwt?.accessToken }));
 
-  if (loading) {
-    return (
-      <Button>
-      <Skeleton className='rounded-md bg-primary-300' placeholder={<span className="whitespace-nowrap">로그인/회원가입</span>} />
-    </Button>
-    );
-  }
-
-  if (state.status !== 'SUCCESS') {
+  if (
+    // state.status !== 'SUCCESS'
+    jwt === null
+  ) {
     return <LoginButton />;
   } else {
     return (
       <div>
-        <Button className='rounded-full bg-primary-500 text-white p-2 pl-2 pr-2 cursor-pointer' onClick={() => setOpen((v) => !v)}>
+        <Button
+          className="rounded-full bg-primary-500 text-white p-2 pl-2 pr-2 cursor-pointer"
+          onClick={() => setOpen((v) => !v)}
+        >
           <span
             className="under-md:max-w-24"
             style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
           >
-            <span className='flex flex-row'>마이페이지 <DownIcon /></span>
+            <span className="flex flex-row">
+              마이페이지 <DownIcon />
+            </span>
           </span>
         </Button>
         {open && <ProfilePopover setOpenPopover={setOpen} />}
       </div>
     );
   }
-}
-
-export default function TopNavInnerRightClient() {
-  return <ProfileButton />;
 }

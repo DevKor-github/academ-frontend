@@ -36,7 +36,7 @@ const sortCriterias = [
   { value: 'NEWEST', label: '최신순' },
   { value: 'RATING_DESC', label: '별점 높은순' },
   { value: 'RATING_ASC', label: '별점 낮은순' },
-] as const
+] as const;
 
 export default async function SearchPage({
   searchParams,
@@ -44,28 +44,26 @@ export default async function SearchPage({
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const { q: qCand, s: sCand } = searchParams || {};
-  
+
   const q = (Array.isArray(qCand) ? qCand[0] : qCand) || '';
   const s = (Array.isArray(sCand) ? sCand[0] : sCand) || '';
-  const sort : SearchOrdering = (sortCriterias.map(({ value }) => value).includes(s as SearchOrdering)) ? (s as SearchOrdering) : 'NEWEST'
+  const sort: SearchOrdering = sortCriterias.map(({ value }) => value).includes(s as SearchOrdering)
+    ? (s as SearchOrdering)
+    : 'NEWEST';
 
-
-  const SearchResultsView = dynamic(() => import('./results'), {
-    ssr: false, loading: () => 
-    (
+  const SearchResultsView = dynamic(() => import('./fetch'), {
+    ssr: false,
+    loading: () => (
       <Box>
-        <Select
-          value={sort}
-          items={sortCriterias}
-        />
-        { q ? <div /> : <span>강의명, 교수명, 학수번호로 검색해보세요.</span>}
+        <Select value={sort} items={sortCriterias} />
+        {q ? <div /> : <span>강의명, 교수명, 학수번호로 검색해보세요.</span>}
       </Box>
-    )
+    ),
   });
 
   return (
     <div className="flex flex-col h-full">
-      <SearchTopView key={q} query={q}  />
+      <SearchTopView key={q} query={q} />
       <SearchResultsView query={q} sort={sort} />
     </div>
   );

@@ -19,7 +19,7 @@ export default function RegisterPage() {
     username: '',
     student_id: '',
     degree: 'MASTER',
-    semester: 1,
+    semester: 0,
     department: '',
     code: '',
   });

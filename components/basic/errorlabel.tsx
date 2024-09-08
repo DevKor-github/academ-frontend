@@ -1,7 +1,14 @@
 import WarningIcon from '@/icons/warning';
 
-export default function ErrorLabel({ className = '', label, shake }: { className?: string; label: string; shake?: boolean }) {
-
+export default function ErrorLabel({
+  className = '',
+  label,
+  shake,
+}: {
+  className?: string;
+  label: string;
+  shake?: boolean;
+}) {
   return (
     <div
       className={`

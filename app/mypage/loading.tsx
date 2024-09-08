@@ -1,5 +1,14 @@
-import Spinner from "@/components/basic/spinner"
+import { MyProfileBasicsLoading } from './static/MyProfileBasics';
+import { MyProfileMembershipsLoading } from './static/MyProfileMemberships';
+import Spinner from '@/components/basic/spinner';
 
 export default function MyPageLoading() {
-  return <div className='w-full p-8 flex flex-row justify-center items-center text-6xl'><Spinner /></div>
+  return (
+    <div className="flex flex-col w-full h-full">
+      <MyProfileBasicsLoading />
+      <MyProfileMembershipsLoading />
+      <Spinner />
+      <Spinner />
+    </div>
+  );
 }
