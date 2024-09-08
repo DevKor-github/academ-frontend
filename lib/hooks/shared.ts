@@ -1,11 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { isDebug, keyToCountTabs } from '../directive';
 
-export default function useSharedState<T extends JSONValue>(key: string, initial: T) {
+export default function useTabSharedState<T extends JSONValue>(key: string, initial: T) {
   const [state, setState] = useState<T>(() => {
     // use sessionStorage first
-    const storagedState = sessionStorage.getItem(key) || localStorage.getItem(key) || JSON.stringify(initial);
+    const storagedState =
+      /** if this is only-tab */ Number(localStorage.getItem(keyToCountTabs)) <= (isDebug ? 2 : 1)
+        ? sessionStorage.getItem(key) || JSON.stringify(initial)
+        : sessionStorage.getItem(key) || localStorage.getItem(key) || JSON.stringify(initial);
     return JSON.parse(storagedState);
   });
 

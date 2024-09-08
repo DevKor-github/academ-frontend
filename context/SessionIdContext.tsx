@@ -2,8 +2,7 @@
 
 import { createContext, useContext, ReactNode } from 'react';
 
-import useSharedState from '@/lib/hooks/shared';
-import useTabTermination from '@/lib/hooks/tabs';
+import useTabSharedState from '@/lib/hooks/shared';
 
 import { keyForUserAuth } from '@/lib/directive';
 
@@ -19,9 +18,7 @@ interface SessionIdProviderProps {
 }
 
 export default function SessionIdProvider({ children }: SessionIdProviderProps) {
-  const [sessionId, setSessionId] = useSharedState<SessionId | null>(keyForUserAuth, null);
-
-  useTabTermination(localStorage.clear);
+  const [sessionId, setSessionId] = useTabSharedState<SessionId | null>(keyForUserAuth, null);
 
   // Temporal patch - use less traffic
 
