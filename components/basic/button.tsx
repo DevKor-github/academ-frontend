@@ -11,13 +11,18 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 const CommonButton = ({ disabled, className, ...rest }: ButtonProps) => (
   <button
     className={`flex justify-center items-center rounded-lg transition-all p-2 ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'} ${className}`}
+    disabled={disabled}
     {...rest}
   />
 );
 
 function FilledButton({ className = '', disabled, ...rest }: ButtonProps) {
   return disabled ? (
-    <CommonButton disabled className={' bg-gray-300 dark:bg-gray-700 border-none opacity-25 ' + className} {...rest} />
+    <CommonButton
+      disabled={true}
+      className={' bg-gray-300 dark:bg-gray-700 border-none opacity-25 ' + className}
+      {...rest}
+    />
   ) : (
     <CommonButton
       className={'bg-primary-500 cursor-pointer border-none text-white dark:text-white ' + className}
