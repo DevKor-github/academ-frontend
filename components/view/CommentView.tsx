@@ -200,7 +200,7 @@ function Right({
           ) : (
             <ThumbUpIcon />
           )}
-          이 글 추천하기 (
+          추천하기 (
           {comment.already_like
             ? newLike
               ? comment.likes - 1
