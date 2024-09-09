@@ -256,9 +256,8 @@ export default function Step3({
             onFocus={() => {
               setIsDropDown(true);
             }}
-            style={
-              isDropDown ? { borderRadius: '0.5rem 0.5rem 0 0', zIndex: 10 } : { borderRadius: '0.5rem', zIndex: 10 }
-            }
+            style={isDropDown ? { borderRadius: '0.5rem 0.5rem 0 0' } : { borderRadius: '0.5rem' }}
+            className="w-full"
           />
           {isDropDown && (
             <ul className="block m-0 p-2 light:bg-white border light:border-light-back-2 dark:bg-neutral-900 dark:border-dark-back-2 rounded-b-lg z-10">
