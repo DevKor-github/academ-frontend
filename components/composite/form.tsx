@@ -316,7 +316,7 @@ export default function WriteOrEditComment<Req extends AcdCommentJoin>({
       </div>
 
       <div className="flex flex-row justify-center items-center mt-8">
-        <Button kind="filled" type="submit" className="px-20">
+        <Button kind="filled" type="submit" className="px-20" disabled={input.review.length < 50}>
           강의평 제출하기
         </Button>
       </div>
