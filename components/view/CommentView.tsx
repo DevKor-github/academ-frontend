@@ -231,7 +231,7 @@ function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dis
             overflow: 'hidden',
             height: 'min-content',
             flexWrap: 'wrap',
-            gap: '12px',
+            gap: '8px',
             paddingTop: '20px',
           }}
           className="text-base justify-between"
@@ -248,7 +248,7 @@ function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dis
             ))}
           </div>
         </VStack>
-        <VStack className="gap-3 items-center">
+        <VStack className="gap-3 items-center mt-2">
           <span className="text-neutral-400">작성일</span>
           <span className="mr-3">{comment.updated_at}</span>
           <ThumbUpIcon />
