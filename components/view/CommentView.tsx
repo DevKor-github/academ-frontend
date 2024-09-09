@@ -137,10 +137,10 @@ function Right({
           ))}
         </div>
       </VStack>
-      <span className="flex flex-row text-xl font-normal flex-grow gap-4 mt-8 mb-4">
+      <div className="flex flex-row text-xl font-normal gap-4 mt-8 mb-4">
         <div className="text-neutral-400 text-base w-max">작성내용</div>
-        <div className="break-words whitespace-pre-line text-wrap">{comment.review}</div>
-      </span>
+        <div className="break-all break-words whitespace-pre-line text-wrap">{comment.review}</div>
+      </div>
       <VStack className="self-end items-center" gap="12px">
         {editable ? (
           <>
@@ -255,7 +255,7 @@ function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dis
           <span> {comment.likes}</span>
         </VStack>
         <span className="flex flex-row text-xl font-normal flex-grow gap-4 mt-4 mb-2">
-          <div className="break-words whitespace-pre-line text-wrap">{comment.review}</div>
+          <div className="break-all break-words whitespace-pre-line text-wrap">{comment.review}</div>
         </span>
       </Link>
       <VStack className="self-end items-center gap-4">
