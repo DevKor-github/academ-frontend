@@ -20,7 +20,7 @@ export default function EditPage({ params: { comment_id } }: { params: { comment
     return <EditLoading />;
   }
 
-  return editable.status === 'SUCCESS' && editable.status === 'SUCCESS' && editable.statusCode === 200 ? (
+  return editable.status === 'SUCCESS' && editable.statusCode === 200 ? (
     <EditComment courseName={editable.data.name} comment={editable.data} />
   ) : (
     <ErrorTemplate
