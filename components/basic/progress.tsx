@@ -7,16 +7,12 @@ interface ProgressProps {
 
 const Progress: React.FC<ProgressProps> = ({ rate, style, reverse }) => {
   const rate100 = Math.min(1, Math.max(0, rate)) * 100;
-
-  const color = ['#DC143C', '#FF8838', '#FFE66B', '#D2F749', '#1BBE66'];
-  let gradientColor: string;
-
-  const idx = Math.floor((Math.max(20, rate100) - 20) / 17);
+  let gradientColor: number;
 
   if (reverse) {
-    gradientColor = color.toReversed()[idx];
+    gradientColor = rate100;
   } else {
-    gradientColor = color[idx];
+    gradientColor = 120 - rate100;
   }
 
   const height = { height: '4px' };
@@ -24,7 +20,7 @@ const Progress: React.FC<ProgressProps> = ({ rate, style, reverse }) => {
   const combinedStyle: React.CSSProperties = {
     ...height,
     ...style,
-    ...{ width: `${rate100}%`, backgroundColor: gradientColor },
+    ...{ width: `${rate100}%`, backgroundColor: '#E65A76', opacity: `${gradientColor}%` },
   };
 
   return (
