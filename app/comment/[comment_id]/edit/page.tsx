@@ -31,7 +31,7 @@ function Submitted({ back }: { back: string }) {
   );
 }
 
-export function EditComment({ comment, courseName }: { comment: AcdCommentEditReq; courseName: string }) {
+function EditComment({ comment, courseName }: { comment: AcdCommentEditReq; courseName: string }) {
   const [jwt] = use(SessionIdContext);
 
   const [input, setInput] = useState<AcdCommentEditReq>(comment);
