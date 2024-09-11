@@ -49,7 +49,7 @@ export default function Step1({
   async function handleSendEmail() {
     setLoading(true);
 
-    const response = await apiSendEmail({ email: input.email });
+    const response = await apiSendEmail({ email: input.email, purpose: 'SIGN_UP' });
 
     if (response.status === 'SUCCESS') {
       const id = input.email;

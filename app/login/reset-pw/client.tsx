@@ -23,7 +23,7 @@ export default function FindPWPageClient() {
   function handleSendcode(e: React.FormEvent) {
     e.preventDefault();
     setWip(true);
-    apiSendEmail({ email: input.email }).then((s) => {
+    apiSendEmail({ email: input.email, purpose : 'RESET_PASSWORD' }).then((s) => {
       if (s.status === 'SUCCESS') {
         setStep(2);
         setWip(false);
