@@ -106,18 +106,11 @@ function InputToggleTag({
             target: { id: name, value: defaultChecked ? 'off' : 'on' },
           })
         }
-        >
+      >
         {label}
-        </Tag>
-        <input
-        type="checkbox"
-        className="hidden"
-        id={id}
-        name={id}
-        onChange={onChange}
-        defaultChecked={defaultChecked}
-        />
-      </label>
+      </Tag>
+      <input type="checkbox" className="hidden" id={id} name={id} onChange={onChange} defaultChecked={defaultChecked} />
+    </label>
   );
 }
 
@@ -176,7 +169,7 @@ export default function CommentEditor<Req extends AcdCommentJoin>({
   return (
     <form className="flex flex-col p-2 md:p-8 h-full transition-all" method="post" onSubmit={handleSubmit}>
       <div className="my-10 text-2xl">
-          `{courseName}` <span className="text-base text-gray-400">{mode === 'EDIT' ? '수정하기' : '작성하기'}</span>
+        `{courseName}` <span className="text-base text-gray-400">{mode === 'EDIT' ? '수정하기' : '작성하기'}</span>
       </div>
 
       <div className="py-10 border-b border-b-neutral-500">

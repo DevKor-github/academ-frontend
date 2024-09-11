@@ -87,7 +87,9 @@ function NoticeListNavigate({ from, total }: { from: number; total: number }) {
         <Link
           key={v}
           href={`/notice/list/${v}`}
-          className={'light:bg-base-30 dark:bg-base-3 p-2 text-center rounded-md ' + (from === v ? 'text-primary-500' : '')}
+          className={
+            'light:bg-base-30 dark:bg-base-3 p-2 text-center rounded-md ' + (from === v ? 'text-primary-500' : '')
+          }
         >
           {v}
         </Link>

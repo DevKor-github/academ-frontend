@@ -17,15 +17,13 @@ import Link from 'next/link';
 
 function Submitted({ back }: { back: string }) {
   return (
-    <div className='w-full h-full p-10'>
-    <div className="flex flex-col gap-10 w-full items-center">
-      <FinishIcon />
-      <div className="text-4xl font-bold text-center">
-        강의평이 수정되었습니다.
-      </div>
-      <Link href={back} className="mt-20 text-2xl">
-        <Button className="w-full">돌아가기</Button>
-      </Link>
+    <div className="w-full h-full p-10">
+      <div className="flex flex-col gap-10 w-full items-center">
+        <FinishIcon />
+        <div className="text-4xl font-bold text-center">강의평이 수정되었습니다.</div>
+        <Link href={back} className="mt-20 text-2xl">
+          <Button className="w-full">돌아가기</Button>
+        </Link>
       </div>
     </div>
   );
@@ -53,22 +51,15 @@ function EditComment({ comment, courseName }: { comment: AcdCommentEditReq; cour
   if (submitted !== undefined) {
     return (
       <div className="flex w-full h-full justify-center items-center">
-          <Submitted back={`/lecture/${submitted}`} />
+        <Submitted back={`/lecture/${submitted}`} />
       </div>
     );
   }
 
   return (
-    <CommentEditor
-      mode='EDIT'
-      courseName={courseName}
-      handleSubmit={handleSubmit}
-      input={input}
-      setInput={setInput}
-    />
+    <CommentEditor mode="EDIT" courseName={courseName} handleSubmit={handleSubmit} input={input} setInput={setInput} />
   );
 }
-
 
 export default function EditPage({ params: { comment_id } }: { params: { comment_id: number } }) {
   const [jwt] = use(SessionIdContext);

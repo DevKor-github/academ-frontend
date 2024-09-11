@@ -42,20 +42,17 @@ import Link from 'next/link';
 
 function Submitted({ back }: { back: string }) {
   return (
-    <div className='w-full h-full p-10'>
-    <div className="flex flex-col gap-10 w-full items-center">
-      <FinishIcon />
-      <div className="text-4xl font-bold text-center">
-        강의평이 등록되었습니다.
-      </div>
-      <Link href={back} className="mt-20 text-2xl">
-        <Button className="w-full">돌아가기</Button>
-      </Link>
+    <div className="w-full h-full p-10">
+      <div className="flex flex-col gap-10 w-full items-center">
+        <FinishIcon />
+        <div className="text-4xl font-bold text-center">강의평이 등록되었습니다.</div>
+        <Link href={back} className="mt-20 text-2xl">
+          <Button className="w-full">돌아가기</Button>
+        </Link>
       </div>
     </div>
   );
 }
-
 
 function WriteComment({ course }: { course: Course }) {
   const sessionId = useSessionId();
@@ -91,7 +88,7 @@ function WriteComment({ course }: { course: Course }) {
 
   return (
     <CommentEditor
-      mode='WRITE'
+      mode="WRITE"
       courseName={course.name}
       handleSubmit={handleSubmit}
       input={input}
@@ -99,7 +96,6 @@ function WriteComment({ course }: { course: Course }) {
     />
   );
 }
-
 
 export default function WritePage({ params: { id } }: { params: { id: number } }) {
   const [jwt] = useSessionId();
