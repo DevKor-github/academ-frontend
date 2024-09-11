@@ -39,7 +39,10 @@ interface ReqeustWithEmail {
   email: string;
 }
 
-interface CheckEmailReqeust {
-  email: string;
+interface CheckEmailReqeust extends ReqeustWithEmail {
   code: string;
+}
+
+interface ReqeustSendCode extends ReqeustWithEmail {
+  purpose: 'SIGN_UP' | 'RESET_PASSWORD';
 }

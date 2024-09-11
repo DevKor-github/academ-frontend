@@ -69,7 +69,7 @@ function CoursePreviewBox({ children, href = '' }: React.PropsWithChildren<{ hre
   return (
     <Link
       className={`
-  transition-all overflow-hidden h-fit w-full rounded-3xl cursor-pointer p-8 flex flex-col justify-between hover:-translate-y-2
+  transition-all overflow-hidden h-fit w-full min-w-80 rounded-3xl cursor-pointer p-8 flex flex-col justify-between hover:-translate-y-2
   border light:border-base-27 dark:border-base-7 hover:dark:border-primary-500
   light:bg-base-32 hover:light:shadow-xl hover:light:shadow-base-27 
   dark:bg-base-4 hover:dark:shadow-glow-lg hover:dark:shadow-primary-500

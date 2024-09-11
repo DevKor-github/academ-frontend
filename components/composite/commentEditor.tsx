@@ -86,26 +86,18 @@ function FieldSet<Req>({
 }
 
 function InputToggleTag({
-  name,
+  id,
   label,
   onChange,
   defaultChecked,
 }: {
   defaultChecked: boolean;
-  name: string;
+  id: string;
   label: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
 }) {
   return (
-    <>
-      <input
-        type="checkbox"
-        className="hidden"
-        id={name}
-        name={name}
-        onChange={onChange}
-        defaultChecked={defaultChecked}
-      />
+    <label htmlFor={id}>
       <Tag
         className={` transition-all cursor-pointer w-fit ${defaultChecked ? 'text-primary-500 bg-primary-100' : 'text-neutral-600 bg-neutral-100'} `}
         onClick={() =>
@@ -114,23 +106,33 @@ function InputToggleTag({
             target: { id: name, value: defaultChecked ? 'off' : 'on' },
           })
         }
-      >
+        >
         {label}
-      </Tag>
-    </>
+        </Tag>
+        <input
+        type="checkbox"
+        className="hidden"
+        id={id}
+        name={id}
+        onChange={onChange}
+        defaultChecked={defaultChecked}
+        />
+      </label>
   );
 }
 
-export default function WriteOrEditComment<Req extends AcdCommentJoin>({
-  title,
+export default function CommentEditor<Req extends AcdCommentJoin>({
+  mode,
+  courseName,
   handleSubmit,
   input,
   setInput,
 }: {
-  title: React.ReactNode;
+  mode: 'WRITE' | 'EDIT';
+  courseName: string;
   handleSubmit?: React.FormEventHandler;
   input: Req;
-  setInput: React.Dispatch<React.SetStateAction<Req>>;
+  setInput: SetState<Req>;
 }) {
   function handleInputNumber(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { value } = event.target;
@@ -173,7 +175,9 @@ export default function WriteOrEditComment<Req extends AcdCommentJoin>({
 
   return (
     <form className="flex flex-col p-2 md:p-8 h-full transition-all" method="post" onSubmit={handleSubmit}>
-      <div className="my-10">{title}</div>
+      <div className="my-10 text-2xl">
+          `{courseName}` <span className="text-base text-gray-400">{mode === 'EDIT' ? '수정하기' : '작성하기'}</span>
+      </div>
 
       <div className="py-10 border-b border-b-neutral-500">
         <span className="text-lg">강의 별점 선택</span>
@@ -209,31 +213,31 @@ export default function WriteOrEditComment<Req extends AcdCommentJoin>({
         <span className="inline-block my-5">수업 진행 방식 선택</span>
         <VStack gap="24px">
           <InputToggleTag
-            name="teach_t1_theory"
+            id="teach_t1_theory"
             onChange={handleInputBoolean}
             defaultChecked={input.teach_t1_theory}
             label="이론 강의"
           />
           <InputToggleTag
-            name="teach_t2_practice"
+            id="teach_t2_practice"
             onChange={handleInputBoolean}
             defaultChecked={input.teach_t2_practice}
             label="실습 및 실험"
           />
           <InputToggleTag
-            name="teach_t3_seminar"
+            id="teach_t3_seminar"
             onChange={handleInputBoolean}
             defaultChecked={input.teach_t3_seminar}
             label="세미나"
           />
           <InputToggleTag
-            name="teach_t4_discussion"
+            id="teach_t4_discussion"
             onChange={handleInputBoolean}
             defaultChecked={input.teach_t4_discussion}
             label="토론"
           />
           <InputToggleTag
-            name="teach_t5_presentation"
+            id="teach_t5_presentation"
             onChange={handleInputBoolean}
             defaultChecked={input.teach_t5_presentation}
             label="발표"
@@ -242,25 +246,25 @@ export default function WriteOrEditComment<Req extends AcdCommentJoin>({
         <span className="inline-block mt-10 mb-5">학습 내용 선택</span>
         <VStack gap="24px">
           <InputToggleTag
-            name="learn_t1_theory"
+            id="learn_t1_theory"
             onChange={handleInputBoolean}
             defaultChecked={input.learn_t1_theory}
             label="이론 지식 습득"
           />
           <InputToggleTag
-            name="learn_t2_thesis"
+            id="learn_t2_thesis"
             onChange={handleInputBoolean}
             defaultChecked={input.learn_t2_thesis}
             label="논문 작성 도움"
           />
           <InputToggleTag
-            name="learn_t3_exam"
+            id="learn_t3_exam"
             onChange={handleInputBoolean}
             defaultChecked={input.learn_t3_exam}
             label="졸업 시험 대비"
           />
           <InputToggleTag
-            name="learn_t4_industry"
+            id="learn_t4_industry"
             onChange={handleInputBoolean}
             defaultChecked={input.learn_t4_industry}
             label="현업 적용"
@@ -316,7 +320,7 @@ export default function WriteOrEditComment<Req extends AcdCommentJoin>({
       </div>
 
       <div className="flex flex-row justify-center items-center mt-8">
-        <Button kind="filled" type="submit" className="px-20">
+        <Button kind="filled" type="submit" className="px-20" disabled={input.review.length < 50}>
           강의평 제출하기
         </Button>
       </div>

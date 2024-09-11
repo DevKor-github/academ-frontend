@@ -9,12 +9,12 @@ export const apiCourseDetail = build<CourseDetailRequest, Course>('GET', '/api/c
  */
 
 export const apiStartNewComment = build<CourseId, Course>('GET', '/api/course/start-insert-comment');
-export const apiInsertComment = build<AcdCommentNewReq, string>('POST', '/api/course/insert-comment');
+export const apiInsertComment = build<AcdCommentNewReq, number>('POST', '/api/course/insert-comment');
 export const apiStartUpdateComment = build<AcdCommentRelated, Course & AcdCommentEditReq>(
   'GET',
   '/api/course/start-update-comment',
 );
-export const apiUpdateComment = build<AcdCommentEditReq, string>('POST', '/api/course/update-comment');
+export const apiUpdateComment = build<AcdCommentEditReq, number>('POST', '/api/course/update-comment');
 export const apiDeleteComment = build<AcdCommentRelated, Omit<Course, 'isBookmark'>>(
   'POST',
   '/api/course/delete-comment',
