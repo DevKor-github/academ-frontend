@@ -1,5 +1,4 @@
 import Button from '@/components/basic/button';
-import Tag from '@/components/basic/tag';
 
 import { StarIcon } from '@/icons';
 import { VStack } from '../basic/stack';
@@ -89,27 +88,19 @@ function InputToggleTag({
   id,
   label,
   onChange,
-  defaultChecked,
+  checked,
 }: {
-  defaultChecked: boolean;
+  checked: boolean;
   id: string;
   label: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange: React.ChangeEventHandler;
 }) {
   return (
-    <label htmlFor={id}>
-      <Tag
-        className={` transition-all cursor-pointer w-fit ${defaultChecked ? 'text-primary-500 bg-primary-100' : 'text-neutral-600 bg-neutral-100'} `}
-        onClick={() =>
-          onChange({
-            // @ts-expect-error 임시조치..
-            target: { id: name, value: defaultChecked ? 'off' : 'on' },
-          })
-        }
-      >
-        {label}
-      </Tag>
-      <input type="checkbox" className="hidden" id={id} name={id} onChange={onChange} defaultChecked={defaultChecked} />
+    <label
+      className={`flex text-xs rounded-full transition-all justify-center text-center items-center px-4 py-1 bg-neutral-100 text-neutral-500 cursor-pointer w-fit ${checked ? 'text-primary-500 bg-primary-100' : 'text-neutral-600 bg-neutral-100'}`}
+      htmlFor={id}>
+      {label}
+      <input type="checkbox" className="hidden" id={id} name={id} onChange={onChange} defaultChecked={checked} />
     </label>
   );
 }
@@ -145,14 +136,14 @@ export default function CommentEditor<Req extends AcdCommentJoin>({
 
   const [tagNum, setTagNum] = useState<number>(0);
 
-  function handleInputBoolean(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    const { value } = event.target;
-    if (tagNum < 3 || value == 'off') {
+  function handleInputBoolean(event: React.ChangeEvent<HTMLInputElement>) {
+    const { checked } = event.target;
+    if (tagNum < 3 || !checked) {
       setInput({
         ...input,
-        [event.target.id]: value === 'on' ? true : false,
+        [event.target.id]: checked ? true : false,
       });
-      value === 'on' ? setTagNum(tagNum + 1) : setTagNum(tagNum - 1);
+      checked ? setTagNum(tagNum + 1) : setTagNum(tagNum - 1);
     } else alert('태그는 최대 3개까지 선택 가능합니다.');
   }
 
@@ -208,31 +199,31 @@ export default function CommentEditor<Req extends AcdCommentJoin>({
           <InputToggleTag
             id="teach_t1_theory"
             onChange={handleInputBoolean}
-            defaultChecked={input.teach_t1_theory}
+            checked={input.teach_t1_theory}
             label="이론 강의"
           />
           <InputToggleTag
             id="teach_t2_practice"
             onChange={handleInputBoolean}
-            defaultChecked={input.teach_t2_practice}
+            checked={input.teach_t2_practice}
             label="실습 및 실험"
           />
           <InputToggleTag
             id="teach_t3_seminar"
             onChange={handleInputBoolean}
-            defaultChecked={input.teach_t3_seminar}
+            checked={input.teach_t3_seminar}
             label="세미나"
           />
           <InputToggleTag
             id="teach_t4_discussion"
             onChange={handleInputBoolean}
-            defaultChecked={input.teach_t4_discussion}
+            checked={input.teach_t4_discussion}
             label="토론"
           />
           <InputToggleTag
             id="teach_t5_presentation"
             onChange={handleInputBoolean}
-            defaultChecked={input.teach_t5_presentation}
+            checked={input.teach_t5_presentation}
             label="발표"
           />
         </VStack>
@@ -241,25 +232,25 @@ export default function CommentEditor<Req extends AcdCommentJoin>({
           <InputToggleTag
             id="learn_t1_theory"
             onChange={handleInputBoolean}
-            defaultChecked={input.learn_t1_theory}
+            checked={input.learn_t1_theory}
             label="이론 지식 습득"
           />
           <InputToggleTag
             id="learn_t2_thesis"
             onChange={handleInputBoolean}
-            defaultChecked={input.learn_t2_thesis}
+            checked={input.learn_t2_thesis}
             label="논문 작성 도움"
           />
           <InputToggleTag
             id="learn_t3_exam"
             onChange={handleInputBoolean}
-            defaultChecked={input.learn_t3_exam}
+            checked={input.learn_t3_exam}
             label="졸업 시험 대비"
           />
           <InputToggleTag
             id="learn_t4_industry"
             onChange={handleInputBoolean}
-            defaultChecked={input.learn_t4_industry}
+            checked={input.learn_t4_industry}
             label="현업 적용"
           />
         </VStack>
