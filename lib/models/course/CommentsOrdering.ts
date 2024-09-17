@@ -1,0 +1,1 @@
+type CommentsOrdering = 'NEWEST' | 'POPEST';

@@ -1,0 +1,3 @@
+interface ReqeustWithEmail {
+  email: string;
+}
