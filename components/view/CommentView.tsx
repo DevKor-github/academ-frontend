@@ -5,7 +5,7 @@ import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
 import { useEffect, useState } from 'react';
 
-import { apiDeleteComment, apiLikeComment } from '@/lib/api/course';
+import { apiDeleteComment, apiLikeComment } from '@/lib/api/calls/course';
 
 import { decode } from '@/lib/jwt';
 
