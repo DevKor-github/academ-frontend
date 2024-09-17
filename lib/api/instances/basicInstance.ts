@@ -7,7 +7,7 @@ const basicInstance = axios.create({
   baseURL: BACKEND_BASE_URL,
   maxRedirects: 0,
   withCredentials: true,
-  validateStatus: (status: number) => status >= 200 || status < 500,
+  validateStatus: (status: number) => 200 <= status && status < 500,
 });
 
 export default basicInstance;
