@@ -32,7 +32,7 @@ const pretendard = localFont({
   variable: '--font-pretendard',
 });
 
-const SessionIdProvider = dynamic(() => import('@/context/SessionIdContext'), { ssr: false, loading: () => <></> });
+const SessionIdProvider = dynamic(() => import('@/lib/context/SessionIdContext'), { ssr: false, loading: () => <></> });
 
 import ClearStorageDependOnTabs from '@/lib/context/ClearStorageDependOnTabs';
 

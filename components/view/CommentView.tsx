@@ -10,7 +10,7 @@ import { apiDeleteComment, apiLikeComment } from '@/lib/api/calls/course';
 import { decode } from '@/lib/jwt';
 
 import Link from 'next/link';
-import { useSessionId } from '@/context/SessionIdContext';
+import { useSessionId } from '@/lib/context/SessionIdContext';
 import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/lib/icons';
 
 function quaternary<T>(that: number, standard: number, gt: T, eq: T, lt: T) {

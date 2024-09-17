@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useContext, ReactNode } from 'react';
+import { createContext, useContext } from 'react';
 
 import useTabSharedState from '@/lib/hooks/shared';
 

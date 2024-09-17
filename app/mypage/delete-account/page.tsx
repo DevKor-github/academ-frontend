@@ -4,7 +4,7 @@ import { useState } from 'react';
 import DeleteAccountForm, { DeleteAccountInputExtended } from './form';
 import { handleInputBuilder } from '@/lib/form/handler';
 import { apiDeleteAccount } from '@/lib/api/calls/mypage';
-import { useSessionId } from '@/context/SessionIdContext';
+import { useSessionId } from '@/lib/context/SessionIdContext';
 import { useRouter } from 'next/navigation';
 
 export default function DeleteAccountClient() {

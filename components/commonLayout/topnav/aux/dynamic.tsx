@@ -4,7 +4,7 @@ import { use, useState } from 'react';
 
 import Link from 'next/link';
 
-import { SessionIdContext } from '@/context/SessionIdContext';
+import { SessionIdContext } from '@/lib/context/SessionIdContext';
 
 import Button from '@/components/basic/button';
 import Popover from '@/components/basic/popover';
