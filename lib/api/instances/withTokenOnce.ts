@@ -4,16 +4,16 @@ import axios, { AxiosError } from 'axios';
 import { BACKEND_BASE_URL, KEY_FOR_USER_AUTH } from '@/lib/directive';
 import { NoPermissionError, FailedResponseError, NoRequestError, NoResponseError } from '../errors';
 
-const withTokenInstance = axios.create({
+const withTokenOnce = axios.create({
   baseURL: BACKEND_BASE_URL,
   maxRedirects: 0,
   withCredentials: true,
   validateStatus: (status: number) => 200 <= status && status < 500,
 });
 
-withTokenInstance.interceptors.request.use(
+withTokenOnce.interceptors.request.use(
   (config) => {
-    const token = JSON.parse(localStorage.getItem(KEY_FOR_USER_AUTH) || 'null');
+    const token = JSON.parse(localStorage.getItem(KEY_FOR_USER_AUTH) || 'null')?.accessToken;
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
@@ -24,14 +24,12 @@ withTokenInstance.interceptors.request.use(
   },
 );
 
-withTokenInstance.interceptors.response.use(
+withTokenOnce.interceptors.response.use(
   (res) => {
-    const data = res.data;
-    data.statusCode = res.status;
-    if (data.statusCode === 401) {
+    if (res.status === 401) {
       return Promise.reject(new NoPermissionError());
     }
-    return Promise.resolve(res.data);
+    return Promise.resolve(res);
   },
   (error: AxiosError) => {
     if (error.response) {
@@ -44,4 +42,4 @@ withTokenInstance.interceptors.response.use(
   },
 );
 
-export default withTokenInstance;
+export default withTokenOnce;
