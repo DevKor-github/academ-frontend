@@ -6,7 +6,7 @@ import { LogoIconRich } from '@/lib/icons';
 
 function Footer() {
   return (
-    <footer className="flex not-md:flex-col gap-y-8 md:flex-row flex-wrap text-xs pl-4 pr-4 md:pl-8 md:pr-8 border-t light:border-light-back-4 dark:border-dark-back-8 light:bg-light-back-1 dark:bg-dark-back-4 pt-8 pb-8">
+    <footer className="flex not-md:flex-col gap-y-8 md:flex-row flex-wrap text-xs pl-4 pr-4 md:pl-8 md:pr-8 border-t light:border-base-28 dark:border-base-8 light:bg-base-30 dark:bg-base-4 pt-8 pb-8">
       <div className="flex flex-row gap-x-6">
         <Link className="" href="/about">
           <LogoIconRich />
@@ -22,7 +22,7 @@ function Footer() {
 
 export default function CommonLayout({ children }: React.PropsWithChildren<unknown>) {
   return (
-    <div className="flex flex-col" style={{ minHeight: '100vh' }}>
+    <div className="flex flex-col min-h-svh">
       <TopNav />
       <main className="flex-grow flex flex-col">{children}</main>
       <Footer />

@@ -285,12 +285,12 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
           )}
         </span>
 
-        <div className="light:bg-neutral-100 dark:bg-dark-back-6">
+        <div className="light:bg-base-31 dark:bg-base-6">
           <textarea
             ref={textarea}
             onInput={handleResizeHeight}
             rows={5}
-            className="w-full p-8 light:bg-neutral-100 dark:bg-dark-back-6 resize-none"
+            className="w-full p-8 light:bg-base-31 dark:bg-base-6 resize-none"
             id="review"
             onChange={handleInputString}
             placeholder="다음 질문을 참고하여 내용을 작성해주세요. (최소 50자)"

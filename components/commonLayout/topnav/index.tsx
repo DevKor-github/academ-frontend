@@ -36,7 +36,7 @@ export default function TopNav() {
           'fixed z-50 top-0 w-full' +
           (overlap
             ? ' text-white bg-black bg-opacity-75 border-base-32  '
-            : ' border-b light:border-b-light-back-2 dark:border-b-dark-back-4 *:light:border-base-4 *:dark:border-base-32 ')
+            : ' border-b light:border-b-base-30 dark:border-b-base-4 *:light:border-base-4 *:dark:border-base-32 ')
         }
       >
         <div
@@ -45,7 +45,7 @@ export default function TopNav() {
             ` +
             (spreaded ? `h-72 md:h-16 md:bg-transparent ` : ' h-16 ') +
             (spreaded && overlap /* dark */ ? ' bg-black ' : '') +
-            (spreaded && !overlap ? ' text-black dark:text-white bg-white dark:bg-dark-back-5 ' : '')
+            (spreaded && !overlap ? ' text-black dark:text-white bg-white dark:bg-base-5 ' : '')
           }
         >
           <TopNavInnerLeft />

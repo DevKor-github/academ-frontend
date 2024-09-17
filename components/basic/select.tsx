@@ -15,7 +15,7 @@ export default function Select<T extends string>({
           className={`!border !rounded-full px-4 p-2 cursor-pointer ${
             value === v.value
               ? '!text-primary-500 !bg-primary-500/10 !border-primary-500'
-              : 'light:!text-light-fore-10 dark:!text-dark-fore-10 light:!bg-light-back-1 dark:!bg-dark-back-1 light:!border-light-back-4 dark:!border-dark-back-4'
+              : 'light:!text-base-10 dark:!text-base-20 light:!bg-base-31 dark:!bg-base-1 light:!border-base-28 dark:!border-base-4'
           }`}
           htmlFor={v.value}
         >

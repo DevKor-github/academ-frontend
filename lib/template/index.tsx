@@ -27,7 +27,7 @@ export default function ErrorTemplate({
             <Button>메인 페이지로</Button>
           </Link>
         </VStack>
-        <span className="text-xs  text-light-back-4 ">
+        <span className="text-xs text-base-20 ">
           이 오류가 버그인 것 같다면{' '}
           <Link className="text-primary-500 underline" href={process.env.NEXT_PUBLIC_BUG_REPORT || ''}>
             버그리포트

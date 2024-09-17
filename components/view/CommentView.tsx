@@ -288,8 +288,8 @@ export default function CommentView({ comment }: { comment: AcdComment }) {
     <div
       className={`${del ? 'hidden' : ''} flex flex-col md:flex-row items-center mt-3 p-4 rounded-3xl gap-5 border
   
-  light:bg-white dark:bg-dark-back-2
-  light:border-light-back-4 dark:border-dark-back-4`}
+  light:bg-base-32 dark:bg-base-2
+  light:border-base-28 dark:border-base-4`}
     >
       <Left comment={comment} />
       <Right comment={comment} editable={editable} setDel={setDel} />
@@ -304,8 +304,8 @@ export function MyCommentView({ comment }: { comment: AcdMyComment }) {
     <div
       className={`${del ? 'hidden' : ''} flex flex-col md:flex-row items-center mt-3 p-4 rounded-3xl gap-5 border
   
-  light:bg-white dark:bg-dark-back-2
-  light:border-light-back-4 dark:border-dark-back-4`}
+  light:bg-base-32 dark:bg-base-2
+  light:border-base-28 dark:border-base-4`}
     >
       <Left comment={comment} />
       <MyRight comment={comment} setDel={setDel} />

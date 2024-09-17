@@ -14,8 +14,8 @@ function NoticeSingle({ notice }: { notice: Notice }) {
       </Link>
       <div
         className="w-full my-4 border
-      light:border-light-back-5
-      dark:border-dark-back-5"
+      light:border-base-27
+      dark:border-base-5"
       />
     </div>
   );
@@ -120,8 +120,8 @@ export default async function NoticeView({ params }: { params: { index: string }
       <div className="my-10 text-4xl font-medium">공지사항</div>
       <div
         className="w-full border
-    light:border-light-back-5
-    dark:border-dark-back-5"
+    light:border-base-27
+    dark:border-base-5"
       />
       <NoticeListView notices={res.data} showMoreButton={<button />} />
       <NoticeListNavigate from={Number(params.index)} total={Number(countPages)} />

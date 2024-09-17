@@ -34,7 +34,7 @@ export default function BookmarksView() {
   return (
     <HStack
       className="pl-2 pr-2 md:pl-8 md:pr-8 pt-24 h-full transition-all
-  light:bg-light-back-1 dark:bg-dark-back-1
+  light:bg-base-31 dark:bg-base-2
   "
     >
       <VStack className="items-center justify-start gap-2">

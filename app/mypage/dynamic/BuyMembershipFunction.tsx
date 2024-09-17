@@ -27,9 +27,9 @@ export default function BuyMembershipButton({ membershipData }: { membershipData
       className="transition-all flex flex-row gap-16 p-8 rounded-xl border
     w-max
     hover:-translate-y-2 hover:light:shadow-xl
-    hover:dark:shadow-md hover:dark:shadow-primary-500 hover:light:shadow-light-back-4
+    hover:dark:shadow-md hover:dark:shadow-primary-500 hover:light:shadow-base-28
     
-    light:border-light-back-4 dark:border-dark-back-7
+    light:border-base-28 dark:border-base-7
     "
       onClick={buyHandler}
     >

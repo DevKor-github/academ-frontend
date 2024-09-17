@@ -18,7 +18,7 @@ function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => vo
     <Popover
       onPageClick={() => setOpenPopover(false)}
       className={
-        'absolute rounded-xl overflow-hidden border bg-l bg-white dark:bg-dark-back-1 right-2 md:right-8 top-14 shadow-lg '
+        'absolute rounded-xl overflow-hidden border bg-l bg-white dark:bg-base-1 right-2 md:right-8 top-14 shadow-lg '
       }
       style={{ zIndex: 100 }}
     >
@@ -28,8 +28,8 @@ function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => vo
       >
         <Link
           className="
-        hover:light:bg-light-back-2
-        hover:dark:bg-dark-back-4"
+        hover:light:bg-light-base-30
+        hover:dark:bg-base-4"
           href="/mypage"
         >
           <ProfileIcon />
@@ -37,8 +37,8 @@ function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => vo
         </Link>
         <Link
           className="
-        hover:light:bg-light-back-2
-        hover:dark:bg-dark-back-4"
+        hover:light:bg-base-30
+        hover:dark:bg-base-4"
           href="/logout"
         >
           <LogoutIcon />

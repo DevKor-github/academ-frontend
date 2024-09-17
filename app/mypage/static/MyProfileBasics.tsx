@@ -13,7 +13,7 @@ function MyProfileBasicsUnsafe({
   return (
     <div className="p-8 text-xl flex flex-row flex-wrap gap-16 w-full justify-start items-start">
       <div
-        className="flex justify-center items-center text-7xl bg-white rounded-2xl p-4 border border-light-back-4"
+        className="flex justify-center items-center text-7xl bg-white rounded-2xl p-4 border border-base-28"
         style={{ width: '192px', height: '128px' }}
       >
         <DepartIcon code="???" />

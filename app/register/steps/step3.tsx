@@ -260,7 +260,7 @@ export default function Step3({
             className="w-full"
           />
           {isDropDown && (
-            <ul className="block m-0 p-2 light:bg-white border light:border-light-back-2 dark:bg-neutral-900 dark:border-dark-back-2 rounded-b-lg z-10">
+            <ul className="block m-0 p-2 light:bg-white border light:border-base-30 dark:bg-neutral-900 dark:border-base-2 rounded-b-lg z-10">
               {dropDownList.length === 0 && <li className="p-2 text-gray-500">해당하는 단어가 없습니다</li>}
               {dropDownList.map((dropDownItem, dropDownIndex) => (
                 <li
