@@ -11,7 +11,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const CommonButton = ({ disabled, className, ...rest }: ButtonProps) => (
   <button
-    className={twMerge(`flex justify-center items-center rounded-lg transition-all p-2 ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}`, className)}
+    className={twMerge(
+      `flex justify-center items-center rounded-lg transition-all p-2 ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}`,
+      className,
+    )}
     disabled={disabled}
     {...rest}
   />
