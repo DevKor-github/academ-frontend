@@ -2,28 +2,25 @@
 
 import { AcdApiError, NoPermissionError, NoResponseError } from '@/lib/api/errors';
 
-const Icon = () => (
-  <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="100" cy="100" r="80" fill="#FFD700" />
-
-    <circle cx="70" cy="80" r="10" fill="#FFFFFF" />
-    <circle cx="70" cy="80" r="5" fill="#000000" />
-    <line x1="120" y1="70" x2="140" y2="90" stroke="#000000" strokeWidth="5" />
-    <line x1="120" y1="90" x2="140" y2="70" stroke="#000000" strokeWidth="5" />
-  </svg>
-);
+import { useRouter } from 'next/navigation';
+import Button from '@/components/basic/button';
 
 function Box({ children }: React.PropsWithChildren<unknown>) {
-  return <div className="md:p-2 p-8">{children}</div>;
+  return <div className="md:p-8 p-2 w-full flex flex-col gap-4
+  justify-center
+  items-center
+  [&>h3]:font-bold
+  [&>h3]:text-3xl">{children}</div>;
 }
 
 function AcdApiErrorPage({ error }: ErrorProps<AcdApiError>) {
+  const route = useRouter();
+
   if (error instanceof NoPermissionError) {
-    return <Box>로그인이 필요합니다.</Box>;
-  } else if (error instanceof NoResponseError) {
-    return <Box>백엔드 이상</Box>;
-  } else {
-    return <Box></Box>;
+    return <Box><h3>권한이 부족합니다.</h3>
+    <Button>로그인</Button></Box>;
+    } else {
+    return <Box><h3>알 수 없는 오류가 발생했습니다.</h3></Box>;
   }
 }
 
