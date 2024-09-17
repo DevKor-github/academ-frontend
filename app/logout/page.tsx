@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { useSessionId } from '../../context/SessionIdContext';
+import { useSessionId } from '../../lib/context/SessionIdContext';
 import { apiLogout } from '@/lib/api/calls/login';
 
 export default function LogoutPage() {

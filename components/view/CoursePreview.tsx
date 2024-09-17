@@ -1,4 +1,4 @@
-import { StarIcon } from '@/icons';
+import { StarIcon } from '@/lib/icons';
 import { HStack, VStack } from '@/components/basic/stack';
 import Link from 'next/link';
 import Tag from '@/components/basic/tag';

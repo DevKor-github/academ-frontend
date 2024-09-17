@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { LogoIconRich, UpIcon, DownIcon } from '@/icons';
+import { LogoIconRich, UpIcon, DownIcon } from '@/lib/icons';
 import Skeleton from '@/components/composite/skeleton';
 import Button from '@/components/basic/button';
 

@@ -10,7 +10,7 @@ import { HStack, VStack } from '@/components/basic/stack';
 
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
-import { RightIcon } from '@/icons';
+import { RightIcon } from '@/lib/icons';
 import { apiSendEmail } from '@/lib/api/calls/login';
 import Spinner from '@/components/basic/spinner';
 

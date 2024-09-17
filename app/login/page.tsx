@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useSessionId } from '../../context/SessionIdContext';
+import { useSessionId } from '../../lib/context/SessionIdContext';
 import { apiLogin } from '@/lib/api/calls/login';
 
 import { useAnimationTimeout } from '@/lib/hooks/timeout';

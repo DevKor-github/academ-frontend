@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/components/basic/button';
-import { DownIcon } from '@/icons';
+import { DownIcon } from '@/lib/icons';
 import { apiMyPageComments } from '@/lib/api/calls/mypage';
 import { usePagination } from '@/lib/hooks/pagination';
 import { useEffect } from 'react';

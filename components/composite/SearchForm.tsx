@@ -1,6 +1,6 @@
 'use client';
 
-import { MagnifyIcon, RightIcon } from '@/icons';
+import { MagnifyIcon, RightIcon } from '@/lib/icons';
 import ErrorLabel from '../basic/errorlabel';
 
 import { useState } from 'react';

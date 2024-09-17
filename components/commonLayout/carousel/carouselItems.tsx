@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { HStack, VStack } from '@/components/basic/stack';
-import { BookIcon } from '@/icons';
+import { BookIcon } from '@/lib/icons';
 
 export function CarouselItem({ url, children }: { url: string; children?: React.ReactNode }) {
   return (

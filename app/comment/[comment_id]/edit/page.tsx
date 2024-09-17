@@ -11,7 +11,7 @@ import { apiUpdateComment } from '@/lib/api/calls/course';
 import CommentEditor from '@/components/composite/commentEditor';
 
 import Button from '@/components/basic/button';
-import { FinishIcon } from '@/icons';
+import { FinishIcon } from '@/lib/icons';
 import Link from 'next/link';
 
 function Submitted({ back }: { back: string }) {

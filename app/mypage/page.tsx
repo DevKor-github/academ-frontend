@@ -8,7 +8,7 @@ import UserDataOverview from './static/MyProfileBasics';
 import { apiMyPageBasics } from '@/lib/api/calls/mypage';
 
 import TempAlert from './static/TempAlert';
-import { CloseIcon } from '@/icons';
+import { CloseIcon } from '@/lib/icons';
 
 import { use } from 'react';
 import BookmarksView from './dynamic/BookmarksView';
@@ -24,7 +24,7 @@ export default function ProfileOverviewWithMemberShip() {
   const myprofile = use(apiMyPageBasics({}));
 
   if (myprofile.status !== 'SUCCESS') {
-    return <div>먼가오류가 -.-;;</div>;
+    return <div>{JSON.stringify(myprofile)}</div>;
   }
 
   const RemoveAlert = (

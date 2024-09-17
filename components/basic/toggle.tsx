@@ -1,4 +1,4 @@
-import { CheckIcon } from '../../icons';
+import { CheckIcon } from '../../lib/icons';
 
 import './Toggle.module.css';
 

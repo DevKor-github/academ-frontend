@@ -1,4 +1,4 @@
-import WarningIcon from '@/icons/warning';
+import WarningIcon from '@/lib/icons/warning';
 
 export default function ErrorLabel({
   className = '',

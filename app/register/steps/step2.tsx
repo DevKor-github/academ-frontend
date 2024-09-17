@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { HStack, VStack } from '@/components/basic/stack';
-import { RightIcon } from '@/icons';
+import { RightIcon } from '@/lib/icons';
 import Input from '@/components/basic/input';
 import Button from '@/components/basic/button';
 import ErrorLabel from '@/components/basic/errorlabel';

@@ -11,7 +11,7 @@ import { decode } from '@/lib/jwt';
 
 import Link from 'next/link';
 import { useSessionId } from '@/context/SessionIdContext';
-import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/icons';
+import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/lib/icons';
 
 function quaternary<T>(that: number, standard: number, gt: T, eq: T, lt: T) {
   if (that === standard) {

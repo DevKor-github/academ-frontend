@@ -34,7 +34,7 @@ function NewCommentWithId(id: number) {
 }
 
 import Button from '@/components/basic/button';
-import { FinishIcon } from '@/icons';
+import { FinishIcon } from '@/lib/icons';
 import Link from 'next/link';
 
 function Submitted({ back }: { back: string }) {

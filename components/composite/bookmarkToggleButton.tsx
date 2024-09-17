@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { BookmarkIcon } from '@/icons';
+import { BookmarkIcon } from '@/lib/icons';
 import { apiBookmark } from '@/lib/api/calls/course';
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 

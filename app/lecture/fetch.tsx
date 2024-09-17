@@ -6,7 +6,7 @@ import { apiSearch } from '@/lib/api/calls/course';
 import { useEffect, useState } from 'react';
 import Button from '@/components/basic/button';
 import Select from '@/components/basic/select';
-import { DownIcon } from '@/icons';
+import { DownIcon } from '@/lib/icons';
 import Spinner from '@/components/basic/spinner';
 import { useRouter } from 'next/navigation';
 import { usePagination } from '@/lib/hooks/pagination';

@@ -4,7 +4,7 @@ import Tag from '@/components/basic/tag';
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
 import LectureIcon from '@/components/composite/lectureIcon';
 import { SkeletonDiv, SkeletonSlow } from '@/components/composite/skeleton';
-import { WriteIcon } from '@/icons';
+import { WriteIcon } from '@/lib/icons';
 import Link from 'next/link';
 
 function CourseBasicsViewUnsafe(props: {

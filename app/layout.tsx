@@ -34,7 +34,7 @@ const pretendard = localFont({
 
 const SessionIdProvider = dynamic(() => import('@/context/SessionIdContext'), { ssr: false, loading: () => <></> });
 
-import ClearStorageDependOnTabs from '@/context/ClearStorageDependOnTabs';
+import ClearStorageDependOnTabs from '@/lib/context/ClearStorageDependOnTabs';
 
 export default function RootLayout({
   children,

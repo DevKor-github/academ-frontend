@@ -11,7 +11,7 @@ import Popover from '@/components/basic/popover';
 import { HStack } from '@/components/basic/stack';
 
 import { LogoutIcon, ProfileIcon } from './icons';
-import { DownIcon } from '@/icons';
+import { DownIcon } from '@/lib/icons';
 
 function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => void }) {
   return (

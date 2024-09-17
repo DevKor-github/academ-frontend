@@ -8,7 +8,7 @@ import { apiMyPageBookmarks } from '@/lib/api/calls/mypage';
 import { usePagination } from '@/lib/hooks/pagination';
 import { useEffect } from 'react';
 import Button from '@/components/basic/button';
-import { RightIcon } from '@/icons';
+import { RightIcon } from '@/lib/icons';
 
 export default function BookmarksView() {
   const [pages, fetchThis] = usePagination(apiMyPageBookmarks);
