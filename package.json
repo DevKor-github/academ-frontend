@@ -14,6 +14,10 @@
     "maintained node versions"
   ],
   "dependencies": {
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.2.11",
+    "@types/mdx": "^2.0.13",
     "axios": "^1.7.2",
     "html-react-parser": "^5.1.12",
     "next": "14.2.8",
