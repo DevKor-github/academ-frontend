@@ -4,8 +4,8 @@ import { useState, ChangeEvent } from 'react';
 import { VStack, HStack } from '@/components/basic/stack';
 import Button from '@/components/basic/button';
 import Checkbox from '@/components/basic/checkbok';
-import PersonalInfoAgreement from './personalInfoAgreement';
-import TermsAgreement from './termsagreement';
+import PersonalInfoAgreement from '@/markdown/agreement/personalInfoAgreement.mdx';
+import TermsAgreement from '@/markdown/agreement/termsagreement.mdx';
 
 export default function Step0({ nextStep }: { nextStep: () => void }) {
   const [agreements, setAgreements] = useState({
