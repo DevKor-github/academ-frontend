@@ -2,7 +2,7 @@
 
 import { use, useState } from 'react';
 import Spinner from '@/components/basic/spinner';
-import { apiCourseDetail } from '@/lib/api/course';
+import { apiCourseDetail } from '@/lib/api/calls/course';
 import dynamic from 'next/dynamic';
 
 // import { usePagination } from '@/lib/hooks/pagination';

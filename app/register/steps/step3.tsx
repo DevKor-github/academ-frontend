@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 
 import { HStack, VStack } from '@/components/basic/stack';
-import { apiDuplicateName, apiSignup } from '@/lib/api/login';
+import { apiDuplicateName, apiSignup } from '@/lib/api/calls/login';
 
 import Button from '@/components/basic/button';
 import Input from '@/components/basic/input';

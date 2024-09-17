@@ -2,7 +2,7 @@
 
 import Button from '@/components/basic/button';
 import { DownIcon } from '@/icons';
-import { apiMyPageComments } from '@/lib/api/mypage';
+import { apiMyPageComments } from '@/lib/api/calls/mypage';
 import { usePagination } from '@/lib/hooks/pagination';
 import { useEffect } from 'react';
 import CommentsView from '@/app/lecture/[id]/components/comments';

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import ManageMembership from './static/MyProfileMemberships';
 import UserDataOverview from './static/MyProfileBasics';
-import { apiMyPageBasics } from '@/lib/api/mypage';
+import { apiMyPageBasics } from '@/lib/api/calls/mypage';
 
 import TempAlert from './static/TempAlert';
 import { CloseIcon } from '@/icons';

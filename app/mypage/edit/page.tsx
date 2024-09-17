@@ -1,6 +1,6 @@
 'use client';
 
-import { apiMyPageBasics, apiProfileUpdateBasic } from '@/lib/api/mypage';
+import { apiMyPageBasics, apiProfileUpdateBasic } from '@/lib/api/calls/mypage';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 

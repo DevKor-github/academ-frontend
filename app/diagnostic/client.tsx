@@ -1,6 +1,6 @@
 'use client';
 
-import { apiCheckOnline } from '@/lib/api/admin';
+import { apiCheckOnline } from '@/lib/api/calls/admin';
 import { useEffect } from 'react';
 import { useState } from 'react';
 

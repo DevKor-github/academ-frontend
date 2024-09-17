@@ -1,10 +1,10 @@
 'use client';
 
-import { apiStartNewComment } from '@/lib/api/course';
+import { apiStartNewComment } from '@/lib/api/calls/course';
 
 import ErrorTemplate from '@/lib/template';
 
-import { apiInsertComment } from '@/lib/api/course';
+import { apiInsertComment } from '@/lib/api/calls/course';
 import { useState } from 'react';
 
 import CommentEditor from '@/components/composite/commentEditor';

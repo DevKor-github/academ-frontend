@@ -1,6 +1,6 @@
 'use client';
 
-import { apiBuyAcess } from '@/lib/api/membership';
+import { apiBuyAcess } from '@/lib/api/calls/membership';
 import MembershipIcon from './MembershipIcons';
 
 export default function BuyMembershipButton({ membershipData }: { membershipData: MembershipData }) {

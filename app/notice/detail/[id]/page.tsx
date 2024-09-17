@@ -1,8 +1,8 @@
 import { HStack } from '@/components/basic/stack';
 import parse from 'html-react-parser';
-import { ssget } from '@/lib/api/ssg';
-import { ApiResponse } from '@/lib/api/builder';
-import { NoticeDetailed, NoticeDetailRequest } from '@/lib/api/notice';
+import { ssget } from '@/lib/api/calls/ssg';
+import { NoticeDetailed, NoticeDetailRequest } from '@/lib/api/calls/notice';
+import Image from 'next/image';
 
 // This function gets called at build time
 export async function generateStaticParams() {
@@ -34,6 +34,8 @@ export default async function NoticeView({ params }: { params: { id: string } })
 
   const notice = res.data;
 
+  const imgs = ['image_1', 'image_2', 'image_3', 'image_4', 'image_5'] as const;
+
   return (
     <HStack gap="10px" className="m-20 animate-fade">
       <h1 className="text-2xl font-semibold">{notice.title}</h1>
@@ -42,6 +44,19 @@ export default async function NoticeView({ params }: { params: { id: string } })
         className="w-full border light:border-light-back-5
       dark:border-dark-back-5 my-10"
       ></div>
+      {imgs.map(
+        (v) =>
+          notice[v] !== undefined && (
+            // <div key={v}>{notice[v] + '.png'}</div>
+            <Image
+              key={v}
+              src={'/public/' + notice[v] + '.png'}
+              width={100}
+              height={100}
+              alt="공지사항의 첫 번째 이미지"
+            />
+          ),
+      )}
       <div>{parse(notice.detail)}</div>
     </HStack>
   );

@@ -1,8 +1,7 @@
-import { ssget } from '@/lib/api/ssg';
-import { ApiResponse } from '@/lib/api/builder';
-import { NoticeListRequest } from '@/lib/api/notice';
+import { ssget } from '@/lib/api/calls/ssg';
+import { NoticeListRequest } from '@/lib/api/calls/notice';
 import { HStack } from '@/components/basic/stack';
-import { Notice } from '@/lib/api/notice';
+import { Notice } from '@/lib/api/calls/notice';
 import Link from 'next/link';
 import { ELEM_PER_PAGE } from '@/lib/directive';
 

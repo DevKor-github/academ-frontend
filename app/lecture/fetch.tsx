@@ -2,7 +2,7 @@
 
 import CoursePreview from '@/components/view/CoursePreview';
 
-import { apiSearch } from '@/lib/api/course';
+import { apiSearch } from '@/lib/api/calls/course';
 import { useEffect, useState } from 'react';
 import Button from '@/components/basic/button';
 import Select from '@/components/basic/select';

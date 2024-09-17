@@ -1,6 +1,5 @@
 import { useState } from 'react';
 
-import { ApiCall, ApiResponse } from '@/lib/api/builder';
 import { ELEM_PER_PAGE } from '../directive';
 
 /**

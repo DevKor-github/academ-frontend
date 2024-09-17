@@ -4,7 +4,7 @@ import { HStack, VStack } from '@/components/basic/stack';
 
 import CoursePreview from '@/components/view/CoursePreview';
 
-import { apiMyPageBookmarks } from '@/lib/api/mypage';
+import { apiMyPageBookmarks } from '@/lib/api/calls/mypage';
 import { usePagination } from '@/lib/hooks/pagination';
 import { useEffect } from 'react';
 import Button from '@/components/basic/button';
