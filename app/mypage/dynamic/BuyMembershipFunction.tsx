@@ -4,7 +4,6 @@ import { apiBuyAcess } from '@/lib/api/calls/membership';
 import MembershipIcon from './MembershipIcons';
 
 export default function BuyMembershipButton({ membershipData }: { membershipData: MembershipData }) {
-
   function buyHandler() {
     if (
       confirm(

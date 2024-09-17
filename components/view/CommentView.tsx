@@ -259,7 +259,7 @@ function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dis
           className="flex justify-center items-center px-4 py-1 border rounded-full border-neutral-400 text-neutral-400"
           onClick={() => {
             if (confirm('정말 삭제하시겠습니까?') == true) {
-                apiDeleteComment({ comment_id: comment.comment_id }).then((a) => {
+              apiDeleteComment({ comment_id: comment.comment_id }).then((a) => {
                 if (a.status === 'SUCCESS') {
                   setDel(true);
                   alert('성공적으로 삭제했습니다.');

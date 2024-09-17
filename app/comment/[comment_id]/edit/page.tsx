@@ -1,12 +1,12 @@
 'use client';
 
-import { apiStartUpdateComment } from '@/lib/api/course';
+import { apiStartUpdateComment } from '@/lib/api/calls/course';
 
 import ErrorTemplate from '@/lib/template';
 
 import { use } from 'react';
 import { useState } from 'react';
-import { apiUpdateComment } from '@/lib/api/course';
+import { apiUpdateComment } from '@/lib/api/calls/course';
 
 import CommentEditor from '@/components/composite/commentEditor';
 
@@ -29,7 +29,6 @@ function Submitted({ back }: { back: string }) {
 }
 
 function EditComment({ comment, courseName }: { comment: AcdCommentEditReq; courseName: string }) {
-
   const [input, setInput] = useState<AcdCommentEditReq>(comment);
   const [submitted, setSubmitted] = useState<number | undefined>(undefined);
 

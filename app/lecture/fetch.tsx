@@ -14,7 +14,6 @@ import { usePagination } from '@/lib/hooks/pagination';
 import { Box, Grid, LoaderItems, SkeletonLoader } from './aux';
 
 function SearchResultsViewWithOrder({ query: keyword, order }: { query: string; order: SearchOrdering }) {
-
   const [pages, fetchThis] = usePagination(apiSearch);
 
   useEffect(() => {

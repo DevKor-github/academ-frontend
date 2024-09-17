@@ -28,7 +28,6 @@ import LectureView from './CourseView';
 // }
 
 export default function LectureFetch({ id }: { id: number }) {
-
   // TODO : refactor to use usePagination.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [page, setPage] = useState(1);

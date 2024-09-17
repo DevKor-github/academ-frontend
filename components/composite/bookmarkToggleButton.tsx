@@ -10,7 +10,6 @@ export default function BookmarkToggleButton({ id, defaultValue }: { id: number;
   const [pulse, setPulse] = useState(false);
   const [shake, resetShake] = useAnimationTimeout(600);
 
-
   function sendApiThenSetB(newB: boolean) {
     setPulse(true);
     apiBookmark({ course_id: id }).then((a) => {

@@ -46,7 +46,6 @@ function MyPageEditBasicWithProfile({
 }
 
 export default function MyPageEditBasic() {
-
   const { loading, response: profile } = useApi(apiMyPageBasics, {});
 
   if (loading) {

@@ -98,7 +98,8 @@ function InputToggleTag({
   return (
     <label
       className={`flex text-xs rounded-full transition-all justify-center text-center items-center px-4 py-1 bg-neutral-100 text-neutral-500 cursor-pointer w-fit ${checked ? 'text-primary-500 bg-primary-100' : 'text-neutral-600 bg-neutral-100'}`}
-      htmlFor={id}>
+      htmlFor={id}
+    >
       {label}
       <input type="checkbox" className="hidden" id={id} name={id} onChange={onChange} defaultChecked={checked} />
     </label>

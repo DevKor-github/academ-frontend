@@ -6,7 +6,10 @@ import { usePathname } from 'next/navigation';
 
 import { TopNavInnerLeft, TopNavInnerMid, TopNavRightLoading } from './aux/static';
 
-const TopNavRightClient = dynamic(() => import('./aux/dynamic'), { ssr: false, loading: TopNavRightLoading });
+const TopNavRightClient = dynamic(() => import('./aux/dynamic'), {
+  ssr: false,
+  loading: TopNavRightLoading,
+});
 
 const TopNavInnerRight = () => {
   return (
