@@ -4,7 +4,6 @@ import { use, useState } from 'react';
 import Spinner from '@/components/basic/spinner';
 import { apiCourseDetail } from '@/lib/api/course';
 import dynamic from 'next/dynamic';
-import { useSessionId } from '@/context/SessionIdContext';
 
 // import { usePagination } from '@/lib/hooks/pagination';
 
@@ -29,7 +28,6 @@ import LectureView from './CourseView';
 // }
 
 export default function LectureFetch({ id }: { id: number }) {
-  const [jwt] = useSessionId();
 
   // TODO : refactor to use usePagination.
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -47,7 +45,7 @@ export default function LectureFetch({ id }: { id: number }) {
   //   );
   // }
 
-  const course = use(apiCourseDetail({ course_id: id, order: 'NEWEST', page }, { token: jwt?.accessToken }));
+  const course = use(apiCourseDetail({ course_id: id, order: 'NEWEST', page }));
 
   return course.status === 'SUCCESS' ? (
     <LectureView course={course.data} />

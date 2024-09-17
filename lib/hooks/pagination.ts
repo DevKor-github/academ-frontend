@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ApiCall, ApiCTX, ApiResponse } from '@/lib/api/builder';
+import { ApiCall, ApiResponse } from '@/lib/api/builder';
 import { ELEM_PER_PAGE } from '../directive';
 
 /**
@@ -58,10 +58,10 @@ export function usePagination<Req extends { page: number }, Res>(
   const [failwith, setFailwith] = useState<null | ApiResponse<Res[]>>(null);
   const [page, setPage] = useState<number>(firstPage);
 
-  function fetchThis(req: Req, ctx?: ApiCTX) {
+  function fetchThis(req: Req) {
     setLoading(true);
     setPage(req.page);
-    apiCall(req, ctx).then((a) => {
+    apiCall(req).then((a) => {
       if (a.statusCode === 404) {
         setEoc(true);
         setData(data || []);

@@ -1,12 +1,9 @@
 'use client';
 
 import { apiBuyAcess } from '@/lib/api/membership';
-import { useSessionId } from '@/context/SessionIdContext';
-
 import MembershipIcon from './MembershipIcons';
 
 export default function BuyMembershipButton({ membershipData }: { membershipData: MembershipData }) {
-  const [jwt] = useSessionId();
 
   function buyHandler() {
     if (
@@ -14,7 +11,7 @@ export default function BuyMembershipButton({ membershipData }: { membershipData
         `이용권 (${membershipData.day}일권) 을 정말 구매하시겠습니까? ${membershipData.price} 포인트가 소모됩니다.`,
       )
     ) {
-      apiBuyAcess({ item: membershipData.item }, { token: jwt?.accessToken }).then((v) => {
+      apiBuyAcess({ item: membershipData.item }).then((v) => {
         if (v.status == 'SUCCESS') {
           alert(`이용권 (${membershipData.day}일권) 을 정상적으로 구매하였습니다.`);
         } else if (v.status == 'ERROR') {

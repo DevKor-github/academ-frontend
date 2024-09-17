@@ -7,12 +7,12 @@ import { useSessionId } from '../../context/SessionIdContext';
 import { apiLogout } from '@/lib/api/login';
 
 export default function LogoutPage() {
-  const [jwt, setJWT] = useSessionId();
+  const setJWT = useSessionId()[1];
   const route = useRouter();
 
   useEffect(() => {
     setTimeout(() => {
-      apiLogout({}, { token: jwt?.accessToken }).finally(() => {
+      apiLogout({}).finally(() => {
         setJWT(null);
         route.push('/');
       });

@@ -3,14 +3,13 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useSessionId } from '../../context/SessionIdContext';
-import { apiLogin, apiCheckLogin } from '@/lib/api/login';
+import { apiLogin } from '@/lib/api/login';
 
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
-import { KEY_FOR_USER_AUTH } from '@/lib/directive';
-
 import LoginForm from './form';
 import { handleInputBuilder } from '@/lib/form/handler';
+import { KEY_FOR_USER_AUTH } from '@/lib/directive';
 
 export default function LoginPageClient() {
   const [input, setInput] = useState<LoginRequest>({
@@ -41,20 +40,9 @@ export default function LoginPageClient() {
 
     await apiLogin({ email: input.email, password: input.password, 'remember-me': false }).then((s) => {
       if (s.status === 'SUCCESS') {
-        apiCheckLogin({}, { token: s.data.accessToken }).then((a) => {
-          if (a.status === 'SUCCESS') {
-            setSessionId(s.data);
-            localStorage.setItem(KEY_FOR_USER_AUTH, JSON.stringify(s.data));
-            return route.push('/');
-          } else {
-            setLoginError(
-              '로그인을 완료하였으나 사용자 정보 획득에 실패하였습니다. 이 상황은 일반적이지 않습니다. 다시 시도해주세요.',
-            );
-            resetShake();
-            setSessionId(null);
-            setLoading(false);
-          }
-        });
+        setSessionId(s.data);
+        localStorage.setItem(KEY_FOR_USER_AUTH, JSON.stringify(s.data));
+        return route.push('/');
       } else if (s.status === 'ERROR') {
         setLoginError('로그인에 실패했습니다. 없는 계정이거나 비밀번호가 일치하지 않습니다.');
         resetShake();

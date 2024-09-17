@@ -4,7 +4,6 @@ import { apiStartUpdateComment } from '@/lib/api/course';
 
 import ErrorTemplate from '@/lib/template';
 
-import { SessionIdContext } from '@/context/SessionIdContext';
 import { use } from 'react';
 import { useState } from 'react';
 import { apiUpdateComment } from '@/lib/api/course';
@@ -30,7 +29,6 @@ function Submitted({ back }: { back: string }) {
 }
 
 function EditComment({ comment, courseName }: { comment: AcdCommentEditReq; courseName: string }) {
-  const [jwt] = use(SessionIdContext);
 
   const [input, setInput] = useState<AcdCommentEditReq>(comment);
   const [submitted, setSubmitted] = useState<number | undefined>(undefined);
@@ -38,7 +36,7 @@ function EditComment({ comment, courseName }: { comment: AcdCommentEditReq; cour
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (confirm('정말 수정하시겠습니까?') == true) {
-      apiUpdateComment(input, { token: jwt?.accessToken }).then((s) => {
+      apiUpdateComment(input).then((s) => {
         if (s.status === 'SUCCESS') {
           setSubmitted(s.data);
         } else {
@@ -62,8 +60,7 @@ function EditComment({ comment, courseName }: { comment: AcdCommentEditReq; cour
 }
 
 export default function EditPage({ params: { comment_id } }: { params: { comment_id: number } }) {
-  const [jwt] = use(SessionIdContext);
-  const editable = use(apiStartUpdateComment({ comment_id }, { token: jwt?.accessToken }));
+  const editable = use(apiStartUpdateComment({ comment_id }));
 
   return editable.status === 'SUCCESS' && editable.statusCode === 200 ? (
     <EditComment courseName={editable.data.name} comment={editable.data} />

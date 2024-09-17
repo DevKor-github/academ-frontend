@@ -8,7 +8,7 @@ import { useSessionId } from '@/context/SessionIdContext';
 import { useRouter } from 'next/navigation';
 
 export default function DeleteAccountClient() {
-  const [jwt, setJwt] = useSessionId();
+  const setJwt = useSessionId()[1];
 
   const route = useRouter();
 
@@ -30,7 +30,7 @@ export default function DeleteAccountClient() {
     }
 
     setBusy(true);
-    apiDeleteAccount({ password: input.password }, { token: jwt?.accessToken }).then((s) => {
+    apiDeleteAccount({ password: input.password }).then((s) => {
       if (s.status === 'SUCCESS') {
         alert('계정이 성공적으로 삭제되었습니다.');
         setJwt(null);

@@ -1,7 +1,5 @@
 'use client';
 
-import { SessionIdContext } from '@/context/SessionIdContext';
-
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
@@ -16,10 +14,6 @@ import { use } from 'react';
 import BookmarksView from './dynamic/BookmarksView';
 import MyCommentsView from './dynamic/MyCommentsView';
 
-function NoSessionIdFallback() {
-  return <div className="animate-fade p-8 text-center w-full text-2xl">이 기능을 사용하려면 로그인해야 합니다.</div>;
-}
-
 export default function ProfileOverviewWithMemberShip() {
   const router = useRouter();
   const params = useSearchParams();
@@ -27,12 +21,7 @@ export default function ProfileOverviewWithMemberShip() {
   const pwchanged = params?.get('pwchanged') !== null;
   const profilechanged = params?.get('profilechanged') !== null;
 
-  const [jwt] = use(SessionIdContext);
-  const myprofile = use(apiMyPageBasics({}, { token: jwt?.accessToken }));
-
-  if (jwt === null) {
-    return <NoSessionIdFallback />;
-  }
+  const myprofile = use(apiMyPageBasics({}));
 
   if (myprofile.status !== 'SUCCESS') {
     return <div>먼가오류가 -.-;;</div>;

@@ -4,8 +4,6 @@ import { apiStartNewComment } from '@/lib/api/course';
 
 import ErrorTemplate from '@/lib/template';
 
-import { useSessionId } from '@/context/SessionIdContext';
-
 import { apiInsertComment } from '@/lib/api/course';
 import { useState } from 'react';
 
@@ -92,9 +90,7 @@ function WriteComment({ course }: { course: Course }) {
 }
 
 export default function WritePage({ params: { id } }: { params: { id: number } }) {
-  const [jwt] = useSessionId();
-
-  const writable = use(apiStartNewComment({ course_id: id }, { token: jwt?.accessToken }));
+  const writable = use(apiStartNewComment({ course_id: id }));
 
   return writable.status === 'SUCCESS' && writable.status === 'SUCCESS' && writable.statusCode === 200 ? (
     <WriteComment course={writable.data} />

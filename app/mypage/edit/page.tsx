@@ -3,7 +3,6 @@
 import { apiMyPageBasics, apiProfileUpdateBasic } from '@/lib/api/mypage';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSessionId } from '@/context/SessionIdContext';
 
 import MyPageEditBasicForm from './form';
 
@@ -47,9 +46,8 @@ function MyPageEditBasicWithProfile({
 }
 
 export default function MyPageEditBasic() {
-  const [jwt] = useSessionId();
 
-  const { loading, response: profile } = useApi(apiMyPageBasics, {}, { token: jwt?.accessToken });
+  const { loading, response: profile } = useApi(apiMyPageBasics, {});
 
   if (loading) {
     return (

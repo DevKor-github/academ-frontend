@@ -7,24 +7,17 @@ import CoursePreview from '@/components/view/CoursePreview';
 import { apiMyPageBookmarks } from '@/lib/api/mypage';
 import { usePagination } from '@/lib/hooks/pagination';
 import { useEffect } from 'react';
-import { useSessionId } from '@/context/SessionIdContext';
 import Button from '@/components/basic/button';
 import { RightIcon } from '@/icons';
 
 export default function BookmarksView() {
-  const [jwt] = useSessionId();
   const [pages, fetchThis] = usePagination(apiMyPageBookmarks);
 
   function fetchNext() {
-    fetchThis({ page: pages.page + 1 }, { token: jwt?.accessToken });
+    fetchThis({ page: pages.page + 1 });
   }
 
   useEffect(fetchNext, []);
-
-  if (jwt === null) {
-    // silent kill
-    return <div />;
-  }
 
   if (pages.totalLoadingState === 'bot') {
     return <div />;
