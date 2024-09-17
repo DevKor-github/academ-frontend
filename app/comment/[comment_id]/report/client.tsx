@@ -3,8 +3,6 @@
 import { apiRepComment } from '@/lib/api/course';
 import { useState } from 'react';
 import Submitted from './inner/submitted';
-import { useSessionId } from '@/context/SessionIdContext';
-import { retryWithJWTRefresh } from '@/lib/api/authHelper';
 
 import ReportCommentForm from './inner/form';
 
@@ -13,10 +11,8 @@ export default function ReportComment({ comment_id }: { comment_id: number }) {
 
   const [submitted, setSubmitted] = useState<boolean | null>(null);
 
-  const sessionIdState = useSessionId();
-
   function handleSubmit(finalInput: AcdCommentReportReq) {
-    retryWithJWTRefresh(apiRepComment, sessionIdState)(finalInput, {}).then((s) => {
+    apiRepComment(finalInput).then((s) => {
       setSubmitted(s.status === 'SUCCESS');
     });
   }

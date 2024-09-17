@@ -11,7 +11,6 @@ import { useState } from 'react';
 
 import CommentEditor from '@/components/composite/commentEditor';
 
-import { retryWithJWTRefresh } from '@/lib/api/authHelper';
 import { use } from 'react';
 
 function NewCommentWithId(id: number) {
@@ -55,18 +54,13 @@ function Submitted({ back }: { back: string }) {
 }
 
 function WriteComment({ course }: { course: Course }) {
-  const sessionId = useSessionId();
-
   const [input, setInput] = useState<AcdCommentNewReq>(NewCommentWithId(course.course_id));
   const [submitted, setSubmitted] = useState<number | undefined>(undefined);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (confirm('작성 완료하시겠습니까?') == true) {
-      retryWithJWTRefresh(
-        apiInsertComment,
-        sessionId,
-      )(input).then((s) => {
+      apiInsertComment(input).then((s) => {
         if (s.status === 'SUCCESS') {
           setSubmitted(s.data);
         } else {
