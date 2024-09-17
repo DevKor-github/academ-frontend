@@ -1,5 +1,5 @@
-import { build } from './builder';
-import withTokenInstance from './instances.ts/withTokenInstance';
+import { build } from '../builder';
+import withTokenInstance from '../instances/withTokenInstance';
 
 export const apiProfileUpdateBasic = build<UpdateProfileReq, null>(
   withTokenInstance,

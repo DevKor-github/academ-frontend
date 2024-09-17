@@ -1,5 +1,5 @@
 import { build } from '@/lib/api/builder';
-import withTokenInstance from './instances.ts/withTokenInstance';
+import withTokenInstance from '../instances/withTokenInstance';
 
 export const apiSignup = build<SignupRequest, string>(withTokenInstance, 'POST', '/api/signup');
 export const apiDuplicateName = build<DupNameRequest, unknown>(withTokenInstance, 'GET', '/api/signup/check-username');

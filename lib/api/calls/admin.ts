@@ -1,7 +1,7 @@
 import { build } from '@/lib/api/builder';
 
-import basicInstance from './instances.ts/basicInstance';
-import withTokenInstance from './instances.ts/withTokenInstance';
+import basicInstance from '../instances/basicInstance';
+import withTokenInstance from '../instances/withTokenInstance';
 
 export const apiCheckOnline = build<Record<string, never>, null>(basicInstance, 'GET', '/api/is-secure');
 

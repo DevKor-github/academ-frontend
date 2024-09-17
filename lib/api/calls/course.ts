@@ -1,5 +1,5 @@
 import { build } from '@/lib/api/builder';
-import withTokenInstance from './instances.ts/withTokenInstance';
+import withTokenInstance from '../instances/withTokenInstance';
 
 export const apiSearch = build<SearchRequest, Course[]>(withTokenInstance, 'GET', '/api/course/search');
 export const apiBookmark = build<CourseId, string>(withTokenInstance, 'GET', '/api/course/bookmark');

@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { BACKEND_BASE_URL } from '../directive';
+import { BACKEND_BASE_URL } from '../../directive';
 
 /**
  * fetch by 'get' method on server side
