@@ -1,8 +1,11 @@
 import { build } from '@/lib/api/builder';
 
-export const apiCheckOnline = build<Record<string, never>, null>('GET', '/api/is-secure');
+import basicInstance from './instances.ts/basicInstance';
+import withTokenInstance from './instances.ts/withTokenInstance';
 
-export const apiUploadLectures = build<unknown, null>('POST', '/api/admin/insert-course-database', {
+export const apiCheckOnline = build<Record<string, never>, null>(basicInstance, 'GET', '/api/is-secure');
+
+export const apiUploadLectures = build<unknown, null>(withTokenInstance, 'POST', '/api/admin/insert-course-database', {
   //   headers: {
   //     'Content-Type': 'application/json',
   // },
