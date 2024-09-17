@@ -1,14 +1,11 @@
 'use client';
 
 import { apiMyPageBasics, apiProfileUpdateBasic } from '@/lib/api/calls/mypage';
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { useRouter } from 'next/navigation';
-
-import MyPageEditBasicForm from './form';
 
 import UpdateBasicForm from './form';
 import ErrorTemplate from '@/lib/template';
-import { useApi } from '@/lib/api/builder';
 import { handleInputBuilder } from '@/lib/form/handler';
 
 function MyPageEditBasicWithProfile({
@@ -46,16 +43,7 @@ function MyPageEditBasicWithProfile({
 }
 
 export default function MyPageEditBasic() {
-  const { loading, response: profile } = useApi(apiMyPageBasics, {});
-
-  if (loading) {
-    return (
-      <MyPageEditBasicForm
-        input={{ username: '', student_id: '', degree: 'MASTER', semester: 0, department: '' }}
-        submitting={false}
-      />
-    );
-  }
+  const profile = use(apiMyPageBasics({}));
 
   if (profile.status === 'SUCCESS') {
     return <MyPageEditBasicWithProfile profile={profile.data} />;
