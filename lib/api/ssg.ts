@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { backendBaseUrl } from '../directive';
+import { BACKEND_BASE_URL } from '../directive';
 
 /**
  * fetch by 'get' method on server side
@@ -14,5 +14,5 @@ export async function ssget<Req extends NonNullable<unknown>, Res>(url: string, 
     .map((k) => `${k}=${encodeURIComponent(String((params as Record<string, unknown>)[k]))}`)
     .join('&');
 
-  return (await fetch(backendBaseUrl + url + (encoded === '' ? '' : '?' + encoded))).json() as Res;
+  return (await fetch(BACKEND_BASE_URL + url + (encoded === '' ? '' : '?' + encoded))).json() as Res;
 }

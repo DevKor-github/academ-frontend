@@ -1,6 +1,6 @@
 import TopNav from '../commonLayout/topnav';
 
-import { isDebug } from '@/lib/directive';
+import { IS_DEBUG } from '@/lib/directive';
 import Link from 'next/link';
 import { LogoIconRich } from '@/icons';
 
@@ -13,7 +13,7 @@ function Footer() {
         </Link>
         <Link href="/policy">이용약관</Link>
         <Link href={process.env.NEXT_PUBLIC_BUG_REPORT || ''}>버그리포트</Link>
-        {isDebug && <Link href="/diagnostic">진단</Link>}
+        {IS_DEBUG && <Link href="/diagnostic">진단</Link>}
       </div>
       <span className="md:ml-auto">Copyright ⓒ 2024 Academ. all rights reserved</span>
     </footer>

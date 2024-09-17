@@ -1,17 +1,9 @@
 'use client';
 
-import axios, { AxiosResponse } from 'axios';
-import { AxiosError } from 'axios';
-import { AxiosRequestConfig } from 'axios';
+import { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { useEffect, useLayoutEffect, useState } from 'react';
-import { isDebug, backendBaseUrl } from '../directive';
-
-const backend = axios.create({
-  baseURL: backendBaseUrl,
-  maxRedirects: 0,
-  withCredentials: true,
-});
+import { IS_DEBUG } from '../directive';
 
 const buildUrlWithParams = (baseUrl: string, req: Record<string, string | number>) => {
   const newReq = Object.keys(req).reduce((acc: Record<string, string>, key) => {
@@ -102,7 +94,12 @@ function resolvify<Res>(promise: Promise<AxiosResponse<ApiResponse<Res>>>) {
  * @param config
  * @returns
  */
-export const build: Builder = <Req, Res>(method: 'POST' | 'GET', path: string, config: AxiosRequestConfig = {}) => {
+export const build: Builder = <Req, Res>(
+  instance: AxiosInstance,
+  method: 'POST' | 'GET',
+  path: string,
+  config: AxiosRequestConfig = {},
+) => {
   return async function (req: Req, ctx?: ApiCTX): Promise<ApiResponse<Res>> {
     (function prepareConfig() {
       if (config.headers === undefined) {
@@ -116,13 +113,13 @@ export const build: Builder = <Req, Res>(method: 'POST' | 'GET', path: string, c
 
     const firstTry =
       method === 'POST'
-        ? backend.post(path, req, {
+        ? instance.post(path, req, {
             ...{
               validateStatus: () => true, //status >= 200 && status < 500,
             },
             ...config,
           })
-        : backend.get(buildUrlWithParams(path, req as Record<string, string | number>), {
+        : instance.get(buildUrlWithParams(path, req as Record<string, string | number>), {
             ...{
               validateStatus: () => true, // status >= 200 && status < 500,
             },
@@ -131,7 +128,7 @@ export const build: Builder = <Req, Res>(method: 'POST' | 'GET', path: string, c
 
     const firstResult = await resolvify<Res>(firstTry);
 
-    if (isDebug) {
+    if (IS_DEBUG) {
       const show = firstResult.status === 'SUCCESS' ? console.log : console.error;
       show(`[DEBUG] path: ${path} <- \n ${JSON.stringify(firstResult)}`);
     }
@@ -142,6 +139,7 @@ export const build: Builder = <Req, Res>(method: 'POST' | 'GET', path: string, c
 
 export type ApiCall<Req, Res> = (req: Req, ctx?: ApiCTX) => Promise<ApiResponse<Res>>;
 export type Builder = <Req, Res>(
+  instance: AxiosInstance,
   method: 'POST' | 'GET',
   path: string,
   config?: AxiosRequestConfig,

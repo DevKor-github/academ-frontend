@@ -4,7 +4,7 @@ import { NoticeListRequest } from '@/lib/api/notice';
 import { HStack } from '@/components/basic/stack';
 import { Notice } from '@/lib/api/notice';
 import Link from 'next/link';
-import { elemPerPage } from '@/lib/directive';
+import { ELEM_PER_PAGE } from '@/lib/directive';
 
 function NoticeSingle({ notice }: { notice: Notice }) {
   return (
@@ -49,7 +49,7 @@ export async function generateStaticParams() {
   }
 
   const countNotice = res.data;
-  const countPages = Math.ceil(countNotice / elemPerPage);
+  const countPages = Math.ceil(countNotice / ELEM_PER_PAGE);
 
   const posts = new Array(countPages).fill(undefined);
 

@@ -4,7 +4,7 @@ import { createContext, useContext, ReactNode } from 'react';
 
 import useTabSharedState from '@/lib/hooks/shared';
 
-import { keyForUserAuth } from '@/lib/directive';
+import { KEY_FOR_USER_AUTH } from '@/lib/directive';
 
 export type SessionIdContextType = [SessionId, SetState<SessionId>];
 export const SessionIdContext = createContext<SessionIdContextType>([null, () => {}]);
@@ -18,7 +18,7 @@ interface SessionIdProviderProps {
 }
 
 export default function SessionIdProvider({ children }: SessionIdProviderProps) {
-  const [sessionId, setSessionId] = useTabSharedState<SessionId | null>(keyForUserAuth, null);
+  const [sessionId, setSessionId] = useTabSharedState<SessionId | null>(KEY_FOR_USER_AUTH, null);
 
   // Temporal patch - use less traffic
 

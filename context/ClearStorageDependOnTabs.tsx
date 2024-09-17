@@ -1,6 +1,6 @@
 'use client';
 
-import { isDebug, keyToCountTabs } from '@/lib/directive';
+import { IS_DEBUG, KEY_TO_COUNT_TABS } from '@/lib/directive';
 import { useEffect } from 'react';
 
 /**
@@ -13,15 +13,15 @@ import { useEffect } from 'react';
  */
 export default function ClearStorageDependOnTabs({ children }: React.PropsWithChildren<unknown>) {
   useEffect(() => {
-    const prevCount = Number(localStorage.getItem(keyToCountTabs) || '0');
-    localStorage.setItem(keyToCountTabs, String(prevCount + 1));
+    const prevCount = Number(localStorage.getItem(KEY_TO_COUNT_TABS) || '0');
+    localStorage.setItem(KEY_TO_COUNT_TABS, String(prevCount + 1));
 
     const callback = () => {
-      const count = Number(localStorage.getItem(keyToCountTabs) || '0');
+      const count = Number(localStorage.getItem(KEY_TO_COUNT_TABS) || '0');
 
       // Since React dev mode render twice;
-      const unit = isDebug ? 2 : 1;
-      localStorage.setItem(keyToCountTabs, String(count - unit));
+      const unit = IS_DEBUG ? 2 : 1;
+      localStorage.setItem(KEY_TO_COUNT_TABS, String(count - unit));
 
       if (count <= unit) {
         localStorage.clear();

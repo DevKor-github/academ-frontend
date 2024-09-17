@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { ApiCall, ApiCTX, ApiResponse } from '@/lib/api/builder';
-import { elemPerPage } from '../directive';
+import { ELEM_PER_PAGE } from '../directive';
 
 /**
  * LoadingState는 Paged<T>의 로딩 상태를 나타냅니다.
@@ -73,7 +73,7 @@ export function usePagination<Req extends { page: number }, Res>(
           setData(data.concat(a.data));
         }
 
-        if (a.data.length < elemPerPage) {
+        if (a.data.length < ELEM_PER_PAGE) {
           setEoc(true);
         }
       } else {
