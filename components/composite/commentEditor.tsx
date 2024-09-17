@@ -106,7 +106,7 @@ function InputToggleTag({
   );
 }
 
-export default function CommentEditor<Req extends AcdCommentJoin>({
+export default function CommentEditor<Req extends AcdCommentReqJoin>({
   mode,
   courseName,
   handleSubmit,

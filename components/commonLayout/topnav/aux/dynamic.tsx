@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { use, useState } from 'react';
 
 import Link from 'next/link';
 
@@ -12,8 +12,6 @@ import { HStack } from '@/components/basic/stack';
 
 import { LogoutIcon, ProfileIcon } from './icons';
 import { DownIcon } from '@/icons';
-
-import { use } from 'react';
 
 function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => void }) {
   return (
@@ -54,7 +52,7 @@ function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => vo
 function LoginButton() {
   return (
     <Link href="/login">
-      <Button>
+      <Button className="rounded-full">
         <span className="whitespace-nowrap">로그인/회원가입</span>
       </Button>
     </Link>
@@ -74,10 +72,7 @@ export default function TopNavInnerRightClient() {
   } else {
     return (
       <div>
-        <Button
-          className="rounded-full bg-primary-500 text-white p-2 pl-2 pr-2 cursor-pointer"
-          onClick={() => setOpen((v) => !v)}
-        >
+        <Button className="rounded-full bg-primary-500 text-white p-2 pl-2 pr-2" onClick={() => setOpen((v) => !v)}>
           <span
             className="under-md:max-w-24"
             style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}

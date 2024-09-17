@@ -47,7 +47,8 @@ export default function SessionIdProvider({ children }: React.PropsWithChildren<
 
   return (
     <SessionIdContext.Provider
-      key={sessionId?.refreshToken || sessionId?.accessToken}
+      // XXX : should this order reversed?
+      key={sessionId?.accessToken || sessionId?.refreshToken}
       value={[sessionId, setSessionId]}
     >
       {children}
