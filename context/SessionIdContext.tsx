@@ -13,11 +13,7 @@ export function useSessionId() {
   return useContext(SessionIdContext);
 }
 
-interface SessionIdProviderProps {
-  children: ReactNode;
-}
-
-export default function SessionIdProvider({ children }: SessionIdProviderProps) {
+export default function SessionIdProvider({ children }: React.PropsWithChildren<unknown>) {
   const [sessionId, setSessionId] = useTabSharedState<SessionId | null>(KEY_FOR_USER_AUTH, null);
 
   // Temporal patch - use less traffic
@@ -51,7 +47,7 @@ export default function SessionIdProvider({ children }: SessionIdProviderProps) 
 
   return (
     <SessionIdContext.Provider
-      key={sessionId?.accessToken || sessionId?.refreshToken}
+      key={sessionId?.refreshToken || sessionId?.accessToken}
       value={[sessionId, setSessionId]}
     >
       {children}
