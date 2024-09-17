@@ -1,4 +1,4 @@
 import { build } from '@/lib/api/builder';
-import withTokenInstance from '../instances/withTokenInstance';
+import withRefresh from '../instances/withRefresh';
 
-export const apiBuyAcess = build<{ item: string }, null>(withTokenInstance, 'POST', '/api/mypage/buy-access-authority');
+export const apiBuyAcess = build<{ item: string }, null>(withRefresh, 'POST', '/api/mypage/buy-access-authority');
