@@ -7,6 +7,25 @@ import Checkbox from '@/components/basic/checkbok';
 import PersonalInfoAgreement from '@/markdown/agreement/personalInfoAgreement.mdx';
 import TermsAgreement from '@/markdown/agreement/termsagreement.mdx';
 
+function MarkdownWrapper({ children }: React.PropsWithChildren<unknown>) {
+  return <div className="
+    *:mb-4
+    *:list-inside
+
+    *:[&_li]:pl-4
+    *:[&_li]:list-inside
+    [&_li]:pl-4
+    [&_li]:list-inside
+    [&_ol]:list-decimal
+    [&_ul]:list-item
+
+    [&_h1]:font-bold [&_h1]:text-3xl
+    [&_h2]:font-semibold [&_h2]:text-xl
+    "
+  
+  >{children}</div>;
+}
+
 export default function Step0({ nextStep }: { nextStep: () => void }) {
   const [agreements, setAgreements] = useState({
     termsAgreed: false,
@@ -72,7 +91,9 @@ export default function Step0({ nextStep }: { nextStep: () => void }) {
               overflowY: 'scroll',
             }}
           >
-            <TermsAgreement />
+            <MarkdownWrapper>
+              <TermsAgreement />
+            </MarkdownWrapper>
           </div>
           <VStack style={{ justifyContent: 'space-between', paddingLeft: '5px' }}>
             <span className="text-xl">개인정보 수집 동의 (필수)</span>
@@ -92,7 +113,9 @@ export default function Step0({ nextStep }: { nextStep: () => void }) {
               overflowY: 'scroll',
             }}
           >
-            <PersonalInfoAgreement />
+            <MarkdownWrapper>
+              <PersonalInfoAgreement />
+            </MarkdownWrapper>
           </div>
         </HStack>
       </div>
