@@ -1,0 +1,1 @@
+type AcdCommentReqJoin = AcdCommentEditReq | AcdCommentNewReq;
