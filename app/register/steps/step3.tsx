@@ -188,6 +188,7 @@ export default function Step3({
           onChange={handleInput}
           autoFocus
           style={{ width: '100%' }}
+          maxLength={24}
         />
         <ErrorLabel
           label={
@@ -205,6 +206,7 @@ export default function Step3({
           value={pwcheck}
           placeholder="비밀번호를 다시 입력해주세요"
           onChange={handlepwCheck}
+          maxLength={24}
         />
         <ErrorLabel label={input.password !== pwcheck && pwcheck !== '' ? '비밀번호가 일치하지 않습니다.' : ''} />
         <span className="text-xl" style={{ marginTop: '10px' }}>
@@ -219,6 +221,7 @@ export default function Step3({
               autoComplete={undefined}
               placeholder="닉네임 (1-10자)"
               onChange={handleInput}
+              maxLength={10}
             />
           </div>
           <Button kind="filled" type="button" className="px-4 grow-0" onClick={handleDuplicateName}>
