@@ -2,12 +2,11 @@
 
 import CoursePreview from '@/components/view/CoursePreview';
 
-import { apiSearch } from '@/lib/api/course';
-import { useSessionId } from '@/context/SessionIdContext';
+import { apiSearch } from '@/lib/api/calls/course';
 import { useEffect, useState } from 'react';
 import Button from '@/components/basic/button';
 import Select from '@/components/basic/select';
-import { DownIcon } from '@/icons';
+import { DownIcon } from '@/lib/icons';
 import Spinner from '@/components/basic/spinner';
 import { useRouter } from 'next/navigation';
 import { usePagination } from '@/lib/hooks/pagination';
@@ -15,16 +14,14 @@ import { usePagination } from '@/lib/hooks/pagination';
 import { Box, Grid, LoaderItems, SkeletonLoader } from './aux';
 
 function SearchResultsViewWithOrder({ query: keyword, order }: { query: string; order: SearchOrdering }) {
-  const [jwt] = useSessionId();
-
   const [pages, fetchThis] = usePagination(apiSearch);
 
   useEffect(() => {
-    fetchThis({ keyword, page: pages.page + 1, order: order }, { token: jwt?.accessToken });
+    fetchThis({ keyword, page: pages.page + 1, order: order });
   }, []);
 
   function fetchNext() {
-    fetchThis({ keyword, page: pages.page + 1, order: order }, { token: jwt?.accessToken });
+    fetchThis({ keyword, page: pages.page + 1, order: order });
   }
 
   const nextButton = pages.eoc ? (

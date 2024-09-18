@@ -11,7 +11,7 @@ function MyProfileMembershipsUnsafe({ expireLabel }: { expireLabel: React.ReactN
   return (
     <div
       className="p-8 pb-16 mt-8 border-t
-    light:border-t-light-back-8 dark:border-t-dark-back-8 "
+    light:border-t-base-24 dark:border-t-base-8 "
     >
       <div className="flex flex-row text-2xl mt-8 pb-2">
         <span>강의 열람권</span>

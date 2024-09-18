@@ -3,7 +3,7 @@ import CommentsView from './components/comments';
 import SummaryView from './components/summary';
 
 import Link from 'next/link';
-import { IssueIcon } from '@/icons';
+import { IssueIcon } from '@/lib/icons';
 
 function WriteIcon() {
   return (

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { LogoIconRich, UpIcon, DownIcon } from '@/icons';
+import { LogoIconRich, UpIcon, DownIcon } from '@/lib/icons';
 import Skeleton from '@/components/composite/skeleton';
 import Button from '@/components/basic/button';
 
@@ -24,7 +24,7 @@ function NavButton({
   wip?: true;
   onClick: () => void;
 }) {
-  const accent: boolean = currentPath === desiredPath || currentPath.startsWith(desiredPath + '/');
+  const accent: boolean = currentPath.startsWith(desiredPath); //currentPath === desiredPath || currentPath.startsWith(desiredPath + '/');
   return (
     <Link
       href={desiredPath}
@@ -92,9 +92,9 @@ export const TopNavInnerMid = ({
 
 export function TopNavRightLoading() {
   return (
-    <Button>
+    <Button className="rounded-full">
       <Skeleton
-        className="rounded-md bg-primary-300"
+        className="rounded-full bg-primary-300"
         placeholder={<span className="whitespace-nowrap">로그인/회원가입</span>}
       />
     </Button>

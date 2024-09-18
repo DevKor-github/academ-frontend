@@ -1,6 +1,6 @@
 'use client';
 
-import { MagnifyIcon, RightIcon } from '@/icons';
+import { MagnifyIcon, RightIcon } from '@/lib/icons';
 import ErrorLabel from '../basic/errorlabel';
 
 import { useState } from 'react';
@@ -35,7 +35,7 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
     <form className={className} method="get" action="/lecture" style={combinedStyle} onSubmit={submitHanlder}>
       <div
         className="flex flex-row gap-2 transition-all justify-center items-center light:bg-neutral-100 dark:bg-neutral-900
-       px-5 border border-neutral-200 dark:border-neutral-800 rounded-3xl focus-within:shadow-xl dark:shadow-dark-back-6"
+       px-5 border border-neutral-200 dark:border-neutral-800 rounded-3xl focus-within:shadow-xl dark:shadow-base-6"
       >
         <MagnifyIcon />
         <input

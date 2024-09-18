@@ -3,8 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { apiResetPassword } from '@/lib/api/login';
-import { apiSendEmail } from '@/lib/api/login';
+import { apiResetPassword } from '@/lib/api/calls/login';
+import { apiSendEmail } from '@/lib/api/calls/login';
 import ResetPwForm1 from './inner/form1';
 import ResetPwForm2 from './inner/form2';
 import { handleInputBuilder } from '@/lib/form/handler';
@@ -23,7 +23,7 @@ export default function FindPWPageClient() {
   function handleSendcode(e: React.FormEvent) {
     e.preventDefault();
     setWip(true);
-    apiSendEmail({ email: input.email, purpose : 'RESET_PASSWORD' }).then((s) => {
+    apiSendEmail({ email: input.email, purpose: 'RESET_PASSWORD' }).then((s) => {
       if (s.status === 'SUCCESS') {
         setStep(2);
         setWip(false);

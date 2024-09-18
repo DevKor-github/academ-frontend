@@ -3,7 +3,8 @@ import plugin from 'tailwindcss/plugin';
 import { PluginCreator } from 'tailwindcss/types/config';
 
 const containerPlugin: PluginCreator = ({ addVariant }) => {
-  addVariant('light', '@media (prefers-color-scheme: light)');
+  // addVariant('light', '@media (prefers-color-scheme: light)');
+  addVariant('light', '@media all'); // TODO : remove this when turn on dark mode
   addVariant('under-md', '@media (max-width: 768px)');
 };
 
@@ -33,7 +34,7 @@ const config: Config = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
-  darkMode: 'class', // set 'media' to turn on
+  darkMode: 'class', // set 'media' to turn on : TODO: edit addVariant('light', ...) also
   theme: {
     extend: {
       height: {
@@ -131,90 +132,6 @@ const config: Config = {
           29: 'var(--dyn-e8e8e8)',
           30: 'var(--dyn-f0f0f0)',
           31: 'var(--dyn-ffffff)',
-        },
-        light: {
-          fore: {
-            DEFAULT: '#000000',
-            0: '#000000',
-            1: '#080808',
-            2: '#101010',
-            3: '#181818',
-            4: '#202020',
-            5: '#282828',
-            6: '#303030',
-            7: '#383838',
-            8: '#404040',
-            9: '#484848',
-            10: '#505050',
-            11: '#585858',
-            12: '#606060',
-            13: '#686868',
-            14: '#707070',
-            15: '#787878',
-            16: '#808080',
-          },
-          back: {
-            DEFAULT: '#FFFFFF',
-            16: '#808080',
-            15: '#888888',
-            14: '#909090',
-            13: '#989898',
-            12: '#A0A0A0',
-            11: '#A8A8A8',
-            10: '#B0B0B0',
-            9: '#B8B8B8',
-            8: '#C0C0C0',
-            7: '#C8C8C8',
-            6: '#D0D0D0',
-            5: '#D8D8D8',
-            4: '#E0E0E0',
-            3: '#E8E8E8',
-            2: '#F0F0F0',
-            1: '#F8F8F8',
-            0: '#FFFFFF',
-          },
-        },
-        dark: {
-          back: {
-            DEFAULT: '#000000',
-            0: '#000000',
-            1: '#080808',
-            2: '#101010',
-            3: '#181818',
-            4: '#202020',
-            5: '#282828',
-            6: '#303030',
-            7: '#383838',
-            8: '#404040',
-            9: '#484848',
-            10: '#505050',
-            11: '#585858',
-            12: '#606060',
-            13: '#686868',
-            14: '#707070',
-            15: '#787878',
-            16: '#808080',
-          },
-          fore: {
-            DEFAULT: '#FFFFFF',
-            16: '#808080',
-            15: '#888888',
-            14: '#909090',
-            13: '#989898',
-            12: '#A0A0A0',
-            11: '#A8A8A8',
-            10: '#B0B0B0',
-            9: '#B8B8B8',
-            8: '#C0C0C0',
-            7: '#C8C8C8',
-            6: '#D0D0D0',
-            5: '#D8D8D8',
-            4: '#E0E0E0',
-            3: '#E8E8E8',
-            2: '#F0F0F0',
-            1: '#F8F8F8',
-            0: '#FFFFFF',
-          },
         },
       },
       keyframes: {

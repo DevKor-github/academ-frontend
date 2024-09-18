@@ -1,8 +1,9 @@
 {
   "name": "academ-front",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "private": true,
   "scripts": {
+    "format": "prettier --write \"**/*.ts\" \"**/*.tsx\"",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -13,12 +14,17 @@
     "maintained node versions"
   ],
   "dependencies": {
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.2.11",
+    "@types/mdx": "^2.0.13",
     "axios": "^1.7.2",
     "html-react-parser": "^5.1.12",
     "next": "14.2.8",
     "qs": "^6.12.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tailwind-merge": "^2.5.2"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -30,6 +36,8 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-autofix": "^2.2.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "natural-compare": "^1.4.0",
+    "next-mdx-remote": "^5.0.0",
     "postcss": "^8",
     "prettier": "^3.3.3",
     "server-only": "^0.0.1",

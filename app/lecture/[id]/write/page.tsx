@@ -1,17 +1,14 @@
 'use client';
 
-import { apiStartNewComment } from '@/lib/api/course';
+import { apiStartNewComment } from '@/lib/api/calls/course';
 
 import ErrorTemplate from '@/lib/template';
 
-import { useSessionId } from '@/context/SessionIdContext';
-
-import { apiInsertComment } from '@/lib/api/course';
+import { apiInsertComment } from '@/lib/api/calls/course';
 import { useState } from 'react';
 
 import CommentEditor from '@/components/composite/commentEditor';
 
-import { retryWithJWTRefresh } from '@/lib/api/authHelper';
 import { use } from 'react';
 
 function NewCommentWithId(id: number) {
@@ -37,39 +34,31 @@ function NewCommentWithId(id: number) {
 }
 
 import Button from '@/components/basic/button';
-import { FinishIcon } from '@/icons';
+import { FinishIcon } from '@/lib/icons';
 import Link from 'next/link';
 
 function Submitted({ back }: { back: string }) {
   return (
-    <div className='w-full h-full p-10'>
-    <div className="flex flex-col gap-10 w-full items-center">
-      <FinishIcon />
-      <div className="text-4xl font-bold text-center">
-        강의평이 등록되었습니다.
-      </div>
-      <Link href={back} className="mt-20 text-2xl">
-        <Button className="w-full">돌아가기</Button>
-      </Link>
+    <div className="w-full h-full p-10">
+      <div className="flex flex-col gap-10 w-full items-center">
+        <FinishIcon />
+        <div className="text-4xl font-bold text-center">강의평이 등록되었습니다.</div>
+        <Link href={back} className="mt-20 text-2xl">
+          <Button className="w-full">돌아가기</Button>
+        </Link>
       </div>
     </div>
   );
 }
 
-
 function WriteComment({ course }: { course: Course }) {
-  const sessionId = useSessionId();
-
   const [input, setInput] = useState<AcdCommentNewReq>(NewCommentWithId(course.course_id));
   const [submitted, setSubmitted] = useState<number | undefined>(undefined);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (confirm('작성 완료하시겠습니까?') == true) {
-      retryWithJWTRefresh(
-        apiInsertComment,
-        sessionId,
-      )(input).then((s) => {
+      apiInsertComment(input).then((s) => {
         if (s.status === 'SUCCESS') {
           setSubmitted(s.data);
         } else {
@@ -91,7 +80,7 @@ function WriteComment({ course }: { course: Course }) {
 
   return (
     <CommentEditor
-      mode='WRITE'
+      mode="WRITE"
       courseName={course.name}
       handleSubmit={handleSubmit}
       input={input}
@@ -100,11 +89,8 @@ function WriteComment({ course }: { course: Course }) {
   );
 }
 
-
 export default function WritePage({ params: { id } }: { params: { id: number } }) {
-  const [jwt] = useSessionId();
-
-  const writable = use(apiStartNewComment({ course_id: id }, { token: jwt?.accessToken }));
+  const writable = use(apiStartNewComment({ course_id: id }));
 
   return writable.status === 'SUCCESS' && writable.status === 'SUCCESS' && writable.statusCode === 200 ? (
     <WriteComment course={writable.data} />

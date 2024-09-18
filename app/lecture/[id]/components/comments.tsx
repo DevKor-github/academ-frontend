@@ -21,7 +21,7 @@ export default function CommentsView({
     return (
       <HStack
         className="pl-2 pr-2 md:pl-8 md:pr-8 pt-12 pb-12 h-full transition-all
-      light:bg-light-back-1 dark:bg-dark-back-1 gap-6
+      light:bg-base-31 dark:bg-base-2 gap-6
       "
       >
         <VStack className="items-center justify-between gap-2 mb-2">
@@ -55,7 +55,7 @@ export default function CommentsView({
     return (
       <HStack
         className="pl-2 pr-2 md:pl-8 md:pr-8 pt-12 pb-12 h-full transition-all
-      light:bg-light-back-1 dark:bg-dark-back-1 gap-6
+      light:bg-base-31 dark:bg-base-2 gap-6
       "
       >
         <VStack className="items-center justify-between gap-2 mb-2">

@@ -1,16 +1,11 @@
 'use client';
 
-import { apiMyPageBasics, apiProfileUpdateBasic } from '@/lib/api/mypage';
-import { useState } from 'react';
+import { apiMyPageBasics, apiProfileUpdateBasic } from '@/lib/api/calls/mypage';
+import { use, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { useSessionId } from '@/context/SessionIdContext';
-import { retryWithJWTRefresh } from '@/lib/api/authHelper';
-
-import MyPageEditBasicForm from './form';
 
 import UpdateBasicForm from './form';
 import ErrorTemplate from '@/lib/template';
-import { useApi } from '@/lib/api/builder';
 import { handleInputBuilder } from '@/lib/form/handler';
 
 function MyPageEditBasicWithProfile({
@@ -23,12 +18,10 @@ function MyPageEditBasicWithProfile({
   const [input, setInput] = useState<UpdateProfileReq>({ username, student_id, degree, semester, department });
   const [busy, setBusy] = useState<boolean>(false);
 
-  const sessionIdState = useSessionId();
-
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
-    retryWithJWTRefresh(apiProfileUpdateBasic, sessionIdState)(input, {}).then((s) => {
+    apiProfileUpdateBasic(input).then((s) => {
       setBusy(false);
       if (s.status === 'SUCCESS') {
         alert('프로필 수정을 완료했습니다.');
@@ -50,18 +43,7 @@ function MyPageEditBasicWithProfile({
 }
 
 export default function MyPageEditBasic() {
-  const [jwt] = useSessionId();
-
-  const { loading, response: profile } = useApi(apiMyPageBasics, {}, { token: jwt?.accessToken });
-
-  if (loading) {
-    return (
-      <MyPageEditBasicForm
-        input={{ username: '', student_id: '', degree: 'MASTER', semester: 0, department: '' }}
-        submitting={false}
-      />
-    );
-  }
+  const profile = use(apiMyPageBasics({}));
 
   if (profile.status === 'SUCCESS') {
     return <MyPageEditBasicWithProfile profile={profile.data} />;

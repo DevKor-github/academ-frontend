@@ -1,9 +1,7 @@
 'use client';
 
-import { apiProfileUpdatePW } from '@/lib/api/mypage';
+import { apiProfileUpdatePW } from '@/lib/api/calls/mypage';
 import { useState } from 'react';
-import { useSessionId } from '@/context/SessionIdContext';
-import { retryWithJWTRefresh } from '@/lib/api/authHelper';
 
 import { useRouter } from 'next/navigation';
 
@@ -15,7 +13,6 @@ export default function ChangePW() {
 
   const [busy, setBusy] = useState<boolean>(false);
 
-  const sessionIdState = useSessionId();
   const router = useRouter();
 
   function handleSubmit(e: React.FormEvent) {
@@ -26,10 +23,7 @@ export default function ChangePW() {
       return alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
     }
 
-    retryWithJWTRefresh(apiProfileUpdatePW, sessionIdState)(
-      { old_password: input.old_password, new_password: input.new_password },
-      {},
-    ).then((s) => {
+    apiProfileUpdatePW({ old_password: input.old_password, new_password: input.new_password }).then((s) => {
       if (s.status === 'SUCCESS') {
         alert(`비밀번호 변경에 성공했습니다.`);
         router.push('/mypage?pwchanged');

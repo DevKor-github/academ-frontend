@@ -32,9 +32,9 @@ const pretendard = localFont({
   variable: '--font-pretendard',
 });
 
-const SessionIdProvider = dynamic(() => import('@/context/SessionIdContext'), { ssr: false, loading: () => <></> });
+const SessionIdProvider = dynamic(() => import('@/lib/context/SessionIdContext'), { ssr: false, loading: () => <></> });
 
-import ClearStorageDependOnTabs from '@/context/ClearStorageDependOnTabs';
+import ClearStorageDependOnTabs from '@/lib/context/ClearStorageDependOnTabs';
 
 export default function RootLayout({
   children,
@@ -46,8 +46,10 @@ export default function RootLayout({
       <head>
         <meta name="naver-site-verification" content="dee9637347b73df323379604875290ad69eb2ee8" />
       </head>
-      <body className={`${inter.className} ${pretendard.className} light:bg-base-32 dark:bg-base-1
-      light:text-base-0 dark:text-base-32`}>
+      <body
+        className={`${inter.className} ${pretendard.className} light:bg-base-32 dark:bg-base-1
+      light:text-base-0 dark:text-base-32`}
+      >
         <ClearStorageDependOnTabs>
           <SessionIdProvider>
             <TopLevelLayout>{children}</TopLevelLayout>

@@ -9,7 +9,7 @@ const SearchTopView = ({ query }: { query: string }) => {
   return query ? (
     <VStack
       gap="20px"
-      className="border-b light:border-b-light-back-5 dark:border-b-dark-back-8 flex-wrap justify-between items-center"
+      className="border-b light:border-b-base-27 dark:border-b-base-8 flex-wrap justify-between items-center"
       style={{
         padding: '110px 40px 110px 40px',
       }}
@@ -22,7 +22,7 @@ const SearchTopView = ({ query }: { query: string }) => {
     </VStack>
   ) : (
     <VStack
-      className="border-b light:border-b-light-back-1 dark:border-b-dark-back-5 flex-wrap justify-center items-center"
+      className="border-b light:border-b-base-30 dark:border-b-base-5 flex-wrap justify-center items-center"
       style={{
         padding: '110px 40px 110px 40px',
       }}

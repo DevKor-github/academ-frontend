@@ -4,27 +4,20 @@ import { HStack, VStack } from '@/components/basic/stack';
 
 import CoursePreview from '@/components/view/CoursePreview';
 
-import { apiMyPageBookmarks } from '@/lib/api/mypage';
+import { apiMyPageBookmarks } from '@/lib/api/calls/mypage';
 import { usePagination } from '@/lib/hooks/pagination';
 import { useEffect } from 'react';
-import { useSessionId } from '@/context/SessionIdContext';
 import Button from '@/components/basic/button';
-import { RightIcon } from '@/icons';
+import { RightIcon } from '@/lib/icons';
 
 export default function BookmarksView() {
-  const [jwt] = useSessionId();
   const [pages, fetchThis] = usePagination(apiMyPageBookmarks);
 
   function fetchNext() {
-    fetchThis({ page: pages.page + 1 }, { token: jwt?.accessToken });
+    fetchThis({ page: pages.page + 1 });
   }
 
   useEffect(fetchNext, []);
-
-  if (jwt === null) {
-    // silent kill
-    return <div />;
-  }
 
   if (pages.totalLoadingState === 'bot') {
     return <div />;
@@ -41,7 +34,7 @@ export default function BookmarksView() {
   return (
     <HStack
       className="pl-2 pr-2 md:pl-8 md:pr-8 pt-24 h-full transition-all
-  light:bg-light-back-1 dark:bg-dark-back-1
+  light:bg-base-31 dark:bg-base-2
   "
     >
       <VStack className="items-center justify-start gap-2">

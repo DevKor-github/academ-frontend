@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
-import { ApiCall, ApiCTX, ApiResponse } from '@/lib/api/builder';
-import { elemPerPage } from '../directive';
+import { ELEM_PER_PAGE } from '../directive';
 
 /**
  * LoadingState는 Paged<T>의 로딩 상태를 나타냅니다.
@@ -58,10 +57,10 @@ export function usePagination<Req extends { page: number }, Res>(
   const [failwith, setFailwith] = useState<null | ApiResponse<Res[]>>(null);
   const [page, setPage] = useState<number>(firstPage);
 
-  function fetchThis(req: Req, ctx?: ApiCTX) {
+  function fetchThis(req: Req) {
     setLoading(true);
     setPage(req.page);
-    apiCall(req, ctx).then((a) => {
+    apiCall(req).then((a) => {
       if (a.statusCode === 404) {
         setEoc(true);
         setData(data || []);
@@ -73,7 +72,7 @@ export function usePagination<Req extends { page: number }, Res>(
           setData(data.concat(a.data));
         }
 
-        if (a.data.length < elemPerPage) {
+        if (a.data.length < ELEM_PER_PAGE) {
           setEoc(true);
         }
       } else {

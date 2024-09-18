@@ -18,7 +18,7 @@ export default function ChangePWForm({ handleSubmit, input, submitting, handleIn
         autoComplete="current-password"
         placeholder="기존 비밀번호"
         value={input.old_password}
-        className="bg-light-back-1 dark:bg-dark-back-2 p-4 rounded-2xl w-full"
+        className="bg-base-32 dark:bg-base-2 p-4 rounded-2xl w-full"
         onChange={handleInput}
       />
 
@@ -29,7 +29,7 @@ export default function ChangePWForm({ handleSubmit, input, submitting, handleIn
         type="password"
         placeholder="새 비밀번호"
         value={input.new_password}
-        className="bg-light-back-1 dark:bg-dark-back-2 p-4 rounded-2xl w-full"
+        className="bg-base-32 dark:bg-base-2-back-2 p-4 rounded-2xl w-full"
         onChange={handleInput}
       />
 
@@ -40,7 +40,7 @@ export default function ChangePWForm({ handleSubmit, input, submitting, handleIn
         autoComplete="new-password"
         placeholder="새 비밀번호 확인"
         value={input.new_password_check}
-        className="bg-light-back-1 dark:bg-dark-back-2 p-4 rounded-2xl w-full"
+        className="bg-base-32 dark:bg-base-2 p-4 rounded-2xl w-full"
         onChange={handleInput}
       />
 

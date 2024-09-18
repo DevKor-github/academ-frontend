@@ -5,14 +5,13 @@ import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
 import { useEffect, useState } from 'react';
 
-import { apiDeleteComment, apiLikeComment } from '@/lib/api/course';
+import { apiDeleteComment, apiLikeComment } from '@/lib/api/calls/course';
 
 import { decode } from '@/lib/jwt';
 
 import Link from 'next/link';
-import { useSessionId } from '@/context/SessionIdContext';
-import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/icons';
-import { retryWithJWTRefresh } from '@/lib/api/authHelper';
+import { useSessionId } from '@/lib/context/SessionIdContext';
+import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/lib/icons';
 
 function quaternary<T>(that: number, standard: number, gt: T, eq: T, lt: T) {
   if (that === standard) {
@@ -99,7 +98,6 @@ function Right({
   comment: AcdComment;
   setDel: React.Dispatch<boolean>;
 }) {
-  const sessionId = useSessionId();
   const [newLike, setNewLike] = useState<boolean>(false);
 
   useEffect(() => setNewLike(false), []);
@@ -154,10 +152,7 @@ function Right({
               className="flex justify-center items-center px-4 py-1 border rounded-full border-neutral-400 text-neutral-400"
               onClick={() => {
                 if (confirm('정말 삭제하시겠습니까?') == true) {
-                  retryWithJWTRefresh(
-                    apiDeleteComment,
-                    sessionId,
-                  )({ comment_id: comment.comment_id }).then((a) => {
+                  apiDeleteComment({ comment_id: comment.comment_id }).then((a) => {
                     if (a.status === 'SUCCESS') {
                       setDel(true);
                       alert('성공적으로 삭제했습니다.');
@@ -177,10 +172,7 @@ function Right({
         <button
           className={`flex flex-row justify-center items-center px-4 py-1 border rounded-full gap-2 ${textColorClass}`}
           onClick={() => {
-            retryWithJWTRefresh(
-              apiLikeComment,
-              sessionId,
-            )({ comment_id: comment.comment_id }).then((s) => {
+            apiLikeComment({ comment_id: comment.comment_id }).then((s) => {
               if (s.status === 'SUCCESS') {
                 setNewLike(!newLike);
               } else {
@@ -221,8 +213,6 @@ function Right({
 }
 
 function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dispatch<boolean> }) {
-  const sessionId = useSessionId();
-
   return (
     <HStack className="w-full h-full" gap="8px">
       <Link href={`/lecture/${comment.course_id}`}>
@@ -269,10 +259,7 @@ function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dis
           className="flex justify-center items-center px-4 py-1 border rounded-full border-neutral-400 text-neutral-400"
           onClick={() => {
             if (confirm('정말 삭제하시겠습니까?') == true) {
-              retryWithJWTRefresh(
-                apiDeleteComment,
-                sessionId,
-              )({ comment_id: comment.comment_id }).then((a) => {
+              apiDeleteComment({ comment_id: comment.comment_id }).then((a) => {
                 if (a.status === 'SUCCESS') {
                   setDel(true);
                   alert('성공적으로 삭제했습니다.');
@@ -301,8 +288,8 @@ export default function CommentView({ comment }: { comment: AcdComment }) {
     <div
       className={`${del ? 'hidden' : ''} flex flex-col md:flex-row items-center mt-3 p-4 rounded-3xl gap-5 border
   
-  light:bg-white dark:bg-dark-back-2
-  light:border-light-back-4 dark:border-dark-back-4`}
+  light:bg-base-32 dark:bg-base-2
+  light:border-base-28 dark:border-base-4`}
     >
       <Left comment={comment} />
       <Right comment={comment} editable={editable} setDel={setDel} />
@@ -317,8 +304,8 @@ export function MyCommentView({ comment }: { comment: AcdMyComment }) {
     <div
       className={`${del ? 'hidden' : ''} flex flex-col md:flex-row items-center mt-3 p-4 rounded-3xl gap-5 border
   
-  light:bg-white dark:bg-dark-back-2
-  light:border-light-back-4 dark:border-dark-back-4`}
+  light:bg-base-32 dark:bg-base-2
+  light:border-base-28 dark:border-base-4`}
     >
       <Left comment={comment} />
       <MyRight comment={comment} setDel={setDel} />

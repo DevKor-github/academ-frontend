@@ -6,7 +6,10 @@ import { usePathname } from 'next/navigation';
 
 import { TopNavInnerLeft, TopNavInnerMid, TopNavRightLoading } from './aux/static';
 
-const TopNavRightClient = dynamic(() => import('./aux/dynamic'), { ssr: false, loading: TopNavRightLoading });
+const TopNavRightClient = dynamic(() => import('./aux/dynamic'), {
+  ssr: false,
+  loading: TopNavRightLoading,
+});
 
 const TopNavInnerRight = () => {
   return (
@@ -30,19 +33,20 @@ export default function TopNav() {
     <header>
       <div
         className={
-          'fixed z-50 top-0 w-full' +
+          'fixed z-50 top-0 w-full light:backdrop-blur-lg light:backdrop-contrast-10  ' +
           (overlap
             ? ' text-white bg-black bg-opacity-75 border-base-32  '
-            : ' border-b light:border-b-light-back-2 dark:border-b-dark-back-4 *:light:border-base-4 *:dark:border-base-32 ')
+            : ' border-b light:border-b-base-30 dark:border-b-base-4 *:light:border-base-4 *:dark:border-base-32 ')
         }
       >
         <div
           className={
-            `flex flex-row backdrop-blur-xl transform-gpu pl-2 pr-2 md:pl-8 md:pr-8 ${className} flex flex-nowrap items-start flex-row justify-between w-full transition-all 
+            `flex flex-row pl-2 pr-2 md:pl-8 md:pr-8 ${className} flex flex-nowrap items-start flex-row justify-between w-full transition-all 
             ` +
+            (overlap ? '' : 'light:bg-white light:bg-opacity-50 ') +
             (spreaded ? `h-72 md:h-16 md:bg-transparent ` : ' h-16 ') +
             (spreaded && overlap /* dark */ ? ' bg-black ' : '') +
-            (spreaded && !overlap ? ' text-black dark:text-white bg-white dark:bg-dark-back-5 ' : '')
+            (spreaded && !overlap ? ' text-black dark:text-white bg-white dark:bg-base-5 ' : '')
           }
         >
           <TopNavInnerLeft />
