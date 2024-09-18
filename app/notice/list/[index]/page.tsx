@@ -8,7 +8,7 @@ async function NoticeSingle({ notice }: { notice: Notice }) {
     <div className="animate-fade">
       <Link className="flex justify-between self-centers" href={`/notice/detail/${notice.filename}`}>
         <span className="text-base font-medium">{notice.title}</span>
-        <span className="text-base font-normal text-gray-400">{notice.created_at}</span>
+        <span className="text-base font-normal text-gray-400">{notice.created_at.toLocaleDateString()}</span>
       </Link>
       <div
         className="w-full my-4 border
