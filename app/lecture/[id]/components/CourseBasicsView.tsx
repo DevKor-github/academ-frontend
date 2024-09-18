@@ -1,5 +1,5 @@
 import Button from '@/components/basic/button';
-import { HStack, VStack } from '@/components/basic/stack';
+import { VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
 import LectureIcon from '@/components/composite/lectureIcon';
@@ -23,7 +23,7 @@ function CourseBasicsViewUnsafe(props: {
 }) {
   return (
     <VStack
-      className={` pl-8 pr-8  border-b-black bg-neutral-50 dark:bg-neutral-950`}
+      className={` pl-8 pr-8 gap-2 md:gap-6 border-b-black bg-neutral-50 dark:bg-neutral-950`}
       style={{
         paddingTop: '100px',
         paddingBottom: '60px',
@@ -31,35 +31,33 @@ function CourseBasicsViewUnsafe(props: {
         alignItems: 'center',
         flexWrap: 'wrap',
       }}
-      gap="24px"
     >
-      <div className="text-5xl">{props.lectureIcon}</div>
-      <HStack gap="16px">
+      <div className="md:text-5xl text-3xl self-start">{props.lectureIcon}</div>
+      <div className="grid basis-3/4 gap-4">
         <VStack
-          gap="40px"
           style={{ alignItems: 'center', flexWrap: 'wrap' }}
-          className={`w-fit ${props.fade ? 'animate-fade' : ''}`}
+          className={`gap-x-4 gap-y-2 md:gap-10 w-fit ${props.fade ? 'animate-fade' : ''}`}
         >
-          <span className="text-3xl font-medium">{props.name}</span>
-          <Tag className="bg-primary-100 text-primary-900 opacity-50">강의평 {props.count_comments}개</Tag>
-          {props.bookmarkToggle}
+          <span className="md:text-3xl text-xl font-semibold break-all break-words">{props.name}</span>
+          <Tag className="ml-auto bg-primary-100 text-primary-900 opacity-50">강의평 {props.count_comments}개</Tag>
         </VStack>
         <VStack
           style={{ flexWrap: 'wrap' }}
-          className={`items-center text-base font-normal gap-10 ${props.fade ? 'animate-fade' : ''}`}
+          className={`items-center text-base font-normal gap-x-10 gap-y-4 ${props.fade ? 'animate-fade' : ''}`}
         >
-          <span className="text-2xl">{props.professor}</span>
-          <div className="flex flex-row text-neutral-600 justify-between gap-6">
+          <span className="md:text-2xl text-sm">{props.professor}</span>
+          <div className="flex flex-row flex-wrap text-sm md:text-base text-neutral-600 md:justify-between gap-x-6 gap-y-1">
             <span className="self-center">{props.course_code}</span>
             <span className="border-r border-r-neutral-400" />
             <span className="self-center">
               {props.year}-{props.semester}
             </span>
-            <span className="border-r border-r-neutral-400" />
+            <span className="hidden md:block border-r border-r-neutral-400" />
             <span className="whitespace-pre-line text-wrap">{props.time_location}</span>
           </div>
         </VStack>
-      </HStack>
+      </div>
+      <div className="self-start mt-1">{props.bookmarkToggle}</div>
       <div className="self-end hidden md:block ml-auto">{props.write}</div>
     </VStack>
   );
