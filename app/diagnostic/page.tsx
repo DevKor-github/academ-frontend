@@ -12,14 +12,14 @@ export default function DiagnosticClient() {
       .then((a) => {
         setStr(a.version);
       })
-      .catch(() => setStr('실패'));
+      .catch((e) => setStr(String(e)));
   }, []);
 
   return (
     <div>
-      Academ Backend와의 연결 상태는 다음과 같습니다:
+      Academ Frontend 버전: {APP_VERSION}
       <br />
-      {str}
+      Academ Backend와의 연결 상태는 다음과 같습니다: {str}
     </div>
   );
 }
