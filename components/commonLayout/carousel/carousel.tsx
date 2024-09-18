@@ -29,7 +29,7 @@ export default function Carousel({ className, children }: CarouselProps) {
         <span
           key={index}
           className={
-            'inline-block h-1 cursor-pointer transition-all ml-1 mr-1 ' +
+            'inline-block h-1 rounded-sm cursor-pointer transition-all ml-1 mr-1 ' +
             'bg-neutral-950 dark:bg-neutral-50 ' +
             (index === currentIndex ? 'background-color: white; w-10' : 'w-5 opacity-50')
           }
