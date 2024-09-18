@@ -44,9 +44,8 @@ function Left({ comment }: { comment: AcdComment | AcdMyComment }) {
   const red = '!bg-red-600/10 !text-red-600';
 
   return (
-    <HStack
-      className="items-center justify-evenly md:border-r md:border-r-neutral-200 w-fit h-full"
-      gap="20px"
+    <div
+      className="flex flex-row md:flex-col items-center justify-evenly md:justify-start mt-5 md:pt-5 md:border-r md:border-r-neutral-200 w-full md:w-fit h-full gap-5"
       style={{
         minWidth: '260px',
         flexWrap: 'wrap',
@@ -57,9 +56,9 @@ function Left({ comment }: { comment: AcdComment | AcdMyComment }) {
         {comment.rating.toFixed(1)}
       </span>
 
-      <div className="border-t border-t-neutral-200 w-full" />
+      <div className="hidden md:block border-t my-4 border-t-neutral-200 w-full" />
 
-      <div className="grid grid-cols-2 auto-cols-auto gap-x-9 gap-y-6 text-sm">
+      <div className="grid gird-cols-1 sm:grid-cols-2 auto-cols-auto gap-x-9 gap-y-6 text-sm">
         <VStack gap="4px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <span className="text-base">학습량</span>
           <Tag className={`${quaternary(comment.r1_amount_of_studying, 3, red, yellow, green)} h-fit py-1 x-fit px-3`}>
@@ -85,7 +84,7 @@ function Left({ comment }: { comment: AcdComment | AcdMyComment }) {
           </Tag>
         </VStack>
       </div>
-    </HStack>
+    </div>
   );
 }
 
@@ -140,35 +139,6 @@ function Right({
         <div className="break-all break-words whitespace-pre-line text-wrap">{comment.review}</div>
       </div>
       <VStack className="self-end items-center" gap="12px">
-        {editable ? (
-          <>
-            <Link href={`/comment/${comment.comment_id}/edit`}>
-              <button className="flex justify-center items-center gap-2 px-4 py-1 border rounded-full border-neutral-400 text-neutral-400">
-                <EditIcon />
-                수정
-              </button>
-            </Link>
-            <button
-              className="flex justify-center items-center px-4 py-1 border rounded-full border-neutral-400 text-neutral-400"
-              onClick={() => {
-                if (confirm('정말 삭제하시겠습니까?') == true) {
-                  apiDeleteComment({ comment_id: comment.comment_id }).then((a) => {
-                    if (a.status === 'SUCCESS') {
-                      setDel(true);
-                      alert('성공적으로 삭제했습니다.');
-                    } else {
-                      alert('삭제하지 못했습니다. 잠시 후 다시 시도해주세요.');
-                    }
-                  });
-                }
-              }}
-            >
-              삭제
-            </button>
-          </>
-        ) : (
-          <></>
-        )}
         <button
           className={`flex flex-row justify-center items-center px-4 py-1 border rounded-full gap-2 ${textColorClass}`}
           onClick={() => {
@@ -208,6 +178,35 @@ function Right({
           </button>
         </Link>
       </VStack>
+      {editable ? (
+        <VStack className="self-end items-center" gap="12px">
+          <Link href={`/comment/${comment.comment_id}/edit`}>
+            <button className="flex justify-center items-center gap-2 px-4 py-1 border rounded-full border-neutral-400 text-neutral-400">
+              <EditIcon />
+              수정
+            </button>
+          </Link>
+          <button
+            className="flex justify-center items-center px-4 py-1 border rounded-full border-neutral-400 text-neutral-400"
+            onClick={() => {
+              if (confirm('정말 삭제하시겠습니까?') == true) {
+                apiDeleteComment({ comment_id: comment.comment_id }).then((a) => {
+                  if (a.status === 'SUCCESS') {
+                    setDel(true);
+                    alert('성공적으로 삭제했습니다.');
+                  } else {
+                    alert('삭제하지 못했습니다. 잠시 후 다시 시도해주세요.');
+                  }
+                });
+              }
+            }}
+          >
+            삭제
+          </button>
+        </VStack>
+      ) : (
+        <></>
+      )}
     </HStack>
   );
 }
@@ -226,10 +225,12 @@ function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dis
           }}
           className="text-base justify-between"
         >
-          <div className="flex gap-2 items-baseline">
+          <div className="flex gap-2 items-baseline flex-wrap">
             <span className="text-2xl font-semibold mr-2">{comment.name}</span>
-            <span className="font-normal">{comment.professor}</span>
-            <span className="text-sm text-neutral-400">교수님</span>
+            <div className="flex gap-2 items-baseline">
+              <span className="font-normal">{comment.professor}</span>
+              <span className="text-sm text-neutral-400">교수님</span>
+            </div>
           </div>
 
           <div className="flex flex-row w-max gap-4">

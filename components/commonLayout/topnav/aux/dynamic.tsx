@@ -72,12 +72,15 @@ export default function TopNavInnerRightClient() {
   } else {
     return (
       <div>
-        <Button className="rounded-full bg-primary-500 text-white p-2 pl-2 pr-2" onClick={() => setOpen((v) => !v)}>
+        <Button
+          className="rounded-full bg-primary-500 text-white p-2 pl-2 pr-2 w-32"
+          onClick={() => setOpen((v) => !v)}
+        >
           <span
             className="under-md:max-w-24"
             style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
           >
-            <span className="flex flex-row">
+            <span className="flex flex-row items-center gap-2">
               마이페이지 <DownIcon />
             </span>
           </span>
