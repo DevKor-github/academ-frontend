@@ -227,8 +227,10 @@ function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dis
         >
           <div className="flex gap-2 items-baseline flex-wrap">
             <span className="text-2xl font-semibold mr-2">{comment.name}</span>
-            <span className="font-normal">{comment.professor}</span>
-            <span className="text-sm text-neutral-400">교수님</span>
+            <div className="flex gap-2 items-baseline">
+              <span className="font-normal">{comment.professor}</span>
+              <span className="text-sm text-neutral-400">교수님</span>
+            </div>
           </div>
 
           <div className="flex flex-row w-max gap-4">
