@@ -17,18 +17,16 @@ async function NoticeSingle({ filename }: { filename: string }) {
       parseFrontmatter: true,
       mdxOptions: {
         remarkPlugins: [],
-        rehypePlugins: []
-      }
-    }
+        rehypePlugins: [],
+      },
+    },
   });
 
   return (
     <div className="animate-fade">
       <Link className="flex justify-between self-centers" href={`/notice/detail/${filename}`}>
-        <span className="text-base font-medium">{ frontmatter.title }</span>
-        <span className="text-base font-normal text-gray-400">
-          {frontmatter.created_at}
-        </span>
+        <span className="text-base font-medium">{frontmatter.title}</span>
+        <span className="text-base font-normal text-gray-400">{frontmatter.created_at}</span>
       </Link>
       <div
         className="w-full my-4 border

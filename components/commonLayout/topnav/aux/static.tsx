@@ -92,7 +92,7 @@ export const TopNavInnerMid = ({
 
 export function TopNavRightLoading() {
   return (
-    <Button className='rounded-full'>
+    <Button className="rounded-full">
       <Skeleton
         className="rounded-full bg-primary-300"
         placeholder={<span className="whitespace-nowrap">로그인/회원가입</span>}

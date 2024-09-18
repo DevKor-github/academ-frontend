@@ -12,6 +12,6 @@ export default async function apiNoticeFilenames() {
       .filter((v) => v.endsWith(MARKDOWN_EXTENSION))
       // use descending order
       .sort((a, b) => naturalCompare(b.toLowerCase(), a.toLowerCase()))
-      .map((fn) => fn.slice(0, - MARKDOWN_EXTENSION.length)),
+      .map((fn) => fn.slice(0, -MARKDOWN_EXTENSION.length)),
   );
 }
