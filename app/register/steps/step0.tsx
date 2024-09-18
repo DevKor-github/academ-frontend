@@ -5,8 +5,8 @@ import { VStack, HStack } from '@/components/basic/stack';
 import Button from '@/components/basic/button';
 import Checkbox from '@/components/basic/checkbok';
 
-import TermsOfUse from '@/markdown/notices/terms-of-use.mdx';
-import PrivacyPolicy from '@/markdown/notices/privacy-policy.mdx';
+import TermsOfUse from './TermsOfUse';
+import PrivacyPolicy from './PrivacyPolicy';
 
 function MarkdownWrapper({ children }: React.PropsWithChildren<unknown>) {
   return (
