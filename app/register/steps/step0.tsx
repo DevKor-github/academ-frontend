@@ -97,6 +97,7 @@ export default function Step0({ nextStep }: { nextStep: () => void }) {
             }}
           >
             <MarkdownWrapper>
+               {/* @ts-expect-error Server Component */}
               <TermsOfUse />
             </MarkdownWrapper>
           </div>
@@ -119,6 +120,7 @@ export default function Step0({ nextStep }: { nextStep: () => void }) {
             }}
           >
             <MarkdownWrapper>
+               {/* @ts-expect-error Server Component */}
               <PrivacyPolicy />
             </MarkdownWrapper>
           </div>
