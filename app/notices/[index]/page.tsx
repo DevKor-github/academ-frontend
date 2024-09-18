@@ -6,7 +6,7 @@ import apiGetNotices from '@/lib/api/calls/notice';
 async function NoticeSingle({ notice }: { notice: Notice }) {
   return (
     <div className="animate-fade">
-      <Link className="flex justify-between self-centers" href={`/notice/detail/${notice.filename}`}>
+      <Link className="flex justify-between self-centers" href={`/notice/${notice.filename}`}>
         <span className="text-base font-medium">{notice.title}</span>
         <span className="text-base font-normal text-gray-400">{notice.created_at.toLocaleDateString()}</span>
       </Link>

@@ -6,22 +6,22 @@ const nextConfig = {
     return [
       {
         source: '/policy',
-        destination: '/notice/detail/0-terms-of-use',
+        destination: '/notice/terms-of-use',
         permanent: false,
       },
       {
         source: '/about',
-        destination: '/notice/detail/2-about-academ',
+        destination: '/notice/about-academ',
         permanent: false,
       },
       {
         source: '/notice',
-        destination: '/notice/list/1',
+        destination: '/notices/1',
         permanent: false,
       },
       {
-        source: '/notice/list',
-        destination: '/notice/list/1',
+        source: '/notices',
+        destination: '/notices/1',
         permanent: false,
       },
     ];
