@@ -45,7 +45,7 @@ function EditComment({ comment, courseName }: { comment: AcdCommentEditReq; cour
 
   if (submitted !== undefined) {
     return (
-      <div className="flex w-full h-full justify-center items-center">
+      <div className="flex w-10/12 h-full justify-center items-center self-center">
         <Submitted back={`/lecture/${submitted}`} />
       </div>
     );

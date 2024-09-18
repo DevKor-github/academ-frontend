@@ -68,7 +68,7 @@ function WriteComment({ course }: { course: Course }) {
 
   if (submitted !== undefined) {
     return (
-      <div className="flex w-full h-full justify-center items-center">
+      <div className="flex w-10/12 h-full justify-center items-center self-center">
         <div>
           <Submitted back={`/lecture/${submitted}`} />
         </div>
