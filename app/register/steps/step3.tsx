@@ -10,7 +10,7 @@ import Input from '@/components/basic/input';
 
 import ErrorLabel from '@/components/basic/errorlabel';
 
-import { departments } from './departments';
+import { departments } from '@/lib/data/departments';
 
 const validatePw = (pw: string) => {
   const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W]{8,24}$/;
