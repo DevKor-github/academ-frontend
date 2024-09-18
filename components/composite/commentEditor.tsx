@@ -186,12 +186,12 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
         `{courseName}` <span className="text-base text-gray-400">{mode === 'EDIT' ? '수정하기' : '작성하기'}</span>
       </div>
 
-      <div className="py-10 border-b border-b-neutral-500">
+      <div className="py-10 border-b border-b-neutral-400">
         <span className="text-lg">강의 별점 선택</span>
         <FieldSetStar input={input} name="rating" onChange={handleInputNumber} />
       </div>
 
-      <div className="pt-8 pb-8 border-b border-b-neutral-500 flex flex-wrap">
+      <div className="pt-8 pb-8 border-b border-b-neutral-400 flex flex-wrap">
         <span className="text-lg w-full">항목별 평가</span>
         <div className="grid grid-cols-1 sm:grid-cols-2">
           <FieldSet input={input} label="학습량" name="r1_amount_of_studying" onChange={handleInputNumber} />
@@ -201,7 +201,7 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
         </div>
       </div>
 
-      <div className="pt-8 pb-8 border-b border-b-neutral-500">
+      <div className="pt-8 pb-8 border-b border-b-neutral-400">
         <div className="flex justify-start items-center mb-5">
           <span className="text-lg mr-10">태그 선택</span>
           <span className="text-sm text-gray-400 align-middle">최대 3개의 태그를 선택할 수 있습니다.</span>
