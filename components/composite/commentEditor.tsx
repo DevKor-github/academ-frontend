@@ -2,7 +2,7 @@ import Button from '@/components/basic/button';
 
 import { StarIcon } from '@/lib/icons';
 import { VStack } from '../basic/stack';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import Popover from '../basic/popover';
 import { useState } from 'react';
@@ -175,6 +175,10 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
       textarea.current.style.height = textarea.current.scrollHeight + 'px';
     }
   };
+
+  useEffect(() => {
+    handleResizeHeight();
+  }, []);
 
   return (
     <form className="flex flex-col p-6 md:p-8 h-full transition-all" method="post" onSubmit={handleSubmit}>
