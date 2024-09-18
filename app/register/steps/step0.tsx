@@ -4,11 +4,14 @@ import { useState, ChangeEvent } from 'react';
 import { VStack, HStack } from '@/components/basic/stack';
 import Button from '@/components/basic/button';
 import Checkbox from '@/components/basic/checkbok';
-import PersonalInfoAgreement from '@/markdown/agreement/personalInfoAgreement.mdx';
-import TermsAgreement from '@/markdown/agreement/termsagreement.mdx';
+
+import TermsOfUse from '@/markdown/notices/0-terms-of-use.mdx'
+import PrivacyPolicy from '@/markdown/notices/1-privacy-policy.mdx'
 
 function MarkdownWrapper({ children }: React.PropsWithChildren<unknown>) {
-  return <div className="
+  return (
+    <div
+      className="
     *:mb-4
     *:list-inside
 
@@ -22,8 +25,10 @@ function MarkdownWrapper({ children }: React.PropsWithChildren<unknown>) {
     [&_h1]:font-bold [&_h1]:text-3xl
     [&_h2]:font-semibold [&_h2]:text-xl
     "
-  
-  >{children}</div>;
+    >
+      {children}
+    </div>
+  );
 }
 
 export default function Step0({ nextStep }: { nextStep: () => void }) {
@@ -92,7 +97,7 @@ export default function Step0({ nextStep }: { nextStep: () => void }) {
             }}
           >
             <MarkdownWrapper>
-              <TermsAgreement />
+              <TermsOfUse />
             </MarkdownWrapper>
           </div>
           <VStack style={{ justifyContent: 'space-between', paddingLeft: '5px' }}>
@@ -114,7 +119,7 @@ export default function Step0({ nextStep }: { nextStep: () => void }) {
             }}
           >
             <MarkdownWrapper>
-              <PersonalInfoAgreement />
+              <PrivacyPolicy />
             </MarkdownWrapper>
           </div>
         </HStack>
