@@ -25,7 +25,7 @@ export default function Step4() {
       </span>
       <Button
         kind="filled"
-        className="w-full mt-20 text-2xl"
+        className="w-full mt-6 text-2xl"
         variant="contained"
         color="primary"
         onClick={() => route.push('/login')}

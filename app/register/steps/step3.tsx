@@ -212,7 +212,7 @@ export default function Step3({
         <span className="text-xl" style={{ marginTop: '10px' }}>
           닉네임
         </span>
-        <VStack gap="10px" className="w-100% justify-between">
+        <VStack gap="20px" className="w-100% justify-between">
           <div className="grow">
             <Input
               required
@@ -222,10 +222,11 @@ export default function Step3({
               placeholder="닉네임 (1-10자)"
               onChange={handleInput}
               maxLength={10}
+              className="w-full"
             />
           </div>
           <Button kind="filled" type="button" className="px-4 grow-0" onClick={handleDuplicateName}>
-            닉네임 중복 확인
+            중복 확인
           </Button>
         </VStack>
         <ErrorLabel label={nameCheck.error ? '닉네임이 중복되었습니다. 다른 닉네임을 입력해주세요.' : ''} />
