@@ -1,32 +1,14 @@
-import apiNoticeFilenames from '@/lib/api/calls/notice';
 import { HStack } from '@/components/basic/stack';
 import Link from 'next/link';
 import { ELEM_PER_PAGE } from '@/lib/directive';
-import path from 'path';
-import { MARKDOWN_EXTENSION, NOTICES_DIR } from '@/lib/directive.server';
-import fs from 'fs/promises';
-import { compileMDX } from 'next-mdx-remote/rsc';
+import apiGetNotices from '@/lib/api/calls/notice';
 
-async function NoticeSingle({ filename }: { filename: string }) {
-  const filepath = path.resolve(NOTICES_DIR, filename + MARKDOWN_EXTENSION);
-  const source = await fs.readFile(filepath);
-
-  const { frontmatter } = await compileMDX<NoticeMetadata>({
-    source: source,
-    options: {
-      parseFrontmatter: true,
-      mdxOptions: {
-        remarkPlugins: [],
-        rehypePlugins: [],
-      },
-    },
-  });
-
+async function NoticeSingle({ notice }: { notice: Notice }) {
   return (
     <div className="animate-fade">
-      <Link className="flex justify-between self-centers" href={`/notice/detail/${filename}`}>
-        <span className="text-base font-medium">{frontmatter.title}</span>
-        <span className="text-base font-normal text-gray-400">{frontmatter.created_at}</span>
+      <Link className="flex justify-between self-centers" href={`/notice/${notice.filename}`}>
+        <span className="text-base font-medium">{notice.title}</span>
+        <span className="text-base font-normal text-gray-400">{notice.created_at.toLocaleDateString()}</span>
       </Link>
       <div
         className="w-full my-4 border
@@ -38,8 +20,8 @@ async function NoticeSingle({ filename }: { filename: string }) {
 }
 
 export async function generateStaticParams() {
-  const fns = await apiNoticeFilenames();
-  const countNotice = fns.length;
+  const ns = await apiGetNotices();
+  const countNotice = ns.length;
   const countPages = Math.ceil(countNotice / ELEM_PER_PAGE);
 
   return new Array(countPages).fill(undefined).map((_, postId) => ({
@@ -91,19 +73,19 @@ export default async function NoticeView({ params }: { params: { index: string }
     return Promise.reject('index not number');
   }
 
-  const fns = await apiNoticeFilenames();
-  const countNotice = fns.length;
+  const ns = await apiGetNotices();
+  const countNotice = ns.length;
   const countPages = Math.ceil(countNotice / ELEM_PER_PAGE);
 
-  const sliced = fns.slice((index - 1) * ELEM_PER_PAGE, index * ELEM_PER_PAGE);
+  const sliced = ns.slice((index - 1) * ELEM_PER_PAGE, index * ELEM_PER_PAGE);
 
   return (
     <HStack gap="20px" style={{ margin: '40px' }}>
       <div className="my-10 text-4xl font-medium">공지사항</div>
       <div className="w-full border light:border-base-27 dark:border-base-5" />
       <HStack>
-        {sliced.flatMap((fn) => (
-          <NoticeSingle key={fn} filename={fn} />
+        {sliced.flatMap((n) => (
+          <NoticeSingle key={n.filename} notice={n} />
         ))}
       </HStack>
       <NoticeListNavigate from={Number(params.index)} total={Number(countPages)} />

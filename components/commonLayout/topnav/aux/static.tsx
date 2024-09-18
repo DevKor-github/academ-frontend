@@ -24,7 +24,7 @@ function NavButton({
   wip?: true;
   onClick: () => void;
 }) {
-  const accent: boolean = currentPath === desiredPath || currentPath.startsWith(desiredPath + '/');
+  const accent: boolean = currentPath.startsWith(desiredPath); //currentPath === desiredPath || currentPath.startsWith(desiredPath + '/');
   return (
     <Link
       href={desiredPath}
