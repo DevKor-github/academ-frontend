@@ -9,10 +9,7 @@ const SearchTopView = ({ query }: { query: string }) => {
   return query ? (
     <VStack
       gap="20px"
-      className="border-b light:border-b-base-27 dark:border-b-base-8 flex-wrap justify-between items-center"
-      style={{
-        padding: '110px 40px 110px 40px',
-      }}
+      className="border-b light:border-b-base-27 dark:border-b-base-8 flex-wrap justify-between items-center md:px-24 px-10 py-28"
     >
       <span className="text-2xl" style={{ wordBreak: 'break-word' }}>
         <span className="text-4xl">&quot;{query}&quot;</span> 강의 검색 결과
