@@ -300,7 +300,6 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
                   <li className="text-xs">어떤 배경지식이 있으면 좋을까요?</li>
                   <li className="text-xs">수업이 연구하는데 도움이 되었나요?</li>
                   <li className="text-xs">시험은 어떻게 준비하면 좋을까요?</li>
-                  <li className="text-xs">과제의 주기는 어떤까요?</li>
                 </ul>
               </div>
             </Popover>
