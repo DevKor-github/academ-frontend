@@ -64,6 +64,16 @@ export const build: Builder = <Req, Res>(
   };
 };
 
+export function failWith(message: string, httpCode: number = -1): ApiResponse<unknown> {
+  return {
+    status: 'ERROR',
+    statusCode: httpCode,
+    data: null,
+    message,
+    version: 'GENERATED FROM FRONTEND',
+  };
+}
+
 export function useApi<Req, Res>(apiCall: ApiCall<Req, Res>, req: Req) {
   const [loading, setLoading] = useState<boolean>(true);
   const [response, setResponse] = useState<ApiResponse<Res> | null>(null);

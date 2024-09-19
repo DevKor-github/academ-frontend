@@ -1,9 +1,10 @@
 import { build } from '@/lib/api/builder';
 import withTokenInstance from '../instances/withTokenOnce';
+import withRefreshResolved from '../instances/withRefreshResolved';
 
-export const apiSearch = build<SearchRequest, Course[]>(withTokenInstance, 'GET', '/api/course/search');
+export const apiSearch = build<SearchRequest, Course[]>(withRefreshResolved, 'GET', '/api/course/search');
 export const apiBookmark = build<CourseId, string>(withTokenInstance, 'GET', '/api/course/bookmark');
-export const apiCourseDetail = build<CourseDetailRequest, Course>(withTokenInstance, 'GET', '/api/course/detail');
+export const apiCourseDetail = build<CourseDetailRequest, Course>(withRefreshResolved, 'GET', '/api/course/detail');
 
 /**
  * Comments

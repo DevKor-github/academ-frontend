@@ -6,11 +6,11 @@ import apiGetNotices from '@/lib/api/calls/notice';
 export default async function PrivacyPolicy() {
   const ns = await apiGetNotices();
 
-  const tou = ns.find((n) => n.tag.includes("latest") && n.tag.includes("privacy_policy"))
+  const tou = ns.find((n) => n.tag.includes('latest') && n.tag.includes('privacy_policy'));
 
   if (tou === undefined) {
-    return Promise.reject(new Error("no privacy policy"));
+    return Promise.reject(new Error('no privacy policy'));
   }
 
   return tou.content;
-};
+}

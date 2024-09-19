@@ -60,36 +60,38 @@ export function usePagination<Req extends { page: number }, Res>(
   function fetchThis(req: Req) {
     setLoading(true);
     setPage(req.page);
-    apiCall(req).then((a) => {
-      if (a.statusCode === 404) {
-        setEoc(true);
-        setData(data || []);
-        setFailwith(a);
-      } else if (a.status === 'SUCCESS') {
-        if (data === null) {
-          setData(a.data);
-        } else {
-          setData(data.concat(a.data));
-        }
-
-        if (a.data.length < ELEM_PER_PAGE) {
+    apiCall(req)
+      .then((a) => {
+        if (a.statusCode === 404) {
           setEoc(true);
-        }
-      } else {
-        setData(data || []);
-        setFailwith(a);
-      }
+          setData(data || []);
+          setFailwith(a);
+        } else if (a.status === 'SUCCESS') {
+          if (data === null) {
+            setData(a.data);
+          } else {
+            setData(data.concat(a.data));
+          }
 
-      if (totalLoadingState === 'bot') {
-        if (a.status === 'SUCCESS') {
-          setTotalLoadingState('done');
+          if (a.data.length < ELEM_PER_PAGE) {
+            setEoc(true);
+          }
         } else {
-          setTotalLoadingState('never');
+          setData(data || []);
+          setFailwith(a);
         }
-      }
 
-      setLoading(false);
-    });
+        if (totalLoadingState === 'bot') {
+          if (a.status === 'SUCCESS') {
+            setTotalLoadingState('done');
+          } else {
+            setTotalLoadingState('never');
+          }
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   return [{ totalLoadingState, loading, data, eoc, page, failwith } as Paged<Res>, fetchThis];

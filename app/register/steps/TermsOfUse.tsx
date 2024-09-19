@@ -7,11 +7,11 @@ import apiGetNotices from '@/lib/api/calls/notice';
 export default async function TermsOfUse() {
   const ns = await apiGetNotices();
 
-  const tou = ns.find((n) => n.tag.includes("latest") && n.tag.includes("terms_of_use"))
+  const tou = ns.find((n) => n.tag.includes('latest') && n.tag.includes('terms_of_use'));
 
   if (tou === undefined) {
-    return Promise.reject(new Error("no terms of use"));
+    return Promise.reject(new Error('no terms of use'));
   }
 
   return tou.content;
-};
+}
