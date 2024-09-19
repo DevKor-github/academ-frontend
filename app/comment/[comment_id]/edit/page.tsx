@@ -16,14 +16,12 @@ import Link from 'next/link';
 
 function Submitted({ back }: { back: string }) {
   return (
-    <div className="w-full h-full p-10">
-      <div className="flex flex-col gap-10 w-full items-center">
-        <FinishIcon />
-        <div className="text-4xl font-bold text-center">강의평이 수정되었습니다.</div>
-        <Link href={back} className="mt-20 text-2xl">
-          <Button className="w-full">돌아가기</Button>
-        </Link>
-      </div>
+    <div className="flex flex-col gap-10 w-fit items-center">
+      <FinishIcon />
+      <div className="text-4xl font-bold text-center">강의평이 수정되었습니다.</div>
+      <Link href={back} className="w-full mt-20 text-2xl">
+        <Button className="w-full">돌아가기</Button>
+      </Link>
     </div>
   );
 }
@@ -47,7 +45,7 @@ function EditComment({ comment, courseName }: { comment: AcdCommentEditReq; cour
 
   if (submitted !== undefined) {
     return (
-      <div className="flex w-full h-full justify-center items-center">
+      <div className="flex w-10/12 h-full justify-center items-center self-center">
         <Submitted back={`/lecture/${submitted}`} />
       </div>
     );

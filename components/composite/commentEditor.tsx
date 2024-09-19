@@ -2,7 +2,7 @@ import Button from '@/components/basic/button';
 
 import { StarIcon } from '@/lib/icons';
 import { VStack } from '../basic/stack';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import Popover from '../basic/popover';
 import { useState } from 'react';
@@ -135,7 +135,25 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
     });
   }
 
-  const [tagNum, setTagNum] = useState<number>(0);
+  function countLables(input: Req): number {
+    const booleanFields = [
+      input.teach_t1_theory,
+      input.teach_t2_practice,
+      input.teach_t3_seminar,
+      input.teach_t4_discussion,
+      input.teach_t5_presentation,
+      input.learn_t1_theory,
+      input.learn_t2_thesis,
+      input.learn_t3_exam,
+      input.learn_t4_industry,
+    ];
+
+    // booleanFields 배열에서 true인 값의 개수를 카운트
+    const trueCount = booleanFields.filter((v) => v === true).length;
+    return trueCount;
+  }
+
+  const [tagNum, setTagNum] = useState<number>(countLables(input));
 
   function handleInputBoolean(event: React.ChangeEvent<HTMLInputElement>) {
     const { checked } = event.target;
@@ -158,18 +176,22 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
     }
   };
 
+  useEffect(() => {
+    handleResizeHeight();
+  }, []);
+
   return (
-    <form className="flex flex-col p-2 md:p-8 h-full transition-all" method="post" onSubmit={handleSubmit}>
+    <form className="flex flex-col p-6 md:p-8 h-full transition-all" method="post" onSubmit={handleSubmit}>
       <div className="my-10 text-2xl">
         `{courseName}` <span className="text-base text-gray-400">{mode === 'EDIT' ? '수정하기' : '작성하기'}</span>
       </div>
 
-      <div className="py-10 border-b border-b-neutral-500">
+      <div className="py-10 border-b border-b-neutral-400">
         <span className="text-lg">강의 별점 선택</span>
         <FieldSetStar input={input} name="rating" onChange={handleInputNumber} />
       </div>
 
-      <div className="pt-8 pb-8 border-b border-b-neutral-500 flex flex-wrap">
+      <div className="pt-8 pb-8 border-b border-b-neutral-400 flex flex-wrap">
         <span className="text-lg w-full">항목별 평가</span>
         <div className="grid grid-cols-1 sm:grid-cols-2">
           <FieldSet input={input} label="학습량" name="r1_amount_of_studying" onChange={handleInputNumber} />
@@ -179,7 +201,7 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
         </div>
       </div>
 
-      <div className="pt-8 pb-8 border-b border-b-neutral-500">
+      <div className="pt-8 pb-8 border-b border-b-neutral-400">
         <div className="flex justify-start items-center mb-5">
           <span className="text-lg mr-10">태그 선택</span>
           <span className="text-sm text-gray-400 align-middle">최대 3개의 태그를 선택할 수 있습니다.</span>
@@ -196,7 +218,7 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
     "learn_t4_industry": false,*/}
 
         <span className="inline-block my-5">수업 진행 방식 선택</span>
-        <VStack gap="24px">
+        <VStack gap="24px" className="flex-wrap gap-y-2">
           <InputToggleTag
             id="teach_t1_theory"
             onChange={handleInputBoolean}
@@ -229,7 +251,7 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
           />
         </VStack>
         <span className="inline-block mt-10 mb-5">학습 내용 선택</span>
-        <VStack gap="24px">
+        <VStack gap="24px" className="flex-wrap gap-y-2">
           <InputToggleTag
             id="learn_t1_theory"
             onChange={handleInputBoolean}
@@ -261,7 +283,7 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
         <span className="text-lg inline-block mb-10">
           강의평 작성{' '}
           <button
-            className="bg-none border border-primary-500 text-primary-500 aspect-square pl-2 pr-2 text-sm rounded-full"
+            className="bg-none border border-primary-500 text-primary-500 aspect-square pl-2 pr-2 ml-2 text-sm rounded-full"
             type="button"
             onClick={() => setOpen((b) => !b)}
           >

@@ -48,7 +48,7 @@ export default function ReportCommentForm({
   setInput: SetState<AcdCommentReportReq>;
 }) {
   return (
-    <main className="pt-8 pb-8 h-full transition-all pl-16 pr-16">
+    <div className="pt-8 pb-8 h-full transition-all pl-16 pr-16">
       <form
         className="flex flex-col gap-8"
         method="post"
@@ -79,6 +79,6 @@ export default function ReportCommentForm({
           </Button>
         </div>
       </form>
-    </main>
+    </div>
   );
 }

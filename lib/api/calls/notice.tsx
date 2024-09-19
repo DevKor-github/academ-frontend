@@ -52,7 +52,14 @@ const fns: Promise<Notice[]> = fs
             return Promise.reject(new Error('not a valid date'));
           }
 
-          return { filename: fn, content, created_at, title: frontmatter.title };
+          return {
+            filename: fn,
+            content,
+            created_at,
+            title: frontmatter.title,
+            writer: frontmatter.writer || 'unknown writer',
+            tag: (frontmatter.tag === undefined ? [] : frontmatter.tag)
+          };
         }),
     ),
   )
