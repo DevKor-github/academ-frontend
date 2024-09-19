@@ -1,7 +1,31 @@
 import { AxiosError, AxiosInstance } from 'axios';
 import { NoPermissionError, FailedResponseError, NoResponseError, NoRequestError } from '../errors';
 import { KEY_FOR_USER_AUTH } from '@/lib/directive';
+import { failWith } from '../builder';
 
+/**
+ *
+ * @param instance
+ */
+export function interceptAddToken(instance: AxiosInstance) {
+  instance.interceptors.request.use(
+    (config) => {
+      const token = JSON.parse(localStorage.getItem(KEY_FOR_USER_AUTH) || 'null')?.accessToken;
+      if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    },
+  );
+}
+
+/**
+ *
+ * @param instance
+ */
 export function interceptAcdApiError(instance: AxiosInstance) {
   instance.interceptors.response.use(
     (res) => {
@@ -22,17 +46,21 @@ export function interceptAcdApiError(instance: AxiosInstance) {
   );
 }
 
-export function interceptAddToken(instance: AxiosInstance) {
-  instance.interceptors.request.use(
-    (config) => {
-      const token = JSON.parse(localStorage.getItem(KEY_FOR_USER_AUTH) || 'null')?.accessToken;
-      if (token) {
-        config.headers['Authorization'] = `Bearer ${token}`;
-      }
-      return config;
+/**
+ *
+ * @param instance
+ */
+export function interceptWithResolve(instance: AxiosInstance) {
+  instance.interceptors.response.use(
+    (res) => {
+      return Promise.resolve(res);
     },
-    (error) => {
-      return Promise.reject(error);
+    (error: AxiosError) => {
+      if (error.response) {
+        return failWith(error.message, Number(error.code));
+      } else {
+        return failWith('Unknown Error');
+      }
     },
   );
 }
