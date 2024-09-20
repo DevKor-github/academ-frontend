@@ -16,7 +16,7 @@ import { DownIcon } from '@/lib/icons';
 function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => void }) {
   return (
     <Popover
-      onPageClick={() => setOpenPopover(false)}
+      hide={() => setOpenPopover(false)}
       className={
         'absolute rounded-xl overflow-hidden border bg-l bg-white dark:bg-base-1 right-2 md:right-8 top-14 shadow-lg '
       }

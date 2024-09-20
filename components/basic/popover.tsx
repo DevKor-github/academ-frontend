@@ -1,4 +1,6 @@
-import React, { forwardRef } from 'react';
+'use client';
+
+import React, { forwardRef, useRef, useEffect } from 'react';
 
 interface WrapperProps {
   children: React.ReactNode;
@@ -18,48 +20,41 @@ Wrapper.displayName = 'Wrapper';
 
 interface PopoverProps {
   className?: string;
-  onPageClick: (...args: never[]) => void;
+  hide: () => void;
   children: React.ReactNode;
   style?: React.CSSProperties;
   keep?: boolean;
 }
 
-const Popover = React.memo<PopoverProps>(
-  ({
-    // onPageClick,
-    children,
-    style,
-    className,
-  }) => {
-    // const settingsWindowRef = useRef<HTMLDivElement>(null);
+const Popover = React.memo<PopoverProps>(({ hide, children, style, className }) => {
+  const settingsWindowRef = useRef<HTMLDivElement>(null);
 
-    // useEffect(() => {
-    //   const pageClickEvent = (e: MouseEvent) => {
-    //     if (!props.keep || !settingsWindowRef.current?.contains(e.target as Node)) {
-    //       onPageClick();
-    //     }
-    //   };
+  useEffect(() => {
+    const pageClickEvent = (e: MouseEvent) => {
+      if (/* !props.keep || */ !settingsWindowRef.current?.contains(e.target as Node)) {
+        hide();
+      }
+    };
 
-    //   window.addEventListener('click', pageClickEvent, true);
+    window.addEventListener('click', pageClickEvent, true);
 
-    //   return () => {
-    //     window.removeEventListener('click', pageClickEvent, true);
-    //   };
-    // });
+    return () => {
+      window.removeEventListener('click', pageClickEvent, true);
+    };
+  });
 
-    const combined: React.CSSProperties = { zIndex: 100, ...style };
+  const combined: React.CSSProperties = { zIndex: 100, ...style };
 
-    return (
-      <Wrapper
-        className={className}
-        style={combined}
-        // ref={settingsWindowRef}
-      >
-        {children}
-      </Wrapper>
-    );
-  },
-);
+  return (
+    <Wrapper
+      className={className}
+      style={combined}
+      // ref={settingsWindowRef}
+    >
+      {children}
+    </Wrapper>
+  );
+});
 
 Popover.displayName = 'Popover';
 
