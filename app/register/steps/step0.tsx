@@ -5,8 +5,8 @@ import { VStack, HStack } from '@/components/basic/stack';
 import Button from '@/components/basic/button';
 import Checkbox from '@/components/basic/checkbok';
 
-import TermsOfUse from './TermsOfUse';
-import PrivacyPolicy from './PrivacyPolicy';
+import PrivacyPolicy from '@/markdown/register/privacy-policy.mdx';
+import TermsOfUse from '@/markdown/register/terms-of-use.mdx';
 
 function MarkdownWrapper({ children }: React.PropsWithChildren<unknown>) {
   return (
@@ -97,7 +97,6 @@ export default function Step0({ nextStep }: { nextStep: () => void }) {
             }}
           >
             <MarkdownWrapper>
-               {/* @ts-expect-error Server Component */}
               <TermsOfUse />
             </MarkdownWrapper>
           </div>
@@ -120,7 +119,6 @@ export default function Step0({ nextStep }: { nextStep: () => void }) {
             }}
           >
             <MarkdownWrapper>
-               {/* @ts-expect-error Server Component */}
               <PrivacyPolicy />
             </MarkdownWrapper>
           </div>

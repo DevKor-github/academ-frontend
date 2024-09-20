@@ -58,7 +58,7 @@ const fns: Promise<Notice[]> = fs
             created_at,
             title: frontmatter.title,
             writer: frontmatter.writer || 'unknown writer',
-            tag: (frontmatter.tag === undefined ? [] : frontmatter.tag)
+            tag: frontmatter.tag === undefined ? [] : frontmatter.tag,
           };
         }),
     ),
