@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import { HStack } from '@/components/basic/stack';
 import apiGetNotices from '@/lib/api/calls/notice';
 
@@ -11,7 +12,7 @@ export default async function NoticeView({ params: { path } }: { params: { path:
   const notice = (await apiGetNotices()).find((n) => n.filename === path);
 
   if (notice === undefined) {
-    throw new Error('notice file not found');
+    notFound();
   }
 
   return (
