@@ -32,12 +32,12 @@ export default function TopNav() {
   return (
     <header>
       <div
-        className={
-          twMerge('fixed z-50 top-0 w-full light:backdrop-blur-lg light:backdrop-contrast-10'
-            ,(overlap
+        className={twMerge(
+          'fixed z-50 top-0 w-full light:backdrop-blur-lg light:backdrop-contrast-10',
+          overlap
             ? ' text-white border-base-32 '
-            : ' border-b light:border-b-base-30 dark:border-b-base-4 *:light:border-base-4 *:dark:border-base-32 text-black dark:text-white  '))
-        }
+            : ' border-b light:border-b-base-30 dark:border-b-base-4 *:light:border-base-4 *:dark:border-base-32 text-black dark:text-white  ',
+        )}
       >
         <div
           className={
