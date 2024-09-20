@@ -38,6 +38,9 @@ const config: Config = {
   theme: {
     extend: {
       height: {
+        '100': '25rem',
+        '104': '26rem',
+        '108': '27rem',
         '128': '32rem',
       },
       backgroundImage: {
