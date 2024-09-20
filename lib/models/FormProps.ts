@@ -7,6 +7,7 @@ interface FormProps<T> {
   handleSubmit?: (e: React.FormEvent) => void;
   submitting: boolean;
   department?: DepartmentInputProps;
+  error?: boolean;
 }
 
 /**
