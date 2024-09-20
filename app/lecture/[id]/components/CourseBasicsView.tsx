@@ -33,13 +33,16 @@ function CourseBasicsViewUnsafe(props: {
       }}
     >
       <div className="md:text-5xl text-3xl self-start">{props.lectureIcon}</div>
-      <div className="grid basis-3/4 gap-4">
+      <div className="grid basis-8/12 gap-4">
         <VStack
           style={{ alignItems: 'center', flexWrap: 'wrap' }}
-          className={`gap-x-4 gap-y-2 md:gap-10 w-fit ${props.fade ? 'animate-fade' : ''}`}
+          className={`gap-x-4 gap-y-2 md:gap-x-10 w-fit ${props.fade ? 'animate-fade' : ''}`}
         >
           <span className="md:text-3xl text-xl font-semibold break-all break-words">{props.name}</span>
-          <Tag className="ml-auto bg-primary-100 text-primary-900 opacity-50">강의평 {props.count_comments}개</Tag>
+          <div className="flex flex-row gap-x-10 ml-auto">
+            <Tag className="bg-primary-100 text-primary-900 opacity-50">강의평 {props.count_comments}개</Tag>
+            <div className="hidden md:block">{props.bookmarkToggle}</div>
+          </div>
         </VStack>
         <VStack
           style={{ flexWrap: 'wrap' }}
@@ -57,7 +60,7 @@ function CourseBasicsViewUnsafe(props: {
           </div>
         </VStack>
       </div>
-      <div className="self-start mt-1">{props.bookmarkToggle}</div>
+      <div className="self-start mt-1 md:hidden">{props.bookmarkToggle}</div>
       <div className="self-end hidden md:block ml-auto">{props.write}</div>
     </VStack>
   );
