@@ -290,7 +290,7 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
             ?
           </button>
           {open && (
-            <Popover onPageClick={() => setOpen(false)}>
+            <Popover hide={() => setOpen(false)}>
               <div className="border border-neutral-200 rounded-md p-4 mt-4 text-neutral-600">
                 <div className="text-sm pb-2">질문 리스트</div>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 auto-cols-max list-disc list-inside gap-x-4">
