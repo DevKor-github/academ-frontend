@@ -121,6 +121,7 @@ export default function Step3({
       ...input,
       [event.target.id]: value,
     });
+    setDropDownItemIndex(-1);
     setIsDropDown(true);
   };
 

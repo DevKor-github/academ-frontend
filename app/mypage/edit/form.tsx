@@ -2,12 +2,14 @@ import Button from '@/components/basic/button';
 import Link from 'next/link';
 import Input from '@/components/basic/input';
 import Spinner from '@/components/basic/spinner';
+import DepartmentInput from '@/components/composite/departmentInput';
 
 export default function MyPageEditBasicForm({
   handleSubmit,
   input,
   handleInput,
   submitting,
+  department,
 }: FormProps<UpdateProfileReq>) {
   return (
     <form
@@ -49,14 +51,7 @@ export default function MyPageEditBasicForm({
         className="w-full"
         readOnly={handleInput === undefined}
       />
-      <Input
-        id="department"
-        placeholder="소속"
-        value={input.department}
-        onChange={handleInput}
-        className="w-full"
-        readOnly={handleInput === undefined}
-      />
+      {department ? <DepartmentInput input={input} department={department} /> : <></>}
 
       <Button className="w-full" kind="filled" type="submit">
         {submitting ? (
