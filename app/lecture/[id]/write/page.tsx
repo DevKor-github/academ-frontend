@@ -41,7 +41,7 @@ function Submitted({ back }: { back: string }) {
   return (
     <div className="flex flex-col gap-10 w-fit items-center">
       <FinishIcon />
-      <div className="text-4xl font-bold text-center">강의평이 등록되었습니다.</div>
+      <div className="text-4xl font-medium text-center">강의평이 등록되었습니다.</div>
       <Link href={back} className="w-full mt-20 text-2xl">
         <Button className="w-full">돌아가기</Button>
       </Link>
