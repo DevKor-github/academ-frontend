@@ -40,6 +40,7 @@ const sortCriterias = [
 ] as const;
 
 export default function SearchPage() {
+  const route = useRouter();
   const params = useSearchParams();
   
   const qCand = params.get('q');
