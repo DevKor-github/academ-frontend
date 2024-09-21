@@ -1,6 +1,6 @@
 'use client';
 
-import { AcdApiError, NoPermissionError, NoRequestError, NoResponseError } from '@/lib/api/errors';
+import { AcdApiError, LoginRequiredError, NoPermissionError, NoRequestError, NoResponseError } from '@/lib/api/errors';
 
 import { useRouter } from 'next/navigation';
 import Button from '@/components/basic/button';
@@ -22,7 +22,14 @@ function Box({ children }: React.PropsWithChildren<unknown>) {
 function AcdApiErrorPage({ error, reset }: ErrorProps<AcdApiError>) {
   const route = useRouter();
 
-  if (error instanceof NoPermissionError) {
+  if (error instanceof LoginRequiredError) {
+    return (
+      <Box>
+        <h3>이 페이지를 보려면 로그인해야 합니다.</h3>
+        <Button onClick={() => route.push('/login')}>로그인</Button>
+      </Box>
+    );
+  } else if (error instanceof NoPermissionError) {
     return (
       <Box>
         <h3>권한이 부족합니다.</h3>

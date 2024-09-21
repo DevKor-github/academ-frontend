@@ -1,15 +1,16 @@
 'use client';
 
-import { apiStartNewComment } from '@/lib/api/calls/course';
+import { use, useState } from 'react';
+import Link from 'next/link';
 
-import ErrorTemplate from '@/lib/template';
-
-import { apiInsertComment } from '@/lib/api/calls/course';
-import { useState } from 'react';
+import { apiInsertComment, apiStartNewComment } from '@/lib/api/calls/course';
 
 import CommentEditor from '@/components/composite/commentEditor';
+import Button from '@/components/basic/button';
 
-import { use } from 'react';
+import ErrorTemplate from '@/lib/template';
+import { FinishIcon } from '@/lib/icons';
+import { URL_CUSTOMER_SURVEY } from '@/lib/directive';
 
 function NewCommentWithId(id: number) {
   return {
@@ -33,15 +34,14 @@ function NewCommentWithId(id: number) {
   };
 }
 
-import Button from '@/components/basic/button';
-import { FinishIcon } from '@/lib/icons';
-import Link from 'next/link';
-
 function Submitted({ back }: { back: string }) {
   return (
     <div className="flex flex-col gap-10 w-fit items-center">
       <FinishIcon />
-      <div className="text-4xl font-bold text-center">강의평이 등록되었습니다.</div>
+      <div className="text-4xl font-medium text-center">강의평이 등록되었습니다.</div>
+      <div className="text-4xl font-medium text-center">
+        <Link href={URL_CUSTOMER_SURVEY}>1분 설문조사</Link> 참여하고 커피☕️ 쿠폰 받아가세요!
+      </div>
       <Link href={back} className="w-full mt-20 text-2xl">
         <Button className="w-full">돌아가기</Button>
       </Link>

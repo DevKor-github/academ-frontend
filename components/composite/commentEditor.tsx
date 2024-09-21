@@ -290,7 +290,7 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
             ?
           </button>
           {open && (
-            <Popover onPageClick={() => setOpen(false)}>
+            <Popover hide={() => setOpen(false)}>
               <div className="border border-neutral-200 rounded-md p-4 mt-4 text-neutral-600">
                 <div className="text-sm pb-2">질문 리스트</div>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 auto-cols-max list-disc list-inside gap-x-4">
@@ -300,7 +300,6 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
                   <li className="text-xs">어떤 배경지식이 있으면 좋을까요?</li>
                   <li className="text-xs">수업이 연구하는데 도움이 되었나요?</li>
                   <li className="text-xs">시험은 어떻게 준비하면 좋을까요?</li>
-                  <li className="text-xs">과제의 주기는 어떤까요?</li>
                 </ul>
               </div>
             </Popover>

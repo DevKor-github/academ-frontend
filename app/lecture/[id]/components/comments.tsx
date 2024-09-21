@@ -31,8 +31,9 @@ export default function CommentsView({
 
           <VStack className="items-center justify-end gap-2">
             <Select
+              id="order"
               value={order}
-              handleValue={handleValue}
+              handleValue={() => alert('wtf')}
               items={
                 [
                   { value: 'NEWEST', label: '최신순' },
@@ -65,6 +66,7 @@ export default function CommentsView({
 
           <VStack className="items-center justify-end gap-2">
             <Select
+              id="order"
               value={order}
               handleValue={handleValue}
               items={

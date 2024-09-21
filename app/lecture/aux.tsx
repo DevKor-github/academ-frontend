@@ -57,11 +57,3 @@ export function LoaderItems() {
     </>
   );
 }
-
-export function SkeletonLoader() {
-  return (
-    <Grid>
-      <LoaderItems />
-    </Grid>
-  );
-}

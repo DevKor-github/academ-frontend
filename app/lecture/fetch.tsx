@@ -1,102 +1,77 @@
 'use client';
 
-import CoursePreview from '@/components/view/CoursePreview';
-
-import { apiSearch } from '@/lib/api/calls/course';
-import { useEffect, useState } from 'react';
+import { apiSearchCount } from '@/lib/api/calls/course';
+import { use, useState } from 'react';
 import Button from '@/components/basic/button';
-import Select from '@/components/basic/select';
 import { DownIcon } from '@/lib/icons';
-import Spinner from '@/components/basic/spinner';
-import { useRouter } from 'next/navigation';
-import { usePagination } from '@/lib/hooks/pagination';
 
-import { Box, Grid, LoaderItems, SkeletonLoader } from './aux';
+import { Grid, LoaderItems } from './aux';
+import dynamic from 'next/dynamic';
+import { ELEM_PER_PAGE } from '@/lib/directive';
+import Link from 'next/link';
 
-function SearchResultsViewWithOrder({ query: keyword, order }: { query: string; order: SearchOrdering }) {
-  const [pages, fetchThis] = usePagination(apiSearch);
+const SearchResults = dynamic(() => import('./results'), { ssr: false, loading: LoaderItems });
 
-  useEffect(() => {
-    fetchThis({ keyword, page: pages.page + 1, order: order });
-  }, []);
+function SearchResultsViewWithOrder({
+  query: keyword,
+  order,
+  pages,
+}: {
+  query: string;
+  order: SearchOrdering;
+  pages: number;
+}) {
+  const [lastPage, setLastPage] = useState<number>(1);
 
-  function fetchNext() {
-    fetchThis({ keyword, page: pages.page + 1, order: order });
-  }
-
-  const nextButton = pages.eoc ? (
-    <div>모두 불러왔습니다</div>
-  ) : (
-    <div className="w-full pt-6 flex flex-col justify-center items-center">
-      {pages.failwith !== null && <div>오류!!</div>}
-      <Button onClick={fetchNext}>
-        <DownIcon />
-      </Button>
-    </div>
-  );
+  const nextButton =
+    lastPage >= pages ? (
+      <div>모두 불러왔습니다</div>
+    ) : (
+      <div className="w-full pt-6 flex flex-col justify-center items-center">
+        <Button onClick={() => setLastPage((n) => n + 1)}>
+          <DownIcon />
+        </Button>
+      </div>
+    );
 
   if (keyword === '') {
     return <p>강의명, 교수명, 학수번호로 검색해보세요.</p>;
   }
 
-  if (pages.totalLoadingState === 'bot') {
-    return <SkeletonLoader />;
-  }
-
-  if (pages.totalLoadingState === 'never') {
-    return <p>{pages.failwith.message}</p>;
-  }
-
-  if (pages.data.length === 0) {
-    return <p>검색 결과가 없습니다.</p>;
-  }
   return (
     <>
       <Grid>
-        {pages.data.map((course) => (
-          <div key={course.course_id} className="animate-fade">
-            <CoursePreview key={course.course_id} course={course} />
-          </div>
-        ))}
-        {pages.loading && <LoaderItems />}
+        {new Array(lastPage)
+          .fill(null)
+          .map((_, i) => i + 1)
+          .flatMap((v) => (
+            <SearchResults keyword={keyword} order={order} page={v} />
+          ))}
       </Grid>
-      {pages.loading ? (
-        <div className="text-xl">
-          <Spinner />
-        </div>
-      ) : (
-        nextButton
-      )}
+      {nextButton}
     </>
   );
 }
 
 export default function SearchResultsView({ query, sort }: { query: string; sort: SearchOrdering }) {
-  const route = useRouter();
-  const [order, setOrder] = useState<SearchOrdering>(sort);
+  const lectureCount = use(apiSearchCount({ keyword: query }));
 
-  function handleValue(e: React.FormEvent<HTMLInputElement>) {
-    setOrder((e.target as HTMLInputElement).value as SearchOrdering);
+  if (lectureCount.status != 'SUCCESS') {
+    return lectureCount.statusCode === 401 ? (
+      <span>
+        <Link href="/login" className="text-primary-500 underline">
+          로그인
+        </Link>{' '}
+        후 이용해주세요.
+      </span>
+    ) : (
+      lectureCount.message
+    );
   }
 
-  useEffect(() => {
-    route.replace(`/lecture?q=${query}&s=${order}`);
-  }, [order]);
+  if (lectureCount.data <= 0) {
+    return '검색 결과가 없습니다.';
+  }
 
-  return (
-    <Box>
-      <Select
-        value={order}
-        handleValue={handleValue}
-        items={
-          [
-            { value: 'NEWEST', label: '최신순' },
-            { value: 'RATING_DESC', label: '별점 높은순' },
-            { value: 'RATING_ASC', label: '별점 낮은순' },
-          ] as const
-        }
-      />
-      <SearchResultsViewWithOrder key={order} query={query} order={order} />
-    </Box>
-  );
+  return <SearchResultsViewWithOrder query={query} order={sort} pages={Math.ceil(lectureCount.data / ELEM_PER_PAGE)} />;
 }

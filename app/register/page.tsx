@@ -11,7 +11,6 @@ import Step3 from './steps/step3';
 import Step4 from './steps/step4';
 
 export default function RegisterPage() {
-
   const [rate, setRate] = useState(0);
   const [input, setInput] = useState<SignupRequest>({
     email: '',

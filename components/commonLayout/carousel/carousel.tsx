@@ -40,15 +40,15 @@ export default function Carousel({ className, children }: CarouselProps) {
   );
 
   return (
-    <HStack className="relative top-0 h-96 md:h-128 overflow-hidden transition-all">
-      <div className={`overflow-hidden transition-all ralative h-96 md:h-128 w-full ${className}`}>
+    <HStack className="relative top-0 h-96 md:h-108 overflow-hidden transition-all">
+      <div className={`overflow-hidden transition-all ralative h-96 md:h-108 w-full ${className}`}>
         <div
           className="flex flew-row transition-all bg-red-600 absolute top-0 w-full"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {children.map((child, index) => (
             <div
-              className="relative bg-slate-500 transition-all justify-center items-center h-96 md:h-128 w-full"
+              className="relative bg-slate-500 transition-all justify-center items-center h-96 md:h-108 w-full"
               style={{ flex: '0 0 100%' }}
               key={index}
             >

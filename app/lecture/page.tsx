@@ -1,8 +1,11 @@
+'use client';
+
 import SearchForm from '@/components/composite/SearchForm';
 import { VStack } from '@/components/basic/stack';
 
+import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { Box } from './aux';
+import { Box, Grid, LoaderItems } from './aux';
 import Select from '@/components/basic/select';
 
 const SearchTopView = ({ query }: { query: string }) => {
@@ -35,11 +38,12 @@ const sortCriterias = [
   { value: 'RATING_ASC', label: '별점 낮은순' },
 ] as const;
 
-export default async function SearchPage({
+export default function SearchPage({
   searchParams,
 }: {
   searchParams?: { [key: string]: string | string[] | undefined };
 }) {
+  const route = useRouter();
   const { q: qCand, s: sCand } = searchParams || {};
 
   const q = (Array.isArray(qCand) ? qCand[0] : qCand) || '';
@@ -50,18 +54,44 @@ export default async function SearchPage({
 
   const SearchResultsView = dynamic(() => import('./fetch'), {
     ssr: false,
-    loading: () => (
-      <Box>
-        <Select value={sort} items={sortCriterias} />
-        {q ? <div /> : <span>강의명, 교수명, 학수번호로 검색해보세요.</span>}
-      </Box>
-    ),
+    loading: () =>
+      q ? (
+        <Grid>
+          <LoaderItems />
+        </Grid>
+      ) : (
+        <span>강의명, 교수명, 학수번호로 검색해보세요.</span>
+      ),
   });
+
+  // this is not an actual SetState
+  function setSort(newOrder: SearchOrdering) {
+    route.replace(`/lecture?q=${q}&s=${newOrder}`);
+  }
+
+  function handleValue(e: React.FormEvent<HTMLInputElement>) {
+    const newOrder = (e.target as HTMLInputElement).value as SearchOrdering;
+    setSort(newOrder);
+  }
 
   return (
     <div className="flex flex-col h-full">
       <SearchTopView key={q} query={q} />
-      <SearchResultsView query={q} sort={sort} />
+      <Box>
+        <Select
+          id="order"
+          value={sort}
+          handleValue={handleValue}
+          items={
+            [
+              { value: 'NEWEST', label: '최신순' },
+              { value: 'RATING_DESC', label: '별점 높은순' },
+              { value: 'RATING_ASC', label: '별점 낮은순' },
+            ] as const
+          }
+        />
+        <SearchResultsView key={q + sort} query={q} sort={sort} />
+      </Box>
     </div>
   );
 }

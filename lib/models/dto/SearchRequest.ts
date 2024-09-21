@@ -1,5 +1,4 @@
-interface SearchRequest {
-  keyword: string;
+interface ReqSearchCourse extends ReqSearch {
   order: SearchOrdering;
   page: number;
 }

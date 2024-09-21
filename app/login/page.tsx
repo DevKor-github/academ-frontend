@@ -38,7 +38,7 @@ export default function LoginPageClient() {
       return;
     }
 
-    await apiLogin({ email: input.email, password: input.password, 'remember-me': false }).then((s) => {
+    await apiLogin(input).then((s) => {
       if (s.status === 'SUCCESS') {
         setSessionId(s.data);
         localStorage.setItem(KEY_FOR_USER_AUTH, JSON.stringify(s.data));

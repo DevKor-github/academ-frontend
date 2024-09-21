@@ -20,7 +20,7 @@ function MarkdownWrapper({ children }: React.PropsWithChildren<unknown>) {
     [&_li]:pl-4
     [&_li]:list-inside
     [&_ol]:list-decimal
-    [&_ul]:list-item
+    [&_ul]:list-disc
 
     [&_h1]:font-bold [&_h1]:text-3xl
     [&_h2]:font-semibold [&_h2]:text-xl
