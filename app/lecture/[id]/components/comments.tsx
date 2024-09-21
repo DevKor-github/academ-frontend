@@ -33,7 +33,7 @@ export default function CommentsView({
             <Select
               id="order"
               value={order}
-              handleValue={() => alert('wtf')}
+              handleValue={handleValue}
               items={
                 [
                   { value: 'NEWEST', label: '최신순' },
