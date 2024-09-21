@@ -54,7 +54,7 @@ function NoticeListNavigate({ from, total }: { from: number; total: number }) {
       {lists.flatMap((v) => (
         <Link
           key={v}
-          href={`/notice/list/${v}`}
+          href={`/notices/${v}`}
           className={
             'light:bg-base-30 dark:bg-base-3 p-2 text-center rounded-md ' + (from === v ? 'text-primary-500' : '')
           }
