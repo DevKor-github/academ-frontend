@@ -17,6 +17,7 @@ const ErrorTemplate = dynamic(() => import('@/lib/template'), {
 });
 
 import LectureView from './CourseView';
+import { LoginRequiredError } from '@/lib/api/errors';
 
 // function LectureWithOrder({ order }: { order: AcdCommentOrdering }) {
 
@@ -46,9 +47,13 @@ export default function LectureFetch({ id }: { id: number }) {
 
   const course = use(apiCourseDetail({ course_id: id, order: 'NEWEST', page }));
 
-  return course.status === 'SUCCESS' ? (
-    <LectureView course={course.data} />
-  ) : (
-    <ErrorTemplate title={course.statusCode.toString()} subtitle="오류" />
-  );
+  if (course.status !== 'SUCCESS') {
+    if (course.statusCode === 401) {
+      throw new LoginRequiredError();
+    }
+
+    return <ErrorTemplate title={course.statusCode.toString()} subtitle="오류" />;
+  }
+
+  return <LectureView course={course.data} />;
 }
