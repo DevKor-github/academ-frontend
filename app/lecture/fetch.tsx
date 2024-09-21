@@ -62,7 +62,7 @@ export default function SearchResultsView({ query, sort }: { query: string; sort
         <Link href="/login" className="text-primary-500 underline">
           로그인
         </Link>
-        이 필요합니다.
+        {' '}후 이용해주세요.
       </span>
     ) : (
       lectureCount.message
