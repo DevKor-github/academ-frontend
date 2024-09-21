@@ -29,7 +29,7 @@ export default function CommentsView({
             <span className="text-2xl">강의평 목록</span>
           </VStack>
 
-          <VStack className="items-center justify-end gap-2">
+          <VStack className="items-center justify-end gap-2 hidden">
             <Select
               id="order"
               value={order}
