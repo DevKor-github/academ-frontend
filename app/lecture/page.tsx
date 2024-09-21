@@ -4,6 +4,7 @@ import SearchForm from '@/components/composite/SearchForm';
 import { VStack } from '@/components/basic/stack';
 
 import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { Box, Grid, LoaderItems } from './aux';
 import Select from '@/components/basic/select';
@@ -38,13 +39,12 @@ const sortCriterias = [
   { value: 'RATING_ASC', label: '별점 낮은순' },
 ] as const;
 
-export default function SearchPage({
-  searchParams,
-}: {
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) {
+export default function SearchPage() {
   const route = useRouter();
-  const { q: qCand, s: sCand } = searchParams || {};
+  const params = useSearchParams();
+  
+  const qCand = params.get('q');
+  const sCand = params.get('s');
 
   const q = (Array.isArray(qCand) ? qCand[0] : qCand) || '';
   const s = (Array.isArray(sCand) ? sCand[0] : sCand) || '';
@@ -90,7 +90,7 @@ export default function SearchPage({
             ] as const
           }
         />
-        <SearchResultsView key={q + sort} query={q} sort={sort} />
+        <SearchResultsView key={q} query={q} sort={sort} />
       </Box>
     </div>
   );
