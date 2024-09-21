@@ -2,7 +2,7 @@ import SearchForm from '@/components/composite/SearchForm';
 import { VStack } from '@/components/basic/stack';
 
 import dynamic from 'next/dynamic';
-import { Box } from './aux';
+import { Box, Grid, LoaderItems } from './aux';
 import Select from '@/components/basic/select';
 
 const SearchTopView = ({ query }: { query: string }) => {
@@ -53,7 +53,7 @@ export default async function SearchPage({
     loading: () => (
       <Box>
         <Select value={sort} items={sortCriterias} />
-        {q ? <div /> : <span>강의명, 교수명, 학수번호로 검색해보세요.</span>}
+        {q ? <Grid><LoaderItems /></Grid> : <span>강의명, 교수명, 학수번호로 검색해보세요.</span>}
       </Box>
     ),
   });
