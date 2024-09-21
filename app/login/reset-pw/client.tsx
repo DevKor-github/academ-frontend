@@ -39,7 +39,7 @@ export default function FindPWPageClient() {
     setWip(true);
     apiResetPassword({ email: input.email, code: input.code }).then((s) => {
       if (s.status === 'SUCCESS') {
-        alert(s.message);
+        alert('비밀번호를 성공적으로 초기화했습니다. 이메일로 발급된 임시 비밀번호로 로그인해주세요.');
         route.push('/login');
       } else {
         alert(s.message);
