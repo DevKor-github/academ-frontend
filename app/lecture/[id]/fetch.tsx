@@ -5,8 +5,6 @@ import Spinner from '@/components/basic/spinner';
 import { apiCourseDetail } from '@/lib/api/calls/course';
 import dynamic from 'next/dynamic';
 
-// import { usePagination } from '@/lib/hooks/pagination';
-
 const ErrorTemplate = dynamic(() => import('@/lib/template'), {
   ssr: false,
   loading: () => (
@@ -49,7 +47,7 @@ export default function LectureFetch({ id }: { id: number }) {
 
   if (course.status !== 'SUCCESS') {
     if (course.statusCode === 401) {
-      throw new LoginRequiredError();
+      return <ErrorTemplate title={course.statusCode.toString()} subtitle="로그인이 필요합니다." />;
     }
 
     return <ErrorTemplate title={course.statusCode.toString()} subtitle="오류" />;
