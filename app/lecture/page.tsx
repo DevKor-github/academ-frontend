@@ -79,6 +79,7 @@ export default function SearchPage({
       <SearchTopView key={q} query={q} />
       <Box>
         <Select
+          id="order"
           value={sort}
           handleValue={handleValue}
           items={

@@ -13,6 +13,7 @@ import { CloseIcon } from '@/lib/icons';
 import { use } from 'react';
 import BookmarksView from './dynamic/BookmarksView';
 import MyCommentsView from './dynamic/MyCommentsView';
+import { LoginRequiredError } from '@/lib/api/errors';
 
 export default function ProfileOverviewWithMemberShip() {
   const router = useRouter();
@@ -24,7 +25,7 @@ export default function ProfileOverviewWithMemberShip() {
   const myprofile = use(apiMyPageBasics({}));
 
   if (myprofile.status !== 'SUCCESS') {
-    return <div>{JSON.stringify(myprofile)}</div>;
+    throw new LoginRequiredError('Login Required to see this page');
   }
 
   const RemoveAlert = (

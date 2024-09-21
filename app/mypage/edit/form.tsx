@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Input from '@/components/basic/input';
 import Spinner from '@/components/basic/spinner';
 import DepartmentInput from '@/components/composite/departmentInput';
+import Select from '@/components/basic/select';
 
 export default function MyPageEditBasicForm({
   handleSubmit,
@@ -53,8 +54,20 @@ export default function MyPageEditBasicForm({
         className="w-full"
         readOnly={handleInput === undefined}
       />
+
       <span className="text-xl mx-2 mt-4">학과</span>
       {department ? <DepartmentInput input={input} department={department} /> : <></>}
+
+      <span className="text-xl mx-2 mt-4">학위 과정</span>
+      <Select
+        id="degree"
+        value={input.degree}
+        handleValue={handleInput}
+        items={[
+          { value: 'MASTER', label: '석사' },
+          { value: 'DOCTOR', label: '박사' },
+        ]}
+      />
 
       <Button className="w-full mt-4" kind="filled" type="submit">
         {submitting ? (

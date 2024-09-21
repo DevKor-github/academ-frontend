@@ -1,8 +1,10 @@
 export default function Select<T extends string>({
+  id,
   items,
   handleValue,
   value,
 }: {
+  id: string;
   items: readonly SelectOpts<T>[];
   handleValue?: React.FormEventHandler<HTMLInputElement>;
   value: T;
@@ -24,6 +26,7 @@ export default function Select<T extends string>({
             hidden
             type="radio"
             id={v.value}
+            name={id}
             value={v.value}
             checked={value === v.value}
             onChange={handleValue}

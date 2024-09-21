@@ -1,31 +1,11 @@
-export class AcdApiError extends Error {
-  message: string;
-  constructor(msg: string = '') {
-    super(`AcademError: ${msg}`);
-    this.message = msg;
-  }
-}
+export class AcdApiError extends Error {}
 
-export class FailedResponseError extends AcdApiError {
-  constructor(msg: string = '') {
-    super(msg);
-  }
-}
+export class FailedResponseError extends AcdApiError {}
 
-export class NoPermissionError extends AcdApiError {
-  constructor(msg: string = '') {
-    super(msg);
-  }
-}
+export class NoPermissionError extends AcdApiError {}
 
-export class NoResponseError extends AcdApiError {
-  constructor(msg: string = '') {
-    super(msg);
-  }
-}
+export class NoResponseError extends AcdApiError {}
 
-export class NoRequestError extends AcdApiError {
-  constructor(msg: string = '') {
-    super(msg);
-  }
-}
+export class NoRequestError extends AcdApiError {}
+
+export class LoginRequiredError extends NoPermissionError {}
