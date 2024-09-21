@@ -39,8 +39,9 @@ function Submitted({ back }: { back: string }) {
     <div className="flex flex-col gap-10 w-fit items-center">
       <FinishIcon />
       <div className="text-4xl font-medium text-center">강의평이 등록되었습니다.</div>
-      <div className="text-4xl font-medium text-center">
-        <Link href={URL_CUSTOMER_SURVEY}>1분 설문조사</Link> 참여하고 커피☕️ 쿠폰 받아가세요!
+      <div className="flex flex-row text-4xl rounded-sm font-medium text-center">
+          <div>아카뎀 이용은 어떠셨나요? <br /> 1분 설문조사 참여하고 커피☕️ 쿠폰 받아가세요!</div>
+          <Link className='bg-gradient-to-r from-primary-400 to-primary-600 rounded-full' href={URL_CUSTOMER_SURVEY}>참여하기</Link>
       </div>
       <Link href={back} className="w-full mt-20 text-2xl">
         <Button className="w-full">돌아가기</Button>
