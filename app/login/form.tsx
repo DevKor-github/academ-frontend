@@ -60,15 +60,15 @@ export default function LoginForm({
 
               <VStack className="pt-4 pb-4 items-center justify-between">
                 <>
-                <div className='hidden'>
-                <Radio
-                  id="remember-me"
-                  readOnly={handleInput === undefined}
-                  value={input['remember-me']}
-                  onChange={handleInput}
-                  label="로그인 정보 저장"
-                  />
-                </div>
+                  <div className="hidden">
+                    <Radio
+                      id="remember-me"
+                      readOnly={handleInput === undefined}
+                      value={input['remember-me']}
+                      onChange={handleInput}
+                      label="로그인 정보 저장"
+                    />
+                  </div>
                   <div />
                 </>
                 <A href="/login/reset-pw">비밀번호 초기화</A>

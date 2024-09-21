@@ -22,6 +22,11 @@ export const apiMyPageBookmarks = build<{ page: number }, Course[]>(
   'GET',
   '/api/mypage/my-bookmarks',
 );
+export const apiMyPageBookmarksCount = build<Empty, number>(
+  withRefreshResolved,
+  'GET',
+  '/api/mypage/count-my-bookmarks',
+);
 export const apiDeleteAccount = build<{ password: string }, null>(
   withRefreshResolved,
   'POST',
