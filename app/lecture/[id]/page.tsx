@@ -1,15 +1,56 @@
-import dynamic from 'next/dynamic';
-import { CourseBasicsViewLoading } from './components/CourseBasicsView';
+'use client';
 
-const LectureFetch = dynamic(() => import('./fetch'), {
+import { use, useState } from 'react';
+import Spinner from '@/components/basic/spinner';
+import { apiCourseDetail } from '@/lib/api/calls/course';
+import dynamic from 'next/dynamic';
+
+const ErrorTemplate = dynamic(() => import('@/lib/template'), {
   ssr: false,
   loading: () => (
-    <div className="flex flex-col w-full h-full">
-      <CourseBasicsViewLoading />
+    <div className="w-full p-8 flex flex-row justify-center items-center text-6xl">
+      <Spinner />
     </div>
   ),
 });
 
-export default function LecturePage({ params: { id } }: { params: { id: number } }) {
-  return <LectureFetch id={id} />;
+import LectureView from './CourseView';
+
+// function LectureWithOrder({ order }: { order: AcdCommentOrdering }) {
+
+//   const p = usePagination(api);
+
+//   return (
+//     <div />
+//   );
+// }
+
+export default function LectureFetch({ params: { id } }: { params: { id: number } }) {
+  // TODO : refactor to use usePagination.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [page, setPage] = useState(1);
+
+  // const { loading, response: course } = useApi(
+  //   apiCourseDetail,
+  //   { course_id: id, order: 'NEWEST', page },
+  //   { token: jwt?.accessToken },
+  // );
+
+  // if (loading) {
+  //   return (
+  //     <LectureLoading />
+  //   );
+  // }
+
+  const course = use(apiCourseDetail({ course_id: id, order: 'NEWEST', page }));
+
+  if (course.status !== 'SUCCESS') {
+    if (course.statusCode === 401) {
+      return <ErrorTemplate title={course.statusCode.toString()} subtitle="로그인이 필요합니다." />;
+    }
+
+    return <ErrorTemplate title={course.statusCode.toString()} subtitle="오류" />;
+  }
+
+  return <LectureView course={course.data} />;
 }
