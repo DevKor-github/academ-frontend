@@ -4,6 +4,7 @@ import { use, useState } from 'react';
 import Spinner from '@/components/basic/spinner';
 import { apiCourseDetail } from '@/lib/api/calls/course';
 import dynamic from 'next/dynamic';
+import Button from '@/components/basic/button';
 
 const ErrorTemplate = dynamic(() => import('@/lib/template'), {
   ssr: false,
@@ -15,6 +16,7 @@ const ErrorTemplate = dynamic(() => import('@/lib/template'), {
 });
 
 import LectureView from './CourseView';
+import Link from 'next/link';
 
 // function LectureWithOrder({ order }: { order: AcdCommentOrdering }) {
 
@@ -46,7 +48,20 @@ export default function LectureFetch({ params: { id } }: { params: { id: number 
 
   if (course.status !== 'SUCCESS') {
     if (course.statusCode === 401) {
-      return <ErrorTemplate title={course.statusCode.toString()} subtitle="로그인이 필요합니다." />;
+      return (
+        <div
+          className="md:p-8 p-2 w-full min-h-full flex flex-col gap-12
+  justify-center
+  items-center
+  [&>h3]:font-bold
+  [&>h3]:text-3xl"
+        >
+          <h3>이 페이지를 보려면 로그인해야 합니다.</h3>
+          <Link href="/login">
+            <Button>로그인</Button>
+          </Link>
+        </div>
+      );
     }
 
     return <ErrorTemplate title={course.statusCode.toString()} subtitle="오류" />;
