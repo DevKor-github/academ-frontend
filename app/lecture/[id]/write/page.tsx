@@ -41,7 +41,7 @@ function Submitted({ back }: { back: string }) {
       <div className="text-4xl font-medium text-center">강의평이 등록되었습니다.</div>
       <div className="flex flex-row w-fit rounded-lg p-4 font-medium text-left bg-base-30 gap-8">
           <span><span className='font-bold'>아카뎀 이용</span>은 어떠셨나요? <br /> 1분 설문조사 참여하고 커피☕️ 쿠폰 받아가세요!</span>
-          <Link className='bg-gradient-to-r from-primary-400 to-primary-600 rounded-full h-fit p-2 text-white' href={'/'}>참여하기</Link>
+          <Link className='bg-gradient-to-r from-primary-400 to-primary-600 rounded-full h-fit p-2 text-white' href={URL_CUSTOMER_SURVEY}>참여하기</Link>
       </div>
       <Link href={back} className="w-full mt-20 text-2xl">
         <Button className="w-full">돌아가기</Button>
