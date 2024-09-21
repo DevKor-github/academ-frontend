@@ -36,3 +36,8 @@ a {
 svg {
   display: inline-block;
 }
+
+*:focus {
+  /** Yes, this is really bad for web accessbility */
+  outline: none;
+}
