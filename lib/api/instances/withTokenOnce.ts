@@ -1,12 +1,12 @@
 'use client';
 
 import { createPureInstance } from '../interceptors/create';
-import { interceptAcdApiError, interceptAddToken } from '../interceptors/use';
+import { interceptAddToken, interceptWithResolve } from '../interceptors/use';
 
 const withTokenOnce = createPureInstance();
 
 interceptAddToken(withTokenOnce);
 
-interceptAcdApiError(withTokenOnce);
+interceptWithResolve(withTokenOnce);
 
 export default withTokenOnce;
