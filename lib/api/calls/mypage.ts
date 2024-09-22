@@ -12,16 +12,13 @@ export const apiMyPageBasics = build<Record<string, never>, MyPageBasicInfo>(
   'GET',
   '/api/mypage/info',
 );
-export const apiMyPageComments = build<{ page: number }, AcdMyComment[]>(
+export const apiMyPageComments = build<ReqPaginated, AcdMyComment[]>(
   withRefreshResolved,
   'GET',
   '/api/mypage/my-comments',
 );
-export const apiMyPageBookmarks = build<{ page: number }, Course[]>(
-  withRefreshResolved,
-  'GET',
-  '/api/mypage/my-bookmarks',
-);
+export const apiMyPageCommentsCount = build<Empty, number>(withRefreshResolved, 'GET', '/api/mypage/count-my-comments');
+export const apiMyPageBookmarks = build<ReqPaginated, Course[]>(withRefreshResolved, 'GET', '/api/mypage/my-bookmarks');
 export const apiMyPageBookmarksCount = build<Empty, number>(
   withRefreshResolved,
   'GET',

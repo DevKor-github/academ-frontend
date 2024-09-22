@@ -4,14 +4,19 @@ import withRefreshResolved from '../instances/withRefreshResolved';
 
 export const apiSearch = build<ReqSearchCourse, Course[]>(withRefreshResolved, 'GET', '/api/course/search');
 export const apiSearchCount = build<ReqSearch, number>(withRefreshResolved, 'GET', '/api/course/search/count-result');
-export const apiBookmark = build<CourseId, string>(withTokenInstance, 'GET', '/api/course/bookmark');
-export const apiCourseDetail = build<CourseDetailRequest, Course>(withRefreshResolved, 'GET', '/api/course/detail');
+export const apiBookmark = build<ReqCourseRelated, string>(withTokenInstance, 'GET', '/api/course/bookmark');
+export const apiCourseCount = build<ReqCourseRelated, number>(withRefreshResolved, 'GET', '/api/course/count-comment');
+export const apiCourseDetail = build<ReqCourseDetail, Course>(withRefreshResolved, 'GET', '/api/course/detail');
 
 /**
  * Comments
  */
 
-export const apiStartNewComment = build<CourseId, Course>(withTokenInstance, 'GET', '/api/course/start-insert-comment');
+export const apiStartNewComment = build<ReqCourseRelated, Course>(
+  withTokenInstance,
+  'GET',
+  '/api/course/start-insert-comment',
+);
 export const apiInsertComment = build<AcdCommentNewReq, number>(
   withTokenInstance,
   'POST',
