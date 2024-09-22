@@ -8,10 +8,10 @@ import { use } from 'react';
 import { useState } from 'react';
 import { apiUpdateComment } from '@/lib/api/calls/course';
 
-import CommentEditor from '@/components/composite/commentEditor';
+import CommentEditor from '@/component/composite/commentEditor';
 
-import Button from '@/components/basic/button';
-import { FinishIcon } from '@/lib/icons';
+import Button from '@/component/basic/button';
+import { FinishIcon } from '@/component/icon';
 import Link from 'next/link';
 
 function Submitted({ back }: { back: string }) {

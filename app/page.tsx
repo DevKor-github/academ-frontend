@@ -1,7 +1,7 @@
-import Carousel from '@/components/commonLayout/carousel/carousel';
-import carouselItems from '@/components/commonLayout/carousel/carouselItems';
+import Carousel from '@/component/commonLayout/carousel/carousel';
+import carouselItems from '@/component/commonLayout/carousel/carouselItems';
 
-import SearchForm from '@/components/composite/SearchForm';
+import SearchForm from '@/component/composite/SearchForm';
 
 export default function Home() {
   return (

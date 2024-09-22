@@ -1,13 +1,13 @@
 'use client';
 
-import SearchForm from '@/components/composite/SearchForm';
-import { VStack } from '@/components/basic/stack';
+import SearchForm from '@/component/composite/SearchForm';
+import { VStack } from '@/component/basic/stack';
 
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
-import dynamic from 'next/dynamic';
-import { Box, Grid, LoaderItems } from './aux';
-import Select from '@/components/basic/select';
+import { Box } from './aux';
+import Select from '@/component/basic/select';
+import SearchResultsView from './fetch';
 
 const SearchTopView = ({ query }: { query: string }) => {
   return query ? (
@@ -52,18 +52,6 @@ export default function SearchPage() {
     ? (s as SearchOrdering)
     : 'NEWEST';
 
-  const SearchResultsView = dynamic(() => import('./fetch'), {
-    ssr: false,
-    loading: () =>
-      q ? (
-        <Grid>
-          <LoaderItems />
-        </Grid>
-      ) : (
-        <span>강의명, 교수명, 학수번호로 검색해보세요.</span>
-      ),
-  });
-
   // this is not an actual SetState
   function setSort(newOrder: SearchOrdering) {
     route.replace(`/lecture?q=${q}&s=${newOrder}`);
@@ -90,7 +78,7 @@ export default function SearchPage() {
             ] as const
           }
         />
-        <SearchResultsView key={q} query={q} sort={sort} />
+        <SearchResultsView key={sort} query={q} sort={sort} />
       </Box>
     </div>
   );

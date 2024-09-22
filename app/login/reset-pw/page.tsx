@@ -1,4 +1,4 @@
-import { HStack } from '@/components/basic/stack';
+import { HStack } from '@/component/basic/stack';
 
 import dynamic from 'next/dynamic';
 

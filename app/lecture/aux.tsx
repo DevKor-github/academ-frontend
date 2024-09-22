@@ -1,4 +1,4 @@
-import { CoursePreviewLoading } from '@/components/view/CoursePreview';
+import { CoursePreviewLoading } from '@/component/view/CoursePreview';
 
 export function Box({ children }: React.PropsWithChildren<unknown>) {
   return (

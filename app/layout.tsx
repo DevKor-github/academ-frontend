@@ -2,7 +2,7 @@ import './globals.css';
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
-import TopLevelLayout from '@/components/composite/toplevellayout';
+import TopLevelLayout from '@/component/composite/toplevellayout';
 
 import type { Viewport } from 'next';
 

@@ -1,4 +1,4 @@
-import { SkeletonSlow } from '@/components/composite/skeleton';
+import { SkeletonSlow } from '@/component/composite/skeleton';
 import BuyMembershipButton from '../dynamic/BuyMembershipFunction';
 
 const memberships: Array<MembershipData> = [

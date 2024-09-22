@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { HStack, VStack } from '@/components/basic/stack';
-import { RightIcon } from '@/lib/icons';
-import Input from '@/components/basic/input';
-import Button from '@/components/basic/button';
-import ErrorLabel from '@/components/basic/errorlabel';
+import { HStack, VStack } from '@/component/basic/stack';
+import { RightIcon } from '@/component/icon';
+import Input from '@/component/basic/input';
+import Button from '@/component/basic/button';
+import ErrorLabel from '@/component/basic/errorlabel';
 
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
