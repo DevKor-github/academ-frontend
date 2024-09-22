@@ -24,7 +24,7 @@ export default function CommonLayout({ children }: React.PropsWithChildren<unkno
   return (
     <div className="flex flex-col min-h-svh">
       <TopNav />
-      <main className="flex-grow flex flex-col">{children}</main>
+      <main className="flex flex-col flex-grow w-full min-h-vh">{children}</main>
       <Footer />
     </div>
   );
