@@ -1,6 +1,6 @@
 import { use, memo } from 'react';
 import { apiMyPageBookmarks } from '@/lib/api/calls/mypage';
-import CoursePreview from '@/components/view/CoursePreview';
+import CoursePreview from '@/component/view/CoursePreview';
 
 export default memo(function Bookmarks({ page }: { page: number }) {
   const lectures = use(apiMyPageBookmarks({ page }));

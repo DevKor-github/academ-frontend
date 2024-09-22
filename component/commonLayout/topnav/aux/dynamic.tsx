@@ -6,12 +6,12 @@ import Link from 'next/link';
 
 import { SessionIdContext } from '@/lib/context/SessionIdContext';
 
-import Button from '@/components/basic/button';
-import Popover from '@/components/basic/popover';
-import { HStack } from '@/components/basic/stack';
+import Button from '@/component/basic/button';
+import Popover from '@/component/basic/popover';
+import { HStack } from '@/component/basic/stack';
 
 import { LogoutIcon, ProfileIcon } from './icons';
-import { DownIcon } from '@/lib/icons';
+import { DownIcon } from '@/component/icon';
 
 function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => void }) {
   return (

@@ -1,6 +1,6 @@
-import Button from '@/components/basic/button';
+import Button from '@/component/basic/button';
 
-import { StarIcon } from '@/lib/icons';
+import { StarIcon } from '@/component/icon';
 import { VStack } from '../basic/stack';
 import { useEffect, useRef } from 'react';
 
