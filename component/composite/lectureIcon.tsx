@@ -1,5 +1,5 @@
 export default function LectureIcon({ code }: { code: string }) {
-  const imageUrl = `url(${imageMap[code.substring(0, 3)] || '/cicon/ku.jpg'})`;
+  const imageUrl = `url(${LectureIconPath(code) || '/cicon/ku.jpg'})`;
 
   return (
     <span className="inline-flex p-[0.25em] items-center justify-center bg-white rounded-full overflow-clip aspect-square">
@@ -15,7 +15,9 @@ export default function LectureIcon({ code }: { code: string }) {
   );
 }
 
-const imageMap: { [key: string]: string } = {
+export const LectureIconPath = (code: string) => lectureIconImageMap[code.substring(0, 3)];
+
+const lectureIconImageMap: { [key: string]: string } = {
   // Biz images
   EMB: '/cicon/biz.jpg',
   FMB: '/cicon/biz.jpg',

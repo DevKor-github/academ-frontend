@@ -1,8 +1,8 @@
 'use client';
 
-import { Star1 } from '@/components/composite/starIndicator';
-import { HStack, VStack } from '@/components/basic/stack';
-import Tag from '@/components/basic/tag';
+import { Star1 } from '@/component/composite/starIndicator';
+import { HStack, VStack } from '@/component/basic/stack';
+import Tag from '@/component/basic/tag';
 import { useEffect, useState } from 'react';
 
 import { apiDeleteComment, apiLikeComment } from '@/lib/api/calls/course';
@@ -11,7 +11,7 @@ import { decode } from '@/lib/jwt';
 
 import Link from 'next/link';
 import { useSessionId } from '@/lib/context/SessionIdContext';
-import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/lib/icons';
+import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/component/icon';
 
 function quaternary<T>(that: number, standard: number, gt: T, eq: T, lt: T) {
   if (that === standard) {

@@ -1,12 +1,12 @@
-import Tag from '@/components/basic/tag';
-import { HStack, VStack } from '@/components/basic/stack';
-import Progress from '@/components/basic/progress';
+import Tag from '@/component/basic/tag';
+import { HStack, VStack } from '@/component/basic/stack';
+import Progress from '@/component/basic/progress';
 
-import Star5 from '@/components/composite/starIndicator';
+import Star5 from '@/component/composite/starIndicator';
 
 import { getTagFromCourse } from '@/lib/process/tag';
 
-function RateSummary({ course }: { course: Course }) {
+function RateSummary({ course }: { course: CourseOnly }) {
   const tags = getTagFromCourse(course);
 
   return (
@@ -88,7 +88,7 @@ function Criteria({ course }: { course: Course }) {
   );
 }
 
-export default function SummaryView({ course }: { course: Course }) {
+export default function CommentsSummaryView({ course }: { course: CourseOnly }) {
   return (
     <HStack gap="30px" className="pl-8 pr-8 pb-8" style={{ marginTop: '60px' }}>
       <span className="text-2xl">평가 한눈에 보기</span>

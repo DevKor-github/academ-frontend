@@ -1,11 +1,11 @@
-import { StarIcon } from '@/lib/icons';
-import { HStack, VStack } from '@/components/basic/stack';
+import { StarIcon } from '@/component/icon';
+import { HStack, VStack } from '@/component/basic/stack';
 import Link from 'next/link';
-import Tag from '@/components/basic/tag';
+import Tag from '@/component/basic/tag';
 
-import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
+import BookmarkToggleButton from '@/component/composite/bookmarkToggleButton';
 
-import LectureIcon from '@/components/composite/lectureIcon';
+import LectureIcon from '@/component/composite/lectureIcon';
 
 import { getTagFromCourse } from '@/lib/process/tag';
 

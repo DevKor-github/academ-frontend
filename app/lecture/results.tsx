@@ -1,14 +1,19 @@
 'use client';
 
-import { use, memo } from 'react';
+import { memo } from 'react';
 import { apiSearch } from '@/lib/api/calls/course';
 
-import CoursePreview from '@/components/view/CoursePreview';
-import { Box } from './aux';
+import CoursePreview from '@/component/view/CoursePreview';
+import { Box, LoaderItems } from './aux';
+import { useApi } from '@/lib/hooks/api';
 
-export default memo(
+const SearchResults = memo(
   function SearchResults({ keyword, order, page }: ReqSearchCourse) {
-    const response = use(apiSearch({ keyword, order, page }));
+    const { loading, response } = useApi(apiSearch, { keyword, order, page });
+
+    if (loading) {
+      return <LoaderItems />;
+    }
 
     if (response.status !== 'SUCCESS') {
       return <Box>오류가 발생했습니다.</Box>;
@@ -31,3 +36,5 @@ export default memo(
     prev.order === next.order &&
     prev.page === next.page,
 );
+
+export default SearchResults;

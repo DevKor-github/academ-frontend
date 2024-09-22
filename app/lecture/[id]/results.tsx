@@ -5,6 +5,7 @@ import { apiCourseDetail } from '@/lib/api/calls/course';
 
 import CommentView from '@/component/view/CommentView';
 import { useApi } from '@/lib/hooks/api';
+import { IsCourse } from '@/lib/type/IsCourse';
 
 const CommentsResults = memo(
   function CommentsResults({ course_id, order, page }: ReqCourseDetail) {
@@ -16,6 +17,10 @@ const CommentsResults = memo(
 
     if (response.status !== 'SUCCESS') {
       return <div>오류가 발생했습니다.</div>;
+    }
+
+    if (!IsCourse(response.data)) {
+      return <div>TODO 열람권을 사거나 로그인하세요.</div>
     }
 
     return response.data.comments.flatMap((comment) => (
