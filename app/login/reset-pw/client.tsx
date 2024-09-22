@@ -3,8 +3,8 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { apiResetPassword } from '@/lib/api/calls/login';
-import { apiSendEmail } from '@/lib/api/calls/login';
+import { apiResetPassword } from '@/lib/api-client/calls/login';
+import { apiSendEmail } from '@/lib/api-client/calls/login';
 import ResetPwForm1 from './inner/form1';
 import ResetPwForm2 from './inner/form2';
 import { handleInputBuilder } from '@/lib/form/handler';

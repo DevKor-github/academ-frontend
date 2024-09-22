@@ -1,7 +1,7 @@
 'use client';
 
 import { memo } from 'react';
-import { apiSearch } from '@/lib/api/calls/course';
+import { apiSearch } from '@/lib/api-client/calls/course';
 
 import CoursePreview from '@/component/view/CoursePreview';
 import { Box, LoaderItems } from './aux';

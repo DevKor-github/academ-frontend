@@ -7,7 +7,7 @@ import { Metadata, ResolvingMetadata } from 'next';
 import { LectureIconPath } from '@/component/composite/lectureIcon';
 
 import { ELEM_PER_PAGE } from '@/lib/directive';
-import { apiCourseDetail } from '@/lib/api/calls/course';
+import { apiCourseDetail } from '@/lib/api-client/calls/course';
 import ErrorTemplate from '@/lib/template';
 
 import CourseBasicsView from '@/component/view/CourseBasicsView';
@@ -73,7 +73,7 @@ export const generateMetadata = cache(async function generateMetadata(
   parent: ResolvingMetadata
 ): Promise<Metadata> {
 
-  const course = await apiCourseDetail({ course_id: Number(params.id), order: 'NEWEST', page: 1 });
+  const course = await (apiCourseDetail({ course_id: Number(params.id), order: 'NEWEST', page: 1 }));
  
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
@@ -89,7 +89,7 @@ export const generateMetadata = cache(async function generateMetadata(
 
 export default async function LectureFetch({ params: { id } }: { params: { id: string } }) {
   // XXX : this is just for showing basic information, order is **NOT** important - maybe api refactor?
-  const course = use(apiCourseDetail({ course_id: Number(id), order: 'NEWEST', page: 1 }));
+  const course = await (apiCourseDetail({ course_id: Number(id), order: 'NEWEST', page: 1 }));
 
   if (course.status !== 'SUCCESS') {
     return <ErrorTemplate title={course.statusCode.toString()} subtitle="오류" />;

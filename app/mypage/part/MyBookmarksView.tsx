@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { HStack, VStack } from '@/component/basic/stack';
 
-import { apiMyPageBookmarksCount } from '@/lib/api/calls/mypage';
+import { apiMyPageBookmarksCount } from '@/lib/api-client/calls/mypage';
 import Button from '@/component/basic/button';
 import { BookmarkIcon, RightIcon } from '@/component/icon';
 import { ELEM_PER_PAGE } from '@/lib/directive';
@@ -12,7 +12,7 @@ import { ELEM_PER_PAGE } from '@/lib/directive';
 
 import { memo } from 'react';
 import CoursePreview from '@/component/view/CoursePreview';
-import { apiMyPageBookmarks } from '@/lib/api/calls/mypage';
+import { apiMyPageBookmarks } from '@/lib/api-client/calls/mypage';
 import { LoaderItems } from '@/app/lecture/aux';
 import { useApi } from '@/lib/hooks/api';
 

@@ -1,7 +1,7 @@
 import { HStack } from '@/component/basic/stack';
 import Link from 'next/link';
 import { ELEM_PER_PAGE } from '@/lib/directive';
-import apiGetNotices from '@/lib/api/calls/notice';
+import apiGetNotices from '@/lib/api-client/calls/notice';
 
 async function NoticeSingle({ notice }: { notice: Notice }) {
   return (

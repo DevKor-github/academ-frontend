@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { BookmarkIcon } from '@/component/icon';
-import { apiBookmark } from '@/lib/api/calls/course';
+import { apiBookmark } from '@/lib/api-client/calls/course';
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
 export default function BookmarkToggleButton({ id, defaultValue }: { id: number; defaultValue: boolean }) {

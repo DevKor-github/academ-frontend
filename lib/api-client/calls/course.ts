@@ -1,4 +1,4 @@
-import { build } from '@/lib/api/builder';
+import { build } from '@/lib/api-client/builder';
 import withTokenInstance from '../instances/withTokenOnce';
 import withRefreshResolved from '../instances/withRefreshResolved';
 

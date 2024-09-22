@@ -1,6 +1,6 @@
 'use client';
 
-import { build } from '@/lib/api/builder';
+import { build } from '@/lib/api-client/builder';
 import basicInstance from '../instances/basicInstance';
 import withRefreshResolved from '../instances/withRefreshResolved';
 

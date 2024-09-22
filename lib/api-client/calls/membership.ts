@@ -1,4 +1,4 @@
-import { build } from '@/lib/api/builder';
+import { build } from '@/lib/api-client/builder';
 import withRefreshResolved from '../instances/withRefreshResolved';
 
 export const apiBuyAcess = build<{ item: string }, null>(

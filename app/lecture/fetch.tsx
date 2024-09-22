@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import { apiSearchCount } from '@/lib/api/calls/course';
+import { apiSearchCount } from '@/lib/api-client/calls/course';
 import Button from '@/component/basic/button';
 import { DownIcon } from '@/component/icon';
 

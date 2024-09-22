@@ -1,6 +1,6 @@
 'use client';
 
-import { apiCheckOnline } from '@/lib/api/calls/admin';
+import { apiCheckOnline } from '@/lib/api-client/calls/admin';
 import { useEffect, useState } from 'react';
 import { APP_VERSION } from '@/lib/directive';
 

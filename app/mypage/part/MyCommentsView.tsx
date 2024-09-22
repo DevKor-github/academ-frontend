@@ -8,8 +8,8 @@ import { DownIcon } from '@/component/icon';
 import { HStack, VStack } from '@/component/basic/stack';
 import { MyCommentView } from '@/component/view/CommentView';
 
-import { apiMyPageCommentsCount } from '@/lib/api/calls/mypage';
-import { apiMyPageComments } from '@/lib/api/calls/mypage';
+import { apiMyPageCommentsCount } from '@/lib/api-client/calls/mypage';
+import { apiMyPageComments } from '@/lib/api-client/calls/mypage';
 import { useApi } from '@/lib/hooks/api';
 
 const ApiMyPageComments = memo(

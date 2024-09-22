@@ -11,7 +11,7 @@ import { RightIcon } from '@/component/icon';
 import Spinner from '@/component/basic/spinner';
 
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
-import { apiSendEmail } from '@/lib/api/calls/login';
+import { apiSendEmail } from '@/lib/api-client/calls/login';
 
 const validateEmail = (email: string) => {
   const re = /^[^\s@]+@korea\.ac\.kr$/;

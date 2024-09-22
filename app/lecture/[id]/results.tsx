@@ -1,7 +1,7 @@
 'use client';
 
 import { memo } from 'react';
-import { apiCourseDetail } from '@/lib/api/calls/course';
+import { apiCourseDetail } from '@/lib/api-client/calls/course';
 
 import CommentView from '@/component/view/CommentView';
 import { useApi } from '@/lib/hooks/api';

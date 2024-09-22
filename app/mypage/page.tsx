@@ -7,9 +7,9 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import ManageMembership from './static/MyProfileMemberships';
 import MyProfileBasics from './static/MyProfileBasics';
 
-import { apiMyPageBasics } from '@/lib/api/calls/mypage';
+import { apiMyPageBasics } from '@/lib/api-client/calls/mypage';
 import { CloseIcon } from '@/component/icon';
-import { LoginRequiredError } from '@/lib/api/errors';
+import { LoginRequiredError } from '@/lib/api-client/errors';
 
 import TempAlert from './static/TempAlert';
 

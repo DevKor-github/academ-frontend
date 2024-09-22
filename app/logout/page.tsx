@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { useSessionId } from '../../lib/context/SessionIdContext';
-import { apiLogout } from '@/lib/api/calls/login';
+import { apiLogout } from '@/lib/api-client/calls/login';
 
 export default function LogoutPage() {
   const setJWT = useSessionId()[1];

@@ -77,7 +77,7 @@ export function CriteriaIndicator({ name, low, high, rate, style, reverse }: Cri
   );
 }
 
-function Criteria({ course }: { course: Course }) {
+function Criteria({ course }: { course: CourseOnly }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 self-center w-fit max-w-full gap-x-8 gap-y-8">
       <CriteriaIndicator name="학습량" low="적음" high="많음" rate={course.avg_r1_amount_of_studying} reverse={true} />

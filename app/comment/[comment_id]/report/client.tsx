@@ -1,6 +1,6 @@
 'use client';
 
-import { apiRepComment } from '@/lib/api/calls/course';
+import { apiRepComment } from '@/lib/api-client/calls/course';
 import { useState } from 'react';
 import Submitted from './inner/submitted';
 

@@ -1,5 +1,5 @@
 import { use, memo } from 'react';
-import { apiMyPageBookmarks } from '@/lib/api/calls/mypage';
+import { apiMyPageBookmarks } from '@/lib/api-client/calls/mypage';
 import CoursePreview from '@/component/view/CoursePreview';
 
 export default memo(function Bookmarks({ page }: { page: number }) {

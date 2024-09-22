@@ -3,7 +3,7 @@
 import { use, useState } from 'react';
 import Link from 'next/link';
 
-import { apiInsertComment, apiStartNewComment } from '@/lib/api/calls/course';
+import { apiInsertComment, apiStartNewComment } from '@/lib/api-client/calls/course';
 
 import CommentEditor from '@/component/composite/commentEditor';
 import Button from '@/component/basic/button';

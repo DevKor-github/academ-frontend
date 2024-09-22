@@ -1,6 +1,6 @@
 'use client';
 
-import { apiProfileUpdatePW } from '@/lib/api/calls/mypage';
+import { apiProfileUpdatePW } from '@/lib/api-client/calls/mypage';
 import { useState } from 'react';
 
 import { useRouter } from 'next/navigation';

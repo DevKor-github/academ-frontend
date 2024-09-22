@@ -9,7 +9,7 @@ import ErrorLabel from '@/component/basic/errorlabel';
 
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
-import { apiCheckEmail } from '@/lib/api/calls/login';
+import { apiCheckEmail } from '@/lib/api-client/calls/login';
 
 export default function Step2({
   nextStep,
