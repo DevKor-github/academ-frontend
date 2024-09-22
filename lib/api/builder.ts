@@ -1,8 +1,5 @@
-'use client';
-
 import { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
 
-import { useEffect, useState } from 'react';
 import { IS_DEBUG } from '../directive';
 
 const buildUrlWithParams = (baseUrl: string, req: Record<string, string | number>) => {
@@ -72,18 +69,4 @@ export function failWith(message: string, httpCode: number = -1): ApiResponse<un
     message,
     version: 'GENERATED FROM FRONTEND',
   };
-}
-
-export function useApi<Req, Res>(apiCall: ApiCall<Req, Res>, req: Req) {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [response, setResponse] = useState<ApiResponse<Res> | null>(null);
-
-  useEffect(() => {
-    apiCall(req).then((a) => {
-      setResponse(a);
-      setLoading(false);
-    });
-  }, []);
-
-  return { response, loading } as ApiState<Res>;
 }
