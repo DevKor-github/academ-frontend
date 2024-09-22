@@ -5,8 +5,11 @@ import withRefreshResolved from '../instances/withRefreshResolved';
 export const apiSearch = build<ReqSearchCourse, Course[]>(withRefreshResolved, 'GET', '/api/course/search');
 export const apiSearchCount = build<ReqSearch, number>(withRefreshResolved, 'GET', '/api/course/search/count-result');
 export const apiBookmark = build<ReqCourseRelated, string>(withTokenInstance, 'GET', '/api/course/bookmark');
-export const apiCourseCount = build<ReqCourseRelated, number>(withRefreshResolved, 'GET', '/api/course/count-comment');
-export const apiCourseDetail = build<ReqCourseDetail, Course>(withRefreshResolved, 'GET', '/api/course/detail');
+export const apiCourseDetail = build<ReqCourseDetail, CourseOnly | Course>(
+  withRefreshResolved,
+  'GET',
+  '/api/course/detail',
+);
 
 /**
  * Comments
