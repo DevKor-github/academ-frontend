@@ -3,7 +3,7 @@
 import { AcdApiError, LoginRequiredError, NoPermissionError, NoRequestError, NoResponseError } from '@/lib/api/errors';
 
 import { useRouter } from 'next/navigation';
-import Button from '@/components/basic/button';
+import Button from '@/component/basic/button';
 
 function Box({ children }: React.PropsWithChildren<unknown>) {
   return (
