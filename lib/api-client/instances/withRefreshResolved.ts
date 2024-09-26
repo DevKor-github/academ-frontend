@@ -1,11 +1,12 @@
 'use client';
 
-import { createPureInstance } from '../interceptors/create';
-import { interceptAddToken, interceptWithResolve } from '../interceptors/use';
+import { createPureInstance } from './_create';
+import { insertToken, mouldAsApiResponse, retryWithRefresh } from './_interceptors';
 
 const withRefreshResolved = createPureInstance();
-interceptAddToken(withRefreshResolved);
-interceptWithResolve(withRefreshResolved);
+insertToken(withRefreshResolved);
+retryWithRefresh(withRefreshResolved);
+mouldAsApiResponse(withRefreshResolved);
 
 // TODO : add refresh logic
 

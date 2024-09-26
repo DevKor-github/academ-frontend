@@ -1,7 +1,7 @@
 'use client';
 
 import { build } from '@/lib/api-client/builder';
-import basicInstance from '../instances/basicInstance';
+import basicInstance from '../instances/basic';
 import withRefreshResolved from '../instances/withRefreshResolved';
 
 export const apiSignup = build<SignupRequest, string>(basicInstance, 'POST', '/api/signup');

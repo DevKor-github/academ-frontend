@@ -1,12 +1,10 @@
 'use client';
 
-import { createPureInstance } from '../interceptors/create';
-import { interceptAddToken, interceptWithResolve } from '../interceptors/use';
+import { createPureInstance } from './_create';
+import { insertToken, mouldAsApiResponse } from './_interceptors';
 
 const withTokenOnce = createPureInstance();
-
-interceptAddToken(withTokenOnce);
-
-interceptWithResolve(withTokenOnce);
+insertToken(withTokenOnce);
+mouldAsApiResponse(withTokenOnce);
 
 export default withTokenOnce;

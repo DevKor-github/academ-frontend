@@ -18,18 +18,6 @@ type Builder = <Req, Res>(
   config?: AxiosRequestConfig,
 ) => ApiCall<Req, Res>;
 
-function mould<Res>(promise: Promise<AxiosResponse<ApiResponse<Res>>>) {
-  return promise
-    .then((res) => {
-      const data: ApiResponse<Res> = res.data;
-      data.statusCode = res.status;
-      return Promise.resolve(res.data as ApiResponse<Res>);
-    })
-    .catch((error) => {
-      return Promise.reject(error);
-    });
-}
-
 /**
  * build : automatically generates api call functions
  *
@@ -50,7 +38,7 @@ export const build: Builder = <Req, Res>(
         ? instance.post(path, req, config)
         : instance.get(buildUrlWithParams(path, req as Record<string, string | number>), config);
 
-    const firstResult = await mould<Res>(firstTry);
+    const firstResult = (await firstTry).data as ApiResponse<Res>;
 
     if (IS_DEBUG) {
       const show = firstResult.status === 'SUCCESS' ? console.log : console.error;

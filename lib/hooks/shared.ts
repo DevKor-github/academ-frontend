@@ -16,9 +16,7 @@ export default function useTabSharedState<T extends JSONValue>(key: string, init
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(state));
     sessionStorage.setItem(key, JSON.stringify(state));
-  }, [key, state]);
 
-  useEffect(() => {
     const onStorageEvent = (e: StorageEvent) => {
       if (e.key === key && e.newValue !== JSON.stringify(state)) {
         setState(JSON.parse(e.newValue || 'null'));
@@ -26,7 +24,6 @@ export default function useTabSharedState<T extends JSONValue>(key: string, init
     };
 
     window.addEventListener('storage', onStorageEvent);
-
     // Cleanup function
     return () => window.removeEventListener('storage', onStorageEvent);
   }, [key, state]);

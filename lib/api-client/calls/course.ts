@@ -2,8 +2,12 @@ import { build } from '@/lib/api-client/builder';
 import withTokenInstance from '../instances/withTokenOnce';
 import withRefreshResolved from '../instances/withRefreshResolved';
 
-export const apiSearch = build<ReqSearchCourse, Course[]>(withRefreshResolved, 'GET', '/api/course/search');
-export const apiSearchCount = build<ReqSearch, number>(withRefreshResolved, 'GET', '/api/course/search/count-result');
+export const apiSearch = build<ReqSearchCourse, Course[] | CourseOnly[]>(
+  withRefreshResolved,
+  'GET',
+  '/api/course/search',
+);
+export const apiSearchCount = build<ReqSearch, number>(withTokenInstance, 'GET', '/api/course/search/count-result');
 export const apiBookmark = build<ReqCourseRelated, string>(withTokenInstance, 'GET', '/api/course/bookmark');
 export const apiCourseDetail = build<ReqCourseDetail, CourseOnly | Course>(
   withRefreshResolved,

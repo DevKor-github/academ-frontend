@@ -11,7 +11,7 @@ import { useEffect } from 'react';
  * @param param0
  * @returns
  */
-export default function ClearStorageDependOnTabs({ children }: React.PropsWithChildren<unknown>) {
+export default function ClearStorageDependOnTabs({ keys, children }: React.PropsWithChildren<{ keys: Array<string> }>) {
   useEffect(() => {
     const prevCount = Number(localStorage.getItem(KEY_TO_COUNT_TABS) || '0');
     localStorage.setItem(KEY_TO_COUNT_TABS, String(prevCount + 1));
@@ -24,14 +24,14 @@ export default function ClearStorageDependOnTabs({ children }: React.PropsWithCh
       localStorage.setItem(KEY_TO_COUNT_TABS, String(count - unit));
 
       if (count <= unit) {
-        localStorage.clear();
+        keys.forEach(localStorage.removeItem);
       }
     };
 
     window.addEventListener('pagehide', callback);
 
     return () => window.removeEventListener('pagehide', callback); // Cleanup
-  }, []);
+  }, [keys]);
 
   return children;
 }

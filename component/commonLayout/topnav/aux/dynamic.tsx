@@ -4,7 +4,7 @@ import { use, useState } from 'react';
 
 import Link from 'next/link';
 
-import { SessionIdContext } from '@/lib/context/SessionIdContext';
+import { AuthTokensContext } from '@/lib/context/AuthTokensContext';
 
 import Button from '@/component/basic/button';
 import Popover from '@/component/basic/popover';
@@ -60,13 +60,13 @@ function LoginButton() {
 }
 
 export default function TopNavInnerRightClient() {
-  const [jwt] = use(SessionIdContext);
+  const [jwt] = use(AuthTokensContext);
   const [open, setOpen] = useState<boolean>(false);
   // const state = use(apiMyPageBasics({}, { token: jwt?.accessToken }));
 
   if (
     // state.status !== 'SUCCESS'
-    jwt === null
+    jwt.accessToken === null
   ) {
     return <LoginButton />;
   } else {

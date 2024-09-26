@@ -5,11 +5,13 @@ export function useApi<Req, Res>(apiCall: ApiCall<Req, Res>, req: Req) {
   const [response, setResponse] = useState<ApiResponse<Res> | null>(null);
 
   const load = useCallback(() => {
-    apiCall(req).then((a) => {
-      setResponse(a);
-      setLoading(false);
-    });
-  }, [apiCall, req]);
+    if (loading) {
+      apiCall(req).then((a) => {
+        setResponse(a);
+        setLoading(false);
+      });
+    }
+  }, [apiCall, req, loading]);
 
   useEffect(load, [load]);
 

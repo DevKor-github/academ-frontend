@@ -2,14 +2,13 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { useSessionId } from '../../lib/context/SessionIdContext';
-import { apiLogin } from '@/lib/api-client/calls/login';
-
-import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
 import LoginForm from './form';
+
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import { apiLogin } from '@/lib/api-client/calls/login';
+import { useAnimationTimeout } from '@/lib/hooks/timeout';
 import { handleInputBuilder } from '@/lib/form/handler';
-import { KEY_FOR_USER_AUTH } from '@/lib/directive';
 
 export default function LoginPageClient() {
   const [input, setInput] = useState<LoginRequest>({
@@ -21,7 +20,7 @@ export default function LoginPageClient() {
   const route = useRouter();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setSessionId] = useSessionId();
+  const [_, setAccessToken, setRefreshToken] = useAuthTokens();
   const [loading, setLoading] = useState<boolean>(false);
 
   const [loginError, setLoginError] = useState('');
@@ -40,8 +39,9 @@ export default function LoginPageClient() {
 
     await apiLogin(input).then((s) => {
       if (s.status === 'SUCCESS') {
-        setSessionId(s.data);
-        localStorage.setItem(KEY_FOR_USER_AUTH, JSON.stringify(s.data));
+        // intended order
+        setRefreshToken(s.data.refreshToken);
+        setAccessToken(s.data.accessToken);
         return route.push('/');
       } else if (s.status === 'ERROR') {
         setLoginError('로그인에 실패했습니다. 없는 계정이거나 비밀번호가 일치하지 않습니다.');

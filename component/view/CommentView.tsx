@@ -10,7 +10,7 @@ import { apiDeleteComment, apiLikeComment } from '@/lib/api-client/calls/course'
 import { decode } from '@/lib/jwt';
 
 import Link from 'next/link';
-import { useSessionId } from '@/lib/context/SessionIdContext';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/component/icon';
 
 function quaternary<T>(that: number, standard: number, gt: T, eq: T, lt: T) {
@@ -279,9 +279,9 @@ function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dis
 }
 
 export default function CommentView({ comment }: { comment: AcdComment }) {
-  const [jwt] = useSessionId();
+  const [jwt] = useAuthTokens();
 
-  const editable = jwt === null ? true : comment.profile_id === decode<JWTDecoded>(jwt.accessToken).profile_id;
+  const editable = jwt.accessToken === null ? true : comment.profile_id === decode<JWTDecoded>(jwt.accessToken).profile_id;
 
   const [del, setDel] = useState<boolean>(false);
 
