@@ -1,17 +1,19 @@
 import { useCallback, useEffect, useState } from 'react';
+import { AxiosInstance } from 'axios';
+import { ApiCall } from '../api-client/builder';
 
-export function useApi<Req, Res>(apiCall: ApiCall<Req, Res>, req: Req) {
+export function useApi<Req, Res>(instance: AxiosInstance | undefined, apiCall: ApiCall<Req, Res>, req: Req) {
   const [loading, setLoading] = useState<boolean>(true);
   const [response, setResponse] = useState<ApiResponse<Res> | null>(null);
 
   const load = useCallback(() => {
     if (loading) {
-      apiCall(req).then((a) => {
+      apiCall(instance, req).then((a) => {
         setResponse(a);
         setLoading(false);
       });
     }
-  }, [apiCall, req, loading]);
+  }, [instance, apiCall, req, loading]);
 
   useEffect(load, [load]);
 

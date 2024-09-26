@@ -18,18 +18,24 @@ export default function useTabSharedState<T extends JSONValue>(key: string, init
     sessionStorage.setItem(key, JSON.stringify(state));
   }, [key, state]);
 
-  useEffect(() => {
-    const onStorageEvent = (e: StorageEvent) => {
-      if (e.key === key && e.oldValue !== e.newValue) {
-        console.log('strevent called - branch');
-        setState(JSON.parse(e.newValue || 'null'));
-      }
-    };
+  useEffect(
+    function SyncSessionStorage() {
+      // NOTE : storage event only triggered when value is changed by other tab.
+      const onStorageEvent = (e: StorageEvent) => {
+        if (e.key === key && e.oldValue !== e.newValue) {
+          if (e.newValue === null) {
+            sessionStorage.removeItem(key);
+          } else {
+            sessionStorage.setItem(key, e.newValue);
+          }
+        }
+      };
 
-    window.addEventListener('storage', onStorageEvent);
-    // Cleanup function
-    return () => window.removeEventListener('storage', onStorageEvent);
-  }, [key]);
+      window.addEventListener('storage', onStorageEvent);
+      return () => window.removeEventListener('storage', onStorageEvent);
+    },
+    [key],
+  );
 
   return [state, setState] as const;
 }
