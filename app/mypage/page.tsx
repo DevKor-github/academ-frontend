@@ -29,7 +29,11 @@ export default function ProfileOverviewWithMemberShip() {
   const { loading, response: myprofile } = useApi(instances.doRefresh, apiMyPageBasics, {});
 
   if (loading) {
-    return <div className='p-8 w-full text-center items-center'><Spinner /></div>
+    return (
+      <div className="p-8 w-full text-center items-center">
+        <Spinner />
+      </div>
+    );
   }
 
   if (myprofile.status !== 'SUCCESS') {

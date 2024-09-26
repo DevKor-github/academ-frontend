@@ -64,9 +64,7 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
 
   if (loading) {
     // TODO : use proper loading screen later
-    return (
-      <div />
-    );
+    return <div />;
   }
 
   if (course.status !== 'SUCCESS') {
