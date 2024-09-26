@@ -7,10 +7,6 @@ export default function LectureIdPageLoading() {
   return (
     <div className="flex flex-col w-full h-full">
       <CourseBasicsViewLoading />
-      <CommentsSummaryViewLoading />
-      <CommentsWrapper order={'NEWEST'} handleValue={undefined}>
-        <CommentLoadingItems />
-      </CommentsWrapper>
     </div>
   );
 }

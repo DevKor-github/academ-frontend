@@ -16,6 +16,7 @@ import MyCommentsView from './part/MyCommentsView';
 
 import { LoginRequiredView } from '@/component/composite/PermissionView';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import Spinner from '@/component/basic/spinner';
 
 export default function ProfileOverviewWithMemberShip() {
   const [{ instances }] = useAuthTokens();
@@ -28,7 +29,7 @@ export default function ProfileOverviewWithMemberShip() {
   const { loading, response: myprofile } = useApi(instances.doRefresh, apiMyPageBasics, {});
 
   if (loading) {
-    return <div>TODO loading</div>;
+    return <div className='p-8 w-full text-center items-center'><Spinner /></div>
   }
 
   if (myprofile.status !== 'SUCCESS') {

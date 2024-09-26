@@ -62,15 +62,10 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
     setOrder((e.target as HTMLInputElement).value as CommentsOrdering);
   }
 
-  // TODO
   if (loading) {
+    // TODO : use proper loading screen later
     return (
-      <>
-        <CommentsSummaryViewLoading />
-        <CommentsWrapper order={order} handleValue={handleValue}>
-          <CommentLoadingItems />
-        </CommentsWrapper>
-      </>
+      <div />
     );
   }
 
