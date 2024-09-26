@@ -1,4 +1,4 @@
-export function getTagFromCourse(course: CourseOnly) {
+export function getTagFromCourse(course: Course) {
   const threshhold = 0.5;
 
   // console.log(course.COUNT_teach_t2_practice);
