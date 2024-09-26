@@ -32,9 +32,10 @@ const pretendard = localFont({
   variable: '--font-pretendard',
 });
 
-const SessionIdProvider = dynamic(() => import('@/lib/context/SessionIdContext'), { ssr: false, loading: () => <></> });
+const AuthTokensProvider = dynamic(() => import('@/lib/context/AuthTokensContext'), { ssr: false, loading: () => <></> });
 
 import ClearStorageDependOnTabs from '@/lib/context/ClearStorageDependOnTabs';
+import { KEY_FOR_ACCESS_TOKEN } from '@/lib/directive';
 
 export default function RootLayout({
   children,
@@ -50,10 +51,10 @@ export default function RootLayout({
         className={`${inter.className} ${pretendard.className} light:bg-base-32 dark:bg-base-1
       light:text-base-0 dark:text-base-32`}
       >
-        <ClearStorageDependOnTabs>
-          <SessionIdProvider>
+        <ClearStorageDependOnTabs keys={[KEY_FOR_ACCESS_TOKEN]}>
+          <AuthTokensProvider>
             <TopLevelLayout>{children}</TopLevelLayout>
-          </SessionIdProvider>
+          </AuthTokensProvider>
         </ClearStorageDependOnTabs>
       </body>
     </html>
