@@ -41,12 +41,11 @@ function SearchResultsViewWithOrder({
 
   const SearchResults = memo(
     function SearchResults({
-      instance,
       keyword,
       order,
       page,
     }: ReqSearchCourse & { instance: AxiosInstance | undefined }) {
-      const { loading, response } = useApi(instance, apiSearch, { keyword, order, page });
+      const { loading, response } = useApi(instances.refreshFirst, apiSearch, { keyword, order, page });
 
       if (loading) {
         return <CourseLoadingItems />;
@@ -85,7 +84,7 @@ function SearchResultsViewWithOrder({
           .fill(null)
           .map((_, i) => i + 1)
           .flatMap((v) => (
-            <SearchResults instance={instances.refreshFirst} key={v} keyword={keyword} order={order} page={v} />
+            <SearchResults key={v} keyword={keyword} order={order} page={v} />
           ))}
       </Grid>
       {nextButton}

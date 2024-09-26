@@ -32,12 +32,11 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
   const [order, setOrder] = useState<CommentsOrdering>('NEWEST');
 
   const CommentsResults = memo(function CommentsResults({
-    instance,
     course_id,
     order,
     page,
   }: ReqCourseDetail & { instance: AxiosInstance | undefined }) {
-    const { loading, response } = useApi(instance, apiCourseDetail, { course_id, order, page });
+    const { loading, response } = useApi(instances.refreshFirst, apiCourseDetail, { course_id, order, page });
 
     if (loading) {
       return <CommentLoadingItems />;
@@ -99,7 +98,7 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
       <CommentsSummaryView course={course.data} />
       <CommentsWrapper order={order} handleValue={handleValue}>
         {pages.flatMap((p) => (
-          <CommentsResults instance={instances.refreshFirst} key={p} order={order} page={p} course_id={course_id} />
+          <CommentsResults key={p} order={order} page={p} course_id={course_id} />
         ))}
         {nextButton}
       </CommentsWrapper>
