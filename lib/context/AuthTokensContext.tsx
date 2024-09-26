@@ -7,7 +7,11 @@ import useTabSharedState from '@/lib/hooks/shared';
 import { KEY_FOR_ACCESS_TOKEN, KEY_FOR_REFRESH_TOKEN } from '@/lib/directive';
 
 export type AuthTokensContextType = [AuthTokens, SetState<JWT | null>, SetState<JWT | null>];
-export const AuthTokensContext = createContext<AuthTokensContextType>([{ accessToken: null, refreshToken: null}, () => {}, () => {}]);
+export const AuthTokensContext = createContext<AuthTokensContextType>([
+  { accessToken: null, refreshToken: null },
+  () => {},
+  () => {},
+]);
 
 export function useAuthTokens() {
   return useContext(AuthTokensContext);
