@@ -15,6 +15,7 @@ export const GET =
   async (req: Req) => {
     const a = await fetch(
       buildUrlWithParams(new URL(uri, URL_BACKEND_BASE).href, req as Record<string, string | number>),
+      { cache: 'force-cache', next: { revalidate: 600 } },
     );
 
     const res = await a.json();
