@@ -7,8 +7,10 @@ import { useRouter } from 'next/navigation';
 
 import ChangePwForm from './form';
 import { handleInputBuilder } from '@/lib/form/handler';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 export default function ChangePW() {
+  const [{ instances }] = useAuthTokens();
   const [input, setInput] = useState<UpdatePWExtended>({ old_password: '', new_password: '', new_password_check: '' });
 
   const [busy, setBusy] = useState<boolean>(false);
@@ -36,7 +38,10 @@ export default function ChangePW() {
       return alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
     }
 
-    apiProfileUpdatePW({ old_password: input.old_password, new_password: input.new_password }).then((s) => {
+    apiProfileUpdatePW(instances.doRefresh, {
+      old_password: input.old_password,
+      new_password: input.new_password,
+    }).then((s) => {
       if (s.status === 'SUCCESS') {
         alert(`비밀번호 변경에 성공했습니다.`);
         router.push('/mypage?pwchanged');

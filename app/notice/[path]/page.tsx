@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { HStack } from '@/component/basic/stack';
-import apiGetNotices from '@/lib/api-client/calls/notice';
+import apiGetNotices from '@/lib/api-server/notice';
 
 function MarkdownWrapper({ children }: React.PropsWithChildren<unknown>) {
   return (

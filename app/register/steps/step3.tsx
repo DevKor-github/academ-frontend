@@ -11,6 +11,7 @@ import Input from '@/component/basic/input';
 import ErrorLabel from '@/component/basic/errorlabel';
 
 import { departments } from '@/lib/data/departments';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 const validatePw = (pw: string) => {
   const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W]{8,24}$/;
@@ -34,6 +35,7 @@ export default function Step3({
   const [isPwValid, setIsPwValid] = useState<boolean>(false);
   const [pwcheck, setpwCheck] = useState('');
   const [isNumValid, setIsNumValid] = useState<boolean>(false);
+  const [{ instances }] = useAuthTokens();
 
   interface NameState {
     username: string;
@@ -65,7 +67,7 @@ export default function Step3({
   }
 
   async function handleDuplicateName() {
-    const response = await apiDuplicateName({ username: input.username });
+    const response = await apiDuplicateName(instances.basic, { username: input.username });
 
     if (response.status === 'SUCCESS') {
       setNameCheck({ ...nameCheck, username: input.username, isChecked: response.status, error: false });
@@ -79,7 +81,7 @@ export default function Step3({
   async function handleRegister() {
     if (pwcheck !== input.password || !isPwValid) return window.alert('비밀번호를 확인해주세요.');
     if (nameCheck.isChecked !== 'SUCCESS' || nameCheck.username !== input.username) {
-      const response = await apiDuplicateName({ username: input.username });
+      const response = await apiDuplicateName(instances.basic, { username: input.username });
 
       if (response.status !== 'SUCCESS') {
         setNameCheck({ ...nameCheck, username: input.username, isChecked: response.status, error: true });
@@ -90,7 +92,7 @@ export default function Step3({
     if (!departments.includes(input.department)) return window.alert('유효한 학과명을 입력해주세요.');
     if (input.semester == 0) return window.alert('학기를 입력해주세요.');
     else {
-      const response = await apiSignup({ ...input } as SignupRequest);
+      const response = await apiSignup(instances.basic, { ...input } as SignupRequest);
 
       if (response.status === 'SUCCESS') {
         nextStep();

@@ -6,9 +6,11 @@ import Button from '@/component/basic/button';
 import { apiUploadLectures } from '@/lib/api-client/calls/admin';
 import Spinner from '@/component/basic/spinner';
 import { IS_DEBUG } from '@/lib/directive';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 const AdminPageInnter = IS_DEBUG
   ? function AdminPageInner() {
+      const [{ instances }] = useAuthTokens();
       const [jsonContent, setJsonContent] = useState<string | null>(null);
       const [loading, setLoading] = useState<boolean>(false);
 
@@ -32,7 +34,7 @@ const AdminPageInnter = IS_DEBUG
 
         setLoading(true);
 
-        const ret = await apiUploadLectures(JSON.parse(jsonContent));
+        const ret = await apiUploadLectures(instances.doRefresh, JSON.parse(jsonContent));
 
         setLoading(false);
 

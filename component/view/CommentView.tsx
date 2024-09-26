@@ -3,7 +3,7 @@
 import { Star1 } from '@/component/composite/starIndicator';
 import { HStack, VStack } from '@/component/basic/stack';
 import Tag from '@/component/basic/tag';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 
 import { apiDeleteComment, apiLikeComment } from '@/lib/api-client/calls/course';
 
@@ -12,6 +12,7 @@ import { decode } from '@/lib/jwt';
 import Link from 'next/link';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/component/icon';
+import { twMerge } from 'tailwind-merge';
 
 function quaternary<T>(that: number, standard: number, gt: T, eq: T, lt: T) {
   if (that === standard) {
@@ -97,6 +98,7 @@ function Right({
   comment: AcdComment;
   setDel: React.Dispatch<boolean>;
 }) {
+  const [{ instances }] = useAuthTokens();
   const [newLike, setNewLike] = useState<boolean>(false);
 
   useEffect(() => setNewLike(false), []);
@@ -142,7 +144,7 @@ function Right({
         <button
           className={`flex flex-row justify-center items-center px-4 py-1 border rounded-full gap-2 ${textColorClass}`}
           onClick={() => {
-            apiLikeComment({ comment_id: comment.comment_id }).then((s) => {
+            apiLikeComment(instances.doRefresh, { comment_id: comment.comment_id }).then((s) => {
               if (s.status === 'SUCCESS') {
                 setNewLike(!newLike);
               } else {
@@ -190,7 +192,7 @@ function Right({
             className="flex justify-center items-center px-4 py-1 border rounded-full border-neutral-400 text-neutral-400"
             onClick={() => {
               if (confirm('정말 삭제하시겠습니까?') == true) {
-                apiDeleteComment({ comment_id: comment.comment_id }).then((a) => {
+                apiDeleteComment(instances.doRefresh, { comment_id: comment.comment_id }).then((a) => {
                   if (a.status === 'SUCCESS') {
                     setDel(true);
                     alert('성공적으로 삭제했습니다.');
@@ -212,6 +214,7 @@ function Right({
 }
 
 function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dispatch<boolean> }) {
+  const [{ instances }] = useAuthTokens();
   return (
     <HStack className="w-full h-full" gap="8px">
       <Link href={`/lecture/${comment.course_id}`}>
@@ -260,7 +263,7 @@ function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dis
           className="flex justify-center items-center px-4 py-1 border rounded-full border-neutral-400 text-neutral-400"
           onClick={() => {
             if (confirm('정말 삭제하시겠습니까?') == true) {
-              apiDeleteComment({ comment_id: comment.comment_id }).then((a) => {
+              apiDeleteComment(instances.doRefresh, { comment_id: comment.comment_id }).then((a) => {
                 if (a.status === 'SUCCESS') {
                   setDel(true);
                   alert('성공적으로 삭제했습니다.');
@@ -278,23 +281,38 @@ function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dis
   );
 }
 
+export function CommentBox({ className = '', children }: React.PropsWithChildren<{ className?: string }>) {
+  const cn = twMerge(
+    `flex flex-col md:flex-row items-center mt-3 p-4 rounded-3xl gap-5 border
+light:bg-base-32 dark:bg-base-2
+light:border-base-28 dark:border-base-4`,
+    className,
+  );
+
+  return <div className={cn}>{children}</div>;
+}
+
+export function CommentViewLoading() {
+  return (
+    <CommentBox>
+      <div className="min-h-48 min-w-8"></div>
+    </CommentBox>
+  );
+}
+
 export default function CommentView({ comment }: { comment: AcdComment }) {
   const [jwt] = useAuthTokens();
 
-  const editable = jwt.accessToken === null ? true : comment.profile_id === decode<JWTDecoded>(jwt.accessToken).profile_id;
+  const editable =
+    jwt.accessToken === null ? true : comment.profile_id === decode<JWTDecoded>(jwt.accessToken).profile_id;
 
   const [del, setDel] = useState<boolean>(false);
 
   return (
-    <div
-      className={`${del ? 'hidden' : ''} flex flex-col md:flex-row items-center mt-3 p-4 rounded-3xl gap-5 border
-  
-  light:bg-base-32 dark:bg-base-2
-  light:border-base-28 dark:border-base-4`}
-    >
+    <CommentBox className={del ? 'hidden' : ''}>
       <Left comment={comment} />
       <Right comment={comment} editable={editable} setDel={setDel} />
-    </div>
+    </CommentBox>
   );
 }
 
@@ -302,14 +320,9 @@ export function MyCommentView({ comment }: { comment: AcdMyComment }) {
   const [del, setDel] = useState<boolean>(false);
 
   return (
-    <div
-      className={`${del ? 'hidden' : ''} flex flex-col md:flex-row items-center mt-3 p-4 rounded-3xl gap-5 border
-  
-  light:bg-base-32 dark:bg-base-2
-  light:border-base-28 dark:border-base-4`}
-    >
+    <CommentBox className={del ? 'hidden' : ''}>
       <Left comment={comment} />
       <MyRight comment={comment} setDel={setDel} />
-    </div>
+    </CommentBox>
   );
 }

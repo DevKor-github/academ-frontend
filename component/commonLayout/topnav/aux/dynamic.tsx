@@ -1,10 +1,10 @@
 'use client';
 
-import { use, useState } from 'react';
+import { useState } from 'react';
 
 import Link from 'next/link';
 
-import { AuthTokensContext } from '@/lib/context/AuthTokensContext';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 import Button from '@/component/basic/button';
 import Popover from '@/component/basic/popover';
@@ -60,7 +60,7 @@ function LoginButton() {
 }
 
 export default function TopNavInnerRightClient() {
-  const [jwt] = use(AuthTokensContext);
+  const [jwt] = useAuthTokens();
   const [open, setOpen] = useState<boolean>(false);
   // const state = use(apiMyPageBasics({}, { token: jwt?.accessToken }));
 

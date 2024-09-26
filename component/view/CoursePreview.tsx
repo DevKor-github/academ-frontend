@@ -8,8 +8,9 @@ import BookmarkToggleButton from '@/component/composite/bookmarkToggleButton';
 import LectureIcon from '@/component/composite/lectureIcon';
 
 import { getTagFromCourse } from '@/lib/process/tag';
+import { IsCourse } from '@/lib/type/IsCourse';
 
-function Up({ course }: { course: Course }) {
+function Up({ course }: { course: Course | CourseOnly }) {
   return (
     <VStack
       className="border-b border-b-neutral-400 pb-3"
@@ -35,7 +36,26 @@ function Up({ course }: { course: Course }) {
   );
 }
 
-function Down({ course }: { course: Course }) {
+function Down({ course }: { course: Course | CourseOnly }) {
+  if (!IsCourse(course)) {
+    return (
+      <VStack className={'pt-4 flex-wrap items-center justify-start gap-2'}>
+        <span className="text-2xl font-semibold flex flex-row justify-end flex-grow gap-1 self-end">
+          {course.count_comments === 0 ? (
+            <span className="text-base font-normal text-neutral-400">평가 없음</span>
+          ) : (
+            <>
+              <span className="text-primary-500">
+                <StarIcon />
+              </span>
+              <span className="text-base-4 text-base font-normal self-end">평가 {course.count_comments}개</span>
+            </>
+          )}
+        </span>
+      </VStack>
+    );
+  }
+
   const tags = getTagFromCourse(course);
 
   return (
@@ -89,7 +109,7 @@ export function CoursePreviewLoading() {
   );
 }
 
-export default function CoursePreview({ course }: { course: Course }) {
+export default function CoursePreview({ course }: { course: Course | CourseOnly }) {
   return (
     <CoursePreviewBox href={`/lecture/${course.course_id}`}>
       <Up course={course} />

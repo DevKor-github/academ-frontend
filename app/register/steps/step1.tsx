@@ -12,6 +12,7 @@ import Spinner from '@/component/basic/spinner';
 
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 import { apiSendEmail } from '@/lib/api-client/calls/login';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 const validateEmail = (email: string) => {
   const re = /^[^\s@]+@korea\.ac\.kr$/;
@@ -41,6 +42,8 @@ export default function Step1({
 
   const [timeout, resetTimeout] = useAnimationTimeout(500);
 
+  const [{ instances }] = useAuthTokens();
+
   useEffect(() => {
     setIsEmailValid(validateEmail(input.email));
   }, [input.email]);
@@ -48,7 +51,7 @@ export default function Step1({
   async function handleSendEmail() {
     setLoading(true);
 
-    const response = await apiSendEmail({ email: input.email, purpose: 'SIGN_UP' });
+    const response = await apiSendEmail(instances.basic, { email: input.email, purpose: 'SIGN_UP' });
 
     if (response.status === 'SUCCESS') {
       const id = input.email;
@@ -75,7 +78,7 @@ export default function Step1({
         className="flex flex-col gap-5"
         onSubmit={(e) => {
           e.preventDefault();
-          isEmailValid ? handleSendEmail() : () => undefined;
+          return isEmailValid ? handleSendEmail() : () => undefined;
         }}
       >
         <Input required type="email" id="email" placeholder="example@korea.ac.kr" onChange={handleInput} autoFocus />

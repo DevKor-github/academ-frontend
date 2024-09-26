@@ -1,7 +1,6 @@
 'use client';
 
-import { use } from 'react';
-
+import { useApi } from '@/lib/hooks/api';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import ManageMembership from './static/MyProfileMemberships';
@@ -9,24 +8,31 @@ import MyProfileBasics from './static/MyProfileBasics';
 
 import { apiMyPageBasics } from '@/lib/api-client/calls/mypage';
 import { CloseIcon } from '@/component/icon';
-import { LoginRequiredError } from '@/lib/api-client/errors';
 
 import TempAlert from './static/TempAlert';
 
 import BookmarksView from './part/MyBookmarksView';
 import MyCommentsView from './part/MyCommentsView';
 
+import { LoginRequiredView } from '@/component/composite/PermissionView';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+
 export default function ProfileOverviewWithMemberShip() {
+  const [{ instances }] = useAuthTokens();
   const router = useRouter();
   const params = useSearchParams();
 
   const pwchanged = params?.get('pwchanged') !== null;
   const profilechanged = params?.get('profilechanged') !== null;
 
-  const myprofile = use(apiMyPageBasics({}));
+  const { loading, response: myprofile } = useApi(instances.doRefresh, apiMyPageBasics, {});
+
+  if (loading) {
+    return <div>TODO loading</div>;
+  }
 
   if (myprofile.status !== 'SUCCESS') {
-    throw new LoginRequiredError('Login Required to see this page');
+    return <LoginRequiredView />;
   }
 
   const RemoveAlert = (

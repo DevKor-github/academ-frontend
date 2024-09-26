@@ -1,51 +1,20 @@
 'use client';
 
+import { memo, useState } from 'react';
 import Link from 'next/link';
-import { useState } from 'react';
 
-import { apiSearchCount } from '@/lib/api-client/calls/course';
 import Button from '@/component/basic/button';
+import CoursePreview from '@/component/view/CoursePreview';
 import { DownIcon } from '@/component/icon';
 
-import { Grid } from './aux';
+import { Box, CourseLoadingItems, Grid } from './aux';
+
+import { apiSearchCount, apiSearch } from '@/lib/api-client/calls/course';
 import { ELEM_PER_PAGE } from '@/lib/directive';
 import { useApi } from '@/lib/hooks/api';
 
-import { memo } from 'react';
-import { apiSearch } from '@/lib/api-client/calls/course';
-
-import CoursePreview from '@/component/view/CoursePreview';
-import { Box, CourseLoadingItems } from './aux';
-
-const SearchResults = memo(
-  function SearchResults({ keyword, order, page }: ReqSearchCourse) {
-    const { loading, response } = useApi(apiSearch, { keyword, order, page });
-
-    if (loading) {
-      return <CourseLoadingItems />;
-    }
-
-    if (response.status !== 'SUCCESS') {
-      return <Box>오류가 발생했습니다.</Box>;
-    }
-
-    return (
-      <>
-        {response.data.map((course) => (
-          <div key={course.course_id} className="animate-fade">
-            <CoursePreview key={course.course_id} course={course} />
-          </div>
-        ))}
-      </>
-    );
-  },
-  (prev, next) =>
-    prev != undefined &&
-    next != undefined &&
-    prev.keyword === next.keyword &&
-    prev.order === next.order &&
-    prev.page === next.page,
-);
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import { AxiosInstance } from 'axios';
 
 function SearchResultsViewWithOrder({
   query: keyword,
@@ -56,6 +25,7 @@ function SearchResultsViewWithOrder({
   order: SearchOrdering;
   totalPage: number;
 }) {
+  const [{ instances }] = useAuthTokens();
   const [page, setPage] = useState<number>(1);
 
   const nextButton =
@@ -69,6 +39,41 @@ function SearchResultsViewWithOrder({
       </div>
     );
 
+  const SearchResults = memo(
+    function SearchResults({
+      instance,
+      keyword,
+      order,
+      page,
+    }: ReqSearchCourse & { instance: AxiosInstance | undefined }) {
+      const { loading, response } = useApi(instance, apiSearch, { keyword, order, page });
+
+      if (loading) {
+        return <CourseLoadingItems />;
+      }
+
+      if (response.status !== 'SUCCESS') {
+        return <Box>오류가 발생했습니다.</Box>;
+      }
+
+      return (
+        <>
+          {response.data.map((course) => (
+            <div key={course.course_id} className="animate-fade">
+              <CoursePreview key={course.course_id} course={course} />
+            </div>
+          ))}
+        </>
+      );
+    },
+    (prev, next) =>
+      prev != undefined &&
+      next != undefined &&
+      prev.keyword === next.keyword &&
+      prev.order === next.order &&
+      prev.page === next.page,
+  );
+
   if (keyword === '') {
     return <p>강의명, 교수명, 학수번호로 검색해보세요.</p>;
   }
@@ -80,7 +85,7 @@ function SearchResultsViewWithOrder({
           .fill(null)
           .map((_, i) => i + 1)
           .flatMap((v) => (
-            <SearchResults key={v} keyword={keyword} order={order} page={v} />
+            <SearchResults instance={instances.refreshFirst} key={v} keyword={keyword} order={order} page={v} />
           ))}
       </Grid>
       {nextButton}
@@ -89,14 +94,20 @@ function SearchResultsViewWithOrder({
 }
 
 export default function SearchResultsView({ query, sort }: { query: string; sort: SearchOrdering }) {
-  const { loading, response: lectureCount } = useApi(apiSearchCount, { keyword: query });
+  const [{ instances }] = useAuthTokens();
+  const { loading, response: lectureCount } = useApi(instances.doRefresh, apiSearchCount, { keyword: query });
 
   if (query === '') {
     return <span>강의명, 교수명, 학수번호로 검색해보세요.</span>;
   }
 
   if (loading) {
-    return <></>;
+    // WARN : double-loading screen might make flickring
+    return (
+      <Grid>
+        <CourseLoadingItems />
+      </Grid>
+    );
   }
 
   if (lectureCount.status != 'SUCCESS') {

@@ -5,8 +5,10 @@ import Progress from '@/component/basic/progress';
 import Star5 from '@/component/composite/starIndicator';
 
 import { getTagFromCourse } from '@/lib/process/tag';
+import { twMerge } from 'tailwind-merge';
+import Spinner from '../basic/spinner';
 
-function RateSummary({ course }: { course: CourseOnly }) {
+function RateSummary({ course }: { course: Course }) {
   const tags = getTagFromCourse(course);
 
   return (
@@ -77,7 +79,7 @@ export function CriteriaIndicator({ name, low, high, rate, style, reverse }: Cri
   );
 }
 
-function Criteria({ course }: { course: CourseOnly }) {
+function Criteria({ course }: { course: Course }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 self-center w-fit max-w-full gap-x-8 gap-y-8">
       <CriteriaIndicator name="학습량" low="적음" high="많음" rate={course.avg_r1_amount_of_studying} reverse={true} />
@@ -88,11 +90,12 @@ function Criteria({ course }: { course: CourseOnly }) {
   );
 }
 
-export default function CommentsSummaryView({ course }: { course: CourseOnly }) {
-  return (
-    <HStack gap="30px" className="pl-8 pr-8 pb-8" style={{ marginTop: '60px' }}>
-      <span className="text-2xl">평가 한눈에 보기</span>
+function CommentsSummaryBox({ children, className = '' }: React.PropsWithChildren<{ className?: string }>) {
+  const tn = twMerge('pl-8 pr-8 pb-8', className);
 
+  return (
+    <HStack gap="30px" className={tn} style={{ marginTop: '60px' }}>
+      <span className="text-2xl">평가 한눈에 보기</span>
       <VStack
         gap="20px"
         style={{
@@ -103,9 +106,27 @@ export default function CommentsSummaryView({ course }: { course: CourseOnly }) 
           margin: '20px 0px',
         }}
       >
-        <RateSummary course={course} />
-        <Criteria course={course} />
+        {children}
       </VStack>
     </HStack>
+  );
+}
+
+export function CommentsSummaryViewLoading() {
+  return (
+    <CommentsSummaryBox className="animate-pulse">
+      <div>
+        <Spinner />
+      </div>
+    </CommentsSummaryBox>
+  );
+}
+
+export default function CommentsSummaryView({ course }: { course: Course }) {
+  return (
+    <CommentsSummaryBox>
+      <RateSummary course={course} />
+      <Criteria course={course} />
+    </CommentsSummaryBox>
   );
 }

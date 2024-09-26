@@ -8,12 +8,14 @@ import UpdateBasicForm from './form';
 import ErrorTemplate from '@/lib/template';
 import { handleInputBuilder } from '@/lib/form/handler';
 import { departments } from '@/lib/data/departments';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 function MyPageEditBasicWithProfile({
   profile: { username, student_id, degree, semester, department },
 }: {
   profile: UserProfile;
 }) {
+  const [{ instances }] = useAuthTokens();
   const router = useRouter();
 
   const [input, setInput] = useState<UpdateProfileReq>({ username, student_id, degree, semester, department });
@@ -38,7 +40,7 @@ function MyPageEditBasicWithProfile({
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setBusy(true);
-    apiProfileUpdateBasic(input).then((s) => {
+    apiProfileUpdateBasic(instances.doRefresh, input).then((s) => {
       setBusy(false);
       if (s.status === 'SUCCESS') {
         alert('프로필 수정을 완료했습니다.');
@@ -61,7 +63,8 @@ function MyPageEditBasicWithProfile({
 }
 
 export default function MyPageEditBasic() {
-  const profile = use(apiMyPageBasics({}));
+  const [{ instances }] = useAuthTokens();
+  const profile = use(apiMyPageBasics(instances.doRefresh, {}));
 
   if (profile.status === 'SUCCESS') {
     return <MyPageEditBasicWithProfile profile={profile.data} />;

@@ -11,6 +11,7 @@ import { FinishIcon } from '@/component/icon';
 
 import ErrorTemplate from '@/lib/template';
 import { URL_CUSTOMER_SURVEY } from '@/lib/directive';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 function NewCommentWithId(id: number) {
   return {
@@ -59,13 +60,14 @@ function Submitted({ back }: { back: string }) {
 }
 
 function WriteComment({ course }: { course: Course }) {
+  const [{ instances }] = useAuthTokens();
   const [input, setInput] = useState<AcdCommentNewReq>(NewCommentWithId(course.course_id));
   const [submitted, setSubmitted] = useState<number | undefined>(undefined);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (confirm('작성 완료하시겠습니까?') == true) {
-      apiInsertComment(input).then((s) => {
+      apiInsertComment(instances.doRefresh, input).then((s) => {
         if (s.status === 'SUCCESS') {
           setSubmitted(s.data);
         } else {
@@ -97,7 +99,8 @@ function WriteComment({ course }: { course: Course }) {
 }
 
 export default function WritePage({ params: { id } }: { params: { id: number } }) {
-  const writable = use(apiStartNewComment({ course_id: id }));
+  const [{ instances }] = useAuthTokens();
+  const writable = use(apiStartNewComment(instances.doRefresh, { course_id: id }));
 
   return writable.status === 'SUCCESS' && writable.status === 'SUCCESS' && writable.statusCode === 200 ? (
     <WriteComment course={writable.data} />

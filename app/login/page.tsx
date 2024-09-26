@@ -19,8 +19,7 @@ export default function LoginPageClient() {
 
   const route = useRouter();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setAccessToken, setRefreshToken] = useAuthTokens();
+  const [{ instances }, setAccessToken, setRefreshToken] = useAuthTokens();
   const [loading, setLoading] = useState<boolean>(false);
 
   const [loginError, setLoginError] = useState('');
@@ -37,7 +36,7 @@ export default function LoginPageClient() {
       return;
     }
 
-    await apiLogin(input).then((s) => {
+    await apiLogin(instances.basic, input).then((s) => {
       if (s.status === 'SUCCESS') {
         // intended order
         setRefreshToken(s.data.refreshToken);

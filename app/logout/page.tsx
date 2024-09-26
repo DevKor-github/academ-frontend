@@ -8,18 +8,18 @@ import { apiLogout } from '@/lib/api-client/calls/login';
 
 export default function LogoutPage() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setAccessToken, setRefreshToken] = useAuthTokens();
+  const [{ instances }, setAccessToken, setRefreshToken] = useAuthTokens();
   const route = useRouter();
 
   useEffect(() => {
     setTimeout(() => {
-      apiLogout({}).finally(() => {
+      apiLogout(instances.doRefresh, {}).finally(() => {
         setAccessToken(null);
         setRefreshToken(null);
         route.push('/');
       });
     }, 0);
-  }, [setAccessToken, setRefreshToken, route]);
+  }, [instances.doRefresh, setAccessToken, setRefreshToken, route]);
 
   return (
     <div className="pt-24 pb-24 pl-8 pr-8 text-center justify-center">

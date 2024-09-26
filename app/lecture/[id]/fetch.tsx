@@ -1,51 +1,82 @@
 'use client';
 
-import { useState } from 'react';
+import Link from 'next/link';
+import { memo, useState } from 'react';
 
-import { HStack, VStack } from '@/component/basic/stack';
-import Select from '@/component/basic/select';
+import { CommentsWrapper } from './aux';
 import Button from '@/component/basic/button';
 import { DownIcon } from '@/component/icon';
-import CommentsResults from './results';
+import { IssueIcon } from '@/component/icon';
+import CommentsSummaryView, { CommentsSummaryViewLoading } from '@/component/view/CommentsSummaryView';
 
-function CommentsWrapper({
-  children,
-  order,
-  setOrder,
-}: React.PropsWithChildren<{ order: CommentsOrdering; setOrder: SetState<CommentsOrdering> }>) {
+import { useApi } from '@/lib/hooks/api';
+import { apiCourseDetail } from '@/lib/api-client/calls/course';
+import { IsCourse } from '@/lib/type/IsCourse';
+import { NoMembershipView } from '@/component/composite/PermissionView';
+
+import CommentView from '@/component/view/CommentView';
+import { CommentLoadingItems } from './aux';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import { AxiosInstance } from 'axios';
+
+export default function CommentsView({ course_id, totalPage }: ReqCourseRelated & { totalPage: number }) {
+  const [{ instances }] = useAuthTokens();
+  const { refreshFirst } = instances;
+  // arbitrary call
+  const { loading, response: course } = useApi(refreshFirst, apiCourseDetail, {
+    course_id: course_id,
+    order: 'NEWEST',
+    page: 1,
+  });
+  const [page, setPage] = useState<number>(1);
+  const [order, setOrder] = useState<CommentsOrdering>('NEWEST');
+
+  const CommentsResults = memo(function CommentsResults({
+    instance,
+    course_id,
+    order,
+    page,
+  }: ReqCourseDetail & { instance: AxiosInstance | undefined }) {
+    const { loading, response } = useApi(instance, apiCourseDetail, { course_id, order, page });
+
+    if (loading) {
+      return <CommentLoadingItems />;
+    }
+
+    if (response.status !== 'SUCCESS') {
+      return <div>발생해서 오류가 발생했습니다.</div>;
+    }
+
+    if (!IsCourse(response.data)) {
+      return <NoMembershipView />;
+    }
+
+    return response.data.comments.flatMap((comment) => (
+      <div key={comment.comment_id} className="animate-fade">
+        <CommentView key={comment.comment_id} comment={comment} />
+      </div>
+    ));
+  });
+
   function handleValue(e: React.FormEvent<HTMLInputElement>) {
     setOrder((e.target as HTMLInputElement).value as CommentsOrdering);
   }
 
-  return (
-    <HStack className="pl-2 pr-2 md:pl-8 md:pr-8 pt-12 pb-12 h-full transition-all light:bg-base-31 dark:bg-base-2 gap-6">
-      <VStack className="items-center justify-between gap-2 mb-2">
-        <VStack className="items-center justify-start gap-10">
-          <span className="text-2xl">강의평 목록</span>
-        </VStack>
+  // TODO
+  if (loading) {
+    return (
+      <>
+        <CommentsSummaryViewLoading />
+        <CommentsWrapper order={order} handleValue={handleValue}>
+          <CommentLoadingItems />
+        </CommentsWrapper>
+      </>
+    );
+  }
 
-        <VStack className="items-center justify-end gap-2">
-          <Select
-            id="order"
-            value={order}
-            handleValue={handleValue}
-            items={
-              [
-                { value: 'NEWEST', label: '최신순' },
-                { value: 'LIKES_DESC', label: '인기순' },
-              ] as const
-            }
-          />
-        </VStack>
-      </VStack>
-      {children}
-    </HStack>
-  );
-}
-
-export default function CommentsView({ course_id, totalPage }: ReqCourseRelated & { totalPage: number }) {
-  const [page, setPage] = useState<number>(1);
-  const [order, setOrder] = useState<CommentsOrdering>('NEWEST');
+  if (course.status !== 'SUCCESS') {
+    return <NoMembershipView />;
+  }
 
   const pages = new Array(page).fill(undefined).map((_, i) => i + 1);
 
@@ -60,12 +91,27 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
       </div>
     );
 
-  return (
-    <CommentsWrapper order={order} setOrder={setOrder}>
-      {pages.flatMap((p) => (
-        <CommentsResults key={p} order={order} page={p} course_id={course_id} />
-      ))}
-      {nextButton}
-    </CommentsWrapper>
+  return course.data.count_comments === 0 ? (
+    <>
+      <div className="flex flex-col justify-center items-center gap-6 h-full min-h-[300px]">
+        <IssueIcon />
+        <span className="w-fulltext-center text-2xl text-center">강의평이 없습니다.</span>
+        <span className="w-fulltext-center text-base text-center text-primary-500 underline">
+          <Link href={`/lecture/${course.data.course_id}/write`}>작성하러 가기</Link>
+        </span>
+      </div>
+    </>
+  ) : IsCourse(course.data) ? (
+    <>
+      <CommentsSummaryView course={course.data} />
+      <CommentsWrapper order={order} handleValue={handleValue}>
+        {pages.flatMap((p) => (
+          <CommentsResults instance={instances.refreshFirst} key={p} order={order} page={p} course_id={course_id} />
+        ))}
+        {nextButton}
+      </CommentsWrapper>
+    </>
+  ) : (
+    <NoMembershipView />
   );
 }

@@ -2,15 +2,17 @@
 
 import { apiBuyAcess } from '@/lib/api-client/calls/membership';
 import MembershipIcon from './MembershipIcons';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 export default function BuyMembershipButton({ membershipData }: { membershipData: MembershipData }) {
+  const [{ instances }] = useAuthTokens();
   function buyHandler() {
     if (
       confirm(
         `이용권 (${membershipData.day}일권) 을 정말 구매하시겠습니까? ${membershipData.price} 포인트가 소모됩니다.`,
       )
     ) {
-      apiBuyAcess({ item: membershipData.item }).then((v) => {
+      apiBuyAcess(instances.doRefresh, { item: membershipData.item }).then((v) => {
         if (v.status == 'SUCCESS') {
           alert(`이용권 (${membershipData.day}일권) 을 정상적으로 구매하였습니다.`);
         } else if (v.status == 'ERROR') {

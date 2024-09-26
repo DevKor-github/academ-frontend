@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 
 export default function DeleteAccountClient() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setAccessToken, setRefreshToken] = useAuthTokens();
+  const [{ instances }, setAccessToken, setRefreshToken] = useAuthTokens();
 
   const route = useRouter();
 
@@ -31,7 +31,7 @@ export default function DeleteAccountClient() {
     }
 
     setBusy(true);
-    apiDeleteAccount({ password: input.password }).then((s) => {
+    apiDeleteAccount(instances.doRefresh, { password: input.password }).then((s) => {
       if (s.status === 'SUCCESS') {
         alert('계정이 성공적으로 삭제되었습니다.');
         setAccessToken(null);

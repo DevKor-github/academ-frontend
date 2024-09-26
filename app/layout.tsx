@@ -1,8 +1,8 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
-import dynamic from 'next/dynamic';
 import TopLevelLayout from '@/component/composite/toplevellayout';
+import dynamic from 'next/dynamic';
 
 import type { Viewport } from 'next';
 
@@ -32,7 +32,7 @@ const pretendard = localFont({
   variable: '--font-pretendard',
 });
 
-const AuthTokensProvider = dynamic(() => import('@/lib/context/AuthTokensContext'), { ssr: false, loading: () => <></> });
+const AuthTokensProvider = dynamic(() => import('@/lib/context/AuthTokensContext'), { ssr: false });
 
 import ClearStorageDependOnTabs from '@/lib/context/ClearStorageDependOnTabs';
 import { KEY_FOR_ACCESS_TOKEN } from '@/lib/directive';

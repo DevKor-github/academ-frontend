@@ -6,7 +6,7 @@ export default function Select<T extends string>({
 }: {
   id: string;
   items: readonly SelectOpts<T>[];
-  handleValue?: React.FormEventHandler<HTMLInputElement>;
+  handleValue: React.FormEventHandler<HTMLInputElement> | undefined;
   value: T;
 }) {
   return (

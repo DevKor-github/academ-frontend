@@ -13,25 +13,9 @@ import { ELEM_PER_PAGE } from '@/lib/directive';
 import { memo } from 'react';
 import CoursePreview from '@/component/view/CoursePreview';
 import { apiMyPageBookmarks } from '@/lib/api-client/calls/mypage';
-import { LoaderItems } from '@/app/lecture/aux';
+import { CourseLoadingItems } from '@/app/lecture/aux';
 import { useApi } from '@/lib/hooks/api';
-
-const ApiMyPageBookmarks = memo(
-  function ApiMyPageBookmarks({ page }: ReqPaginated) {
-    const { loading, response: bms } = useApi(apiMyPageBookmarks, { page });
-
-    if (loading) {
-      return <LoaderItems />;
-    }
-
-    if (bms.status !== 'SUCCESS') {
-      return <div>오류 발생</div>;
-    }
-
-    return bms.data.flatMap((v) => <CoursePreview key={v.course_id} course={v} />);
-  },
-  (prev, next) => prev.page === next.page,
-);
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 function Box({ children }: React.PropsWithChildren) {
   return (
@@ -47,7 +31,26 @@ function Box({ children }: React.PropsWithChildren) {
 }
 
 export default function BookmarksView() {
-  const { loading, response: totalCount } = useApi(apiMyPageBookmarksCount, {});
+  const [{ instances }] = useAuthTokens();
+
+  const ApiMyPageBookmarks = memo(
+    function ApiMyPageBookmarks({ page }: ReqPaginated) {
+      const { loading, response: bms } = useApi(instances.doRefresh, apiMyPageBookmarks, { page });
+
+      if (loading) {
+        return <CourseLoadingItems />;
+      }
+
+      if (bms.status !== 'SUCCESS') {
+        return <div>오류 발생</div>;
+      }
+
+      return bms.data.flatMap((v) => <CoursePreview key={v.course_id} course={v} />);
+    },
+    (prev, next) => prev.page === next.page,
+  );
+
+  const { loading, response: totalCount } = useApi(instances.doRefresh, apiMyPageBookmarksCount, {});
   const [page, setPage] = useState<number>(1);
 
   if (loading) {

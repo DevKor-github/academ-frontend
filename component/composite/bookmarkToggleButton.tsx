@@ -1,18 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { BookmarkIcon } from '@/component/icon';
 import { apiBookmark } from '@/lib/api-client/calls/course';
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 export default function BookmarkToggleButton({ id, defaultValue }: { id: number; defaultValue: boolean }) {
+  const [{ instances }] = useAuthTokens();
   const [b, setB] = useState(defaultValue);
   const [pulse, setPulse] = useState(false);
   const [shake, resetShake] = useAnimationTimeout(600);
 
   function sendApiThenSetB(newB: boolean) {
     setPulse(true);
-    apiBookmark({ course_id: id }).then((a) => {
+    apiBookmark(instances.doRefresh, { course_id: id }).then((a) => {
       if (a.status === 'SUCCESS') {
         setB(newB);
       } else {

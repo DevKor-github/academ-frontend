@@ -11,23 +11,7 @@ import { MyCommentView } from '@/component/view/CommentView';
 import { apiMyPageCommentsCount } from '@/lib/api-client/calls/mypage';
 import { apiMyPageComments } from '@/lib/api-client/calls/mypage';
 import { useApi } from '@/lib/hooks/api';
-
-const ApiMyPageComments = memo(
-  function ApiMyPageComments({ page }: ReqPaginated) {
-    const { loading, response: cms } = useApi(apiMyPageComments, { page });
-
-    if (loading) {
-      return <div>...</div>;
-    }
-
-    if (cms.status !== 'SUCCESS') {
-      return <div>오류 발생</div>;
-    }
-
-    return cms.data.flatMap((v) => <MyCommentView key={v.course_id} comment={v} />);
-  },
-  (prev, next) => prev.page === next.page,
-);
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 function MyCommentsWrapper({ children }: React.PropsWithChildren) {
   return (
@@ -43,7 +27,26 @@ function MyCommentsWrapper({ children }: React.PropsWithChildren) {
 }
 
 export default function MyCommentsView() {
-  const { loading, response: totalPageRes } = useApi(apiMyPageCommentsCount, {});
+  const [{ instances }] = useAuthTokens();
+
+  const ApiMyPageComments = memo(
+    function ApiMyPageComments({ page }: ReqPaginated) {
+      const { loading, response: cms } = useApi(instances.doRefresh, apiMyPageComments, { page });
+
+      if (loading) {
+        return <div>...</div>;
+      }
+
+      if (cms.status !== 'SUCCESS') {
+        return <div>오류 발생</div>;
+      }
+
+      return cms.data.flatMap((v) => <MyCommentView key={v.course_id} comment={v} />);
+    },
+    (prev, next) => prev.page === next.page,
+  );
+
+  const { loading, response: totalPageRes } = useApi(instances.doRefresh, apiMyPageCommentsCount, {});
   const [page, setPage] = useState<number>(1);
 
   if (loading) {

@@ -8,8 +8,10 @@ import { apiSendEmail } from '@/lib/api-client/calls/login';
 import ResetPwForm1 from './inner/form1';
 import ResetPwForm2 from './inner/form2';
 import { handleInputBuilder } from '@/lib/form/handler';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 export default function FindPWPageClient() {
+  const [{ instances }] = useAuthTokens();
   const [input, setInput] = useState<ResetPwReq>({
     email: '',
     code: '',
@@ -23,7 +25,7 @@ export default function FindPWPageClient() {
   function handleSendcode(e: React.FormEvent) {
     e.preventDefault();
     setWip(true);
-    apiSendEmail({ email: input.email, purpose: 'RESET_PASSWORD' }).then((s) => {
+    apiSendEmail(instances.basic, { email: input.email, purpose: 'RESET_PASSWORD' }).then((s) => {
       if (s.status === 'SUCCESS') {
         setStep(2);
         setWip(false);
@@ -37,7 +39,7 @@ export default function FindPWPageClient() {
   function handleResetPw(e: React.FormEvent) {
     e.preventDefault();
     setWip(true);
-    apiResetPassword({ email: input.email, code: input.code }).then((s) => {
+    apiResetPassword(instances.doRefresh, { email: input.email, code: input.code }).then((s) => {
       if (s.status === 'SUCCESS') {
         alert('비밀번호를 성공적으로 초기화했습니다. 이메일로 발급된 임시 비밀번호로 로그인해주세요.');
         route.push('/login');
