@@ -2,17 +2,15 @@
 
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { cache, use } from 'react';
+
 import { Metadata, ResolvingMetadata } from 'next';
 import { LectureIconPath } from '@/component/composite/lectureIcon';
+import { GET } from '@/lib/api-server/get';
 
 import { ELEM_PER_PAGE } from '@/lib/directive';
-import { apiCourseDetail } from '@/lib/api-client/calls/course';
-import ErrorTemplate from '@/lib/template';
+import { notFound } from 'next/navigation';
 
 import CourseBasicsView from '@/component/view/CourseBasicsView';
-import CommentsSummaryView from '@/component/view/CommentsSummaryView';
-import { IssueIcon } from '@/component/icon';
 
 const CommentsView = dynamic(() => import('./fetch'), { ssr: false });
 
@@ -46,53 +44,54 @@ function CourseView({ course, totalPage }: { course: CourseOnly; totalPage: numb
   return (
     <div className="flex flex-col w-full h-full">
       <CourseBasicsView course={course} />
-
-      {course.count_comments === 0 ? (
-        <>
-          <div className="flex flex-col justify-center items-center gap-6 h-full min-h-[300px]">
-            <IssueIcon />
-            <span className="w-fulltext-center text-2xl text-center">강의평이 없습니다.</span>
-            <span className="w-fulltext-center text-base text-center text-primary-500 underline">
-              <Link href={`/lecture/${course.course_id}/write`}>작성하러 가기</Link>
-            </span>
-          </div>
-        </>
-      ) : (
-        <>
-          <CommentsSummaryView course={course} />
-          <CommentsView course_id={course.course_id} totalPage={totalPage} />
-        </>
-      )}
+      <CommentsView course_id={course.course_id} totalPage={totalPage} />
       <WriteNewMobile course_id={course.course_id} />
     </div>
   );
 }
 
-export const generateMetadata = cache(async function generateMetadata(
+export async function generateMetadata(
   { params }: { params: { id: string } },
-  parent: ResolvingMetadata
+  parent: ResolvingMetadata,
 ): Promise<Metadata> {
+  const course = await GET<ReqCourseDetail, CourseOnly | Course>('/api/course/detail')({
+    course_id: Number(params.id),
+    order: 'NEWEST',
+    page: 1,
+  });
 
-  const course = await (apiCourseDetail({ course_id: Number(params.id), order: 'NEWEST', page: 1 }));
- 
+  if (course.status !== 'SUCCESS') {
+    if (course.statusCode === 404) {
+      return {
+        // TODO
+        title: `강의평 - Academ`,
+        description: `Academ에서 강의 평가를 확인하세요.`,
+      };
+    }
+  }
+
   // optionally access and extend (rather than replace) parent metadata
   const previousImages = (await parent).openGraph?.images || [];
- 
+
   return {
     title: `${course.data.name} 강의평 - Academ`,
-    description: `Academ에서 ${course.data.name}의 강의 평을 확인하세요.`,
+    description: `Academ에서 ${course.data.name}의 강의 평가를 확인하세요.`,
     openGraph: {
       images: [LectureIconPath(course.data.course_code), ...previousImages],
     },
-  }
-});
+  };
+}
 
-export default async function LectureFetch({ params: { id } }: { params: { id: string } }) {
+export default async function LectureFetch({ params }: { params: { id: string } }) {
   // XXX : this is just for showing basic information, order is **NOT** important - maybe api refactor?
-  const course = await (apiCourseDetail({ course_id: Number(id), order: 'NEWEST', page: 1 }));
+  const course = await GET<ReqCourseDetail, CourseOnly | Course>('/api/course/detail')({
+    course_id: Number(params.id),
+    order: 'NEWEST',
+    page: 1,
+  });
 
   if (course.status !== 'SUCCESS') {
-    return <ErrorTemplate title={course.statusCode.toString()} subtitle="오류" />;
+    notFound();
   }
 
   const totalPage = Math.ceil(course.data.count_comments / ELEM_PER_PAGE);
