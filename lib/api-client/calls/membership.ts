@@ -1,8 +1,4 @@
 import { build } from '@/lib/api-client/builder';
-import withRefreshResolved from '../instances/withRefreshResolved';
+import doRefresh from '../instances/\bwithRefresh';
 
-export const apiBuyAcess = build<{ item: string }, null>(
-  withRefreshResolved,
-  'POST',
-  '/api/mypage/buy-access-authority',
-);
+export const apiBuyAcess = build<{ item: string }, null>(doRefresh, 'POST', '/api/mypage/buy-access-authority');

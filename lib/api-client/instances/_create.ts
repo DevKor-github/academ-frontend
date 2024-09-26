@@ -1,3 +1,5 @@
+'use client';
+
 import axios from 'axios';
 import { URL_BACKEND_BASE } from '@/lib/directive';
 
