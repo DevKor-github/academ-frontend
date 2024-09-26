@@ -21,7 +21,7 @@ export function Grid({ children }: React.PropsWithChildren<unknown>) {
   );
 }
 
-export function LoaderItems() {
+export function CourseLoadingItems() {
   return (
     <>
       <div className="animate-pulse-[0ms]">

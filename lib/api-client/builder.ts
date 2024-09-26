@@ -1,4 +1,6 @@
-import { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
+'use client';
+
+import { AxiosInstance, AxiosRequestConfig } from 'axios';
 
 import { IS_DEBUG } from '../directive';
 
