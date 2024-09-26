@@ -5,7 +5,7 @@ declare global {
 
   type JWT = string;
 
-  type SessionId = {
+  type AuthTokens = {
     accessToken: JWT | null;
     refreshToken: JWT | null;
   };
