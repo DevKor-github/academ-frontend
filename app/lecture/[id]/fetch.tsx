@@ -7,7 +7,7 @@ import { CommentsWrapper } from './aux';
 import Button from '@/component/basic/button';
 import { DownIcon } from '@/component/icon';
 import { IssueIcon } from '@/component/icon';
-import CommentsSummaryView, { CommentsSummaryViewLoading } from '@/component/view/CommentsSummaryView';
+import CommentsSummaryView from '@/component/view/CommentsSummaryView';
 
 import { useApi } from '@/lib/hooks/api';
 import { apiCourseDetail } from '@/lib/api-client/calls/course';
@@ -17,7 +17,6 @@ import { NoMembershipView } from '@/component/composite/PermissionView';
 import CommentView from '@/component/view/CommentView';
 import { CommentLoadingItems } from './aux';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
-import { AxiosInstance } from 'axios';
 
 export default function CommentsView({ course_id, totalPage }: ReqCourseRelated & { totalPage: number }) {
   const [{ instances }] = useAuthTokens();
@@ -31,11 +30,7 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
   const [page, setPage] = useState<number>(1);
   const [order, setOrder] = useState<CommentsOrdering>('NEWEST');
 
-  const CommentsResults = memo(function CommentsResults({
-    course_id,
-    order,
-    page,
-  }: ReqCourseDetail & { instance: AxiosInstance | undefined }) {
+  const CommentsResults = memo(function CommentsResults({ course_id, order, page }: ReqCourseDetail) {
     const { loading, response } = useApi(instances.refreshFirst, apiCourseDetail, { course_id, order, page });
 
     if (loading) {

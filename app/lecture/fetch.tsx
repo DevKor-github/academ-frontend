@@ -12,9 +12,7 @@ import { Box, CourseLoadingItems, Grid } from './aux';
 import { apiSearchCount, apiSearch } from '@/lib/api-client/calls/course';
 import { ELEM_PER_PAGE } from '@/lib/directive';
 import { useApi } from '@/lib/hooks/api';
-
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
-import { AxiosInstance } from 'axios';
 
 function SearchResultsViewWithOrder({
   query: keyword,
@@ -40,11 +38,7 @@ function SearchResultsViewWithOrder({
     );
 
   const SearchResults = memo(
-    function SearchResults({
-      keyword,
-      order,
-      page,
-    }: ReqSearchCourse & { instance: AxiosInstance | undefined }) {
+    function SearchResults({ keyword, order, page }: ReqSearchCourse) {
       const { loading, response } = useApi(instances.refreshFirst, apiSearch, { keyword, order, page });
 
       if (loading) {

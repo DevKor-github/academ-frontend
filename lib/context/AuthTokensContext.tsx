@@ -148,19 +148,19 @@ export default function AuthTokensProvider({ children }: React.PropsWithChildren
     );
   }
 
-  function cleanupStorageIfFailed(instance: AxiosInstance) {
-    instance.interceptors.response.use(
-      async (res) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        if (res.status !== 401) {
-          setAccessToken(null);
-        }
+  // function cleanupStorageIfFailed(instance: AxiosInstance) {
+  //   instance.interceptors.response.use(
+  //     async (res) => {
+  //       // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //       if (res.status !== 401) {
+  //         setAccessToken(null);
+  //       }
 
-        return Promise.resolve(res);
-      },
-      (error: AxiosError) => Promise.reject(error),
-    );
-  }
+  //       return Promise.resolve(res);
+  //     },
+  //     (error: AxiosError) => Promise.reject(error),
+  //   );
+  // }
 
   /** _intercepts.tsx end */
 
