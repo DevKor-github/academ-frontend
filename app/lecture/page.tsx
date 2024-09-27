@@ -1,12 +1,12 @@
 'use client';
 
-import SearchForm from '@/component/composite/SearchForm';
-import { VStack } from '@/component/basic/stack';
+import SearchForm from '@/components/composite/SearchForm';
+import { VStack } from '@/components/basic/stack';
 
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import { Box } from './aux';
-import Select from '@/component/basic/select';
+import Select from '@/components/basic/select';
 import SearchResultsView from './fetch';
 
 const SearchTopView = ({ query }: { query: string }) => {

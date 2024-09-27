@@ -1,6 +1,6 @@
-import { HStack, VStack } from '@/component/basic/stack';
+import { HStack, VStack } from '@/components/basic/stack';
 import Link from 'next/link';
-import Button from '@/component/basic/button';
+import Button from '@/components/basic/button';
 import BackButton from './backbutton';
 import ErrorIllust from './inner/erroricon';
 

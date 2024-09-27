@@ -2,11 +2,11 @@
 
 import { useState, memo } from 'react';
 
-import Button from '@/component/basic/button';
-import { DownIcon } from '@/component/icon';
+import Button from '@/components/basic/button';
+import { DownIcon } from '@/components/icon';
 
-import { HStack, VStack } from '@/component/basic/stack';
-import { MyCommentView } from '@/component/view/CommentView';
+import { HStack, VStack } from '@/components/basic/stack';
+import { MyCommentView } from '@/components/view/CommentView';
 
 import { apiMyPageCommentsCount } from '@/lib/api-client/calls/mypage';
 import { apiMyPageComments } from '@/lib/api-client/calls/mypage';

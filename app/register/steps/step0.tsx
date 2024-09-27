@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, ChangeEvent } from 'react';
-import { VStack, HStack } from '@/component/basic/stack';
-import Button from '@/component/basic/button';
-import Checkbox from '@/component/basic/checkbok';
+import { VStack, HStack } from '@/components/basic/stack';
+import Button from '@/components/basic/button';
+import Checkbox from '@/components/basic/checkbok';
 
 import PrivacyPolicy from '@/markdown/register/privacy-policy.mdx';
 import TermsOfUse from '@/markdown/register/terms-of-use.mdx';

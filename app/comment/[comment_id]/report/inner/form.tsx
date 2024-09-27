@@ -1,4 +1,4 @@
-import Button from '@/component/basic/button';
+import Button from '@/components/basic/button';
 
 const reasons = [
   { reason: 'PROFANITY', text: '욕설/비방/비하' },

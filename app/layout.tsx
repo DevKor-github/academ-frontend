@@ -1,7 +1,7 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
-import TopLevelLayout from '@/component/composite/toplevellayout';
+import TopLevelLayout from '@/components/composite/toplevellayout';
 import dynamic from 'next/dynamic';
 
 import type { Viewport } from 'next';

@@ -4,13 +4,13 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 import { Metadata, ResolvingMetadata } from 'next';
-import { LectureIconPath } from '@/component/composite/lectureIcon';
+import { LectureIconPath } from '@/components/composite/lectureIcon';
 import { GET } from '@/lib/api-server/get';
 
 import { ELEM_PER_PAGE } from '@/lib/directive';
 import { notFound } from 'next/navigation';
 
-import CourseBasicsView from '@/component/view/CourseBasicsView';
+import CourseBasicsView from '@/components/view/CourseBasicsView';
 
 const CommentsView = dynamic(() => import('./fetch'), { ssr: false });
 

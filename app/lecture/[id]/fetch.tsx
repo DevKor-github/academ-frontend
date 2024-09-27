@@ -4,17 +4,17 @@ import Link from 'next/link';
 import { memo, useState } from 'react';
 
 import { CommentsWrapper } from './aux';
-import Button from '@/component/basic/button';
-import { DownIcon } from '@/component/icon';
-import { IssueIcon } from '@/component/icon';
-import CommentsSummaryView from '@/component/view/CommentsSummaryView';
+import Button from '@/components/basic/button';
+import { DownIcon } from '@/components/icon';
+import { IssueIcon } from '@/components/icon';
+import CommentsSummaryView from '@/components/view/CommentsSummaryView';
 
 import { useApi } from '@/lib/hooks/api';
 import { apiCourseDetail } from '@/lib/api-client/calls/course';
 import { IsCourse } from '@/lib/type/IsCourse';
-import { NoMembershipView } from '@/component/composite/PermissionView';
+import { NoMembershipView } from '@/components/composite/PermissionView';
 
-import CommentView from '@/component/view/CommentView';
+import CommentView from '@/components/view/CommentView';
 import { CommentLoadingItems } from './aux';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 

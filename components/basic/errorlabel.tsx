@@ -1,4 +1,4 @@
-import WarningIcon from '@/component/icon/warning';
+import WarningIcon from '@/components/icon/warning';
 
 export default function ErrorLabel({
   className = '',

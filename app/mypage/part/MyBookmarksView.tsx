@@ -2,16 +2,16 @@
 
 import { useState } from 'react';
 
-import { HStack, VStack } from '@/component/basic/stack';
+import { HStack, VStack } from '@/components/basic/stack';
 
 import { apiMyPageBookmarksCount } from '@/lib/api-client/calls/mypage';
-import Button from '@/component/basic/button';
-import { BookmarkIcon, RightIcon } from '@/component/icon';
+import Button from '@/components/basic/button';
+import { BookmarkIcon, RightIcon } from '@/components/icon';
 import { ELEM_PER_PAGE } from '@/lib/directive';
 // import dynamic from 'next/dynamic';
 
 import { memo } from 'react';
-import CoursePreview from '@/component/view/CoursePreview';
+import CoursePreview from '@/components/view/CoursePreview';
 import { apiMyPageBookmarks } from '@/lib/api-client/calls/mypage';
 import { CourseLoadingItems } from '@/app/lecture/aux';
 import { useApi } from '@/lib/hooks/api';

@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 
-import Button from '@/component/basic/button';
+import Button from '@/components/basic/button';
 import { apiUploadLectures } from '@/lib/api-client/calls/admin';
-import Spinner from '@/component/basic/spinner';
+import Spinner from '@/components/basic/spinner';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 export default function AdminPageInner() {

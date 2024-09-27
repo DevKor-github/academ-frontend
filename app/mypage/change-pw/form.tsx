@@ -1,7 +1,7 @@
-import Button from '@/component/basic/button';
-import ErrorLabel from '@/component/basic/errorlabel';
-import Input from '@/component/basic/input';
-import Spinner from '@/component/basic/spinner';
+import Button from '@/components/basic/button';
+import ErrorLabel from '@/components/basic/errorlabel';
+import Input from '@/components/basic/input';
+import Spinner from '@/components/basic/spinner';
 
 export default function ChangePWForm({
   handleSubmit,

@@ -3,9 +3,9 @@
 import { memo, useState } from 'react';
 import Link from 'next/link';
 
-import Button from '@/component/basic/button';
-import CoursePreview from '@/component/view/CoursePreview';
-import { DownIcon } from '@/component/icon';
+import Button from '@/components/basic/button';
+import CoursePreview from '@/components/view/CoursePreview';
+import { DownIcon } from '@/components/icon';
 
 import { Box, CourseLoadingItems, Grid } from './aux';
 

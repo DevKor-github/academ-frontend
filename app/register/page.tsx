@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import { HStack } from '@/component/basic/stack';
+import { HStack } from '@/components/basic/stack';
 
 import Step0 from './steps/step0';
 import Step1 from './steps/step1';

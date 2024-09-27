@@ -2,13 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
-import { HStack, VStack } from '@/component/basic/stack';
+import { HStack, VStack } from '@/components/basic/stack';
 import { apiDuplicateName, apiSignup } from '@/lib/api-client/calls/login';
 
-import Button from '@/component/basic/button';
-import Input from '@/component/basic/input';
+import Button from '@/components/basic/button';
+import Input from '@/components/basic/input';
 
-import ErrorLabel from '@/component/basic/errorlabel';
+import ErrorLabel from '@/components/basic/errorlabel';
 
 import { departments } from '@/lib/data/departments';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';

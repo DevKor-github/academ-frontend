@@ -1,6 +1,6 @@
-import { VStack, HStack } from '@/component/basic/stack';
-import Tag from '@/component/basic/tag';
-import Skeleton from '@/component/composite/skeleton';
+import { VStack, HStack } from '@/components/basic/stack';
+import Tag from '@/components/basic/tag';
+import Skeleton from '@/components/composite/skeleton';
 
 export default function EditLoading() {
   return (
