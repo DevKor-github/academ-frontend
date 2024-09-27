@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from 'react';
 
-import Button from '@/component/basic/button';
-import Input from '@/component/basic/input';
-import ErrorLabel from '@/component/basic/errorlabel';
+import Button from '@/components/basic/button';
+import Input from '@/components/basic/input';
+import ErrorLabel from '@/components/basic/errorlabel';
 
-import { HStack, VStack } from '@/component/basic/stack';
-import { RightIcon } from '@/component/icon';
-import Spinner from '@/component/basic/spinner';
+import { HStack, VStack } from '@/components/basic/stack';
+import { RightIcon } from '@/components/icon';
+import Spinner from '@/components/basic/spinner';
 
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 import { apiSendEmail } from '@/lib/api-client/calls/login';

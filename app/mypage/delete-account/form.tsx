@@ -1,6 +1,6 @@
-import Input from '@/component/basic/input';
-import Button from '@/component/basic/button';
-import Spinner from '@/component/basic/spinner';
+import Input from '@/components/basic/input';
+import Button from '@/components/basic/button';
+import Spinner from '@/components/basic/spinner';
 
 export interface DeleteAccountInputExtended {
   password: string;

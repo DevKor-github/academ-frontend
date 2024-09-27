@@ -1,8 +1,8 @@
-import Tag from '@/component/basic/tag';
-import { HStack, VStack } from '@/component/basic/stack';
-import Progress from '@/component/basic/progress';
+import Tag from '@/components/basic/tag';
+import { HStack, VStack } from '@/components/basic/stack';
+import Progress from '@/components/basic/progress';
 
-import Star5 from '@/component/composite/starIndicator';
+import Star5 from '@/components/composite/starIndicator';
 
 import { getTagFromCourse } from '@/lib/process/tag';
 import { twMerge } from 'tailwind-merge';

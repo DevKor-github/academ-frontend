@@ -9,7 +9,7 @@ import {
 } from '@/lib/api-client/errors';
 
 import { useRouter } from 'next/navigation';
-import Button from '@/component/basic/button';
+import Button from '@/components/basic/button';
 
 function Box({ children }: React.PropsWithChildren<unknown>) {
   return (

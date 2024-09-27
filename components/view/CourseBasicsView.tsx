@@ -1,10 +1,10 @@
-import Button from '@/component/basic/button';
-import { VStack } from '@/component/basic/stack';
-import Tag from '@/component/basic/tag';
-import BookmarkToggleButton from '@/component/composite/bookmarkToggleButton';
-import LectureIcon from '@/component/composite/lectureIcon';
-import { SkeletonDiv, SkeletonSlow } from '@/component/composite/skeleton';
-import { WriteIcon } from '@/component/icon';
+import Button from '@/components/basic/button';
+import { VStack } from '@/components/basic/stack';
+import Tag from '@/components/basic/tag';
+import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
+import LectureIcon from '@/components/composite/lectureIcon';
+import { SkeletonDiv, SkeletonSlow } from '@/components/composite/skeleton';
+import { WriteIcon } from '@/components/icon';
 import Link from 'next/link';
 
 function CourseBasicsViewUnsafe(props: {

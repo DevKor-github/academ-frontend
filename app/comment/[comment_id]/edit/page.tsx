@@ -8,10 +8,10 @@ import { use } from 'react';
 import { useState } from 'react';
 import { apiUpdateComment } from '@/lib/api-client/calls/course';
 
-import CommentEditor from '@/component/composite/commentEditor';
+import CommentEditor from '@/components/composite/commentEditor';
 
-import Button from '@/component/basic/button';
-import { FinishIcon } from '@/component/icon';
+import Button from '@/components/basic/button';
+import { FinishIcon } from '@/components/icon';
 import Link from 'next/link';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 

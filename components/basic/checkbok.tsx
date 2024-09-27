@@ -1,4 +1,4 @@
-import { CheckedIcon, UncheckedIcon } from '@/component/icon';
+import { CheckedIcon, UncheckedIcon } from '@/components/icon';
 
 interface CheckboxProps {
   checked: boolean;

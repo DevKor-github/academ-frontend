@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { LogoIconRich, UpIcon, DownIcon } from '@/component/icon';
-import Skeleton from '@/component/composite/skeleton';
-import Button from '@/component/basic/button';
+import { LogoIconRich, UpIcon, DownIcon } from '@/components/icon';
+import Skeleton from '@/components/composite/skeleton';
+import Button from '@/components/basic/button';
 
 export function TopNavInnerLeft() {
   return (

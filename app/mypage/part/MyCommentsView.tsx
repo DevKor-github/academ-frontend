@@ -2,11 +2,11 @@
 
 import { useState, memo } from 'react';
 
-import Button from '@/component/basic/button';
-import { DownIcon } from '@/component/icon';
+import Button from '@/components/basic/button';
+import { DownIcon } from '@/components/icon';
 
-import { HStack, VStack } from '@/component/basic/stack';
-import { MyCommentView } from '@/component/view/CommentView';
+import { HStack, VStack } from '@/components/basic/stack';
+import { MyCommentView } from '@/components/view/CommentView';
 
 import { apiMyPageCommentsCount } from '@/lib/api-client/calls/mypage';
 import { apiMyPageComments } from '@/lib/api-client/calls/mypage';
@@ -26,25 +26,26 @@ function MyCommentsWrapper({ children }: React.PropsWithChildren) {
   );
 }
 
+const ApiMyPageComments = memo(
+  function ApiMyPageComments({ page }: ReqPaginated) {
+    const [{ instances }] = useAuthTokens();
+    const { loading, response: cms } = useApi(instances.doRefresh, apiMyPageComments, { page });
+
+    if (loading) {
+      return <div>...</div>;
+    }
+
+    if (cms.status !== 'SUCCESS') {
+      return <div>오류 발생</div>;
+    }
+
+    return cms.data.flatMap((v) => <MyCommentView key={v.course_id} comment={v} />);
+  },
+  (prev, next) => prev.page === next.page,
+);
+
 export default function MyCommentsView() {
   const [{ instances }] = useAuthTokens();
-
-  const ApiMyPageComments = memo(
-    function ApiMyPageComments({ page }: ReqPaginated) {
-      const { loading, response: cms } = useApi(instances.doRefresh, apiMyPageComments, { page });
-
-      if (loading) {
-        return <div>...</div>;
-      }
-
-      if (cms.status !== 'SUCCESS') {
-        return <div>오류 발생</div>;
-      }
-
-      return cms.data.flatMap((v) => <MyCommentView key={v.course_id} comment={v} />);
-    },
-    (prev, next) => prev.page === next.page,
-  );
 
   const { loading, response: totalPageRes } = useApi(instances.doRefresh, apiMyPageCommentsCount, {});
   const [page, setPage] = useState<number>(1);

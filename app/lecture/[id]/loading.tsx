@@ -1,4 +1,4 @@
-import { CourseBasicsViewLoading } from '@/component/view/CourseBasicsView';
+import { CourseBasicsViewLoading } from '@/components/view/CourseBasicsView';
 
 export default function LectureIdPageLoading() {
   return (

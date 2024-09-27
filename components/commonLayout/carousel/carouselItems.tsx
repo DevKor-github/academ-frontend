@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 import Image from 'next/image';
 
-import { HStack, VStack } from '@/component/basic/stack';
-import { BookIcon } from '@/component/icon';
+import { HStack, VStack } from '@/components/basic/stack';
+import { BookIcon } from '@/components/icon';
 
 export function CarouselItem({ url, children }: { url: string; children?: React.ReactNode }) {
   return (

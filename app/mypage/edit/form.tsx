@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import Button from '@/component/basic/button';
-import Input from '@/component/basic/input';
-import Spinner from '@/component/basic/spinner';
-import DepartmentInput from '@/component/composite/departmentInput';
-import Select from '@/component/basic/select';
+import Button from '@/components/basic/button';
+import Input from '@/components/basic/input';
+import Spinner from '@/components/basic/spinner';
+import DepartmentInput from '@/components/composite/departmentInput';
+import Select from '@/components/basic/select';
 
 export default function MyPageEditBasicForm({
   handleSubmit,

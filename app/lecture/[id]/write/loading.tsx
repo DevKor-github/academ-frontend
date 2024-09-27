@@ -1,4 +1,4 @@
-import Spinner from '@/component/basic/spinner';
+import Spinner from '@/components/basic/spinner';
 
 export default function WriteLoading() {
   return (

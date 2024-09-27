@@ -1,9 +1,9 @@
 'use client';
 
-import { Star1 } from '@/component/composite/starIndicator';
-import { HStack, VStack } from '@/component/basic/stack';
-import Tag from '@/component/basic/tag';
-import { use, useEffect, useState } from 'react';
+import { Star1 } from '@/components/composite/starIndicator';
+import { HStack, VStack } from '@/components/basic/stack';
+import Tag from '@/components/basic/tag';
+import { useEffect, useState } from 'react';
 
 import { apiDeleteComment, apiLikeComment } from '@/lib/api-client/calls/course';
 
@@ -11,7 +11,7 @@ import { decode } from '@/lib/jwt';
 
 import Link from 'next/link';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
-import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/component/icon';
+import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/components/icon';
 import { twMerge } from 'tailwind-merge';
 
 function quaternary<T>(that: number, standard: number, gt: T, eq: T, lt: T) {

@@ -1,7 +1,7 @@
 import { useRouter } from 'next/navigation';
-import { FinishIcon } from '@/component/icon';
-import { HStack } from '@/component/basic/stack';
-import Button from '@/component/basic/button';
+import { FinishIcon } from '@/components/icon';
+import { HStack } from '@/components/basic/stack';
+import Button from '@/components/basic/button';
 
 import { LastImg } from './resultilust';
 

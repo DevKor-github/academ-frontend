@@ -1,5 +1,5 @@
-import Button from '@/component/basic/button';
-import { FinishIcon, IssueIcon } from '@/component/icon';
+import Button from '@/components/basic/button';
+import { FinishIcon, IssueIcon } from '@/components/icon';
 import Link from 'next/link';
 
 export default function Submitted({ success, back }: { success: boolean; back: string }) {

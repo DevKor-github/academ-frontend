@@ -1,6 +1,6 @@
-import Button from '@/component/basic/button';
+import Button from '@/components/basic/button';
 
-import { StarIcon } from '@/component/icon';
+import { StarIcon } from '@/components/icon';
 import { VStack } from '../basic/stack';
 import { useEffect, useRef } from 'react';
 
@@ -162,7 +162,11 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
         ...input,
         [event.target.id]: checked ? true : false,
       });
-      checked ? setTagNum(tagNum + 1) : setTagNum(tagNum - 1);
+      if (checked) {
+        setTagNum(tagNum + 1);
+      } else {
+        setTagNum(tagNum - 1);
+      }
     } else alert('태그는 최대 3개까지 선택 가능합니다.');
   }
 

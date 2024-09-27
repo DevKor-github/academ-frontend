@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { IssueIcon } from '../icon';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
-import { decode } from '@/lib/jwt';
 
 export function LoginRequiredView() {
   return (

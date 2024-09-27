@@ -2,16 +2,16 @@
 
 import { useState } from 'react';
 
-import { HStack, VStack } from '@/component/basic/stack';
+import { HStack, VStack } from '@/components/basic/stack';
 
 import { apiMyPageBookmarksCount } from '@/lib/api-client/calls/mypage';
-import Button from '@/component/basic/button';
-import { BookmarkIcon, RightIcon } from '@/component/icon';
+import Button from '@/components/basic/button';
+import { BookmarkIcon, RightIcon } from '@/components/icon';
 import { ELEM_PER_PAGE } from '@/lib/directive';
 // import dynamic from 'next/dynamic';
 
 import { memo } from 'react';
-import CoursePreview from '@/component/view/CoursePreview';
+import CoursePreview from '@/components/view/CoursePreview';
 import { apiMyPageBookmarks } from '@/lib/api-client/calls/mypage';
 import { CourseLoadingItems } from '@/app/lecture/aux';
 import { useApi } from '@/lib/hooks/api';
@@ -30,25 +30,26 @@ function Box({ children }: React.PropsWithChildren) {
   );
 }
 
+const ApiMyPageBookmarks = memo(
+  function ApiMyPageBookmarks({ page }: ReqPaginated) {
+    const [{ instances }] = useAuthTokens();
+    const { loading, response: bms } = useApi(instances.doRefresh, apiMyPageBookmarks, { page });
+
+    if (loading) {
+      return <CourseLoadingItems />;
+    }
+
+    if (bms.status !== 'SUCCESS') {
+      return <div>오류 발생</div>;
+    }
+
+    return bms.data.flatMap((v) => <CoursePreview key={v.course_id} course={v} />);
+  },
+  (prev, next) => prev.page === next.page,
+);
+
 export default function BookmarksView() {
   const [{ instances }] = useAuthTokens();
-
-  const ApiMyPageBookmarks = memo(
-    function ApiMyPageBookmarks({ page }: ReqPaginated) {
-      const { loading, response: bms } = useApi(instances.doRefresh, apiMyPageBookmarks, { page });
-
-      if (loading) {
-        return <CourseLoadingItems />;
-      }
-
-      if (bms.status !== 'SUCCESS') {
-        return <div>오류 발생</div>;
-      }
-
-      return bms.data.flatMap((v) => <CoursePreview key={v.course_id} course={v} />);
-    },
-    (prev, next) => prev.page === next.page,
-  );
 
   const { loading, response: totalCount } = useApi(instances.doRefresh, apiMyPageBookmarksCount, {});
   const [page, setPage] = useState<number>(1);

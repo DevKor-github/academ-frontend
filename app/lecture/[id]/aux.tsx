@@ -1,7 +1,7 @@
-import { CommentViewLoading } from '@/component/view/CommentView';
+import { CommentViewLoading } from '@/components/view/CommentView';
 
-import { HStack, VStack } from '@/component/basic/stack';
-import Select from '@/component/basic/select';
+import { HStack, VStack } from '@/components/basic/stack';
+import Select from '@/components/basic/select';
 
 export function CommentsWrapper({
   children,

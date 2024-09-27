@@ -7,16 +7,16 @@ import ManageMembership from './static/MyProfileMemberships';
 import MyProfileBasics from './static/MyProfileBasics';
 
 import { apiMyPageBasics } from '@/lib/api-client/calls/mypage';
-import { CloseIcon } from '@/component/icon';
+import { CloseIcon } from '@/components/icon';
 
 import TempAlert from './static/TempAlert';
 
 import BookmarksView from './part/MyBookmarksView';
 import MyCommentsView from './part/MyCommentsView';
 
-import { LoginRequiredView } from '@/component/composite/PermissionView';
+import { LoginRequiredView } from '@/components/composite/PermissionView';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
-import Spinner from '@/component/basic/spinner';
+import Spinner from '@/components/basic/spinner';
 
 export default function ProfileOverviewWithMemberShip() {
   const [{ instances }] = useAuthTokens();

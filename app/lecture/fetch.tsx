@@ -3,9 +3,9 @@
 import { memo, useState } from 'react';
 import Link from 'next/link';
 
-import Button from '@/component/basic/button';
-import CoursePreview from '@/component/view/CoursePreview';
-import { DownIcon } from '@/component/icon';
+import Button from '@/components/basic/button';
+import CoursePreview from '@/components/view/CoursePreview';
+import { DownIcon } from '@/components/icon';
 
 import { Box, CourseLoadingItems, Grid } from './aux';
 
@@ -13,6 +13,32 @@ import { apiSearchCount, apiSearch } from '@/lib/api-client/calls/course';
 import { ELEM_PER_PAGE } from '@/lib/directive';
 import { useApi } from '@/lib/hooks/api';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+
+const SearchResults = memo(
+  function SearchResults({ keyword, order, page }: ReqSearchCourse) {
+    const [{ instances }] = useAuthTokens();
+    const { loading, response } = useApi(instances.refreshFirst, apiSearch, { keyword, order, page });
+
+    if (loading) {
+      return <CourseLoadingItems />;
+    }
+
+    if (response.status !== 'SUCCESS') {
+      return <Box>오류가 발생했습니다.</Box>;
+    }
+
+    return (
+      <>
+        {response.data.map((course) => (
+          <div key={course.course_id} className="animate-fade">
+            <CoursePreview key={course.course_id} course={course} />
+          </div>
+        ))}
+      </>
+    );
+  },
+  (prev, next) => prev.keyword === next.keyword && prev.order === next.order && prev.page === next.page,
+);
 
 function SearchResultsViewWithOrder({
   query: keyword,
@@ -23,7 +49,6 @@ function SearchResultsViewWithOrder({
   order: SearchOrdering;
   totalPage: number;
 }) {
-  const [{ instances }] = useAuthTokens();
   const [page, setPage] = useState<number>(1);
 
   const nextButton =
@@ -36,36 +61,6 @@ function SearchResultsViewWithOrder({
         </Button>
       </div>
     );
-
-  const SearchResults = memo(
-    function SearchResults({ keyword, order, page }: ReqSearchCourse) {
-      const { loading, response } = useApi(instances.refreshFirst, apiSearch, { keyword, order, page });
-
-      if (loading) {
-        return <CourseLoadingItems />;
-      }
-
-      if (response.status !== 'SUCCESS') {
-        return <Box>오류가 발생했습니다.</Box>;
-      }
-
-      return (
-        <>
-          {response.data.map((course) => (
-            <div key={course.course_id} className="animate-fade">
-              <CoursePreview key={course.course_id} course={course} />
-            </div>
-          ))}
-        </>
-      );
-    },
-    (prev, next) =>
-      prev != undefined &&
-      next != undefined &&
-      prev.keyword === next.keyword &&
-      prev.order === next.order &&
-      prev.page === next.page,
-  );
 
   if (keyword === '') {
     return <p>강의명, 교수명, 학수번호로 검색해보세요.</p>;

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-import { HStack } from '@/component/basic/stack';
+import { HStack } from '@/components/basic/stack';
 
 interface CarouselProps {
   children: React.ReactNode[];

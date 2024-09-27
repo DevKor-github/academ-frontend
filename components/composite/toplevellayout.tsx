@@ -2,7 +2,7 @@ import TopNav from '../commonLayout/topnav';
 
 import { IS_DEBUG } from '@/lib/directive';
 import Link from 'next/link';
-import { LogoIconRich } from '@/component/icon';
+import { LogoIconRich } from '@/components/icon';
 
 function Footer() {
   return (

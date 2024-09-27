@@ -5,9 +5,9 @@ import Link from 'next/link';
 
 import { apiInsertComment, apiStartNewComment } from '@/lib/api-client/calls/course';
 
-import CommentEditor from '@/component/composite/commentEditor';
-import Button from '@/component/basic/button';
-import { FinishIcon } from '@/component/icon';
+import CommentEditor from '@/components/composite/commentEditor';
+import Button from '@/components/basic/button';
+import { FinishIcon } from '@/components/icon';
 
 import ErrorTemplate from '@/lib/template';
 import { URL_CUSTOMER_SURVEY } from '@/lib/directive';

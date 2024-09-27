@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-import DepartIcon from '@/component/composite/departIcon';
-import { SkeletonSlow } from '@/component/composite/skeleton';
+import DepartIcon from '@/components/composite/departIcon';
+import { SkeletonSlow } from '@/components/composite/skeleton';
 
 function MyProfileBasicsUnsafe({
   degree,
