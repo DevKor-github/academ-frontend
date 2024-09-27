@@ -82,16 +82,20 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
 
   return course.data.count_comments === 0 ? (
     <div className="relative w-full h-full overflow-hidden">
-      <div className="absolute -z-10 w-full h-full overflow-hidden">
-        <LectureIdPageBotLoading />
+      <div className="absolute w-full animate-fade bg-white bg-opacity-50 backdrop-blur z-10 justify-start pt-20 items-center gap-6 h-full">
+        <div className='sticky top-72 w-full flex flex-col items-center'>
+          <div className='w-fit flex flex-col justify-center items-center p-8 gap-4 rounded-2xl bg-white border border-base-30'>
+          <IssueIcon />
+          <span className="w-fulltext-center text-2xl text-center">강의평이 없습니다.</span>
+          <span className="w-fulltext-center text-base text-center text-primary-500 underline">
+            <Link href={`/lecture/${course.data.course_id}/write`}>작성하러 가기</Link>
+            </span>
+          </div>
+        </div>
       </div>
-      <div className="relative w-full animate-fade bg-white bg-opacity-50 backdrop-blur z-10 flex flex-col justify-center items-center gap-6 h-full min-h-[300px]">
-        <IssueIcon />
-        <span className="w-fulltext-center text-2xl text-center">강의평이 없습니다.</span>
-        <span className="w-fulltext-center text-base text-center text-primary-500 underline">
-          <Link href={`/lecture/${course.data.course_id}/write`}>작성하러 가기</Link>
-        </span>
-      </div>
+      <aside className="relative -z-10 w-full h-full">
+          <LectureIdPageBotLoading />
+      </aside>
     </div>
   ) : IsCourse(course.data) ? (
     <>
@@ -104,8 +108,8 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
       </CommentsWrapper>
     </>
   ) : (
-    <div className="relative w-full h-full overflow-hidden">
-      <div className="absolute -z-10 overflow-hidden">
+    <div className="relative w-full h-full">
+      <div className="absolute -z-10 w-full h-full">
         <LectureIdPageBotLoading />
       </div>
       <div className="relative w-full animate-fade bg-white bg-opacity-50 backdrop-blur z-50 flex flex-col justify-center items-center gap-6 h-full min-h-[300px]">
