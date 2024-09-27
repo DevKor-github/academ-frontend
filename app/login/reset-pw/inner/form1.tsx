@@ -1,8 +1,8 @@
-import { HStack } from '@/components/basic/stack';
+import { HStack } from '@/component/basic/stack';
 
-import Button from '@/components/basic/button';
-import Input from '@/components/basic/input';
-import Spinner from '@/components/basic/spinner';
+import Button from '@/component/basic/button';
+import Input from '@/component/basic/input';
+import Spinner from '@/component/basic/spinner';
 
 export default function ResetPwForm1({ input, handleInput, handleSubmit, submitting }: FormProps<ResetPwReq>) {
   return (

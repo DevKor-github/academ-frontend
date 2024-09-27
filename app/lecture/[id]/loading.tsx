@@ -1,6 +1,6 @@
-import { CourseBasicsViewLoading } from './components/CourseBasicsView';
+import { CourseBasicsViewLoading } from '@/component/view/CourseBasicsView';
 
-export default function LecturePageLoading() {
+export default function LectureIdPageLoading() {
   return (
     <div className="flex flex-col w-full h-full">
       <CourseBasicsViewLoading />

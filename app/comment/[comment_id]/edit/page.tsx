@@ -1,18 +1,19 @@
 'use client';
 
-import { apiStartUpdateComment } from '@/lib/api/calls/course';
+import { apiStartUpdateComment } from '@/lib/api-client/calls/course';
 
 import ErrorTemplate from '@/lib/template';
 
 import { use } from 'react';
 import { useState } from 'react';
-import { apiUpdateComment } from '@/lib/api/calls/course';
+import { apiUpdateComment } from '@/lib/api-client/calls/course';
 
-import CommentEditor from '@/components/composite/commentEditor';
+import CommentEditor from '@/component/composite/commentEditor';
 
-import Button from '@/components/basic/button';
-import { FinishIcon } from '@/lib/icons';
+import Button from '@/component/basic/button';
+import { FinishIcon } from '@/component/icon';
 import Link from 'next/link';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 function Submitted({ back }: { back: string }) {
   return (
@@ -27,13 +28,14 @@ function Submitted({ back }: { back: string }) {
 }
 
 function EditComment({ comment, courseName }: { comment: AcdCommentEditReq; courseName: string }) {
+  const [{ instances }] = useAuthTokens();
   const [input, setInput] = useState<AcdCommentEditReq>(comment);
   const [submitted, setSubmitted] = useState<number | undefined>(undefined);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (confirm('정말 수정하시겠습니까?') == true) {
-      apiUpdateComment(input).then((s) => {
+      apiUpdateComment(instances.doRefresh, input).then((s) => {
         if (s.status === 'SUCCESS') {
           setSubmitted(s.data);
         } else {
@@ -57,7 +59,8 @@ function EditComment({ comment, courseName }: { comment: AcdCommentEditReq; cour
 }
 
 export default function EditPage({ params: { comment_id } }: { params: { comment_id: number } }) {
-  const editable = use(apiStartUpdateComment({ comment_id }));
+  const [{ instances }] = useAuthTokens();
+  const editable = use(apiStartUpdateComment(instances.doRefresh, { comment_id }));
 
   return editable.status === 'SUCCESS' && editable.statusCode === 200 ? (
     <EditComment courseName={editable.data.name} comment={editable.data} />

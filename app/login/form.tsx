@@ -1,11 +1,11 @@
-import { HStack } from '@/components/basic/stack';
-import Input from '@/components/basic/input';
-import ErrorLabel from '@/components/basic/errorlabel';
-import { VStack } from '@/components/basic/stack';
-import Radio from '@/components/basic/radio';
-import A from '@/components/basic/a';
-import Button from '@/components/basic/button';
-import Spinner from '@/components/basic/spinner';
+import { HStack } from '@/component/basic/stack';
+import Input from '@/component/basic/input';
+import ErrorLabel from '@/component/basic/errorlabel';
+import { VStack } from '@/component/basic/stack';
+import Radio from '@/component/basic/radio';
+import A from '@/component/basic/a';
+import Button from '@/component/basic/button';
+import Spinner from '@/component/basic/spinner';
 
 interface LoginErrors {
   shake: boolean;
@@ -59,18 +59,13 @@ export default function LoginForm({
               <ErrorLabel className="text-primary-500" label={loginError} shake={shake} />
 
               <VStack className="pt-4 pb-4 items-center justify-between">
-                <>
-                  <div className="hidden">
-                    <Radio
-                      id="remember-me"
-                      readOnly={handleInput === undefined}
-                      value={input['remember-me']}
-                      onChange={handleInput}
-                      label="로그인 정보 저장"
-                    />
-                  </div>
-                  <div />
-                </>
+                <Radio
+                  id="remember-me"
+                  readOnly={handleInput === undefined}
+                  value={input['remember-me']}
+                  onChange={handleInput}
+                  label="로그인 정보 저장"
+                />
                 <A href="/login/reset-pw">비밀번호 초기화</A>
               </VStack>
             </HStack>

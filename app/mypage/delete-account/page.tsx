@@ -3,12 +3,13 @@
 import { useState } from 'react';
 import DeleteAccountForm, { DeleteAccountInputExtended } from './form';
 import { handleInputBuilder } from '@/lib/form/handler';
-import { apiDeleteAccount } from '@/lib/api/calls/mypage';
-import { useSessionId } from '@/lib/context/SessionIdContext';
+import { apiDeleteAccount } from '@/lib/api-client/calls/mypage';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 import { useRouter } from 'next/navigation';
 
 export default function DeleteAccountClient() {
-  const setJwt = useSessionId()[1];
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [{ instances }, setAccessToken, setRefreshToken] = useAuthTokens();
 
   const route = useRouter();
 
@@ -30,10 +31,11 @@ export default function DeleteAccountClient() {
     }
 
     setBusy(true);
-    apiDeleteAccount({ password: input.password }).then((s) => {
+    apiDeleteAccount(instances.doRefresh, { password: input.password }).then((s) => {
       if (s.status === 'SUCCESS') {
         alert('계정이 성공적으로 삭제되었습니다.');
-        setJwt(null);
+        setAccessToken(null);
+        setRefreshToken(null);
         route.push('/');
       } else {
         alert(`계정 삭제에 실패했습니다: ${s.message}`);

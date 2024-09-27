@@ -1,15 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { HStack, VStack } from '@/components/basic/stack';
-import { RightIcon } from '@/lib/icons';
-import Input from '@/components/basic/input';
-import Button from '@/components/basic/button';
-import ErrorLabel from '@/components/basic/errorlabel';
+import { HStack, VStack } from '@/component/basic/stack';
+import { RightIcon } from '@/component/icon';
+import Input from '@/component/basic/input';
+import Button from '@/component/basic/button';
+import ErrorLabel from '@/component/basic/errorlabel';
 
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
-import { apiCheckEmail } from '@/lib/api/calls/login';
+import { apiCheckEmail } from '@/lib/api-client/calls/login';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 export default function Step2({
   nextStep,
@@ -28,22 +29,19 @@ export default function Step2({
     setInput({ ...input, code: value });
   }
 
-  async function handleCode() {
-    try {
-      const response = await apiCheckEmail({ email: input.email, code: input.code });
+  const [{ instances }] = useAuthTokens();
 
-      if (response.status === 'SUCCESS') {
-        nextStep();
-      } else if (response.status === 'ERROR' && response.statusCode === 400) {
-        setError(response.message);
-        resetTimeout();
-      } else {
-        alert(response.message);
-        setError('인증번호 처리에 실패하였습니다.');
-        resetTimeout();
-      }
-    } catch (e) {
-      setError('인증번호 확인 도중 예기치 못한 에러가 발생하였습니다. ');
+  async function handleCode() {
+    const response = await apiCheckEmail(instances.basic, { email: input.email, code: input.code });
+
+    if (response.status === 'SUCCESS') {
+      nextStep();
+    } else if (response.status === 'ERROR' && response.statusCode === 400) {
+      setError(response.message);
+      resetTimeout();
+    } else {
+      alert(response.message);
+      setError('인증번호 처리에 실패하였습니다.');
       resetTimeout();
     }
   }

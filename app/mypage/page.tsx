@@ -1,31 +1,43 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { useApi } from '@/lib/hooks/api';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import ManageMembership from './static/MyProfileMemberships';
-import UserDataOverview from './static/MyProfileBasics';
-import { apiMyPageBasics } from '@/lib/api/calls/mypage';
+import MyProfileBasics from './static/MyProfileBasics';
+
+import { apiMyPageBasics } from '@/lib/api-client/calls/mypage';
+import { CloseIcon } from '@/component/icon';
 
 import TempAlert from './static/TempAlert';
-import { CloseIcon } from '@/lib/icons';
 
-import { use } from 'react';
-import BookmarksView from './dynamic/BookmarksView';
-import MyCommentsView from './dynamic/MyCommentsView';
-import { LoginRequiredError } from '@/lib/api/errors';
+import BookmarksView from './part/MyBookmarksView';
+import MyCommentsView from './part/MyCommentsView';
+
+import { LoginRequiredView } from '@/component/composite/PermissionView';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import Spinner from '@/component/basic/spinner';
 
 export default function ProfileOverviewWithMemberShip() {
+  const [{ instances }] = useAuthTokens();
   const router = useRouter();
   const params = useSearchParams();
 
   const pwchanged = params?.get('pwchanged') !== null;
   const profilechanged = params?.get('profilechanged') !== null;
 
-  const myprofile = use(apiMyPageBasics({}));
+  const { loading, response: myprofile } = useApi(instances.doRefresh, apiMyPageBasics, {});
+
+  if (loading) {
+    return (
+      <div className="p-8 w-full text-center items-center">
+        <Spinner />
+      </div>
+    );
+  }
 
   if (myprofile.status !== 'SUCCESS') {
-    throw new LoginRequiredError('Login Required to see this page');
+    return <LoginRequiredView />;
   }
 
   const RemoveAlert = (
@@ -42,7 +54,7 @@ export default function ProfileOverviewWithMemberShip() {
     <div className="flex flex-col w-full h-full">
       {pwchanged ? <TempAlert closeButton={RemoveAlert}>비밀번호가 성공적으로 변경되었습니다.</TempAlert> : <></>}
       {profilechanged ? <TempAlert closeButton={RemoveAlert}>프로필을 성공적으로 업데이트했습니다.</TempAlert> : <></>}
-      <UserDataOverview userprofile={myprofile.data} />
+      <MyProfileBasics userprofile={myprofile.data} />
       <ManageMembership access_expiration_date={myprofile.data.access_expiration_date} />
       <BookmarksView />
       <MyCommentsView />

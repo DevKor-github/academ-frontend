@@ -1,4 +1,4 @@
-import { CoursePreviewLoading } from '@/components/view/CoursePreview';
+import { CoursePreviewLoading } from '@/component/view/CoursePreview';
 
 export function Box({ children }: React.PropsWithChildren<unknown>) {
   return (
@@ -21,7 +21,7 @@ export function Grid({ children }: React.PropsWithChildren<unknown>) {
   );
 }
 
-export function LoaderItems() {
+export function CourseLoadingItems() {
   return (
     <>
       <div className="animate-pulse-[0ms]">

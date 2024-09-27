@@ -3,21 +3,23 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { useSessionId } from '../../lib/context/SessionIdContext';
-import { apiLogout } from '@/lib/api/calls/login';
+import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import { apiLogout } from '@/lib/api-client/calls/login';
 
 export default function LogoutPage() {
-  const setJWT = useSessionId()[1];
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [{ instances }, setAccessToken, setRefreshToken] = useAuthTokens();
   const route = useRouter();
 
   useEffect(() => {
     setTimeout(() => {
-      apiLogout({}).finally(() => {
-        setJWT(null);
+      apiLogout(instances.doRefresh, {}).finally(() => {
+        setAccessToken(null);
+        setRefreshToken(null);
         route.push('/');
       });
     }, 0);
-  }, []);
+  }, [instances.doRefresh, setAccessToken, setRefreshToken, route]);
 
   return (
     <div className="pt-24 pb-24 pl-8 pr-8 text-center justify-center">
