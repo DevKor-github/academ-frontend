@@ -1,4 +1,7 @@
+import { memo } from 'react';
+
 import { CommentViewLoading } from '@/components/view/CommentView';
+import { CommentsSummaryViewLoading } from '@/components/view/CommentsSummaryView';
 
 import { HStack, VStack } from '@/components/basic/stack';
 import Select from '@/components/basic/select';
@@ -70,3 +73,17 @@ export function CommentLoadingItems() {
     </>
   );
 }
+
+export const LectureIdPageBotLoading = memo(
+  function LectureIdPageBotLoading() {
+    return (
+      <>
+        <CommentsSummaryViewLoading />
+        <CommentsWrapper order={'NEWEST'} handleValue={undefined}>
+          <CommentLoadingItems />
+        </CommentsWrapper>
+      </>
+    );
+  },
+  () => true,
+);

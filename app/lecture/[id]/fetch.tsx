@@ -17,6 +17,7 @@ import { NoMembershipView } from '@/components/composite/PermissionView';
 import CommentView from '@/components/view/CommentView';
 import { CommentLoadingItems } from './aux';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import { LectureIdPageBotLoading } from './aux';
 
 const CommentsResults = memo(function CommentsResults({ course_id, order, page }: ReqCourseDetail) {
   const [{ instances }] = useAuthTokens();
@@ -59,7 +60,7 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
 
   if (loading) {
     // TODO : use proper loading screen later
-    return <div />;
+    return <LectureIdPageBotLoading />;
   }
 
   if (course.status !== 'SUCCESS') {
@@ -80,15 +81,18 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
     );
 
   return course.data.count_comments === 0 ? (
-    <>
-      <div className="flex flex-col justify-center items-center gap-6 h-full min-h-[300px]">
+    <div className="relative w-full h-full overflow-hidden">
+      <div className="absolute -z-10 w-full h-full overflow-hidden">
+        <LectureIdPageBotLoading />
+      </div>
+      <div className="relative w-full animate-fade bg-white bg-opacity-50 backdrop-blur z-10 flex flex-col justify-center items-center gap-6 h-full min-h-[300px]">
         <IssueIcon />
         <span className="w-fulltext-center text-2xl text-center">강의평이 없습니다.</span>
         <span className="w-fulltext-center text-base text-center text-primary-500 underline">
           <Link href={`/lecture/${course.data.course_id}/write`}>작성하러 가기</Link>
         </span>
       </div>
-    </>
+    </div>
   ) : IsCourse(course.data) ? (
     <>
       <CommentsSummaryView course={course.data} />
@@ -100,6 +104,13 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
       </CommentsWrapper>
     </>
   ) : (
-    <NoMembershipView />
+    <div className="relative w-full h-full overflow-hidden">
+      <div className="absolute -z-10 overflow-hidden">
+        <LectureIdPageBotLoading />
+      </div>
+      <div className="relative w-full animate-fade bg-white bg-opacity-50 backdrop-blur z-50 flex flex-col justify-center items-center gap-6 h-full min-h-[300px]">
+        <NoMembershipView />
+      </div>
+    </div>
   );
 }

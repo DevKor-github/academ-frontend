@@ -32,7 +32,7 @@ function WriteNewMobile({ course_id }: { course_id: number }) {
 
   return (
     <Link
-      className="text-white fixed aspect-square bg-primary-500 p-4 bottom-8 right-8 z-20 rounded-full md:hidden"
+      className="animate-fade text-white fixed aspect-square bg-primary-500 p-4 bottom-8 right-8 z-30 rounded-full md:hidden"
       href={`/lecture/${course_id}/write`}
     >
       {WriteIcon}
