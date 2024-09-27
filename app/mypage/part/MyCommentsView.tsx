@@ -26,25 +26,26 @@ function MyCommentsWrapper({ children }: React.PropsWithChildren) {
   );
 }
 
+const ApiMyPageComments = memo(
+  function ApiMyPageComments({ page }: ReqPaginated) {
+    const [{ instances }] = useAuthTokens();
+    const { loading, response: cms } = useApi(instances.doRefresh, apiMyPageComments, { page });
+
+    if (loading) {
+      return <div>...</div>;
+    }
+
+    if (cms.status !== 'SUCCESS') {
+      return <div>오류 발생</div>;
+    }
+
+    return cms.data.flatMap((v) => <MyCommentView key={v.course_id} comment={v} />);
+  },
+  (prev, next) => prev.page === next.page,
+);
+
 export default function MyCommentsView() {
   const [{ instances }] = useAuthTokens();
-
-  const ApiMyPageComments = memo(
-    function ApiMyPageComments({ page }: ReqPaginated) {
-      const { loading, response: cms } = useApi(instances.doRefresh, apiMyPageComments, { page });
-
-      if (loading) {
-        return <div>...</div>;
-      }
-
-      if (cms.status !== 'SUCCESS') {
-        return <div>오류 발생</div>;
-      }
-
-      return cms.data.flatMap((v) => <MyCommentView key={v.course_id} comment={v} />);
-    },
-    (prev, next) => prev.page === next.page,
-  );
 
   const { loading, response: totalPageRes } = useApi(instances.doRefresh, apiMyPageCommentsCount, {});
   const [page, setPage] = useState<number>(1);

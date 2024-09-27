@@ -18,6 +18,29 @@ import CommentView from '@/component/view/CommentView';
 import { CommentLoadingItems } from './aux';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
+const CommentsResults = memo(function CommentsResults({ course_id, order, page }: ReqCourseDetail) {
+  const [{ instances }] = useAuthTokens();
+  const { loading, response } = useApi(instances.refreshFirst, apiCourseDetail, { course_id, order, page });
+
+  if (loading) {
+    return <CommentLoadingItems />;
+  }
+
+  if (response.status !== 'SUCCESS') {
+    return <div>발생해서 오류가 발생했습니다.</div>;
+  }
+
+  if (!IsCourse(response.data)) {
+    return <NoMembershipView />;
+  }
+
+  return response.data.comments.flatMap((comment) => (
+    <div key={comment.comment_id} className="animate-fade">
+      <CommentView key={comment.comment_id} comment={comment} />
+    </div>
+  ));
+});
+
 export default function CommentsView({ course_id, totalPage }: ReqCourseRelated & { totalPage: number }) {
   const [{ instances }] = useAuthTokens();
   const { refreshFirst } = instances;
@@ -29,28 +52,6 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
   });
   const [page, setPage] = useState<number>(1);
   const [order, setOrder] = useState<CommentsOrdering>('NEWEST');
-
-  const CommentsResults = memo(function CommentsResults({ course_id, order, page }: ReqCourseDetail) {
-    const { loading, response } = useApi(instances.refreshFirst, apiCourseDetail, { course_id, order, page });
-
-    if (loading) {
-      return <CommentLoadingItems />;
-    }
-
-    if (response.status !== 'SUCCESS') {
-      return <div>발생해서 오류가 발생했습니다.</div>;
-    }
-
-    if (!IsCourse(response.data)) {
-      return <NoMembershipView />;
-    }
-
-    return response.data.comments.flatMap((comment) => (
-      <div key={comment.comment_id} className="animate-fade">
-        <CommentView key={comment.comment_id} comment={comment} />
-      </div>
-    ));
-  });
 
   function handleValue(e: React.FormEvent<HTMLInputElement>) {
     setOrder((e.target as HTMLInputElement).value as CommentsOrdering);

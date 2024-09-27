@@ -30,25 +30,26 @@ function Box({ children }: React.PropsWithChildren) {
   );
 }
 
+const ApiMyPageBookmarks = memo(
+  function ApiMyPageBookmarks({ page }: ReqPaginated) {
+    const [{ instances }] = useAuthTokens();
+    const { loading, response: bms } = useApi(instances.doRefresh, apiMyPageBookmarks, { page });
+
+    if (loading) {
+      return <CourseLoadingItems />;
+    }
+
+    if (bms.status !== 'SUCCESS') {
+      return <div>오류 발생</div>;
+    }
+
+    return bms.data.flatMap((v) => <CoursePreview key={v.course_id} course={v} />);
+  },
+  (prev, next) => prev.page === next.page,
+);
+
 export default function BookmarksView() {
   const [{ instances }] = useAuthTokens();
-
-  const ApiMyPageBookmarks = memo(
-    function ApiMyPageBookmarks({ page }: ReqPaginated) {
-      const { loading, response: bms } = useApi(instances.doRefresh, apiMyPageBookmarks, { page });
-
-      if (loading) {
-        return <CourseLoadingItems />;
-      }
-
-      if (bms.status !== 'SUCCESS') {
-        return <div>오류 발생</div>;
-      }
-
-      return bms.data.flatMap((v) => <CoursePreview key={v.course_id} course={v} />);
-    },
-    (prev, next) => prev.page === next.page,
-  );
 
   const { loading, response: totalCount } = useApi(instances.doRefresh, apiMyPageBookmarksCount, {});
   const [page, setPage] = useState<number>(1);
