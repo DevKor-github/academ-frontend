@@ -12,6 +12,7 @@ import { apiMyPageCommentsCount } from '@/lib/api-client/calls/mypage';
 import { apiMyPageComments } from '@/lib/api-client/calls/mypage';
 import { useApi } from '@/lib/hooks/api';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import { lengthOf } from '@/lib/util';
 
 function MyCommentsWrapper({ children }: React.PropsWithChildren) {
   return (
@@ -60,7 +61,7 @@ export default function MyCommentsView() {
 
   const totalPage = totalPageRes.data;
 
-  const pages = new Array(page).fill(undefined).map((_, i) => i + 1);
+  const pages = lengthOf(page, 1);
 
   const nextButton =
     page >= totalPage ? (

@@ -18,6 +18,7 @@ import CommentView from '@/components/view/CommentView';
 import { CommentLoadingItems } from './aux';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 import { LectureIdPageBotLoading } from './aux';
+import { lengthOf } from '@/lib/util';
 
 function BlurredModal({ children, backdrop }: { children: React.ReactNode; backdrop: React.ReactNode }) {
   return (
@@ -86,7 +87,7 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
     return <NoMembershipView />;
   }
 
-  const pages = new Array(page).fill(undefined).map((_, i) => i + 1);
+  const pages = lengthOf(page, 1);
 
   const nextButton =
     page >= totalPage ? (

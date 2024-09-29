@@ -2,6 +2,7 @@ import { HStack } from '@/components/basic/stack';
 import Link from 'next/link';
 import { ELEM_PER_PAGE } from '@/lib/directive';
 import apiGetNotices from '@/lib/api-server/notice';
+import { lengthOf } from '@/lib/util';
 
 async function NoticeSingle({ notice }: { notice: Notice }) {
   return (
@@ -24,8 +25,8 @@ export async function generateStaticParams() {
   const countNotice = ns.length;
   const countPages = Math.ceil(countNotice / ELEM_PER_PAGE);
 
-  return new Array(countPages).fill(undefined).map((_, postId) => ({
-    index: String(postId + 1),
+  return lengthOf(countPages, 1).map((postId) => ({
+    index: String(postId),
   }));
 }
 

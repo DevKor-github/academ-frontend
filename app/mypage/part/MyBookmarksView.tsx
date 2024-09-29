@@ -16,6 +16,7 @@ import { apiMyPageBookmarks } from '@/lib/api-client/calls/mypage';
 import { CourseLoadingItems } from '@/app/lecture/aux';
 import { useApi } from '@/lib/hooks/api';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import { lengthOf } from '@/lib/util';
 
 function Box({ children }: React.PropsWithChildren) {
   return (
@@ -58,7 +59,7 @@ export default function BookmarksView() {
     return <Box>...</Box>;
   }
   const totalPage = Math.ceil(totalCount.data / ELEM_PER_PAGE);
-  const pages = new Array(page).fill(null).map((_, i) => i + 1);
+  const pages = lengthOf(page, 1);
 
   if (totalCount.status !== 'SUCCESS') {
     return <div>오류</div>;
