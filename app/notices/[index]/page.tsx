@@ -80,7 +80,7 @@ export default async function NoticeView({ params }: { params: { index: string }
   const sliced = ns.slice((index - 1) * ELEM_PER_PAGE, index * ELEM_PER_PAGE);
 
   return (
-    <HStack gap="20px" style={{ margin: '40px' }}>
+    <HStack className="gap-y-5 m-10">
       <div className="my-10 text-4xl font-medium">공지사항</div>
       <div className="w-full border light:border-base-27 dark:border-base-5" />
       <HStack>

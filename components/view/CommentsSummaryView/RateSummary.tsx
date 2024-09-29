@@ -17,13 +17,9 @@ function RateSummaryUnsafe(props: {
       style={{ borderRadius: '20px', padding: '80px 40px', width: '440px', maxWidth: '100%' }}
     >
       <VStack
-        gap="4px"
+        className="gap-x-1 items-end pb-5 mb-5 flex-wrap"
         style={{
           borderBottom: '1px solid #D4D4D4',
-          alignItems: 'end',
-          paddingBottom: '20px',
-          marginBottom: '20px',
-          flexWrap: 'wrap',
         }}
       >
         <span style={{ whiteSpace: 'nowrap' }}>

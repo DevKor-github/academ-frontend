@@ -7,8 +7,8 @@ import Spinner from '@/components/basic/spinner';
 export default function ResetPwForm1({ input, handleInput, handleSubmit, submitting }: FormProps<ResetPwReq>) {
   return (
     <form method="post" onSubmit={handleSubmit}>
-      <HStack gap="48px">
-        <HStack gap="16px">
+      <HStack className="gap-y-12">
+        <HStack className="gap-y-4">
           <Input
             required
             readOnly={handleInput === undefined}
@@ -22,7 +22,7 @@ export default function ResetPwForm1({ input, handleInput, handleSubmit, submitt
           />
         </HStack>
 
-        <HStack style={{}} gap="20px">
+        <HStack className="gap-y-5">
           <Button
             type="submit"
             kind="filled"

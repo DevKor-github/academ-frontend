@@ -11,10 +11,7 @@ import SearchResultsView from './fetch';
 
 const SearchTopView = ({ query }: { query: string }) => {
   return query ? (
-    <VStack
-      gap="20px"
-      className="border-b light:border-b-base-27 dark:border-b-base-8 flex-wrap justify-between items-center md:px-24 px-10 py-28"
-    >
+    <VStack className="gap-x-5 border-b light:border-b-base-27 dark:border-b-base-8 flex-wrap justify-between items-center md:px-24 px-10 py-28">
       <span className="text-2xl" style={{ wordBreak: 'break-word' }}>
         <span className="text-4xl">&quot;{query}&quot;</span> 강의 검색 결과
       </span>

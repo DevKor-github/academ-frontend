@@ -15,15 +15,11 @@ interface CriteriaIndicatorProp {
 function CriteriaIndicator({ name, low, high, style, rate, reverse }: CriteriaIndicatorProp) {
   return (
     <HStack className="justify-between w-full gap-4" style={style}>
-      <VStack style={{ justifyContent: 'between', alignItems: 'end' }} gap="10px">
+      <VStack className="justify-between items-end gap-x-3">
         <span className="text-xl animate-fade">{name}</span>
         <span className="text-2xl font-bold animate-fade">{rate.toFixed(1)}</span>
       </VStack>
-      <HStack
-        gap="10px"
-        style={{ padding: '20px', borderRadius: '12px', width: '300px' }}
-        className="border-neutral-200 border"
-      >
+      <HStack className="gap-y-3 p-5 rounded-xl border-neutral-200 border" style={{ width: '300px' }}>
         <VStack style={{ justifyContent: 'space-between' }}>
           <Tag className="animate-fade">{low}</Tag>
           <Tag className="animate-fade">{high}</Tag>
@@ -42,15 +38,11 @@ export function CriteriaIndicatorLoading({
 }: Pick<CriteriaIndicatorProp, 'name' | 'low' | 'high' | 'style'>) {
   return (
     <HStack className="justify-between w-full gap-4" style={style}>
-      <VStack style={{ justifyContent: 'between', alignItems: 'end' }} gap="10px">
+      <VStack className="gap-x-3 justify-between items-end">
         <span className="text-xl">{name}</span>
         <span className="text-2xl font-bold">{<Skeleton placeholder="?.?" />}</span>
       </VStack>
-      <HStack
-        gap="10px"
-        style={{ padding: '20px', borderRadius: '12px', width: '300px' }}
-        className="border-neutral-200 border"
-      >
+      <HStack className="gap-y-3 p-5 rounded-xl border-neutral-200 border" style={{ width: '300px' }}>
         <VStack style={{ justifyContent: 'space-between' }}>
           <Tag>{low}</Tag>
           <Tag>{high}</Tag>

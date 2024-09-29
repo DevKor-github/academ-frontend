@@ -222,7 +222,7 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
     "learn_t4_industry": false,*/}
 
         <span className="inline-block my-5">수업 진행 방식 선택</span>
-        <VStack gap="24px" className="flex-wrap gap-y-2">
+        <VStack className="flex-wrap gap-y-2 gap-x-6">
           <InputToggleTag
             id="teach_t1_theory"
             onChange={handleInputBoolean}
@@ -255,7 +255,7 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
           />
         </VStack>
         <span className="inline-block mt-10 mb-5">학습 내용 선택</span>
-        <VStack gap="24px" className="flex-wrap gap-y-2">
+        <VStack className="gap-x-6 flex-wrap gap-y-2">
           <InputToggleTag
             id="learn_t1_theory"
             onChange={handleInputBoolean}

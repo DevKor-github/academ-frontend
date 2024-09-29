@@ -30,15 +30,14 @@ export function CarouselItem({ url, children }: { url: string; children?: React.
 const carouselItems = [
   <CarouselItem key={'/banner/image1.png'} url="/banner/image1.png">
     <HStack
-      className="p-4 text-white justify-start items-start pt-10 h-full"
-      gap="24px"
+      className="p-4 text-white justify-start items-start pt-10 h-full gap-y-6"
       style={{ width: '40rem', height: '10rem' }}
     >
-      <VStack className=" items-center" gap="12px">
-        <span className=" text-5xl font-bold">ACADEM</span>
+      <VStack className="items-center gap-x-3">
+        <span className="text-5xl font-bold">ACADEM</span>
         <span className="text-lg border-l border-l-neutral-50 pl-3">아카뎀</span>
       </VStack>
-      <VStack gap="24px" style={{ alignItems: 'center' }}>
+      <VStack className="gap-x-6 items-center">
         <span className="text-lg leading-noraml">
           대학원생을 위한 <span className="font-bold">강의평가 공유 서비스</span>
           <span className="md:hidden">, </span>
@@ -52,7 +51,7 @@ const carouselItems = [
     </HStack>
   </CarouselItem>,
   <CarouselItem key={'/banner/image2.png'} url="/banner/image2.png">
-    <HStack className="p-4 text-white justify-center items-center pt-10 h-full" gap="24px" style={{ width: '40rem' }}>
+    <HStack className="p-4 text-white justify-center items-center pt-10 h-full gap-y-6" style={{ width: '40rem' }}>
       <span className="text-2xl">
         <span className="font-bold">이론 중심</span>
         {' 강의? '}
@@ -67,8 +66,7 @@ const carouselItems = [
   </CarouselItem>,
   <CarouselItem key={'/banner/image3.png'} url="/banner/image3.png">
     <HStack
-      className="p-4 text-white justify-start items-start pt-10 h-full"
-      gap="24px"
+      className="p-4 text-white justify-start items-start pt-10 h-full gap-y-6"
       style={{ width: '40rem', height: '10rem' }}
     >
       <span className="text-3xl">

@@ -9,7 +9,7 @@ export default function Step4() {
   const route = useRouter();
 
   return (
-    <HStack gap="25px" className="items-center">
+    <HStack className="gap-y-6 items-center">
       <FinishIcon />
       <span className="text-4xl font-medium">회원가입 완료!</span>
       <span>

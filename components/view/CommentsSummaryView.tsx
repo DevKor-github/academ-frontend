@@ -7,15 +7,11 @@ function CommentsSummaryBox({ children, className = '' }: React.PropsWithChildre
   const tn = twMerge('pl-8 pr-8 pb-8', className);
 
   return (
-    <HStack gap="30px" className={tn} style={{ marginTop: '60px' }}>
+    <HStack className={twMerge('gap-y-8', tn)} style={{ marginTop: '60px' }}>
       <span className="text-2xl">평가 한눈에 보기</span>
       <VStack
-        gap="20px"
+        className="gap-5 justify-evenly flex-wrap items-center"
         style={{
-          rowGap: '20px',
-          justifyContent: 'space-evenly',
-          flexWrap: 'wrap',
-          alignItems: 'center',
           margin: '20px 0px',
         }}
       >

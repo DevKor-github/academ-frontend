@@ -47,7 +47,7 @@ export default function Step2({
   }
 
   return (
-    <HStack style={{ justifyContent: 'center' }} gap="20px">
+    <HStack className="justify-center gap-y-5">
       <span className="text-xl">이메일로 인증번호가 발송되었습니다.</span>
       <form
         className="flex flex-col gap-5"
@@ -69,7 +69,7 @@ export default function Step2({
           autoFocus
         />
         <ErrorLabel className={'text-primary-500 '} label={error} shake={timeout} />
-        <VStack className="w-full h-fit justify-end" gap="36px">
+        <VStack className="w-full h-fit justify-end gap-x-9">
           <Button
             kind="outline"
             type="submit"

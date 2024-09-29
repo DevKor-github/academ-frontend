@@ -6,7 +6,7 @@ export default function CommentReportLoading() {
   return (
     <HStack className="w-full h-full">
       <VStack
-        className={` pl-8 pr-8 border-b-black bg-neutral-50 dark:bg-neutral-950`}
+        className="pl-8 pr-8 border-b-black bg-neutral-50 dark:bg-neutral-950 gap-x-6"
         style={{
           paddingTop: '160px',
           paddingBottom: '60px',
@@ -14,7 +14,6 @@ export default function CommentReportLoading() {
           alignItems: 'center',
           flexWrap: 'wrap',
         }}
-        gap="24px"
       >
         <div
           style={{
@@ -25,8 +24,8 @@ export default function CommentReportLoading() {
             background: '#d9d9d9',
           }}
         />
-        <HStack gap="10px">
-          <VStack gap="10px" style={{ alignItems: 'center', flexWrap: 'wrap' }}>
+        <HStack className="gap-y-3">
+          <VStack className="gap-x-3 items-center flex-wrap">
             <span className="text-3xl">
               <Skeleton placeholder="강의 이름 이름" />
             </span>
@@ -34,7 +33,7 @@ export default function CommentReportLoading() {
               <Skeleton placeholder="강의평 n개" />
             </Tag>
           </VStack>
-          <VStack gap="20px" style={{ flexWrap: 'wrap' }}>
+          <VStack className="gap-x-5 flex-wrap">
             <span className="text-lg">
               <Skeleton placeholder="교수명" />
             </span>

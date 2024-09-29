@@ -22,7 +22,7 @@ export default function LoginPage() {
         width: '100%',
       }}
     >
-      <HStack className="text-lg" gap="48px" style={{ width: '400px' }}>
+      <HStack className="text-lg gap-y-12" style={{ width: '400px' }}>
         <span style={{ textAlign: 'center' }}>
           <span className="text-4xl">
             비밀번호 초기화
