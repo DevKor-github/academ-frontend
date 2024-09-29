@@ -73,12 +73,17 @@ export default async function SearchPageServer({
         </div>
       );
     } else {
-      return (<div className="flex flex-col h-full">
-        <SearchTopView key={q} query={q} />
-        <Box>
-          <span>알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요. 오류가 계속되는 경우, <Link href={URL_BUG_REPORT}>제보</Link>를 부탁드려요.</span>
-        </Box>
-      </div>);
+      return (
+        <div className="flex flex-col h-full">
+          <SearchTopView key={q} query={q} />
+          <Box>
+            <span>
+              알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요. 오류가 계속되는 경우,{' '}
+              <Link href={URL_BUG_REPORT}>제보</Link>를 부탁드려요.
+            </span>
+          </Box>
+        </div>
+      );
     }
   }
 

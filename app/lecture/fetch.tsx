@@ -32,7 +32,7 @@ const SearchResults = memo(
 
     return response.data.flatMap((course) => (
       <div key={course.course_id} className="animate-fade">
-      <CoursePreview key={course.course_id} course={course} />
+        <CoursePreview key={course.course_id} course={course} />
       </div>
     ));
   },
