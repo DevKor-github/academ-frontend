@@ -2,9 +2,11 @@
 import { IS_DEBUG } from '../directive';
 import { KyInstance } from 'ky-universal';
 
+type ApiCallMethods = 'post' | 'get' | 'post-form-urlencoded';
+
 export type ApiCall<Req, Res> = (instance: KyInstance | undefined, req: Req) => Promise<ApiResponse<Res>>;
 type Builder = <Req, Res>(
-  method: 'POST' | 'GET',
+  method: ApiCallMethods,
   path: string,
   headers?: Record<string, string | undefined>,
 ) => ApiCall<Req, Res>;
@@ -18,7 +20,7 @@ type Builder = <Req, Res>(
  * @returns
  */
 export const build: Builder = <Req, Res>(
-  method: 'POST' | 'GET',
+  method: ApiCallMethods,
   path: string,
   headers: Record<string, string | undefined> = {},
 ) => {
@@ -29,13 +31,27 @@ export const build: Builder = <Req, Res>(
       ) as ApiResponse<Res>;
     }
 
-    const firstTry =
-      method === 'POST'
-        ? instance.post<ApiResponse<Res>>(path, { json: req, headers })
-        : instance.get<ApiResponse<Res>>(path, {
-            searchParams: req as Record<string, string | number | boolean>,
-            headers,
-          });
+    let firstTry;
+    switch (method) {
+      case 'post-form-urlencoded':
+        firstTry = instance.post<ApiResponse<Res>>(path, {
+          searchParams: new URLSearchParams(req as Record<string, string>).toString(),
+          headers: {
+            ...headers,
+            ...{ 'content-type': 'application/x-www-form-urlencoded' },
+          },
+        });
+        break;
+      case 'post':
+        firstTry = instance.post<ApiResponse<Res>>(path, { json: req, headers });
+        break;
+      case 'get':
+        firstTry = instance.get<ApiResponse<Res>>(path, {
+          searchParams: req as Record<string, string | number | boolean>,
+          headers,
+        });
+        break;
+    }
 
     const firstResult = await firstTry.json();
 
