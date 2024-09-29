@@ -1,13 +1,22 @@
 'use client';
 
-import axios from 'axios';
+import ky from 'ky-universal';
 import { URL_BACKEND_BASE } from '@/lib/directive';
 
 export function createPureInstance() {
-  return axios.create({
-    baseURL: URL_BACKEND_BASE,
-    maxRedirects: 0,
-    withCredentials: true,
-    validateStatus: (status: number) => 200 <= status && status < 500,
+  return ky.create({
+    prefixUrl: URL_BACKEND_BASE,
+    retry: {
+      limit: 0,
+    },
+    hooks: {
+      afterResponse: [
+        async (_request, _options, response) => {
+          const newR = await response.json<ApiResponse<unknown>>();
+          newR.statusCode = response.status;
+          return new Response(JSON.stringify(newR), { status: 200 });
+        },
+      ],
+    },
   });
 }

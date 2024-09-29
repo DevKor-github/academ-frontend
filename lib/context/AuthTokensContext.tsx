@@ -2,23 +2,18 @@
 
 import { createContext, useContext, useMemo } from 'react';
 
-import { AxiosInstance } from 'axios';
+import { KyInstance } from 'ky-universal';
 import useTabSharedState from '@/lib/hooks/shared';
 import { KEY_FOR_ACCESS_TOKEN, KEY_FOR_REFRESH_TOKEN } from '@/lib/directive';
 
 import { createPureInstance } from '@/lib/api-client/instances/_create';
-import {
-  mouldAsApiResponse,
-  interceptRefreshFirst,
-  insertToken,
-  retryWithRefresh,
-} from '@/lib/api-client/instances/_interceptors';
+import { interceptRefreshFirst, insertToken, retryWithRefresh } from '@/lib/api-client/instances/_interceptors';
 
 interface ApiInstances {
-  basic?: AxiosInstance;
-  refreshFirst?: AxiosInstance;
-  doRefresh?: AxiosInstance;
-  withTokenOnce?: AxiosInstance;
+  basic?: KyInstance;
+  refreshFirst?: KyInstance;
+  doRefresh?: KyInstance;
+  withTokenOnce?: KyInstance;
 }
 
 type AuthTokens = {
@@ -52,36 +47,26 @@ export default function AuthTokensProvider({ children }: React.PropsWithChildren
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [accessToken, setAccessToken] = useTabSharedState<JWT | null>(KEY_FOR_ACCESS_TOKEN, null);
 
-  const basic = useMemo(() => {
-    const i = createPureInstance();
-    mouldAsApiResponse(i);
-    return i;
-  }, []);
+  const basic = useMemo(createPureInstance, []);
 
-  const refreshFirst = useMemo(() => {
-    const i = createPureInstance();
-    interceptRefreshFirst(i, basic, refreshToken, setAccessToken);
-    insertToken(i, accessToken);
-    // run
-    mouldAsApiResponse(i);
-    return i;
-  }, [basic, accessToken, refreshToken, setAccessToken]);
+  const refreshFirst = useMemo(
+    () => insertToken(interceptRefreshFirst(createPureInstance(), basic, refreshToken, setAccessToken), accessToken),
+    [basic, accessToken, refreshToken, setAccessToken],
+  );
 
-  const withTokenOnce = useMemo(() => {
-    const i = createPureInstance();
-    insertToken(i, accessToken);
-    mouldAsApiResponse(i);
-    return i;
-  }, [accessToken]);
+  const withTokenOnce = useMemo(() => insertToken(createPureInstance(), accessToken), [accessToken]);
 
-  const doRefresh = useMemo(() => {
-    const i = createPureInstance();
-    insertToken(i, accessToken);
-    // run
-    mouldAsApiResponse(i);
-    retryWithRefresh(i, basic, withTokenOnce, refreshToken, setAccessToken);
-    return i;
-  }, [accessToken, refreshToken, setAccessToken, basic, withTokenOnce]);
+  const doRefresh = useMemo(
+    () =>
+      retryWithRefresh(
+        insertToken(createPureInstance(), accessToken),
+        basic,
+        withTokenOnce,
+        refreshToken,
+        setAccessToken,
+      ),
+    [accessToken, refreshToken, setAccessToken, basic, withTokenOnce],
+  );
 
   const instances = { basic, refreshFirst, doRefresh, withTokenOnce };
   /* * */

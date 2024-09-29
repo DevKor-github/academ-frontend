@@ -1,20 +1,13 @@
 'use client';
-
-import { AxiosInstance, AxiosRequestConfig } from 'axios';
-
 import { IS_DEBUG } from '../directive';
+import { KyInstance } from 'ky-universal';
 
-const buildUrlWithParams = (baseUrl: string, req: Record<string, string | number>) => {
-  const newReq = Object.keys(req).reduce((acc: Record<string, string>, key) => {
-    acc[key] = String(req[key]);
-    return acc;
-  }, {});
-  const params = new URLSearchParams(newReq).toString();
-  return params !== '' ? `${baseUrl}?${params}` : baseUrl;
-};
-
-export type ApiCall<Req, Res> = (instance: AxiosInstance | undefined, req: Req) => Promise<ApiResponse<Res>>;
-type Builder = <Req, Res>(method: 'POST' | 'GET', path: string, config?: AxiosRequestConfig) => ApiCall<Req, Res>;
+export type ApiCall<Req, Res> = (instance: KyInstance | undefined, req: Req) => Promise<ApiResponse<Res>>;
+type Builder = <Req, Res>(
+  method: 'POST' | 'GET',
+  path: string,
+  headers?: Record<string, string | undefined>,
+) => ApiCall<Req, Res>;
 
 /**
  * build : automatically generates api call functions
@@ -24,8 +17,12 @@ type Builder = <Req, Res>(method: 'POST' | 'GET', path: string, config?: AxiosRe
  * @param config
  * @returns
  */
-export const build: Builder = <Req, Res>(method: 'POST' | 'GET', path: string, config: AxiosRequestConfig = {}) => {
-  return async function (instance: AxiosInstance | undefined, req: Req): Promise<ApiResponse<Res>> {
+export const build: Builder = <Req, Res>(
+  method: 'POST' | 'GET',
+  path: string,
+  headers: Record<string, string | undefined> = {},
+) => {
+  return async function (instance: KyInstance | undefined, req: Req): Promise<ApiResponse<Res>> {
     if (instance === undefined) {
       return failWith(
         'API가 잘못된 위치에서 호출되었습니다. 이 오류는 일시적이지 않습니다. Academ 운영팀에 문의해주세요.',
@@ -34,10 +31,13 @@ export const build: Builder = <Req, Res>(method: 'POST' | 'GET', path: string, c
 
     const firstTry =
       method === 'POST'
-        ? instance.post(path, req, config)
-        : instance.get(buildUrlWithParams(path, req as Record<string, string | number>), config);
+        ? instance.post<ApiResponse<Res>>(path, { json: req, headers })
+        : instance.get<ApiResponse<Res>>(path, {
+            searchParams: req as Record<string, string | number | boolean>,
+            headers,
+          });
 
-    const firstResult = (await firstTry).data as ApiResponse<Res>;
+    const firstResult = await firstTry.json();
 
     if (IS_DEBUG) {
       const show = firstResult.status === 'SUCCESS' ? console.log : console.error;
