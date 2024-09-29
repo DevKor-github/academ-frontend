@@ -3,16 +3,19 @@ import { CommentsSummaryViewLoading } from '@/components/view/CommentsSummaryVie
 import { CommentLoadingItems, CommentsWrapper } from './aux';
 import { memo } from 'react';
 
-export const LectureIdPageBotLoading = memo(function LectureIdPageBotLoading() {
-  return (
-    <>
-      <CommentsSummaryViewLoading />
-      <CommentsWrapper order={'NEWEST'} handleValue={undefined}>
-        <CommentLoadingItems />
-      </CommentsWrapper>
-    </>
-  );
-}, () => true);
+export const LectureIdPageBotLoading = memo(
+  function LectureIdPageBotLoading() {
+    return (
+      <>
+        <CommentsSummaryViewLoading />
+        <CommentsWrapper order={'NEWEST'} handleValue={undefined}>
+          <CommentLoadingItems />
+        </CommentsWrapper>
+      </>
+    );
+  },
+  () => true,
+);
 
 export default function LectureIdPageLoading() {
   return (
