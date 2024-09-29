@@ -1,18 +1,21 @@
 'use client';
 
-import { memo, useState } from 'react';
-import Link from 'next/link';
+import { memo, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 import Button from '@/components/basic/button';
 import CoursePreview from '@/components/view/CoursePreview';
 import { DownIcon } from '@/components/icon';
+import Select from '@/components/basic/select';
 
 import { Box, CourseLoadingItems, Grid } from './aux';
 
-import { apiSearchCount, apiSearch } from '@/lib/api-client/calls/course';
+import { apiSearch } from '@/lib/api-client/calls/course';
 import { ELEM_PER_PAGE } from '@/lib/directive';
 import { useApi } from '@/lib/hooks/api';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import { lengthOf } from '@/lib/util';
 
 const SearchResults = memo(
   function SearchResults({ keyword, order, page }: ReqSearchCourse) {
@@ -27,21 +30,17 @@ const SearchResults = memo(
       return <Box>오류가 발생했습니다.</Box>;
     }
 
-    return (
-      <>
-        {response.data.map((course) => (
-          <div key={course.course_id} className="animate-fade">
-            <CoursePreview key={course.course_id} course={course} />
-          </div>
-        ))}
-      </>
-    );
+    return response.data.flatMap((course) => (
+      <div key={course.course_id} className="animate-fade">
+      <CoursePreview key={course.course_id} course={course} />
+      </div>
+    ));
   },
-  (prev, next) => prev.keyword === next.keyword && prev.order === next.order && prev.page === next.page,
+  (p, n) => p.keyword === n.keyword && p.order === n.order && p.page === n.page,
 );
 
 function SearchResultsViewWithOrder({
-  query: keyword,
+  query,
   order,
   totalPage,
 }: {
@@ -51,7 +50,11 @@ function SearchResultsViewWithOrder({
 }) {
   const [page, setPage] = useState<number>(1);
 
-  const nextButton =
+  useEffect(() => {
+    console.error(`page: ${page}, query: ${query}, order: ${order}, totalPage: ${totalPage}`);
+  }, [page, query, order, totalPage]);
+
+  const NextButton =
     page >= totalPage ? (
       <div>모두 불러왔습니다</div>
     ) : (
@@ -62,60 +65,60 @@ function SearchResultsViewWithOrder({
       </div>
     );
 
-  if (keyword === '') {
-    return <p>강의명, 교수명, 학수번호로 검색해보세요.</p>;
-  }
-
   return (
     <>
       <Grid>
-        {new Array(page)
-          .fill(null)
-          .map((_, i) => i + 1)
-          .flatMap((v) => (
-            <SearchResults key={v} keyword={keyword} order={order} page={v} />
-          ))}
+        {lengthOf(page, 1).flatMap((v) => (
+          <SearchResults key={v} keyword={query} order={order} page={v} />
+        ))}
       </Grid>
-      {nextButton}
+      {NextButton}
     </>
   );
 }
 
-export default function SearchResultsView({ query, sort }: { query: string; sort: SearchOrdering }) {
-  const [{ instances }] = useAuthTokens();
-  const { loading, response: lectureCount } = useApi(instances.doRefresh, apiSearchCount, { keyword: query });
+const sortCriterias = [
+  { value: 'NEWEST', label: '최신순' },
+  { value: 'RATING_DESC', label: '별점 높은순' },
+  { value: 'RATING_ASC', label: '별점 낮은순' },
+] as const;
 
-  if (query === '') {
-    return <span>강의명, 교수명, 학수번호로 검색해보세요.</span>;
-  }
+export default function SearchPage({ keyword, count }: { keyword: string; count: ApiResponse<number> }) {
+  /* count => SUCCESS, data is always positive */
 
-  if (loading) {
-    // WARN : double-loading screen might make flickring
-    return (
-      <Grid>
-        <CourseLoadingItems />
-      </Grid>
-    );
-  }
+  const route = useRouter();
 
-  if (lectureCount.status != 'SUCCESS') {
-    return lectureCount.statusCode === 401 ? (
-      <span>
-        <Link href="/login" className="text-primary-500 underline">
-          로그인
-        </Link>{' '}
-        후 이용해주세요.
-      </span>
-    ) : (
-      lectureCount.message
-    );
-  }
+  const sCand = useSearchParams().get('s');
+  const s = (Array.isArray(sCand) ? sCand[0] : sCand) || '';
+  const sort: SearchOrdering = sortCriterias.map(({ value }) => value).includes(s as SearchOrdering)
+    ? (s as SearchOrdering)
+    : 'NEWEST';
 
-  if (lectureCount.data <= 0) {
-    return '검색 결과가 없습니다.';
+  function handleValue(e: React.FormEvent<HTMLInputElement>) {
+    const newOrder = (e.target as HTMLInputElement).value as SearchOrdering;
+    route.replace(`/lecture?q=${keyword}&s=${newOrder}`);
   }
 
   return (
-    <SearchResultsViewWithOrder query={query} order={sort} totalPage={Math.ceil(lectureCount.data / ELEM_PER_PAGE)} />
+    <Box>
+      <Select
+        id="order"
+        value={sort}
+        handleValue={handleValue}
+        items={
+          [
+            { value: 'NEWEST', label: '최신순' },
+            { value: 'RATING_DESC', label: '별점 높은순' },
+            { value: 'RATING_ASC', label: '별점 낮은순' },
+          ] as const
+        }
+      />
+      <SearchResultsViewWithOrder
+        key={sort}
+        query={keyword}
+        order={sort}
+        totalPage={Math.ceil(count.data / ELEM_PER_PAGE)}
+      />
+    </Box>
   );
 }

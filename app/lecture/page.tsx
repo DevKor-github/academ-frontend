@@ -1,13 +1,13 @@
-'use client';
+'use server';
 
 import SearchForm from '@/components/composite/SearchForm';
 import { VStack } from '@/components/basic/stack';
 
-import { useRouter } from 'next/navigation';
-import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { GET } from '@/lib/api-server/get';
+import SearchPage from './fetch';
 import { Box } from './aux';
-import Select from '@/components/basic/select';
-import SearchResultsView from './fetch';
+import { URL_BUG_REPORT } from '@/lib/directive';
 
 const SearchTopView = ({ query }: { query: string }) => {
   return query ? (
@@ -30,53 +30,62 @@ const SearchTopView = ({ query }: { query: string }) => {
   );
 };
 
-const sortCriterias = [
-  { value: 'NEWEST', label: '최신순' },
-  { value: 'RATING_DESC', label: '별점 높은순' },
-  { value: 'RATING_ASC', label: '별점 낮은순' },
-] as const;
-
-export default function SearchPage() {
-  const route = useRouter();
-  const params = useSearchParams();
-
-  const qCand = params.get('q');
-  const sCand = params.get('s');
-
+export default async function SearchPageServer({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  const qCand = searchParams.q;
   const q = (Array.isArray(qCand) ? qCand[0] : qCand) || '';
-  const s = (Array.isArray(sCand) ? sCand[0] : sCand) || '';
-  const sort: SearchOrdering = sortCriterias.map(({ value }) => value).includes(s as SearchOrdering)
-    ? (s as SearchOrdering)
-    : 'NEWEST';
 
-  // this is not an actual SetState
-  function setSort(newOrder: SearchOrdering) {
-    route.replace(`/lecture?q=${q}&s=${newOrder}`);
+  if (q === '') {
+    return (
+      <div className="flex flex-col h-full">
+        <SearchTopView key={q} query={q} />
+        <Box>
+          <span>강의명, 교수명, 학수번호로 검색해보세요.</span>
+        </Box>
+      </div>
+    );
+  } else if (q.length < 2) {
+    return (
+      <div className="flex flex-col h-full">
+        <SearchTopView key={q} query={q} />
+        <Box>
+          <span>검색어는 2글자 이상이어야 합니다.</span>
+        </Box>
+      </div>
+    );
   }
 
-  function handleValue(e: React.FormEvent<HTMLInputElement>) {
-    const newOrder = (e.target as HTMLInputElement).value as SearchOrdering;
-    setSort(newOrder);
+  const count = await GET<ReqSearch, number>('/api/course/search/count-result')({
+    keyword: q,
+  });
+
+  if (count.status !== 'SUCCESS') {
+    if (count.statusCode === 404) {
+      return (
+        <div className="flex flex-col h-full">
+          <SearchTopView key={q} query={q} />
+          <Box>
+            <span>결과가 없습니다.</span>
+          </Box>
+        </div>
+      );
+    } else {
+      return (<div className="flex flex-col h-full">
+        <SearchTopView key={q} query={q} />
+        <Box>
+          <span>알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요. 오류가 계속되는 경우, <Link href={URL_BUG_REPORT}>제보</Link>를 부탁드려요.</span>
+        </Box>
+      </div>);
+    }
   }
 
   return (
     <div className="flex flex-col h-full">
       <SearchTopView key={q} query={q} />
-      <Box>
-        <Select
-          id="order"
-          value={sort}
-          handleValue={handleValue}
-          items={
-            [
-              { value: 'NEWEST', label: '최신순' },
-              { value: 'RATING_DESC', label: '별점 높은순' },
-              { value: 'RATING_ASC', label: '별점 낮은순' },
-            ] as const
-          }
-        />
-        <SearchResultsView key={sort} query={q} sort={sort} />
-      </Box>
+      <SearchPage keyword={q} count={count} />
     </div>
   );
 }
