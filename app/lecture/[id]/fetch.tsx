@@ -20,21 +20,21 @@ import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 import { LectureIdPageBotLoading } from './aux';
 import { lengthOf } from '@/lib/util';
 
-function BlurredModal({ children, backdrop }: { children: React.ReactNode; backdrop: React.ReactNode }) {
-  return (
-    <div className="relative w-full h-full">
-      {/* backdrop-blur */}
-      <div className="absolute w-full animate-fade bg-white bg-opacity-80 z-10 justify-start pt-20 items-center gap-6 h-full">
-        <div className="sticky top-16 transform flex flex-col">
-          <div className="w-fit flex flex-col shadow-2xl self-center justify-center items-center p-4 md:p-8 m-4 md:m-8 gap-4 rounded-2xl bg-white border border-base-30">
-            {children}
-          </div>
-        </div>
-      </div>
-      <div className="relative -z-10 w-full h-full overflow-hidden">{backdrop}</div>
-    </div>
-  );
-}
+// function BlurredModal({ children, backdrop }: { children: React.ReactNode; backdrop: React.ReactNode }) {
+//   return (
+//     <div className="relative w-full h-full">
+//       {/* backdrop-blur */}
+//       <div className="absolute w-full animate-fade bg-white bg-opacity-80 z-10 justify-start pt-20 items-center gap-6 h-full">
+//         <div className="sticky top-16 transform flex flex-col">
+//           <div className="w-fit flex flex-col shadow-2xl self-center justify-center items-center p-4 md:p-8 m-4 md:m-8 gap-4 rounded-2xl bg-white border border-base-30">
+//             {children}
+//           </div>
+//         </div>
+//       </div>
+//       <div className="relative -z-10 w-full h-full overflow-hidden">{backdrop}</div>
+//     </div>
+//   );
+// }
 
 const CommentsResults = memo(
   function CommentsResults({ course_id, order, page }: ReqCourseDetail) {
@@ -101,13 +101,15 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
     );
 
   return course.data.count_comments === 0 ? (
-    <BlurredModal backdrop={<LectureIdPageBotLoading />}>
+    // <BlurredModal backdrop={<LectureIdPageBotLoading />}>
+    <>
       <IssueIcon />
       <span className="w-fulltext-center text-2xl text-center">강의평이 없습니다.</span>
       <span className="w-fulltext-center text-base text-center text-primary-500 underline">
         <Link href={`/lecture/${course.data.course_id}/write`}>작성하러 가기</Link>
       </span>
-    </BlurredModal>
+    </>
+    // </BlurredModal>
   ) : IsCourse(course.data) ? (
     <>
       <CommentsSummaryView course={course.data} />
@@ -119,8 +121,10 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
       </CommentsWrapper>
     </>
   ) : (
-    <BlurredModal backdrop={<LectureIdPageBotLoading />}>
-      <NoMembershipView />
-    </BlurredModal>
+        // <BlurredModal backdrop={<LectureIdPageBotLoading />}>
+        <>
+          <NoMembershipView />
+        </>
+    // </BlurredModal>
   );
 }
