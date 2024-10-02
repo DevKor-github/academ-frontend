@@ -2,6 +2,7 @@ import { HStack } from '@/components/basic/stack';
 import Link from 'next/link';
 import { ELEM_PER_PAGE } from '@/lib/directive';
 import apiGetNotices from '@/lib/api-server/notice';
+import { lengthOf } from '@/lib/util';
 
 async function NoticeSingle({ notice }: { notice: Notice }) {
   return (
@@ -24,8 +25,8 @@ export async function generateStaticParams() {
   const countNotice = ns.length;
   const countPages = Math.ceil(countNotice / ELEM_PER_PAGE);
 
-  return new Array(countPages).fill(undefined).map((_, postId) => ({
-    index: String(postId + 1),
+  return lengthOf(countPages, 1).map((postId) => ({
+    index: String(postId),
   }));
 }
 
@@ -80,7 +81,7 @@ export default async function NoticeView({ params }: { params: { index: string }
   const sliced = ns.slice((index - 1) * ELEM_PER_PAGE, index * ELEM_PER_PAGE);
 
   return (
-    <HStack gap="20px" style={{ margin: '40px' }}>
+    <HStack className="gap-y-5 m-10">
       <div className="my-10 text-4xl font-medium">공지사항</div>
       <div className="w-full border light:border-base-27 dark:border-base-5" />
       <HStack>

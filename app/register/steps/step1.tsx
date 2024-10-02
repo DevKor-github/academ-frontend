@@ -71,7 +71,7 @@ export default function Step1({
   }
 
   return (
-    <HStack gap="20px">
+    <HStack className="gap-y-5">
       <span className="text-4xl">환영합니다!</span>
       <span className="text-2xl">고려대학교 이메일로 학생인증을 해주세요.</span>
       <form
@@ -83,7 +83,7 @@ export default function Step1({
       >
         <Input required type="email" id="email" placeholder="example@korea.ac.kr" onChange={handleInput} autoFocus />
         <ErrorLabel className="text-primary-500" label={error} shake={timeout} />
-        <VStack className="w-full h-fit justify-end" gap="36px">
+        <VStack className="w-full h-fit justify-end gap-x-9">
           {loading ? (
             <span className="text-6xl text-primary-500">
               <Spinner />

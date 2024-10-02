@@ -33,7 +33,7 @@ export default function RegisterPage() {
 
   return (
     <div className="flex w-full h-full justify-center items-center">
-      <HStack gap="40px" style={{ width: 'max(500px, 50vw)', margin: '40px 30px' }}>
+      <HStack className="gap-y-8" style={{ width: 'max(500px, 50vw)', margin: '40px 30px' }}>
         {pages[rate]}
       </HStack>
     </div>

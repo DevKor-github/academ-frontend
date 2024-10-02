@@ -57,7 +57,7 @@ export default function Step0({ nextStep }: { nextStep: () => void }) {
   };
 
   return (
-    <HStack className="h-full w-full justify-center" gap="20px">
+    <HStack className="h-full w-full justify-center gap-y-5">
       <div
         className="w-full"
         style={{
@@ -80,7 +80,7 @@ export default function Step0({ nextStep }: { nextStep: () => void }) {
           borderRadius: '12px',
         }}
       >
-        <HStack gap="10px">
+        <HStack className="gap-y-3">
           <VStack style={{ justifyContent: 'space-between', paddingLeft: '5px' }}>
             <span className="text-xl">이용약관 (필수)</span>
             <Checkbox name="termsAgreed" checked={agreements.termsAgreed} onChange={handelAgreementChange} />

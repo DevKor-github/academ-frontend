@@ -156,7 +156,7 @@ export default function Step3({
   useEffect(showDropDownList, [input.department]);
 
   return (
-    <HStack gap="20px">
+    <HStack className="gap-y-5">
       <span className="text-4xl">회원가입</span>
       <span className="text-xl" style={{ marginBottom: '60px' }}>
         ACADEM에 오신걸 환영합니다!
@@ -215,7 +215,7 @@ export default function Step3({
         <span className="text-xl" style={{ marginTop: '10px' }}>
           닉네임
         </span>
-        <VStack gap="20px" className="w-100% justify-between">
+        <VStack className="gap-x-5 w-100% justify-between">
           <div className="grow">
             <Input
               required
@@ -288,7 +288,7 @@ export default function Step3({
         </div>
         <span className="text-xl">학위 / 학기</span>
         <VStack style={{ justifyContent: 'space-between', marginBottom: '40px' }}>
-          <VStack gap="10px">
+          <VStack className="gap-x-3">
             <Button
               id="degree"
               type="button"
@@ -322,7 +322,7 @@ export default function Step3({
               </span>
             </Button>
           </VStack>
-          <VStack gap="10px" style={{ alignItems: 'center' }}>
+          <VStack className="gap-x-3 items-center">
             <Input
               required
               type="number"

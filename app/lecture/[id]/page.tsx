@@ -1,18 +1,17 @@
 'use server';
 
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
-
+import { Suspense } from 'react';
 import { Metadata, ResolvingMetadata } from 'next';
-import { LectureIconPath } from '@/components/composite/lectureIcon';
-import { GET } from '@/lib/api-server/get';
-
-import { ELEM_PER_PAGE } from '@/lib/directive';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-import CourseBasicsView from '@/components/view/CourseBasicsView';
+import { GET } from '@/lib/api-server/get';
+import { ELEM_PER_PAGE } from '@/lib/directive';
 
-const CommentsView = dynamic(() => import('./fetch'), { ssr: false });
+import CommentsView from './fetch';
+
+import { LectureIconPath } from '@/components/composite/lectureIcon';
+import CourseBasicsView, {CourseBasicsViewLoading} from '@/components/view/CourseBasicsView';
 
 function WriteNewMobile({ course_id }: { course_id: number }) {
   const WriteIcon = (
@@ -22,7 +21,7 @@ function WriteNewMobile({ course_id }: { course_id: number }) {
       <path
         d="M14.5 1.58503C14.8978 1.21044 15.4374 1 16 1C16.2786 1 16.5544 1.05166 16.8118 1.15204C17.0692 1.25242 17.303 1.39955 17.5 1.58503C17.697 1.77051 17.8532 1.9907 17.9598 2.23304C18.0665 2.47538 18.1213 2.73512 18.1213 2.99742C18.1213 3.25973 18.0665 3.51946 17.9598 3.7618C17.8532 4.00414 17.697 4.22433 17.5 4.40981L5 16.1797L1 17.1213L2 13.3549L14.5 1.58503Z"
         fill="white"
-        stroke="white"
+        stroke="none"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -32,21 +31,11 @@ function WriteNewMobile({ course_id }: { course_id: number }) {
 
   return (
     <Link
-      className="text-white fixed aspect-square bg-primary-500 p-4 bottom-8 right-8 z-20 rounded-full md:hidden"
+      className="animate-fade text-white fixed aspect-square bg-primary-500 p-4 bottom-8 right-8 z-30 rounded-full md:hidden"
       href={`/lecture/${course_id}/write`}
     >
       {WriteIcon}
     </Link>
-  );
-}
-
-function CourseView({ course, totalPage }: { course: CourseOnly; totalPage: number }) {
-  return (
-    <div className="flex flex-col w-full h-full">
-      <CourseBasicsView course={course} />
-      <CommentsView course_id={course.course_id} totalPage={totalPage} />
-      <WriteNewMobile course_id={course.course_id} />
-    </div>
   );
 }
 
@@ -82,18 +71,46 @@ export async function generateMetadata(
   };
 }
 
-export default async function LectureFetch({ params }: { params: { id: string } }) {
+async function CourseBasicsViewById({ course_id } : { course_id : string }) {
+    // XXX : this is just for showing basic information, order is **NOT** important - maybe api refactor?
+    const course = await GET<ReqCourseDetail, CourseOnly | Course>('/api/course/detail')({
+      course_id: Number(course_id),
+      order: 'NEWEST',
+      page: 1,
+    });
+  
+    if (course.status !== 'SUCCESS') {
+      notFound();
+    }
+  
+  return (
+    <CourseBasicsView course={course.data} />
+  );
+  
+}
+
+async function CommentsViewById({ course_id }: { course_id: number }) {
+
   // XXX : this is just for showing basic information, order is **NOT** important - maybe api refactor?
   const course = await GET<ReqCourseDetail, CourseOnly | Course>('/api/course/detail')({
-    course_id: Number(params.id),
+    course_id: Number(course_id),
     order: 'NEWEST',
     page: 1,
   });
-
-  if (course.status !== 'SUCCESS') {
-    notFound();
-  }
-
+  
   const totalPage = Math.ceil(course.data.count_comments / ELEM_PER_PAGE);
-  return <CourseView course={course.data} totalPage={totalPage} />;
+
+  return (<CommentsView course_id={course_id} totalPage={totalPage} />);
+  
+}
+
+export default async function LectureFetch({ params }: { params: { id: string } }) {
+  
+  return (<div className="flex flex-col w-full h-full">
+    <Suspense fallback={<CourseBasicsViewLoading />}>
+      <CourseBasicsViewById course_id={params.id} />
+    </Suspense>
+    <CommentsViewById course_id={Number(params.id)} />
+    <WriteNewMobile course_id={Number(params.id)} />
+  </div>);
 }

@@ -60,25 +60,25 @@ function Left({ comment }: { comment: AcdComment | AcdMyComment }) {
       <div className="hidden md:block border-t my-4 border-t-neutral-200 w-full" />
 
       <div className="grid gird-cols-1 sm:grid-cols-2 auto-cols-auto gap-x-9 gap-y-6 text-sm">
-        <VStack gap="4px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+        <VStack className="gap-x-1" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <span className="text-base">학습량</span>
           <Tag className={`${quaternary(comment.r1_amount_of_studying, 3, red, yellow, green)} h-fit py-1 x-fit px-3`}>
             {quaternary(comment.r1_amount_of_studying, 3, '많음', '보통', '적음')}
           </Tag>
         </VStack>
-        <VStack gap="4px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+        <VStack className="gap-x-1" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <span className="text-base">난이도</span>
           <Tag className={`${quaternary(comment.r2_difficulty, 3, red, yellow, green)} h-fit py-1 x-fit px-3`}>
             {quaternary(comment.r2_difficulty, 3, '높음', '보통', '낮음')}
           </Tag>
         </VStack>
-        <VStack gap="4px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+        <VStack className="gap-x-1" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <span className="text-base">전달력</span>
           <Tag className={`${quaternary(comment.r3_delivery_power, 3, green, yellow, red)} h-fit py-1 x-fit px-3`}>
             {quaternary(comment.r3_delivery_power, 3, '좋음', '보통', '나쁨')}
           </Tag>
         </VStack>
-        <VStack gap="16px" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+        <VStack className="gap-x-1" style={{ justifyContent: 'space-between', alignItems: 'center' }}>
           <span className="text-base">학점</span>
           <Tag className={`${quaternary(comment.r4_grading, 3, green, yellow, red)} h-fit py-1 x-fit px-3`}>
             {quaternary(comment.r4_grading, 3, '높음', '보통', '낮음')}
@@ -112,7 +112,7 @@ function Right({
       : 'text-neutral-400 border-neutral-400';
 
   return (
-    <HStack className="w-full h-full" gap="8px">
+    <HStack className="w-full h-full gap-y-2">
       <VStack
         style={{
           overflow: 'hidden',
@@ -140,7 +140,7 @@ function Right({
         <div className="text-neutral-400 text-base w-max">작성내용</div>
         <div className="break-all break-words whitespace-pre-line text-wrap">{comment.review}</div>
       </div>
-      <VStack className="self-end items-center" gap="12px">
+      <VStack className="self-end items-center gap-x-3">
         <button
           className={`flex flex-row justify-center items-center px-4 py-1 border rounded-full gap-2 ${textColorClass}`}
           onClick={() => {
@@ -181,7 +181,7 @@ function Right({
         </Link>
       </VStack>
       {editable ? (
-        <VStack className="self-end items-center" gap="12px">
+        <VStack className="self-end items-center gap-x-3">
           <Link href={`/comment/${comment.comment_id}/edit`}>
             <button className="flex justify-center items-center gap-2 px-4 py-1 border rounded-full border-neutral-400 text-neutral-400">
               <EditIcon />
@@ -216,7 +216,7 @@ function Right({
 function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dispatch<boolean> }) {
   const [{ instances }] = useAuthTokens();
   return (
-    <HStack className="w-full h-full" gap="8px">
+    <HStack className="w-full h-full gap-y-2">
       <Link href={`/lecture/${comment.course_id}`}>
         <VStack
           style={{

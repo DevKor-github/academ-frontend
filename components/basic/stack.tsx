@@ -1,30 +1,19 @@
-import React from 'react';
-
+import { twMerge } from 'tailwind-merge';
 interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
-  gap?: string;
+  className?: string;
 }
 
-export function HStack({ className = '', gap, style, children }: StackProps) {
-  const combinedStyle: React.CSSProperties = {
-    ...{ rowGap: gap },
-    ...style,
-  };
+export function HStack({ className = '', children, ...rest }: React.PropsWithChildren<StackProps>) {
   return (
-    <div className={'flex flex-col ' + className} style={combinedStyle}>
-      {' '}
+    <div className={twMerge('flex flex-col', className)} {...rest}>
       {children}
     </div>
   );
 }
 
-export function VStack({ className = '', gap, style, children }: StackProps) {
-  const combinedStyle: React.CSSProperties = {
-    ...{ columnGap: gap },
-    ...style,
-  };
+export function VStack({ className = '', children, ...rest }: React.PropsWithChildren<StackProps>) {
   return (
-    <div className={'flex flex-row ' + className} style={combinedStyle}>
-      {' '}
+    <div className={twMerge('flex flex-row', className)} {...rest}>
       {children}
     </div>
   );

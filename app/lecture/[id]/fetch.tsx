@@ -17,29 +17,50 @@ import { NoMembershipView } from '@/components/composite/PermissionView';
 import CommentView from '@/components/view/CommentView';
 import { CommentLoadingItems } from './aux';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import { LectureIdPageBotLoading } from './aux';
+import { lengthOf } from '@/lib/util';
 
-const CommentsResults = memo(function CommentsResults({ course_id, order, page }: ReqCourseDetail) {
-  const [{ instances }] = useAuthTokens();
-  const { loading, response } = useApi(instances.refreshFirst, apiCourseDetail, { course_id, order, page });
+// function BlurredModal({ children, backdrop }: { children: React.ReactNode; backdrop: React.ReactNode }) {
+//   return (
+//     <div className="relative w-full h-full">
+//       {/* backdrop-blur */}
+//       <div className="absolute w-full animate-fade bg-white bg-opacity-80 z-10 justify-start pt-20 items-center gap-6 h-full">
+//         <div className="sticky top-16 transform flex flex-col">
+//           <div className="w-fit flex flex-col shadow-2xl self-center justify-center items-center p-4 md:p-8 m-4 md:m-8 gap-4 rounded-2xl bg-white border border-base-30">
+//             {children}
+//           </div>
+//         </div>
+//       </div>
+//       <div className="relative -z-10 w-full h-full overflow-hidden">{backdrop}</div>
+//     </div>
+//   );
+// }
 
-  if (loading) {
-    return <CommentLoadingItems />;
-  }
+const CommentsResults = memo(
+  function CommentsResults({ course_id, order, page }: ReqCourseDetail) {
+    const [{ instances }] = useAuthTokens();
+    const { loading, response } = useApi(instances.refreshFirst, apiCourseDetail, { course_id, order, page });
 
-  if (response.status !== 'SUCCESS') {
-    return <div>발생해서 오류가 발생했습니다.</div>;
-  }
+    if (loading) {
+      return <CommentLoadingItems />;
+    }
 
-  if (!IsCourse(response.data)) {
-    return <NoMembershipView />;
-  }
+    if (response.status !== 'SUCCESS') {
+      return <div>발생해서 오류가 발생했습니다.</div>;
+    }
 
-  return response.data.comments.flatMap((comment) => (
-    <div key={comment.comment_id} className="animate-fade">
-      <CommentView key={comment.comment_id} comment={comment} />
-    </div>
-  ));
-});
+    if (!IsCourse(response.data)) {
+      return <NoMembershipView />;
+    }
+
+    return response.data.comments.flatMap((comment) => (
+      <div key={comment.comment_id} className="animate-fade">
+        <CommentView key={comment.comment_id} comment={comment} />
+      </div>
+    ));
+  },
+  (p, n) => p.course_id === n.course_id && p.order === n.order && p.page === n.page,
+);
 
 export default function CommentsView({ course_id, totalPage }: ReqCourseRelated & { totalPage: number }) {
   const [{ instances }] = useAuthTokens();
@@ -59,14 +80,14 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
 
   if (loading) {
     // TODO : use proper loading screen later
-    return <div />;
+    return <LectureIdPageBotLoading />;
   }
 
   if (course.status !== 'SUCCESS') {
     return <NoMembershipView />;
   }
 
-  const pages = new Array(page).fill(undefined).map((_, i) => i + 1);
+  const pages = lengthOf(page, 1);
 
   const nextButton =
     page >= totalPage ? (
@@ -80,15 +101,15 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
     );
 
   return course.data.count_comments === 0 ? (
+    // <BlurredModal backdrop={<LectureIdPageBotLoading />}>
     <>
-      <div className="flex flex-col justify-center items-center gap-6 h-full min-h-[300px]">
-        <IssueIcon />
-        <span className="w-fulltext-center text-2xl text-center">강의평이 없습니다.</span>
-        <span className="w-fulltext-center text-base text-center text-primary-500 underline">
-          <Link href={`/lecture/${course.data.course_id}/write`}>작성하러 가기</Link>
-        </span>
-      </div>
+      <IssueIcon />
+      <span className="w-fulltext-center text-2xl text-center">강의평이 없습니다.</span>
+      <span className="w-fulltext-center text-base text-center text-primary-500 underline">
+        <Link href={`/lecture/${course.data.course_id}/write`}>작성하러 가기</Link>
+      </span>
     </>
+    // </BlurredModal>
   ) : IsCourse(course.data) ? (
     <>
       <CommentsSummaryView course={course.data} />
@@ -100,6 +121,10 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
       </CommentsWrapper>
     </>
   ) : (
-    <NoMembershipView />
+        // <BlurredModal backdrop={<LectureIdPageBotLoading />}>
+        <>
+          <NoMembershipView />
+        </>
+    // </BlurredModal>
   );
 }

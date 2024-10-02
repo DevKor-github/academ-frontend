@@ -32,13 +32,13 @@ export default function LoginForm({
         width: '100%',
       }}
     >
-      <HStack className="text-lg" gap="48px" style={{ width: '400px' }}>
+      <HStack className="text-lg gap-y-12" style={{ width: '400px' }}>
         <span className="text-4xl" style={{ textAlign: 'center' }}>
           로그인
         </span>
         <form method="post" onSubmit={handleSubmit}>
-          <HStack gap="48px">
-            <HStack gap="16px">
+          <HStack className="gap-y-12">
+            <HStack className="gap-y-4">
               <Input
                 id="email"
                 readOnly={handleInput === undefined}
@@ -70,7 +70,7 @@ export default function LoginForm({
               </VStack>
             </HStack>
 
-            <HStack style={{}} gap="20px">
+            <HStack className="gap-y-5">
               <Button
                 type="submit"
                 kind="filled"
