@@ -33,7 +33,7 @@ export default function TopNav() {
     <header>
       <div
         className={twMerge(
-          'fixed z-50 top-0 w-full light:backdrop-blur-lg light:backdrop-contrast-10',
+          'fixed z-50 top-0 w-full', // light:backdrop-blur-lg light:backdrop-contrast-10
           overlap
             ? ' text-white border-base-32 '
             : ' border-b light:border-b-base-30 dark:border-b-base-4 *:light:border-base-4 *:dark:border-base-32 text-black dark:text-white  ',
@@ -41,12 +41,11 @@ export default function TopNav() {
       >
         <div
           className={
-            `flex flex-row pl-2 pr-2 md:pl-8 md:pr-8 flex-nowrap items-start justify-between w-full transition-all 
-            ` +
-            (overlap ? ' light:bg-black light:bg-opacity-50 ' : 'light:bg-white light:bg-opacity-50 ') +
-            (spreaded ? `h-72 md:h-16 md:bg-transparent ` : ' h-16 ') +
-            (spreaded && overlap /* dark */ ? '  ' : '') +
-            (spreaded && !overlap ? '' : '')
+            twMerge(
+            'flex flex-row pl-2 pr-2 md:pl-8 md:pr-8 flex-nowrap items-start justify-between w-full transition-all',
+            (spreaded ? `h-72 md:h-16 md:bg-transparent` : 'h-16'),
+            (overlap ? 'light:bg-black' /*  light:bg-opacity-50 */ : 'light:bg-white' /*  light:bg-opacity-50 */),
+            )
           }
         >
           <TopNavInnerLeft />
