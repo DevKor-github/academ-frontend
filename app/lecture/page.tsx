@@ -9,22 +9,24 @@ import SearchPage from './fetch';
 import { Box } from './aux';
 import { URL_BUG_REPORT } from '@/lib/directive';
 
-function SearchTopView({ query, count }: { query: string, count: number }) {
+function SearchTopView({ query, count }: { query: string; count: number }) {
   return (
-    <VStack className="not-md:sticky not-md:top-16 z-40 bg-white flex-wrap justify-evenly items-center
+    <VStack
+      className="not-md:sticky not-md:top-16 z-40 bg-white flex-wrap justify-evenly items-center
     gap-x-5 border-b light:border-b-base-27 dark:border-b-base-8
-    md:px-24 px-10 not-md:pt-8 md:py-28">
-
-      {query && <span className="text-2xl" style={{ wordBreak: 'break-word' }}>
-        <span className="text-4xl">&quot;{query}&quot;</span> 강의 검색 결과 {count >= 0 && <span className='text-base-20'>{count}개</span>}
-      </span>}
+    md:px-24 px-10 not-md:pt-8 md:py-28"
+    >
+      {query && (
+        <span className="text-2xl" style={{ wordBreak: 'break-word' }}>
+          <span className="text-4xl">&quot;{query}&quot;</span> 강의 검색 결과{' '}
+          {count >= 0 && <span className="text-base-20">{count}개</span>}
+        </span>
+      )}
 
       <SearchForm className="sticky top-8 w-full md:w-[70%] md:max-w-[800px]" defaultValue={query} />
-      
-
     </VStack>
   );
-};
+}
 
 export default async function SearchPageServer({
   searchParams,
@@ -46,14 +48,13 @@ export default async function SearchPageServer({
   } else if (q.length < 2) {
     return (
       <div className="flex flex-col h-full">
-        <SearchTopView key={q} query={q} count={-1}/>
+        <SearchTopView key={q} query={q} count={-1} />
         <Box>
           <span>검색어는 2글자 이상이어야 합니다.</span>
         </Box>
       </div>
     );
   }
-
 
   const count = await GET<ReqSearch, number>('/api/course/search/count-result')({
     keyword: q,
@@ -63,7 +64,7 @@ export default async function SearchPageServer({
     if (count.statusCode === 404) {
       return (
         <div className="flex flex-col h-full">
-          <SearchTopView key={q} query={q} count={0}/>
+          <SearchTopView key={q} query={q} count={0} />
           <Box>
             <span>결과가 없습니다.</span>
           </Box>
@@ -72,7 +73,7 @@ export default async function SearchPageServer({
     } else {
       return (
         <div className="flex flex-col h-full">
-          <SearchTopView key={q} query={q}count={-1}/>
+          <SearchTopView key={q} query={q} count={-1} />
           <Box>
             <span>
               알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요. 오류가 계속되는 경우,{' '}
@@ -83,7 +84,6 @@ export default async function SearchPageServer({
       );
     }
   }
-
 
   return (
     <div className="flex flex-col h-full">

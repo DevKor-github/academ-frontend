@@ -11,7 +11,7 @@ import { ELEM_PER_PAGE } from '@/lib/directive';
 import CommentsView from './fetch';
 
 import { LectureIconPath } from '@/components/composite/lectureIcon';
-import CourseBasicsView, {CourseBasicsViewLoading} from '@/components/view/CourseBasicsView';
+import CourseBasicsView, { CourseBasicsViewLoading } from '@/components/view/CourseBasicsView';
 
 function WriteNewMobile({ course_id }: { course_id: number }) {
   const WriteIcon = (
@@ -71,46 +71,42 @@ export async function generateMetadata(
   };
 }
 
-async function CourseBasicsViewById({ course_id } : { course_id : string }) {
-    // XXX : this is just for showing basic information, order is **NOT** important - maybe api refactor?
-    const course = await GET<ReqCourseDetail, CourseOnly | Course>('/api/course/detail')({
-      course_id: Number(course_id),
-      order: 'NEWEST',
-      page: 1,
-    });
-  
-    if (course.status !== 'SUCCESS') {
-      notFound();
-    }
-  
-  return (
-    <CourseBasicsView course={course.data} />
-  );
-  
-}
-
-async function CommentsViewById({ course_id }: { course_id: number }) {
-
+async function CourseBasicsViewById({ course_id }: { course_id: string }) {
   // XXX : this is just for showing basic information, order is **NOT** important - maybe api refactor?
   const course = await GET<ReqCourseDetail, CourseOnly | Course>('/api/course/detail')({
     course_id: Number(course_id),
     order: 'NEWEST',
     page: 1,
   });
-  
+
+  if (course.status !== 'SUCCESS') {
+    notFound();
+  }
+
+  return <CourseBasicsView course={course.data} />;
+}
+
+async function CommentsViewById({ course_id }: { course_id: number }) {
+  // XXX : this is just for showing basic information, order is **NOT** important - maybe api refactor?
+  const course = await GET<ReqCourseDetail, CourseOnly | Course>('/api/course/detail')({
+    course_id: Number(course_id),
+    order: 'NEWEST',
+    page: 1,
+  });
+
   const totalPage = Math.ceil(course.data.count_comments / ELEM_PER_PAGE);
 
-  return (<CommentsView course_id={course_id} totalPage={totalPage} />);
-  
+  return <CommentsView course_id={course_id} totalPage={totalPage} />;
 }
 
 export default async function LectureFetch({ params }: { params: { id: string } }) {
-  
-  return (<div className="flex flex-col w-full h-full">
-    <Suspense fallback={<CourseBasicsViewLoading />}>
-      <CourseBasicsViewById course_id={params.id} />
-    </Suspense>
-    <CommentsViewById course_id={Number(params.id)} />
-    <WriteNewMobile course_id={Number(params.id)} />
-  </div>);
+  return (
+    <div className="flex flex-col w-full h-full">
+      <Suspense fallback={<CourseBasicsViewLoading />}>
+        <CourseBasicsViewById course_id={params.id} />
+      </Suspense>
+      <CommentsViewById course_id={Number(params.id)} />
+      <WriteNewMobile course_id={Number(params.id)} />
+    </div>
+  );
 }
