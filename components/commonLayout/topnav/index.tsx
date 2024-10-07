@@ -40,13 +40,11 @@ export default function TopNav() {
         )}
       >
         <div
-          className={
-            twMerge(
+          className={twMerge(
             'flex flex-row pl-2 pr-2 md:pl-8 md:pr-8 flex-nowrap items-start justify-between w-full transition-all',
-            (spreaded ? `h-72 md:h-16 md:bg-transparent` : 'h-16'),
-            (overlap ? 'light:bg-black' /*  light:bg-opacity-50 */ : 'light:bg-white' /*  light:bg-opacity-50 */),
-            )
-          }
+            spreaded ? `h-72 md:h-16 md:bg-transparent` : 'h-16',
+            overlap ? 'light:bg-black' /*  light:bg-opacity-50 */ : 'light:bg-white' /*  light:bg-opacity-50 */,
+          )}
         >
           <TopNavInnerLeft />
           <TopNavInnerMid path={path} spreaded={spreaded} setSpreaded={setSpreaded} />

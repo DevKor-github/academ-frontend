@@ -109,8 +109,8 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
         <Link href={`/lecture/${course.data.course_id}/write`}>작성하러 가기</Link>
       </span>
     </>
-    // </BlurredModal>
-  ) : IsCourse(course.data) ? (
+  ) : // </BlurredModal>
+  IsCourse(course.data) ? (
     <>
       <CommentsSummaryView course={course.data} />
       <CommentsWrapper order={order} handleValue={handleValue}>
@@ -121,10 +121,10 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
       </CommentsWrapper>
     </>
   ) : (
-        // <BlurredModal backdrop={<LectureIdPageBotLoading />}>
-        <>
-          <NoMembershipView />
-        </>
+    // <BlurredModal backdrop={<LectureIdPageBotLoading />}>
+    <>
+      <NoMembershipView />
+    </>
     // </BlurredModal>
   );
 }
