@@ -102,7 +102,7 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
 
   return course.data.count_comments === 0 ? (
     // <BlurredModal backdrop={<LectureIdPageBotLoading />}>
-    <div className="flex flex-col self-center justify-center items-center">
+    <div className="flex flex-col self-center justify-center items-center p-4">
       <IssueIcon />
       <span className="w-fulltext-center text-2xl text-center">강의평이 없습니다.</span>
       <span className="w-fulltext-center text-base text-center text-primary-500 underline">
@@ -122,7 +122,7 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
     </>
   ) : (
     // <BlurredModal backdrop={<LectureIdPageBotLoading />}>
-    <div className="flex flex-col self-center justify-center items-center">
+    <div className="flex flex-col self-center justify-center items-center p-4">
       <NoMembershipView />
     </div>
     // </BlurredModal>
