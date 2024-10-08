@@ -6,6 +6,7 @@ export function interceptRefreshFirst(
   basic: KyInstance,
   refreshToken: JWT | null,
   setAccessToken: SetState<JWT | null>,
+  accessToken: JWT | null,
 ) {
   return instance.extend({
     hooks: {
@@ -20,8 +21,9 @@ export function interceptRefreshFirst(
             setAccessToken(newToken.data);
             // Temp fix
             config.headers.set('Authorization', `Bearer ${newToken.data}`);
+          } else {
+            config.headers.set('Authorization', `Bearer ${accessToken}`);
           }
-
           return config;
         },
       ],
