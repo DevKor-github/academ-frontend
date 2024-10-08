@@ -50,7 +50,11 @@ export default function AuthTokensProvider({ children }: React.PropsWithChildren
   const basic = useMemo(createPureInstance, []);
 
   const refreshFirst = useMemo(
-    () => insertToken(interceptRefreshFirst(createPureInstance(), basic, refreshToken, setAccessToken, accessToken), accessToken),
+    () =>
+      insertToken(
+        interceptRefreshFirst(createPureInstance(), basic, refreshToken, setAccessToken, accessToken),
+        accessToken,
+      ),
     [basic, accessToken, refreshToken, setAccessToken],
   );
 
