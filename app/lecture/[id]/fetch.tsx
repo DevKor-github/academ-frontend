@@ -102,15 +102,15 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
 
   return course.data.count_comments === 0 ? (
     // <BlurredModal backdrop={<LectureIdPageBotLoading />}>
-    <>
+    <div className="flex flex-col self-center justify-center items-center">
       <IssueIcon />
       <span className="w-fulltext-center text-2xl text-center">강의평이 없습니다.</span>
       <span className="w-fulltext-center text-base text-center text-primary-500 underline">
         <Link href={`/lecture/${course.data.course_id}/write`}>작성하러 가기</Link>
       </span>
-    </>
-    // </BlurredModal>
-  ) : IsCourse(course.data) ? (
+    </div>
+  ) : // </BlurredModal>
+  IsCourse(course.data) ? (
     <>
       <CommentsSummaryView course={course.data} />
       <CommentsWrapper order={order} handleValue={handleValue}>
@@ -121,10 +121,10 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
       </CommentsWrapper>
     </>
   ) : (
-        // <BlurredModal backdrop={<LectureIdPageBotLoading />}>
-        <>
-          <NoMembershipView />
-        </>
+    // <BlurredModal backdrop={<LectureIdPageBotLoading />}>
+    <div className="flex flex-col self-center justify-center items-center">
+      <NoMembershipView />
+    </div>
     // </BlurredModal>
   );
 }
