@@ -1,11 +1,13 @@
 import Button from '@/components/basic/button';
 import { VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
-import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
 import LectureIcon from '@/components/composite/lectureIcon';
 import { SkeletonDiv, SkeletonSlow } from '@/components/composite/skeleton';
 import { WriteIcon } from '@/components/icon';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+const BookmarkToggleButton = dynamic(() => import('@/components/composite/bookmarkToggleButton'), { ssr: false });
 
 function CourseBasicsViewUnsafe(props: {
   fade: boolean;
