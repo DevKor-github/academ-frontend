@@ -102,12 +102,14 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
 
   return course.data.count_comments === 0 ? (
     // <BlurredModal backdrop={<LectureIdPageBotLoading />}>
-    <div className="flex flex-col self-center justify-center items-center p-4">
-      <IssueIcon />
-      <span className="w-fulltext-center text-2xl text-center">강의평이 없습니다.</span>
-      <span className="w-fulltext-center text-base text-center text-primary-500 underline">
-        <Link href={`/lecture/${course.data.course_id}/write`}>작성하러 가기</Link>
-      </span>
+    <div className="flex h-full justify-center">
+      <div className="flex flex-col items-center p-4 gap-4 mt-16">
+        <IssueIcon />
+        <span className="w-full text-2xl text-center">강의평이 없습니다.</span>
+        <span className="w-full text-base text-center text-primary-500 underline mt-6">
+          <Link href={`/lecture/${course.data.course_id}/write`}>강의평 작성하러 가기</Link>
+        </span>
+      </div>
     </div>
   ) : // </BlurredModal>
   IsCourse(course.data) ? (
@@ -122,8 +124,10 @@ export default function CommentsView({ course_id, totalPage }: ReqCourseRelated 
     </>
   ) : (
     // <BlurredModal backdrop={<LectureIdPageBotLoading />}>
-    <div className="flex flex-col self-center justify-center items-center p-4">
-      <NoMembershipView />
+    <div className="flex justify-center">
+      <div className="flex flex-col p-4 mt-16">
+        <NoMembershipView />
+      </div>
     </div>
     // </BlurredModal>
   );
