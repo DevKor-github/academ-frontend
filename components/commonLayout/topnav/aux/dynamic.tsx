@@ -52,7 +52,7 @@ function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => vo
 function LoginButton() {
   return (
     <Link href="/login">
-      <Button className="rounded-full">
+      <Button className="rounded-full px-5">
         <span className="whitespace-nowrap">로그인/회원가입</span>
       </Button>
     </Link>
