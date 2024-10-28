@@ -75,7 +75,7 @@ const carouselItems = [
         <span className="font-bold">문제 출제 유형</span>과 <span className="font-bold">기출</span>을 한눈에
       </span>
       <span className="text-lg">
-        <BookIcon /> <span className="ml-2">수업 및 시험 방식에 대한 정보를 얻고</span>
+        <BookIcon /> <span className="ml-2">수업 및 시험 방식에 대한 정보를 얻고 </span>
         <span className="font-bold">효율적으로 시험을 준비</span>할 수 있어요.
       </span>
     </HStack>
