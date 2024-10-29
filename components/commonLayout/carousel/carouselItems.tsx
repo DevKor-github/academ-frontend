@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { HStack, VStack } from '@/components/basic/stack';
-import { BookIcon } from '@/components/icon';
+import { BookIcon, RightIcon } from '@/components/icon';
 
 export function CarouselItem({ url, children }: { url: string; children?: React.ReactNode }) {
   return (
@@ -33,25 +33,27 @@ const carouselItems = [
       className="p-4 text-white justify-start items-start pt-10 h-full gap-y-6"
       style={{ width: '40rem', height: '10rem' }}
     >
-      <VStack className="items-center gap-x-3">
+      <VStack className="items-center gap-x-8">
         <span className="text-5xl font-bold">ACADEM</span>
-        <span className="text-lg border-l border-l-neutral-50 pl-3">아카뎀</span>
+        <span className="text-lg border-l border-l-neutral-50 pl-8">아카뎀</span>
       </VStack>
       <VStack className="gap-x-6 items-center">
-        <span className="text-lg leading-noraml">
+        <span className="text-lg leading-snug">
           대학원생을 위한 <span className="font-bold">강의평가 공유 서비스</span>
           <span className="md:hidden">, </span>
           <br className="not-md:hidden" />
           우리 학교 강의에 대한 다양한 정보와 이야기를 나누어요.
         </span>
         <Link href="/about">
-          <button className="rounded-lg border border-white p-2">자세히보기</button>
+          <button className="rounded-full border border-white items-center py-2 px-4">
+            <span className="mr-4">자세히보기</span> <RightIcon />
+          </button>
         </Link>
       </VStack>
     </HStack>
   </CarouselItem>,
   <CarouselItem key={'/banner/image2.png'} url="/banner/image2.png">
-    <HStack className="p-4 text-white justify-center items-center pt-10 h-full gap-y-6" style={{ width: '40rem' }}>
+    <HStack className="p-4 text-white justify-center items-center h-full gap-y-2" style={{ width: '40rem' }}>
       <span className="text-2xl">
         <span className="font-bold">이론 중심</span>
         {' 강의? '}
@@ -59,8 +61,8 @@ const carouselItems = [
         {' 강의? '}
       </span>
       <span className="text-4xl">어떤 강의가 나의 연구에 도움이 될까?</span>
-      <span className="text-lg">
-        <BookIcon /> <span>강의 간의 비교를 통해 나의 학업에 도움이 되는 강의를 선택하세요.</span>
+      <span className="text-lg mt-6">
+        <BookIcon /> <span className="ml-2">강의 간의 비교를 통해 나의 학업에 도움이 되는 강의를 선택하세요.</span>
       </span>
     </HStack>
   </CarouselItem>,
@@ -73,8 +75,8 @@ const carouselItems = [
         <span className="font-bold">문제 출제 유형</span>과 <span className="font-bold">기출</span>을 한눈에
       </span>
       <span className="text-lg">
-        <BookIcon /> 수업 및 시험 방식에 대한 정보를 얻고 <span className="font-bold">효율적으로 시험을 준비</span>할 수
-        있어요.
+        <BookIcon /> <span className="ml-2">수업 및 시험 방식에 대한 정보를 얻고 </span>
+        <span className="font-bold">효율적으로 시험을 준비</span>할 수 있어요.
       </span>
     </HStack>
   </CarouselItem>,

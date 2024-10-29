@@ -13,6 +13,7 @@ import { apiMyPageComments } from '@/lib/api-client/calls/mypage';
 import { useApi } from '@/lib/hooks/api';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 import { lengthOf } from '@/lib/util';
+import { ELEM_PER_PAGE } from '@/lib/directive';
 
 function MyCommentsWrapper({ children }: React.PropsWithChildren) {
   return (
@@ -59,8 +60,7 @@ export default function MyCommentsView() {
     return <div>오류</div>;
   }
 
-  const totalPage = totalPageRes.data;
-
+  const totalPage = Math.ceil(totalPageRes.data / ELEM_PER_PAGE);
   const pages = lengthOf(page, 1);
 
   const nextButton =

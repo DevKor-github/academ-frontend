@@ -15,7 +15,7 @@ export default function ErrorLabel({
       ${className}
       ${label === '' ? ' hidden ' : ''} 
       ${shake ? ' animate-shake ' : ''}
-      inline-block flex-row items-center gap-1 text-red-600`}
+      inline-block flex-row items-start gap-1 text-red-600`}
     >
       <WarningIcon /> {label}
     </div>

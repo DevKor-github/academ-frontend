@@ -53,11 +53,11 @@ function CourseBasicsViewUnsafe(props: {
           <span className="md:text-2xl text-sm">{props.professor}</span>
           <div className="flex flex-row flex-wrap text-sm md:text-base text-neutral-600 md:justify-between gap-x-6 gap-y-1">
             <span className="self-center">{props.course_code}</span>
-            <span className="border-r border-r-neutral-400" />
+            <span className="border-r border-r-neutral-300" />
             <span className="self-center">
               {props.year}-{props.semester}
             </span>
-            <span className="hidden md:block border-r border-r-neutral-400" />
+            <span className="hidden md:block border-r border-r-neutral-300" />
             <span className="whitespace-pre-line text-wrap">{props.time_location}</span>
           </div>
         </VStack>

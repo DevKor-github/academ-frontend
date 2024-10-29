@@ -13,7 +13,7 @@ import { IsCourse } from '@/lib/type/IsCourse';
 function Up({ course }: { course: Course | CourseOnly }) {
   return (
     <VStack
-      className="border-b border-b-neutral-400 pb-3"
+      className="border-b border-b-neutral-200 pb-3"
       style={{ justifyContent: 'space-between', alignItems: 'flex-start' }}
     >
       <LectureIcon code={course.course_code} />
@@ -24,7 +24,7 @@ function Up({ course }: { course: Course | CourseOnly }) {
         <span className="text-base">{course.professor}</span>
         <VStack className="justify-between text-xs text-neutral-600 text-justify w-full mt-4">
           <span>{course.course_code}</span>
-          <span className="border-r border-r-neutral-400" />
+          <span className="border-r border-r-neutral-200" />
           <span>
             {course.year}-{course.semester}
           </span>
