@@ -62,10 +62,10 @@ export default function ReportCommentForm({
         <ReasonPicker input={input} setInput={setInput} />
 
         <textarea
-          required
           rows={1}
           placeholder="신고 사유를 입력해주세요."
           className="bg-base-31 dark:bg-base-2 p-8 h-auto"
+          maxLength={3000}
           onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
             setInput((v) => {
               return { ...v, ...{ detail: event.target.value } };

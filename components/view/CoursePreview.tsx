@@ -23,7 +23,13 @@ function Up({ course }: { course: Course | CourseOnly }) {
         </span>
         <span className="text-base">{course.professor}</span>
         <VStack className="justify-between text-xs text-neutral-600 text-justify w-full mt-4">
-          <span>{course.course_code}</span>
+          {course.class_number == '' ? (
+            <span>{course.course_code}</span>
+          ) : (
+            <span>
+              {course.course_code} - {course.class_number}
+            </span>
+          )}
           <span className="border-r border-r-neutral-200" />
           <span>
             {course.year}-{course.semester}
