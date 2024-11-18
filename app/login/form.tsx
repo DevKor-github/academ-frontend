@@ -1,3 +1,5 @@
+'use client';
+
 import { HStack } from '@/components/basic/stack';
 import Input from '@/components/basic/input';
 import ErrorLabel from '@/components/basic/errorlabel';
@@ -6,6 +8,8 @@ import Radio from '@/components/basic/radio';
 import A from '@/components/basic/a';
 import Button from '@/components/basic/button';
 import Spinner from '@/components/basic/spinner';
+import { useState } from 'react';
+import { EyeCloseIcon, EyeIcon } from '@/components/icon';
 
 interface LoginErrors {
   shake: boolean;
@@ -20,6 +24,8 @@ export default function LoginForm({
   loginError,
   shake,
 }: FormProps<LoginRequest> & LoginErrors) {
+  const [showPw, setShowPw] = useState<boolean>(false);
+
   return (
     <span
       className="text-xl"
@@ -47,15 +53,28 @@ export default function LoginForm({
                 value={input.email}
                 style={{ padding: '16px' }}
               />
-              <Input
-                readOnly={handleInput === undefined}
-                id="password"
-                type="password"
-                placeholder="비밀번호를 입력해주세요"
-                onChange={handleInput}
-                value={input.password}
-                style={{ padding: '16px' }}
-              />
+              <div className="relative w-full">
+                <Input
+                  readOnly={handleInput === undefined}
+                  id="password"
+                  type={showPw ? 'text' : 'password'}
+                  placeholder="비밀번호를 입력해주세요"
+                  onChange={handleInput}
+                  value={input.password}
+                  style={{ padding: '16px', width: '100%' }}
+                />
+                <div className="absolute top-4 right-4">
+                  {showPw ? (
+                    <div onClick={() => setShowPw(false)}>
+                      <EyeIcon />
+                    </div>
+                  ) : (
+                    <div onClick={() => setShowPw(true)}>
+                      <EyeCloseIcon />
+                    </div>
+                  )}
+                </div>
+              </div>
               <ErrorLabel className="text-primary-500" label={loginError} shake={shake} />
 
               <VStack className="pt-4 pb-4 items-center justify-between">
