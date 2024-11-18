@@ -15,6 +15,7 @@ export default function BuyMembershipButton({ membershipData }: { membershipData
       apiBuyAcess(instances.doRefresh, { item: membershipData.item }).then((v) => {
         if (v.status == 'SUCCESS') {
           alert(`이용권 (${membershipData.day}일권) 을 정상적으로 구매하였습니다.`);
+          location.reload();
         } else if (v.status == 'ERROR') {
           alert(`실패했습니다: ${v.message}`);
         } else {

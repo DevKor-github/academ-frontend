@@ -16,7 +16,7 @@ function MyProfileMembershipsUnsafe({ expireLabel }: { expireLabel: React.ReactN
       <div className="flex flex-row text-2xl mt-8 pb-2">
         <span>강의 열람권</span>
         <div className="inline-block ml-auto">
-          <span className="rounded-lg text-base bg-primary-400 text-white p-2 transition-shadow hover:shadow-lg hover:shadow-primary-500">
+          <span className="rounded-lg text-base bg-primary-400 text-white p-2 transition-shadow hover:shadow-lg hover:shadow-primary-500 px-3">
             {expireLabel}
           </span>
         </div>
@@ -57,7 +57,7 @@ export default function MyProfileMemberships({ access_expiration_date }: Pick<Us
     } else if (diffDay === 0) {
       return '오늘 만료';
     } else {
-      return `만료됨 (D+${Math.abs(diffDay)})`;
+      return `만료됨`;
     }
   })();
 
