@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   description: 'Academ - 수강 정보 공유',
   verification: {
     google: '_Z2qinMVs8kSNnx1bGzYvWePuA7VymxnuQG8Rhe2M2E',
+    other: {
+      'naver-site-verification': 'dee9637347b73df323379604875290ad69eb2ee8',
+    },
   },
 };
 
@@ -40,16 +43,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${pretendard.variable}`}>
-      <head>
-        <meta name="naver-site-verification" content="dee9637347b73df323379604875290ad69eb2ee8" />
-      </head>
       <body
         className={`${inter.className} ${pretendard.className} light:bg-base-32 dark:bg-base-1
       light:text-base-0 dark:text-base-32`}
       >
-          <Provider>
-            <TopLevelLayout>{children}</TopLevelLayout>
-          </Provider>
+        <Provider>
+          <TopLevelLayout>{children}</TopLevelLayout>
+        </Provider>
       </body>
     </html>
   );
