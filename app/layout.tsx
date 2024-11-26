@@ -36,6 +36,7 @@ const AuthTokensProvider = dynamic(() => import('@/lib/context/AuthTokensContext
 
 import ClearStorageDependOnTabs from '@/lib/context/ClearStorageDependOnTabs';
 import { KEY_FOR_ACCESS_TOKEN } from '@/lib/directive';
+import Provider from '@/components/Provider';
 
 export default function RootLayout({
   children,
@@ -53,7 +54,9 @@ export default function RootLayout({
       >
         <ClearStorageDependOnTabs keys={[KEY_FOR_ACCESS_TOKEN]}>
           <AuthTokensProvider>
-            <TopLevelLayout>{children}</TopLevelLayout>
+            <Provider>
+              <TopLevelLayout>{children}</TopLevelLayout>
+            </Provider>
           </AuthTokensProvider>
         </ClearStorageDependOnTabs>
       </body>

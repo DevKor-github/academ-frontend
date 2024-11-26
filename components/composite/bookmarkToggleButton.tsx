@@ -1,16 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { BookmarkIcon } from '@/components/icon';
-import { apiBookmark } from '@/lib/api-client/calls/course';
+import { apiBookmark, apiCourseDetail } from '@/lib/api-client/calls/course';
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import { useQuery } from '@tanstack/react-query';
 
-export default function BookmarkToggleButton({ id, defaultValue }: { id: number; defaultValue: boolean }) {
+export default function BookmarkToggleButton({ id }: { id: number }) {
   const [{ instances }] = useAuthTokens();
-  const [b, setB] = useState(defaultValue);
+
+  const { data: courseData } = useQuery({
+    queryKey: ['course', id],
+    queryFn: async () =>  await apiCourseDetail(instances.doRefresh, { course_id: id, order: 'NEWEST', page: 1 }),
+  });
+
+  const [b, setB] = useState(false);
   const [pulse, setPulse] = useState(false);
   const [shake, resetShake] = useAnimationTimeout(600);
+
+  useLayoutEffect(() => {
+    if (courseData) {
+      setB(courseData.data.isBookmark);
+    }
+  }, [courseData]);
+
 
   function sendApiThenSetB(newB: boolean) {
     setPulse(true);
