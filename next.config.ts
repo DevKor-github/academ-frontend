@@ -1,8 +1,13 @@
-import createMDX from '@next/mdx';
-
 import type { NextConfig } from 'next';
+import createMDX from '@next/mdx';
+import { ENV_KEYS } from '@/util/env';
 
-/** @type {import('next').NextConfig} */
+for (const key of ENV_KEYS) {
+  if (!process.env[key]) {
+    throw new Error(`Missing environment variable: ${key}`);
+  }
+}
+
 const nextConfig: NextConfig = {
   async redirects() {
     return [
