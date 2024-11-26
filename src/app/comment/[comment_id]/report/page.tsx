@@ -1,3 +1,5 @@
+'use client';
+
 import ReportCommentLoading from './loading';
 
 import dynamic from 'next/dynamic';

@@ -5,9 +5,7 @@ import LectureIcon from '@/components/composite/lectureIcon';
 import { SkeletonDiv, SkeletonSlow } from '@/components/composite/skeleton';
 import { WriteIcon } from '@/components/icon';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
-
-const BookmarkToggleButton = dynamic(() => import('@/components/composite/bookmarkToggleButton'), { ssr: false });
+import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
 
 function CourseBasicsViewUnsafe(props: {
   fade: boolean;

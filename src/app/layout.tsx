@@ -2,7 +2,6 @@ import './globals.css';
 import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
 import TopLevelLayout from '@/components/composite/toplevellayout';
-import dynamic from 'next/dynamic';
 
 import type { Viewport } from 'next';
 
@@ -32,10 +31,6 @@ const pretendard = localFont({
   variable: '--font-pretendard',
 });
 
-const AuthTokensProvider = dynamic(() => import('@/lib/context/AuthTokensContext'), { ssr: false });
-
-import ClearStorageDependOnTabs from '@/lib/context/ClearStorageDependOnTabs';
-import { KEY_FOR_ACCESS_TOKEN } from '@/lib/directive';
 import Provider from '@/components/Provider';
 
 export default function RootLayout({
@@ -52,13 +47,9 @@ export default function RootLayout({
         className={`${inter.className} ${pretendard.className} light:bg-base-32 dark:bg-base-1
       light:text-base-0 dark:text-base-32`}
       >
-        <ClearStorageDependOnTabs keys={[KEY_FOR_ACCESS_TOKEN]}>
-          <AuthTokensProvider>
-            <Provider>
-              <TopLevelLayout>{children}</TopLevelLayout>
-            </Provider>
-          </AuthTokensProvider>
-        </ClearStorageDependOnTabs>
+          <Provider>
+            <TopLevelLayout>{children}</TopLevelLayout>
+          </Provider>
       </body>
     </html>
   );

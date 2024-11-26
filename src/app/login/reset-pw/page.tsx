@@ -1,3 +1,5 @@
+'use client';
+
 import { HStack } from '@/components/basic/stack';
 
 import dynamic from 'next/dynamic';

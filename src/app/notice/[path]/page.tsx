@@ -31,11 +31,11 @@ function MarkdownWrapper({ children }: React.PropsWithChildren<unknown>) {
   );
 }
 
-export async function generateStaticParams() {
-  return (await apiGetNotices()).map((n) => {
-    return { path: n.filename };
-  });
-}
+// export async function generateStaticParams() {
+//   return (await apiGetNotices()).map((n) => {
+//     return { path: n.filename };
+//   });
+// }
 
 export default async function NoticeView(props: { params: Promise<{ path: string }> }) {
   const params = await props.params;
