@@ -58,7 +58,13 @@ function EditComment({ comment, courseName }: { comment: AcdCommentEditReq; cour
   );
 }
 
-export default function EditPage({ params: { comment_id } }: { params: { comment_id: number } }) {
+export default function EditPage(props: { params: Promise<{ comment_id: number }> }) {
+  const params = use(props.params);
+
+  const {
+    comment_id
+  } = params;
+
   const [{ instances }] = useAuthTokens();
   const editable = use(apiStartUpdateComment(instances.doRefresh, { comment_id }));
 

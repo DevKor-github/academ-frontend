@@ -67,7 +67,8 @@ function NoticeListNavigate({ from, total }: { from: number; total: number }) {
   );
 }
 
-export default async function NoticeView({ params }: { params: { index: string } }) {
+export default async function NoticeView(props: { params: Promise<{ index: string }> }) {
+  const params = await props.params;
   const index = Number(params.index);
 
   if (!Number.isSafeInteger(index)) {

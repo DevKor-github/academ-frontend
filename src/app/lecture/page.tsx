@@ -28,11 +28,12 @@ function SearchTopView({ query, count }: { query: string; count: number }) {
   );
 }
 
-export default async function SearchPageServer({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
-}) {
+export default async function SearchPageServer(
+  props: {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  }
+) {
+  const searchParams = await props.searchParams;
   const qCand = searchParams.q;
   const q = (Array.isArray(qCand) ? qCand[0] : qCand) || '';
 

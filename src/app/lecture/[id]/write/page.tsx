@@ -98,7 +98,13 @@ function WriteComment({ course }: { course: Course }) {
   );
 }
 
-export default function WritePage({ params: { id } }: { params: { id: number } }) {
+export default function WritePage(props: { params: Promise<{ id: number }> }) {
+  const params = use(props.params);
+
+  const {
+    id
+  } = params;
+
   const [{ instances }] = useAuthTokens();
   const writable = use(apiStartNewComment(instances.doRefresh, { course_id: id }));
 

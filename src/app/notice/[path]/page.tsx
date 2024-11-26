@@ -37,7 +37,13 @@ export async function generateStaticParams() {
   });
 }
 
-export default async function NoticeView({ params: { path } }: { params: { path: string } }) {
+export default async function NoticeView(props: { params: Promise<{ path: string }> }) {
+  const params = await props.params;
+
+  const {
+    path
+  } = params;
+
   const notice = (await apiGetNotices()).find((n) => n.filename === path);
 
   if (notice === undefined) {

@@ -39,10 +39,8 @@ function WriteNewMobile({ course_id }: { course_id: number }) {
   );
 }
 
-export async function generateMetadata(
-  { params }: { params: { id: string } },
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ id: string }> }, parent: ResolvingMetadata): Promise<Metadata> {
+  const params = await props.params;
   const course = await GET<ReqCourseDetail, CourseOnly | Course>('/api/course/detail')({
     course_id: Number(params.id),
     order: 'NEWEST',
@@ -99,7 +97,8 @@ async function CommentsViewById({ course_id }: { course_id: number }) {
   return <CommentsView course_id={course_id} totalPage={totalPage} />;
 }
 
-export default async function LectureFetch({ params }: { params: { id: string } }) {
+export default async function LectureFetch(props: { params: Promise<{ id: string }> }) {
+  const params = await props.params;
   return (
     <div className="flex flex-col w-full h-full">
       <Suspense fallback={<CourseBasicsViewLoading />}>
