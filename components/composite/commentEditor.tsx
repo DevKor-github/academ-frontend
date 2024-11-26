@@ -320,6 +320,7 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
             onChange={handleInputString}
             placeholder="다음 질문을 참고하여 내용을 작성해주세요. (최소 50자)"
             defaultValue={input.review}
+            maxLength={3000}
             required
           ></textarea>
           <div className="w-full items-end text-right pr-2 pb-2">{input.review.length} / 최소 50자</div>

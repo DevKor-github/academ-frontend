@@ -14,6 +14,7 @@ function CourseBasicsViewUnsafe(props: {
   write: React.ReactNode;
   lectureIcon: React.ReactNode;
   course_code: React.ReactNode;
+  class_number?: React.ReactNode;
   course_id: React.ReactNode;
   year: React.ReactNode;
   semester: React.ReactNode;
@@ -52,7 +53,13 @@ function CourseBasicsViewUnsafe(props: {
         >
           <span className="md:text-2xl text-sm">{props.professor}</span>
           <div className="flex flex-row flex-wrap text-sm md:text-base text-neutral-600 md:justify-between gap-x-6 gap-y-1">
-            <span className="self-center">{props.course_code}</span>
+            {props.class_number ? (
+              <span className="self-center">
+                {props.course_code} - {props.class_number}
+              </span>
+            ) : (
+              <span className="self-center">{props.course_code}</span>
+            )}
             <span className="border-r border-r-neutral-300" />
             <span className="self-center">
               {props.year}-{props.semester}
@@ -81,6 +88,7 @@ export function CourseBasicsViewLoading() {
       professor={<SkeletonSlow placeholder="교수명" />}
       count_comments={<SkeletonSlow placeholder="0" />}
       course_code={<SkeletonSlow placeholder="??????" />}
+      class_number={<SkeletonSlow placeholder="??" />}
       course_id={<SkeletonSlow placeholder="?" />}
       bookmarkToggle={<div />}
     />
@@ -110,6 +118,7 @@ export default function CourseBasicsView({ course }: { course: CourseOnly }) {
       professor={course.professor}
       count_comments={course.count_comments}
       course_code={course.course_code}
+      class_number={course.class_number}
       course_id={course.course_id}
       bookmarkToggle={<BookmarkToggleButton defaultValue={course.isBookmark} id={course.course_id} />}
     />
