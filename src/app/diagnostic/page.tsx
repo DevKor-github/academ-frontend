@@ -1,28 +1,18 @@
-'use client';
-
-import { useContext } from 'react';
-import { apiCheckOnline } from '@/lib/api-client/calls/admin';
-import { useEffect, useState } from 'react';
 import { APP_VERSION } from '@/lib/directive';
-import { AuthTokensContext } from '@/lib/context/AuthTokensContext';
 
-export default function DiagnosticClient() {
-  const [{ instances }] = useContext(AuthTokensContext);
-  const [str, setStr] = useState('연결 시도 중..');
+async function checkOnline() {
+  return fetch(new URL('api/is-secure', process.env.NEXT_PUBLIC_BACKEND_API_URL)).then((v) => v.json());
+}
 
-  useEffect(() => {
-    apiCheckOnline(instances.basic, {})
-      .then((a) => {
-        setStr(a.version);
-      })
-      .catch((e) => setStr(String(e)));
-  }, [instances.basic]);
-
+export default async function DiagnosticClient() {
   return (
     <div>
       Academ Frontend 버전: {APP_VERSION}
       <br />
-      Academ Backend와의 연결 상태는 다음과 같습니다: {str}
+      Academ Backend와의 연결 상태는 다음과 같습니다:{' '}
+      {checkOnline()
+        .then((a) => a.version)
+        .catch(() => '오류')}
     </div>
   );
 }
