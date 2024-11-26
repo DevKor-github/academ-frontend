@@ -14,38 +14,38 @@
     "maintained node versions"
   ],
   "dependencies": {
-    "@mdx-js/loader": "^3.0.1",
-    "@mdx-js/react": "^3.0.1",
-    "@next/mdx": "^14.2.13",
+    "@mdx-js/loader": "^3.1.0",
+    "@mdx-js/react": "^3.1.0",
+    "@next/mdx": "^15.0.3",
     "@tanstack/react-query": "^5.61.3",
     "@types/mdx": "^2.0.13",
-    "html-react-parser": "^5.1.12",
+    "html-react-parser": "^5.1.18",
     "ky": "^1.7.2",
     "ky-universal": "^0.12.0",
-    "next": "14.2.13",
-    "qs": "^6.12.1",
+    "next": "15.0.3",
+    "qs": "^6.13.1",
     "react": "^18",
     "react-dom": "^18",
-    "tailwind-merge": "^2.5.2"
+    "tailwind-merge": "^2.5.5"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "^22",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.20",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.13",
+    "eslint": "^9",
+    "eslint-config-next": "15.0.3",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-autofix": "^2.2.0",
     "eslint-plugin-prettier": "^5.2.1",
     "natural-compare": "^1.4.0",
     "next-mdx-remote": "^5.0.0",
     "postcss": "^8",
-    "prettier": "^3.3.3",
+    "prettier": "^3.4.1",
     "server-only": "^0.0.1",
-    "tailwindcss": "^3.4.12",
+    "tailwindcss": "^3.4.15",
     "typescript": "^5"
   },
   "type": "module",
-  "packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1"
+  "packageManager": "pnpm@9.14.2"
 }
