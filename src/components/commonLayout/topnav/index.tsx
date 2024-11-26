@@ -1,29 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
-
-import { TopNavInnerLeft, TopNavInnerMid, TopNavRightLoading } from './aux/static';
+import { TopNavInnerLeft, TopNavInnerMid } from './aux/static';
 import { twMerge } from 'tailwind-merge';
+import TopNavRightClient from './aux/dynamic';
 
-const TopNavRightClient = dynamic(() => import('./aux/dynamic'), {
-  ssr: false,
-  loading: TopNavRightLoading,
-});
+interface Props {
+  loggedIn: boolean;
+}
 
-const TopNavInnerRight = () => {
-  return (
-    <div
-      className="items-center justify-end flex text-black dark:text-white"
-      style={{ height: '64px', width: '108px' }}
-    >
-      <TopNavRightClient />
-    </div>
-  );
-};
-
-export default function TopNav() {
+export default function TopNav({ loggedIn }: Props) {
   const path = usePathname() || '';
   const overlap = path === '/';
 
@@ -48,7 +35,12 @@ export default function TopNav() {
         >
           <TopNavInnerLeft />
           <TopNavInnerMid path={path} spreaded={spreaded} setSpreaded={setSpreaded} />
-          <TopNavInnerRight />
+          <div
+            className="items-center justify-end flex text-black dark:text-white"
+            style={{ height: '64px', width: '108px' }}
+          >
+            <TopNavRightClient loggedIn={loggedIn} />
+          </div>
         </div>
       </div>
       <div className={overlap ? 'hidden' : 'relative min-h-16'} />

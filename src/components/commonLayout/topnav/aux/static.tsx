@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { LogoIconRich, UpIcon, DownIcon } from '@/components/icon';
-import Skeleton from '@/components/composite/skeleton';
 import Button from '@/components/basic/button';
 
 export function TopNavInnerLeft() {
@@ -89,14 +88,3 @@ export const TopNavInnerMid = ({
     </nav>
   );
 };
-
-export function TopNavRightLoading() {
-  return (
-    <Button className="rounded-full">
-      <Skeleton
-        className="rounded-full bg-primary-300 px-3"
-        placeholder={<span className="whitespace-nowrap">로그인/회원가입</span>}
-      />
-    </Button>
-  );
-}

@@ -3,9 +3,6 @@
 import { useState } from 'react';
 
 import Link from 'next/link';
-
-import { useAuthTokens } from '@/lib/context/AuthTokensContext';
-
 import Button from '@/components/basic/button';
 import Popover from '@/components/basic/popover';
 import { HStack } from '@/components/basic/stack';
@@ -59,14 +56,16 @@ function LoginButton() {
   );
 }
 
-export default function TopNavInnerRightClient() {
-  const [jwt] = useAuthTokens();
+interface Props {
+  loggedIn: boolean;
+}
+
+export default function TopNavInnerRightClient({ loggedIn }: Props) {
   const [open, setOpen] = useState<boolean>(false);
-  // const state = use(apiMyPageBasics({}, { token: jwt?.accessToken }));
 
   if (
     // state.status !== 'SUCCESS'
-    jwt.accessToken === null
+    !loggedIn
   ) {
     return <LoginButton />;
   } else {
