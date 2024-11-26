@@ -6,24 +6,29 @@ import { ELEM_PER_PAGE } from '@/lib/directive';
 import CoursePreview from '@/components/view/CoursePreview';
 import { CourseLoadingItems } from '@/app/lecture/aux';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { MyPageBookmarks } from '../../../server.util';
+import { MyPageBookmarks } from '../../../../api/mypage.api';
 interface Props {
   totalCount: number;
 }
 
-export default function BookmarksView({ totalCount} : Props) {
+export default function BookmarksView({ totalCount }: Props) {
   const totalPage = Math.ceil(totalCount / ELEM_PER_PAGE);
 
-  const { isPending, isFetchingNextPage, data: bms, fetchNextPage, hasNextPage } = useInfiniteQuery({
+  const {
+    isPending,
+    isFetchingNextPage,
+    data: bms,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
     queryKey: ['mypage'],
     queryFn: ({ pageParam }: { pageParam: number }) =>
-      MyPageBookmarks(pageParam) as Promise<{ data: Course[], cursor: number }>,
+      MyPageBookmarks(pageParam) as Promise<{ data: Course[]; cursor: number }>,
     initialPageParam: 1,
     initialData: { pages: [], pageParams: [] },
-    getNextPageParam: (lastPage) => lastPage.cursor < totalPage ? lastPage.cursor + 1 : undefined,
+    getNextPageParam: (lastPage) => (lastPage.cursor < totalPage ? lastPage.cursor + 1 : undefined),
     select: (data) => (data.pages ?? []).flatMap((page) => page.data),
   });
-
 
   if (totalCount <= 0) {
     return (
@@ -39,24 +44,24 @@ export default function BookmarksView({ totalCount} : Props) {
     );
   }
 
-  const nextButton =
-    hasNextPage ? (
-      <Button kind="blank" onClick={() => fetchNextPage()}>
-        <RightIcon />
-      </Button>
-    ) : (
-      <div aria-hidden />
-    );
+  const nextButton = hasNextPage ? (
+    <Button kind="blank" onClick={() => fetchNextPage()}>
+      <RightIcon />
+    </Button>
+  ) : (
+    <div aria-hidden />
+  );
 
   return (
     <Box>
-      {bms.map((v) => <CoursePreview key={v.course_id} course={v} />)}
+      {bms.map((v) => (
+        <CoursePreview key={v.course_id} course={v} />
+      ))}
       {(isPending || isFetchingNextPage) && <CourseLoadingItems />}
       {nextButton}
     </Box>
   );
 }
-
 
 function Box({ children }: React.PropsWithChildren) {
   return (
@@ -70,5 +75,3 @@ function Box({ children }: React.PropsWithChildren) {
     </HStack>
   );
 }
-
-

@@ -1,15 +1,5 @@
-'use client';
-
 import { HStack } from '@/components/basic/stack';
-
-import dynamic from 'next/dynamic';
-
-import ResetPwForm1 from './inner/form1';
-
-const FindPWForm = dynamic(() => import('./client'), {
-  ssr: false,
-  loading: () => <ResetPwForm1 input={{ email: '', code: '' }} submitting={false} />,
-});
+import FindPWForm from './client';
 
 export default function LoginPage() {
   return (

@@ -6,36 +6,40 @@ import { HStack, VStack } from '@/components/basic/stack';
 import { MyCommentView } from '@/components/view/CommentView';
 import { ELEM_PER_PAGE } from '@/lib/directive';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { MyPageComments } from '@/app/mypage/server.util';
+import { MyPageComments } from '@/app/api/mypage.api';
 
 interface Props {
   totalCount: number;
 }
 
 export default function MyCommentsView({ totalCount }: Props) {
-  
   const totalPage = Math.ceil(totalCount / ELEM_PER_PAGE);
 
-  const { isPending, isFetchingNextPage, data: cmt, fetchNextPage, hasNextPage } = useInfiniteQuery({
+  const {
+    isPending,
+    isFetchingNextPage,
+    data: cmt,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
     queryKey: ['mypage'],
     queryFn: ({ pageParam }: { pageParam: number }) =>
-      MyPageComments(pageParam) as Promise<{ data: AcdMyComment[], cursor: number }>,
+      MyPageComments(pageParam) as Promise<{ data: AcdMyComment[]; cursor: number }>,
     initialPageParam: 1,
     initialData: { pages: [], pageParams: [] },
-    getNextPageParam: (lastPage) => lastPage.cursor < totalPage ? lastPage.cursor + 1 : undefined,
+    getNextPageParam: (lastPage) => (lastPage.cursor < totalPage ? lastPage.cursor + 1 : undefined),
     select: (data) => (data.pages ?? []).flatMap((page) => page.data),
   });
 
-  const nextButton =
-  hasNextPage ? (
-      <div className="self-center">모두 불러왔습니다.</div>
-    ) : (
-      <div className="w-full pt-6 flex flex-col justify-center items-center">
-        <Button onClick={() => fetchNextPage()}>
-          <DownIcon />
-        </Button>
-      </div>
-    );
+  const nextButton = hasNextPage ? (
+    <div className="self-center">모두 불러왔습니다.</div>
+  ) : (
+    <div className="w-full pt-6 flex flex-col justify-center items-center">
+      <Button onClick={() => fetchNextPage()}>
+        <DownIcon />
+      </Button>
+    </div>
+  );
 
   if (totalPage <= 0) {
     return <MyCommentsWrapper>등록한 강의평이 없습니다.</MyCommentsWrapper>;
@@ -50,7 +54,6 @@ export default function MyCommentsView({ totalCount }: Props) {
     </MyCommentsWrapper>
   );
 }
-
 
 function MyCommentsWrapper({ children }: React.PropsWithChildren) {
   return (
