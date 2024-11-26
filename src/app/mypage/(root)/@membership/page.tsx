@@ -1,5 +1,5 @@
 import { SkeletonSlow } from '@/components/composite/skeleton';
-import BuyMembershipButton from '../dynamic/BuyMembershipFunction';
+import BuyMembershipButton from './components/BuyMembershipFunction';
 
 const memberships: Array<MembershipData> = [
   { item: '30DAYS', day: 30, price: 100, iconLevel: 1 },

@@ -1,7 +1,10 @@
 import Link from 'next/link';
-
 import DepartIcon from '@/components/composite/departIcon';
 import { SkeletonSlow } from '@/components/composite/skeleton';
+import { getMyPageBasics } from '../../server.util';
+import TempAlert from './components/TempAlert';
+import { CloseIcon } from '@/components/icon';
+import { redirect } from 'next/navigation';
 
 function MyProfileBasicsUnsafe({
   degree,
@@ -54,17 +57,53 @@ export function MyProfileBasicsLoading() {
   );
 }
 
-export default function MyProfileBasics({ userprofile }: { userprofile: UserProfile }) {
+
+interface Props {
+  searchParams: Promise<{ [K in string]: string | string[] | undefined }>;
+}
+
+
+export default async function MyProfileBasics({ searchParams }: Props) {
+
+
+  const spKeys = Object.keys(await searchParams);
+
+  const pwchanged = spKeys.includes('pwchanged');
+  const profilechanged = spKeys.includes('profilechanged');
+
+  const RemoveAlert = (
+    <Link
+      href='/mypage'
+    >
+      <CloseIcon />
+    </Link>
+  );
+
+  const mypagebasics = await getMyPageBasics();
+
+  if (mypagebasics.status !== 'SUCCESS') {
+    redirect('/login');
+  }
+
+  const userprofile = mypagebasics.data;
+
   const degreePrint =
     userprofile.degree === 'MASTER' ? '석사과정' : userprofile.degree === 'DOCTOR' ? '박사과정' : '?과정';
+  
 
   return (
-    <MyProfileBasicsUnsafe
+    <>
+      {pwchanged ? <TempAlert closeButton={RemoveAlert}>비밀번호가 성공적으로 변경되었습니다.</TempAlert> : <></>}
+      {profilechanged ? <TempAlert closeButton={RemoveAlert}>프로필을 성공적으로 업데이트했습니다.</TempAlert> : <></>}
+      <MyProfileBasicsUnsafe
       username={userprofile.username}
       department={userprofile.department}
       degree={degreePrint}
       semester={userprofile.semester}
       point={userprofile.point}
     />
+    </>
+    
   );
 }
+
