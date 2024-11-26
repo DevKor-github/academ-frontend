@@ -12,7 +12,7 @@ export default function BookmarkToggleButton({ id }: { id: number }) {
 
   const { data: courseData } = useQuery({
     queryKey: ['course', id],
-    queryFn: async () =>  await apiCourseDetail(instances.doRefresh, { course_id: id, order: 'NEWEST', page: 1 }),
+    queryFn: async () => await apiCourseDetail(instances.doRefresh, { course_id: id, order: 'NEWEST', page: 1 }),
   });
 
   const [b, setB] = useState(false);
@@ -24,7 +24,6 @@ export default function BookmarkToggleButton({ id }: { id: number }) {
       setB(courseData.data.isBookmark);
     }
   }, [courseData]);
-
 
   function sendApiThenSetB(newB: boolean) {
     setPulse(true);

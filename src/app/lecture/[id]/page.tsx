@@ -39,7 +39,10 @@ function WriteNewMobile({ course_id }: { course_id: number }) {
   );
 }
 
-export async function generateMetadata(props: { params: Promise<{ id: string }> }, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata(
+  props: { params: Promise<{ id: string }> },
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const params = await props.params;
   const course = await GET<ReqCourseDetail, CourseOnly | Course>('/api/course/detail')({
     course_id: Number(params.id),

@@ -248,7 +248,7 @@ export const EyeIcon = () => (
   <svg
     stroke="#7A7A7A"
     fill="#7A7A7A"
-    stroke-width="0"
+    strokeWidth="0"
     viewBox="0 0 576 512"
     height="20px"
     width="20px"
@@ -262,7 +262,7 @@ export const EyeCloseIcon = () => (
   <svg
     stroke="#7A7A7A"
     fill="#7A7A7A"
-    stroke-width="0"
+    strokeWidth="0"
     viewBox="0 0 640 512"
     height="20px"
     width="20px"

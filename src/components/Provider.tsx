@@ -12,16 +12,14 @@ interface Props {
   children: ReactNode;
 }
 
-export default function Provider ({ children }: Props) {
+export default function Provider({ children }: Props) {
   const [queryClient] = useState(() => new QueryClient());
 
   return (
     <ClearStorageDependOnTabs keys={[KEY_FOR_ACCESS_TOKEN]}>
-          <AuthTokensProvider>
-    <QueryClientProvider client={queryClient}>
-      {children}
-        </QueryClientProvider>
+      <AuthTokensProvider>
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
       </AuthTokensProvider>
-      </ClearStorageDependOnTabs>
+    </ClearStorageDependOnTabs>
   );
-};
+}

@@ -40,9 +40,7 @@ function MarkdownWrapper({ children }: React.PropsWithChildren<unknown>) {
 export default async function NoticeView(props: { params: Promise<{ path: string }> }) {
   const params = await props.params;
 
-  const {
-    path
-  } = params;
+  const { path } = params;
 
   const notice = (await apiGetNotices()).find((n) => n.filename === path);
 

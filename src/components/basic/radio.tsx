@@ -1,12 +1,13 @@
 interface RadioProps {
   id?: string;
+  name?: string;
   value: boolean;
   label: string;
   onChange?: React.ChangeEventHandler;
   readOnly: boolean;
 }
 
-export default function Radio({ readOnly, id, value, label, onChange }: RadioProps) {
+export default function Radio({ readOnly, id, name, value, label, onChange }: RadioProps) {
   return (
     <section>
       <span
@@ -26,6 +27,7 @@ export default function Radio({ readOnly, id, value, label, onChange }: RadioPro
           readOnly={readOnly}
           className="accent-primary-500"
           id={id}
+          name={name}
           role="switch"
           type="checkbox"
           onChange={onChange}
