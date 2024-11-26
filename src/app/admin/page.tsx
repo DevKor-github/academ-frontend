@@ -1,17 +1,14 @@
-'use client';
 
 import { IS_DEBUG } from '@/lib/directive';
 import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
+const AdminPageClient = dynamic(() => import('./components/admin.page'));
 
-/* Note that source of this page is OK to be shown in client for non-admin
-   users. but it would be better to find some better way to exclude */
-const AdminPage = dynamic(() => import('./client'), { ssr: false });
+// TODO check user permission using token
+export default function AdminPage() {
+  if (IS_DEBUG) {
+    return <AdminPageClient />;
+  }
 
-const AdminPageInnter = IS_DEBUG
-  ? () => <AdminPage />
-  : () => {
-      notFound();
-    };
-
-export default AdminPageInnter;
+  notFound();
+}
