@@ -1,6 +1,6 @@
 'use server';
 
-import { accessToken } from '@/lib/auth.util';
+import { accessToken } from '@/auth/auth.util';
 import { IsCourse } from '@/lib/type/IsCourse';
 
 export async function search(input: ReqSearchCourse) {

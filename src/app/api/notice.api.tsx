@@ -1,8 +1,11 @@
 import 'server-only';
-import { NOTICES_DIR } from '@/lib/directive.server';
+
+const REPOSITORY_ROOT = process.cwd();
+const NOTICES_DIR = path.resolve(REPOSITORY_ROOT, './src/markdown/notices');
+const MARKDOWN_EXTENSION = '.mdx';
+
 import fs from 'fs/promises';
 // import naturalCompare from 'natural-compare';
-import { MARKDOWN_EXTENSION } from '@/lib/directive.server';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import path from 'path';
 

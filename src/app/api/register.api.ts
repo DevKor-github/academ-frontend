@@ -1,6 +1,6 @@
 'use server';
 
-import { accessToken } from '@/lib/auth.util';
+import { accessToken } from '@/auth/auth.util';
 
 export async function duplicateName(input: DupNameRequest) {
   const url = new URL('api/signup/check-username', process.env.NEXT_PUBLIC_BACKEND_API_URL);

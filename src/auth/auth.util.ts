@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { COOKIE_AUTH_TOKEN, COOKIE_REFRESH_TOKEN } from './directive.server';
+import { COOKIE_AUTH_TOKEN, COOKIE_REFRESH_TOKEN } from '@/data/constant';
 
 export async function accessToken() {
   return (await cookies()).get(COOKIE_AUTH_TOKEN)?.value;

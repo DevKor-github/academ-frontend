@@ -1,5 +1,5 @@
 'use server';
-import { accessToken } from '@/lib/auth.util';
+import { accessToken } from '@/auth/auth.util';
 
 export async function checkUpdateComment(comment_id: number) {
   const token = accessToken();

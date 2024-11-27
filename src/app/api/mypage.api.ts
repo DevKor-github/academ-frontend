@@ -1,7 +1,7 @@
 'use server';
 
-import { accessToken } from '@/lib/auth.util';
-import { COOKIE_AUTH_TOKEN, COOKIE_REFRESH_TOKEN } from '@/lib/directive.server';
+import { accessToken } from '@/auth/auth.util';
+import { COOKIE_AUTH_TOKEN, COOKIE_REFRESH_TOKEN } from '@/data/constant';
 import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 
