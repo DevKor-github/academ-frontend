@@ -1,3 +1,5 @@
+'use client';
+
 function Box({ children }: React.PropsWithChildren<unknown>) {
   return (
     <div
