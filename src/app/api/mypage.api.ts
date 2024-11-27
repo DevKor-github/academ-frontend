@@ -1,6 +1,9 @@
 'use server';
 
 import { accessToken } from '@/lib/auth.util';
+import { COOKIE_AUTH_TOKEN, COOKIE_REFRESH_TOKEN } from '@/lib/directive.server';
+import { revalidatePath } from 'next/cache';
+import { cookies } from 'next/headers';
 
 export async function getMyPageBasics() {
   const access = await accessToken();
@@ -80,4 +83,57 @@ export async function MyPageBuyMembership(item: string) {
   });
 
   return ret.json();
+}
+
+export async function MyPageUpdateBasic(req: UpdateProfileReq) {
+  const token = await accessToken();
+
+  const ret = await fetch(new URL('api/mypage/update-basic', process.env.NEXT_PUBLIC_BACKEND_API_URL), {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(req),
+  });
+
+  return ret.json();
+}
+
+export async function MyPageUpdatePW(req: UpdatePWReq) {
+  const token = await accessToken();
+
+  const ret = await fetch(new URL('api/mypage/update-password', process.env.NEXT_PUBLIC_BACKEND_API_URL), {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(req),
+  });
+
+  return ret.json();
+}
+
+export async function MyPageDeleteAccount(req: { password: string }) {
+  const token = await accessToken();
+
+  const ret = await fetch(new URL('api/mypage/delete-profile', process.env.NEXT_PUBLIC_BACKEND_API_URL), {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(req),
+  });
+
+  const json = await ret.json();
+
+  if (json.status === 'SUCCESS') {
+    (await cookies()).delete(COOKIE_AUTH_TOKEN);
+    (await cookies()).delete(COOKIE_REFRESH_TOKEN);
+    revalidatePath('/', 'layout');
+  }
+
+  return json;
 }
