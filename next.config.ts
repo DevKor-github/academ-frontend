@@ -9,6 +9,7 @@ for (const key of ENV_KEYS) {
 }
 
 const nextConfig: NextConfig = {
+  transpilePackages: ['next-mdx-remote'],
   async redirects() {
     return [
       {
