@@ -3,15 +3,13 @@
 import { useEffect, useState } from 'react';
 
 import { HStack, VStack } from '@/components/basic/stack';
-import { apiDuplicateName, apiSignup } from '@/lib/api-client/calls/login';
-
+import { duplicateName, signUp } from '@/app/api/register.api';
 import Button from '@/components/basic/button';
 import Input from '@/components/basic/input';
 
 import ErrorLabel from '@/components/basic/errorlabel';
 
-import { departments } from '@/lib/data/departments';
-import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import { departments } from '@/data/departments';
 import { EyeCloseIcon, EyeIcon } from '@/components/icon';
 
 const validatePw = (pw: string) => {
@@ -36,7 +34,6 @@ export default function Step3({
   const [isPwValid, setIsPwValid] = useState<boolean>(false);
   const [pwcheck, setpwCheck] = useState('');
   const [isNumValid, setIsNumValid] = useState<boolean>(false);
-  const [{ instances }] = useAuthTokens();
 
   interface NameState {
     username: string;
@@ -83,7 +80,7 @@ export default function Step3({
   };
 
   async function handleDuplicateName() {
-    const response = await apiDuplicateName(instances.basic, { username: input.username });
+    const response = await duplicateName({ username: input.username });
 
     if (response.status === 'SUCCESS') {
       setNameCheck({ ...nameCheck, username: input.username, isChecked: response.status, error: false });
@@ -97,7 +94,7 @@ export default function Step3({
   async function handleRegister() {
     if (pwcheck !== input.password || !isPwValid) return window.alert('비밀번호를 확인해주세요.');
     if (nameCheck.isChecked !== 'SUCCESS' || nameCheck.username !== input.username) {
-      const response = await apiDuplicateName(instances.basic, { username: input.username });
+      const response = await duplicateName({ username: input.username });
 
       if (response.status !== 'SUCCESS') {
         setNameCheck({ ...nameCheck, username: input.username, isChecked: response.status, error: true });
@@ -108,7 +105,7 @@ export default function Step3({
     if (!departments.includes(input.department)) return window.alert('유효한 학과명을 입력해주세요.');
     if (input.semester == 0) return window.alert('학기를 입력해주세요.');
     else {
-      const response = await apiSignup(instances.basic, { ...input } as SignupRequest);
+      const response = await signUp({ ...input } as SignupRequest);
 
       if (response.status === 'SUCCESS') {
         nextStep();

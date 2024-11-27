@@ -4,7 +4,7 @@ import Button from '@/components/basic/button';
 import { DownIcon } from '@/components/icon';
 import { HStack, VStack } from '@/components/basic/stack';
 import { MyCommentView } from '@/components/view/CommentView';
-import { ELEM_PER_PAGE } from '@/lib/directive';
+import { ELEM_PER_PAGE } from '@/data/constant';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { MyPageComments } from '@/app/api/mypage.api';
 
@@ -16,13 +16,14 @@ export default function MyCommentsView({ totalCount }: Props) {
   const totalPage = Math.ceil(totalCount / ELEM_PER_PAGE);
 
   const {
-    isPending,
+    isFetching,
+    // isPending,
     isFetchingNextPage,
     data: cmt,
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: ['mypage'],
+    queryKey: ['mypage', 'comment'],
     queryFn: ({ pageParam }: { pageParam: number }) =>
       MyPageComments(pageParam) as Promise<{ data: AcdMyComment[]; cursor: number }>,
     initialPageParam: 1,
@@ -50,6 +51,10 @@ export default function MyCommentsView({ totalCount }: Props) {
       {cmt.map((c) => (
         <MyCommentView key={c.comment_id} comment={c} />
       ))}
+      {
+        // TODO add loading
+        (isFetching || isFetchingNextPage) && null
+      }
       {nextButton}
     </MyCommentsWrapper>
   );

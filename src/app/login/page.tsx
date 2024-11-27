@@ -13,38 +13,7 @@ import { EyeCloseIcon, EyeIcon } from '@/components/icon';
 import Form from 'next/form';
 import { handleLoginServer } from './action';
 import { useActionState } from 'react';
-interface LoginErrors {
-  shake: boolean;
-  loginError: string;
-}
-
-export const newHandleInputBuilder = <State,>(
-  setInput: SetState<State>,
-  type: 'BOOLEAN' | 'STRING' | 'NUMBER',
-): InputHandler =>
-  function handleInput(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    switch (type) {
-      case 'BOOLEAN':
-        setInput((input) => ({
-          ...input,
-          [event.target.name]: (event.target as HTMLInputElement).checked,
-        }));
-        break;
-      case 'STRING':
-        setInput((input) => ({
-          ...input,
-          [event.target.name]: event.target.value,
-        }));
-        break;
-      case 'NUMBER':
-        setInput((input) => ({
-          ...input,
-          [event.target.name]: Number(event.target.value),
-        }));
-        break;
-    }
-  };
-
+import { newHandleInputBuilder } from '@/lib/form/handler';
 export interface LoginFormState {
   error: string;
 }
@@ -71,7 +40,7 @@ export default function LoginForm() {
     if (state.error) {
       resetShake();
     }
-  }, [state]);
+  }, [state, resetShake]);
 
   return (
     <span

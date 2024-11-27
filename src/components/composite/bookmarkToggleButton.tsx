@@ -1,59 +1,58 @@
 'use client';
 
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useState, useActionState } from 'react';
 import { BookmarkIcon } from '@/components/icon';
-import { apiBookmark, apiCourseDetail } from '@/lib/api-client/calls/course';
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
-import { useAuthTokens } from '@/lib/context/AuthTokensContext';
-import { useQuery } from '@tanstack/react-query';
+import { toggleBookmark } from '@/app/api/lecture.api';
+import Form from 'next/form';
 
-export default function BookmarkToggleButton({ id }: { id: number }) {
-  const [{ instances }] = useAuthTokens();
+async function toggleBookmarkAction(currentState: FormState, formData: FormData): Promise<FormState> {
+  const course_id = Number(formData.get('course_id'));
+  return { result: await toggleBookmark({ course_id }) };
+}
 
-  const { data: courseData } = useQuery({
-    queryKey: ['course', id],
-    queryFn: async () => await apiCourseDetail(instances.doRefresh, { course_id: id, order: 'NEWEST', page: 1 }),
-  });
+interface FormState {
+  result: ApiResponse<unknown> | null;
+}
 
-  const [b, setB] = useState(false);
-  const [pulse, setPulse] = useState(false);
+interface Props {
+  id: number;
+  initialValue: boolean;
+}
+
+export default function BookmarkToggleButton({ id, initialValue }: Props) {
+  const [b, setB] = useState(initialValue);
   const [shake, resetShake] = useAnimationTimeout(600);
+  const [state, formAction, isPending] = useActionState(toggleBookmarkAction, { result: null });
 
-  useLayoutEffect(() => {
-    if (courseData) {
-      setB(courseData.data.isBookmark);
-    }
-  }, [courseData]);
-
-  function sendApiThenSetB(newB: boolean) {
-    setPulse(true);
-    apiBookmark(instances.doRefresh, { course_id: id }).then((a) => {
-      if (a.status === 'SUCCESS') {
-        setB(newB);
-      } else {
+  useEffect(() => {
+    if (state) {
+      if (state.result?.status === 'SUCCESS') {
+        setB((prev) => !prev);
         resetShake();
       }
-      setPulse(false);
-    });
-  }
+    }
+  }, [state]);
 
   return (
-    <span
-      className={`
-      ${b ? 'text-primary-500' : 'text-neutral-400 dark:text-neutral-600'}
-      ${pulse ? 'animate-pulse-beat' : ''}
-      ${shake ? 'animate-shake' : ''}
-      `}
-    >
-      <button
-        onClick={(e: React.MouseEvent) => {
-          e.preventDefault();
-          e.stopPropagation();
-          sendApiThenSetB(!b);
-        }}
+    <Form action={formAction} disabled={isPending}>
+      <span
+        className={`
+        ${b ? 'text-primary-500' : 'text-neutral-400 dark:text-neutral-600'}
+        ${isPending ? 'animate-pulse-beat' : ''}
+        ${shake ? 'animate-shake' : ''}
+        `}
       >
-        <BookmarkIcon />
-      </button>
-    </span>
+        <input name="course_id" value={id} className="hidden" readOnly />
+        <button
+          type="submit"
+          onClick={(e: React.MouseEvent) => {
+            e.stopPropagation();
+          }}
+        >
+          <BookmarkIcon />
+        </button>
+      </span>
+    </Form>
   );
 }

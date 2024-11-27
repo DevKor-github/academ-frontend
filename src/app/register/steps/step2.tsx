@@ -9,8 +9,7 @@ import ErrorLabel from '@/components/basic/errorlabel';
 
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
-import { apiCheckEmail } from '@/lib/api-client/calls/login';
-import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import { checkEmail } from '@/app/api/register.api';
 
 export default function Step2({
   nextStep,
@@ -29,10 +28,8 @@ export default function Step2({
     setInput({ ...input, code: value });
   }
 
-  const [{ instances }] = useAuthTokens();
-
   async function handleCode() {
-    const response = await apiCheckEmail(instances.basic, { email: input.email, code: input.code });
+    const response = await checkEmail({ email: input.email, code: input.code });
 
     if (response.status === 'SUCCESS') {
       nextStep();

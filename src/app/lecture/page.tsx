@@ -1,13 +1,9 @@
-'use server';
-
 import SearchForm from '@/components/composite/SearchForm';
 import { VStack } from '@/components/basic/stack';
-
 import Link from 'next/link';
-import { GET } from '@/lib/api-server/get';
+import { GET } from '@/app/api/get';
 import SearchPage from './fetch';
 import { Box } from './aux';
-import { URL_BUG_REPORT } from '@/lib/directive';
 
 function SearchTopView({ query, count }: { query: string; count: number }) {
   return (
@@ -76,7 +72,7 @@ export default async function SearchPageServer(props: {
           <Box>
             <span>
               알 수 없는 오류가 발생했습니다. 잠시 후 다시 시도해주세요. 오류가 계속되는 경우,{' '}
-              <Link href={URL_BUG_REPORT}>제보</Link>를 부탁드려요.
+              <Link href={process.env.NEXT_PUBLIC_BUG_REPORT}>제보</Link>를 부탁드려요.
             </span>
           </Box>
         </div>

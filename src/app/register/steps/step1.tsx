@@ -11,8 +11,7 @@ import { RightIcon } from '@/components/icon';
 import Spinner from '@/components/basic/spinner';
 
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
-import { apiSendEmail } from '@/lib/api-client/calls/login';
-import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import { sendEmail } from '@/app/api/register.api';
 
 const validateEmail = (email: string) => {
   const re = /^[^\s@]+@korea\.ac\.kr$/;
@@ -42,8 +41,6 @@ export default function Step1({
 
   const [timeout, resetTimeout] = useAnimationTimeout(500);
 
-  const [{ instances }] = useAuthTokens();
-
   useEffect(() => {
     setIsEmailValid(validateEmail(input.email));
   }, [input.email]);
@@ -51,7 +48,7 @@ export default function Step1({
   async function handleSendEmail() {
     setLoading(true);
 
-    const response = await apiSendEmail(instances.basic, { email: input.email, purpose: 'SIGN_UP' });
+    const response = await sendEmail({ email: input.email, purpose: 'SIGN_UP' });
 
     if (response.status === 'SUCCESS') {
       const id = input.email;

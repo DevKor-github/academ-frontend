@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { HStack } from '@/components/basic/stack';
-import apiGetNotices from '@/lib/api-server/notice';
+import apiGetNotices from '@/app/api/notice.api';
 
 function MarkdownWrapper({ children }: React.PropsWithChildren<unknown>) {
   return (
@@ -31,11 +31,11 @@ function MarkdownWrapper({ children }: React.PropsWithChildren<unknown>) {
   );
 }
 
-// export async function generateStaticParams() {
-//   return (await apiGetNotices()).map((n) => {
-//     return { path: n.filename };
-//   });
-// }
+export async function generateStaticParams() {
+  return (await apiGetNotices()).map((n) => {
+    return { path: n.filename };
+  });
+}
 
 export default async function NoticeView(props: { params: Promise<{ path: string }> }) {
   const params = await props.params;

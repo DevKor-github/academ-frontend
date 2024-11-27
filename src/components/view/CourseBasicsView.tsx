@@ -118,7 +118,7 @@ export default function CourseBasicsView({ course }: { course: CourseOnly }) {
       course_code={course.course_code}
       class_number={course.class_number}
       course_id={course.course_id}
-      bookmarkToggle={<BookmarkToggleButton id={course.course_id} />}
+      bookmarkToggle={<BookmarkToggleButton id={course.course_id} initialValue={course.isBookmark} />}
     />
   );
 }

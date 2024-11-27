@@ -1,9 +1,7 @@
 'use client';
 
 import { useActionState } from 'react';
-import { apiBuyAcess } from '@/lib/api-client/calls/membership';
 import MembershipIcon from '../icons/MembershipIcons';
-import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 import Form from 'next/form';
 import { MyPageBuyMembership } from '@/app/api/mypage.api';
 import { twMerge } from 'tailwind-merge';
@@ -30,6 +28,7 @@ async function buyHandler(currentState: Omit<MembershipData, 'item'>, formData: 
 }
 
 export default function BuyMembershipButton({ membershipData }: { membershipData: MembershipData }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [state, formAction, isPending] = useActionState(buyHandler, membershipData);
 
   return (

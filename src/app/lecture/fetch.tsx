@@ -1,43 +1,15 @@
 'use client';
 
-import { memo, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
-
 import Button from '@/components/basic/button';
 import CoursePreview from '@/components/view/CoursePreview';
 import { DownIcon } from '@/components/icon';
 import Select from '@/components/basic/select';
-
 import { Box, CourseLoadingItems, Grid } from './aux';
-
-import { apiSearch } from '@/lib/api-client/calls/course';
-import { ELEM_PER_PAGE } from '@/lib/directive';
-import { useApi } from '@/lib/hooks/api';
-import { useAuthTokens } from '@/lib/context/AuthTokensContext';
-import { lengthOf } from '@/lib/util';
-
-const SearchResults = memo(
-  function SearchResults({ keyword, order, page }: ReqSearchCourse) {
-    const [{ instances }] = useAuthTokens();
-    const { loading, response } = useApi(instances.refreshFirst, apiSearch, { keyword, order, page });
-
-    if (loading) {
-      return <CourseLoadingItems />;
-    }
-
-    if (response.status !== 'SUCCESS') {
-      return <Box>오류가 발생했습니다.</Box>;
-    }
-
-    return response.data.flatMap((course) => (
-      <div key={course.course_id} className="animate-fade">
-        <CoursePreview key={course.course_id} course={course} />
-      </div>
-    ));
-  },
-  (p, n) => p.keyword === n.keyword && p.order === n.order && p.page === n.page,
-);
+import { ELEM_PER_PAGE } from '@/data/constant';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { search } from '@/app/api/lecture.api';
 
 function SearchResultsViewWithOrder({
   query,
@@ -48,29 +20,44 @@ function SearchResultsViewWithOrder({
   order: SearchOrdering;
   totalPage: number;
 }) {
-  const [page, setPage] = useState<number>(1);
+  const {
+    isFetching,
+    // isPending,
+    isFetchingNextPage,
+    data: lct,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['lecture_search', query, order],
+    queryFn: ({ pageParam }: { pageParam: number }) =>
+      search({ page: pageParam, order, keyword: query }) as Promise<
+        ApiResponse<Course[] | CourseOnly[]> & { cursor: number }
+      >,
+    initialPageParam: 1,
+    initialData: { pages: [], pageParams: [] },
+    getNextPageParam: (lastPage) => (lastPage.cursor < totalPage ? lastPage.cursor + 1 : undefined),
+    select: (data) => (data.pages ?? []).flatMap((page) => page.data),
+  });
 
-  useEffect(() => {
-    console.error(`page: ${page}, query: ${query}, order: ${order}, totalPage: ${totalPage}`);
-  }, [page, query, order, totalPage]);
-
-  const NextButton =
-    page >= totalPage ? (
-      <div>모두 불러왔습니다</div>
-    ) : (
-      <div className="w-full pt-6 flex flex-col justify-center items-center">
-        <Button onClick={() => setPage((n) => n + 1)}>
-          <DownIcon />
-        </Button>
-      </div>
-    );
+  const NextButton = hasNextPage ? (
+    <div className="w-full pt-6 flex flex-col justify-center items-center">
+      <Button onClick={() => fetchNextPage()}>
+        <DownIcon />
+      </Button>
+    </div>
+  ) : (
+    <div>모두 불러왔습니다</div>
+  );
 
   return (
     <>
       <Grid>
-        {lengthOf(page, 1).flatMap((v) => (
-          <SearchResults key={v} keyword={query} order={order} page={v} />
+        {lct.map((course) => (
+          <div key={course.course_id} className="animate-fade">
+            <CoursePreview key={course.course_id} course={course} />
+          </div>
         ))}
+        {(isFetching || isFetchingNextPage) && <CourseLoadingItems />}
       </Grid>
       {NextButton}
     </>
@@ -102,7 +89,7 @@ export default function SearchPage({ keyword, count }: { keyword: string; count:
   return (
     <Box>
       <Select
-        id="order"
+        name="order"
         value={sort}
         handleValue={handleValue}
         items={

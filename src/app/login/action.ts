@@ -1,11 +1,11 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { redirect, RedirectType } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 
-import { IS_DEBUG } from '@/lib/directive';
-import { COOKIE_AUTH_TOKEN, COOKIE_REFRESH_TOKEN } from '@/lib/directive.server';
+import { IS_DEBUG } from '@/data/constant';
+import { COOKIE_AUTH_TOKEN, COOKIE_REFRESH_TOKEN } from '@/data/constant';
 import { LoginFormState } from './page';
 
 export async function handleLoginServer(currentState: LoginFormState, fd: FormData) {
@@ -14,7 +14,7 @@ export async function handleLoginServer(currentState: LoginFormState, fd: FormDa
 
     const body = new URLSearchParams({
       email: fd.get('email') as string,
-      password: fd.get('password') as string, // this is a fake password so don't worry
+      password: fd.get('password') as string,
       'remember-me': String(fd.get('remember-me') === 'on') as string,
     });
 
@@ -33,7 +33,7 @@ export async function handleLoginServer(currentState: LoginFormState, fd: FormDa
     if (json.status === 'SUCCESS') {
       console.log('login success');
     } else {
-      return { error: '로그인 실패했습니다' };
+      return { error: json.message };
     }
 
     console.log('json', json);

@@ -4,13 +4,9 @@ import { Star1 } from '@/components/composite/starIndicator';
 import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
 import { useEffect, useState } from 'react';
-
-import { apiDeleteComment, apiLikeComment } from '@/lib/api-client/calls/course';
-
-import { decode } from '@/lib/jwt';
-
+import { deleteComment, likeComment } from '@/app/api/comment.api';
+// import { decode } from '@/lib/jwt';
 import Link from 'next/link';
-import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/components/icon';
 import { twMerge } from 'tailwind-merge';
 
@@ -98,7 +94,6 @@ function Right({
   comment: AcdComment;
   setDel: React.Dispatch<boolean>;
 }) {
-  const [{ instances }] = useAuthTokens();
   const [newLike, setNewLike] = useState<boolean>(false);
 
   useEffect(() => setNewLike(false), []);
@@ -144,7 +139,7 @@ function Right({
         <button
           className={`flex flex-row justify-center items-center px-4 py-1 border rounded-full gap-2 ${textColorClass}`}
           onClick={() => {
-            apiLikeComment(instances.doRefresh, { comment_id: comment.comment_id }).then((s) => {
+            likeComment({ comment_id: comment.comment_id }).then((s) => {
               if (s.status === 'SUCCESS') {
                 setNewLike(!newLike);
               } else {
@@ -192,7 +187,7 @@ function Right({
             className="flex justify-center items-center px-4 py-1 border rounded-full border-neutral-400 text-neutral-400"
             onClick={() => {
               if (confirm('정말 삭제하시겠습니까?') == true) {
-                apiDeleteComment(instances.doRefresh, { comment_id: comment.comment_id }).then((a) => {
+                deleteComment({ comment_id: comment.comment_id }).then((a) => {
                   if (a.status === 'SUCCESS') {
                     setDel(true);
                     alert('성공적으로 삭제했습니다.');
@@ -214,7 +209,6 @@ function Right({
 }
 
 function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dispatch<boolean> }) {
-  const [{ instances }] = useAuthTokens();
   return (
     <HStack className="w-full h-full gap-y-2">
       <Link href={`/lecture/${comment.course_id}`}>
@@ -263,7 +257,7 @@ function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dis
           className="flex justify-center items-center px-4 py-1 border rounded-full border-neutral-400 text-neutral-400"
           onClick={() => {
             if (confirm('정말 삭제하시겠습니까?') == true) {
-              apiDeleteComment(instances.doRefresh, { comment_id: comment.comment_id }).then((a) => {
+              deleteComment({ comment_id: comment.comment_id }).then((a) => {
                 if (a.status === 'SUCCESS') {
                   setDel(true);
                   alert('성공적으로 삭제했습니다.');
@@ -300,11 +294,9 @@ export function CommentViewLoading() {
   );
 }
 
-export default function CommentView({ comment }: { comment: AcdComment }) {
-  const [jwt] = useAuthTokens();
+export default function CommentView({ comment, sessionUserID }: { comment: AcdComment, sessionUserID: number | undefined }) {
 
-  const editable =
-    jwt.accessToken === null ? true : comment.profile_id === decode<JWTDecoded>(jwt.accessToken).profile_id;
+  const editable = comment.profile_id === sessionUserID;
 
   const [del, setDel] = useState<boolean>(false);
 

@@ -1,8 +1,5 @@
-'use client';
-
 import Link from 'next/link';
 import { IssueIcon } from '../icon';
-import { useAuthTokens } from '@/lib/context/AuthTokensContext';
 
 export function LoginRequiredView() {
   return (
@@ -17,12 +14,6 @@ export function LoginRequiredView() {
 }
 
 export function NoMembershipView() {
-  const [jwt] = useAuthTokens();
-
-  if (jwt.accessToken === null) {
-    return <LoginRequiredView />;
-  }
-
   return (
     <div className="flex flex-col justify-center items-center gap-6 h-full">
       <IssueIcon />

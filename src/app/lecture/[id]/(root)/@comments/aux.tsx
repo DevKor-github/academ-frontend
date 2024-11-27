@@ -20,7 +20,7 @@ export function CommentsWrapper({
 
         <VStack className="items-center justify-end gap-2">
           <Select
-            id="order"
+            name="order"
             value={order}
             handleValue={handleValue}
             items={

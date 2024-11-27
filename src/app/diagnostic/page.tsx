@@ -1,4 +1,4 @@
-import { APP_VERSION } from '@/lib/directive';
+import { APP_VERSION } from '@/data/constant';
 
 async function checkOnline() {
   return fetch(new URL('api/is-secure', process.env.NEXT_PUBLIC_BACKEND_API_URL)).then((v) => v.json());
@@ -10,7 +10,7 @@ export default async function DiagnosticClient() {
       Academ Frontend 버전: {APP_VERSION}
       <br />
       Academ Backend와의 연결 상태는 다음과 같습니다:{' '}
-      {checkOnline()
+      {await checkOnline()
         .then((a) => a.version)
         .catch(() => '오류')}
     </div>

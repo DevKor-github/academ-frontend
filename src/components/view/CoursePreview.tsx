@@ -37,7 +37,7 @@ function Up({ course }: { course: Course | CourseOnly }) {
         </VStack>
       </HStack>
 
-      <BookmarkToggleButton id={course.course_id} />
+      <BookmarkToggleButton id={course.course_id} initialValue={course.isBookmark} />
     </VStack>
   );
 }

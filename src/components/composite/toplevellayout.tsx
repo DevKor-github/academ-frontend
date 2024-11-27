@@ -1,9 +1,9 @@
 import TopNav from '../commonLayout/topnav';
 
-import { IS_DEBUG } from '@/lib/directive';
+import { IS_DEBUG } from '@/data/constant';
 import Link from 'next/link';
 import { LogoIconRich } from '@/components/icon';
-import { accessToken } from '@/lib/auth.util';
+import { accessToken } from '@/auth/auth.util';
 
 function Footer() {
   return (

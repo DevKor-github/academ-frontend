@@ -1,16 +1,12 @@
 'use client';
 
-import { apiProfileUpdatePW } from '@/lib/api-client/calls/mypage';
 import { useState } from 'react';
-
 import { useRouter } from 'next/navigation';
-
 import ChangePwForm from './form';
 import { handleInputBuilder } from '@/lib/form/handler';
-import { useAuthTokens } from '@/lib/context/AuthTokensContext';
+import { MyPageUpdatePW } from '@/app/api/mypage.api';
 
 export default function ChangePW() {
-  const [{ instances }] = useAuthTokens();
   const [input, setInput] = useState<UpdatePWExtended>({ old_password: '', new_password: '', new_password_check: '' });
 
   const [busy, setBusy] = useState<boolean>(false);
@@ -38,7 +34,7 @@ export default function ChangePW() {
       return alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
     }
 
-    apiProfileUpdatePW(instances.doRefresh, {
+    MyPageUpdatePW({
       old_password: input.old_password,
       new_password: input.new_password,
     }).then((s) => {
