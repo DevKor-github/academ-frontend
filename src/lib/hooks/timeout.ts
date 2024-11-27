@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export function useTemporal<T>(ms: number, initial: T, temporal: T) {
   const [v, setV] = useState(initial);
@@ -11,9 +11,9 @@ export function useTemporal<T>(ms: number, initial: T, temporal: T) {
     }
   }, [v]);
 
-  function resetV() {
+  const resetV = useCallback(() => {
     setV(temporal);
-  }
+  }, [temporal]);
 
   return [v, resetV] as const;
 }
