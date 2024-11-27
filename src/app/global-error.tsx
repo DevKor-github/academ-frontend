@@ -14,12 +14,13 @@ function Box({ children }: React.PropsWithChildren<unknown>) {
   );
 }
 
+// eslint-disable-next-line  @typescript-eslint/no-unused-vars
 function AcdApiErrorPage({ error, reset }: ErrorProps<Error>) {
-    return (
-      <Box>
-        <h3>알 수 없는 오류가 발생했습니다.</h3>
-      </Box>
-    );
+  return (
+    <Box>
+      <h3>알 수 없는 오류가 발생했습니다.</h3>
+    </Box>
+  );
 }
 
 export default function ErrorPage({ error, reset }: ErrorProps) {
