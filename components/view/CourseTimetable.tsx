@@ -41,7 +41,7 @@ function Up({ course }: { course: Course | CourseOnly }) {
           </span>
           <span className="text-base">{course.professor}</span>
         </HStack>
-        <BookmarkToggleButton id={course.course_id} defaultValue={course.isBookmark} />
+        <BookmarkToggleButton id={course.course_id} />
       </VStack>
       <VStack className="justify-between text-xs text-neutral-600 text-justify w-full mt-4 items-center">
         {course.class_number == '' ? (
