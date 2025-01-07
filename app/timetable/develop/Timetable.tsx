@@ -38,8 +38,8 @@ const HighlightedLecture: React.FC<HighlightedLectureProps> = ({ keyValue, lectu
         const { day, startPeriod, endPeriod, location } = timeLocation;
         const start = classStart[startPeriod];
         const end = classEnd[endPeriod];
-        const top = `${(start - 9) * 3.5}rem`;
-        const height = `${(end - start) * 3.5}rem`;
+        const top = `calc((${(start - 9) * 3.5}rem) + 1px)`;
+        const height = `calc((${(end - start) * 3.5}rem) - 1px)`;
         const dayIndex = baseDays.indexOf(day);
 
         return (
@@ -88,7 +88,7 @@ const Timetable: React.FC<TimetableProps> = ({ lectures }) => {
   return (
     <div className="w-full border border-gray-200 rounded-2xl">
       {/* 헤더 */}
-      <div className={`grid grid-cols-[2rem_repeat(${days.length},_1fr)] rounded-2xl`}>
+      <div className={`grid grid-cols-[2rem_repeat(auto-fit,_minmax(30px,_1fr))] rounded-2xl`}>
         <div className="h-10 flex items-center justify-center border-gray-200 font-bold">{/* 빈 칸 */}</div>
         {days.map((day, idx) => (
           <div key={idx} className="h-10 flex items-center justify-center border-l border-gray-200 font-bold">
@@ -99,7 +99,10 @@ const Timetable: React.FC<TimetableProps> = ({ lectures }) => {
       {/* 본문 */}
       <div className="relative">
         {hours.map((hour) => (
-          <div key={hour} className={`grid grid-cols-[2rem_repeat(${days.length},_1fr)] h-14 border-t border-gray-200`}>
+          <div
+            key={hour}
+            className={`grid grid-cols-[2rem_repeat(auto-fit,_minmax(30px,_1fr))] h-14 border-t border-gray-200`}
+          >
             <div className="flex items-start justify-end pr-1 border-gray-200 text-sm text-gray-600">{`${hour}`}</div>
             {days.map((_, idx) => (
               <div key={idx} className="border-l border-gray-200" />

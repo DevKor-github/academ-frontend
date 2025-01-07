@@ -41,7 +41,7 @@ const Timetablepage: React.FC = () => {
       </div>
 
       {/* 강의 리스트 영역 */}
-      <div className="min-w-96 p-6 light:bg-neutral-100 dark:bg-neutral-800">
+      <div className="w-98 p-6 light:bg-neutral-100 dark:bg-neutral-800">
         <Button kind="outline" className="text-primary-500 rounded-full px-4 py-0 justify-self-end">
           수정하기
         </Button>
