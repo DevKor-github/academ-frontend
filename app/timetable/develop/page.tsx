@@ -3,7 +3,7 @@
 import Button from '@/components/basic/button';
 import React, { useState } from 'react';
 // import { BookmarksTimetableView } from './BookmarksTimetableView';
-import { TimetableSearchView } from './TimetableSearchView';
+import { TimetableSearchView } from './Sideview/TimetableSearchView';
 import Timetable from './Timetable';
 
 const lectures = [
@@ -27,7 +27,33 @@ const lectures = [
   },
 ];
 
+const personals = [
+  {
+    title: '세미나',
+    day: '화',
+    startHour: 14,
+    startMinute: 45,
+    endHour: 16,
+    endMinute: 0,
+    location: '정보관 303호',
+    memo: '개인 발표',
+  },
+];
+
 type TimetableView = 'DEPARTMENT' | 'BOOKMARKS' | 'SEARCH' | 'PERSONAL';
+
+// const TimetableSide: React.FC = () => {
+//   switch (view) {
+//     case 'DEPARTMENT':
+//       return <DepartmentTimetableView />;
+//     case 'SEARCH':
+//       return <SearchTimetableView />;
+//     case 'PERSONAL':
+//       return <PersonalTimetableView />;
+//     default:
+//       return <BookmarksTimetableView />;
+//   }
+// };
 
 const Timetablepage: React.FC = () => {
   const [view, setView] = useState<TimetableView>('BOOKMARKS');
@@ -37,7 +63,7 @@ const Timetablepage: React.FC = () => {
       {/* 시간표 영역 */}
       <div className="flex-1 p-6">
         <h2 className="text-xl font-bold mb-4">2024년도 시간표(희망편)</h2>
-        <Timetable lectures={lectures} />
+        <Timetable lectures={lectures} personals={personals} />
       </div>
 
       {/* 강의 리스트 영역 */}
@@ -87,18 +113,8 @@ const Timetablepage: React.FC = () => {
             개인일정
           </span>
         </div>
-
         <TimetableSearchView />
-
-        {/* {view === 'DEPARTMENT' ? (
-          <DepartmentTimetableView />
-        ) : view === 'SEARCH' ? (
-          <SearchTimetableView />
-        ) : view === 'PERSONAL' ? (
-          <PersonalTimetableView />
-        ) : (
-          <BookmarksTimetableView />
-        )} */}
+        {/* <TimetableSide /> */}
       </div>
     </div>
   );

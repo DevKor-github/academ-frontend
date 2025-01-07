@@ -15,11 +15,29 @@ type TimeLocation = {
 
 type TimetableProps = {
   lectures: Lecture[];
+  personals: Personal[];
 };
 
 type HighlightedLectureProps = {
   keyValue: number;
   lecture: Lecture;
+  dayCount: number;
+};
+
+type Personal = {
+  title: string;
+  day: string;
+  startHour: number;
+  startMinute: number;
+  endHour: number;
+  endMinute: number;
+  location: string;
+  memo: string;
+};
+
+type HighlightedPersonalProps = {
+  keyValue: number;
+  personal: Personal;
   dayCount: number;
 };
 
@@ -66,7 +84,37 @@ const HighlightedLecture: React.FC<HighlightedLectureProps> = ({ keyValue, lectu
   );
 };
 
-const Timetable: React.FC<TimetableProps> = ({ lectures }) => {
+const HighlightedPersonal: React.FC<HighlightedPersonalProps> = ({ keyValue, personal, dayCount }) => {
+  const { title, day, startHour, startMinute, endHour, endMinute, location, memo } = personal;
+  const start = startHour + startMinute / 60;
+  const end = endHour + endMinute / 60;
+  const top = `calc((${(start - 9) * 3.5}rem) + 1px)`;
+  const height = `calc((${(end - start) * 3.5}rem) - 1px)`;
+  const dayIndex = baseDays.indexOf(day);
+
+  return (
+    <>
+      <div
+        className="absolute p-2 left-[1px] text-black text-xs"
+        style={{
+          top,
+          height,
+          width: `calc((100% - 2rem) / ${dayCount} - 1px)`,
+          marginLeft: `calc((100% - 2rem) / ${dayCount} * ${dayIndex} + 2rem)`,
+          backgroundColor: theme[keyValue % theme.length],
+        }}
+      >
+        <div className="break-normal">
+          <div className="font-bold mb-1">{title}</div>
+          <div>{location}</div>
+          <div>{memo}</div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+const Timetable: React.FC<TimetableProps> = ({ lectures, personals }) => {
   // 강의 데이터를 기반으로 추가 요일 확인
   const usedDays = Array.from(new Set(lectures.flatMap((lecture) => lecture.timeLocations.map((tl) => tl.day))));
   const days = usedDays.includes('일')
@@ -111,6 +159,14 @@ const Timetable: React.FC<TimetableProps> = ({ lectures }) => {
         ))}
         {lectures.map((lecture, index) => (
           <HighlightedLecture key={index} keyValue={index} lecture={lecture} dayCount={days.length} />
+        ))}
+        {personals.map((personal, index) => (
+          <HighlightedPersonal
+            key={index}
+            keyValue={index + lectures.length}
+            personal={personal}
+            dayCount={days.length}
+          />
         ))}
       </div>
     </div>
