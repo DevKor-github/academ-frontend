@@ -130,7 +130,10 @@ const Timetable: React.FC<TimetableProps> = ({ lectures, personals }) => {
   );
 
   // 동적으로 시간 계산
-  const hourRange = Math.ceil(classEnd[maxEndPeriod] - 9);
+  const hourRange = Math.max(
+    Math.ceil(classEnd[maxEndPeriod] - 9),
+    Math.ceil(Math.max(...personals.map((p) => p.endHour - 8))),
+  );
   const hours = Array.from({ length: hourRange }, (_, i) => 9 + i);
 
   return (

@@ -11,7 +11,7 @@ function Scroll({ children }: React.PropsWithChildren) {
   );
 }
 
-export function TimetableSearchView() {
+export function SearchTimetableView() {
   return (
     <HStack>
       <SearchForm />
