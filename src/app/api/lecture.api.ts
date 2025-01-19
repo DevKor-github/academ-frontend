@@ -3,17 +3,20 @@
 import { accessToken } from '@/auth/auth.util';
 import { IsCourse } from '@/lib/type/IsCourse';
 
+function withSearchParams(url: URL | string, params: object): URL | string {
+  if (url instanceof URL) {
+    Object.entries(params).forEach(([name, value]) => url.searchParams.append(name, value));
+    return url;
+  }
+
+  const sp = new URLSearchParams();
+  Object.entries(params).forEach(([name, value]) => sp.append(name, value));
+  return sp.toString() !== '' ? `${url}?${sp.toString()}` : url;
+}
+
 export async function search(input: ReqSearchCourse) {
-  const token = accessToken();
-
-  const url = new URL('/api/course/search', process.env.NEXT_PUBLIC_BACKEND_API_URL);
-  Object.entries(input).forEach(([name, value]) => url.searchParams.append(name, value.toString()));
-
-  const json = await fetch(url, {
+  const json = await fetch(withSearchParams('/api/course/search', input), {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
   }).then((v) => v.json() as Promise<ApiResponse<Course[] | CourseOnly[]> & { cursor: number }>);
 
   json.cursor = input.page;
