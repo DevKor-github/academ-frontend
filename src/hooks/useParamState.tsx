@@ -22,9 +22,7 @@ const useParamState = <S,>(
   const router = useRouter();
 
   const [state, setState] = useState(
-    searchParams.get(queryKey) !== null
-      ? decoder(String(searchParams.get(queryKey)))
-      : defaultState,
+    searchParams.get(queryKey) !== null ? decoder(String(searchParams.get(queryKey))) : defaultState,
   );
 
   const prevState = useRef(state);
@@ -71,13 +69,13 @@ export default useParamState;
 const identity = <T,>(x: T) => x;
 const neverOmit = () => false;
 
-export const stringOpts = {
+export const stringOpts = Object.freeze({
   encoder: identity,
   decoder: identity,
   omit: neverOmit,
-};
+});
 
-export const optionalNumberOpts = {
+export const optionalNumberOpts = Object.freeze({
   encoder: (n: number | undefined) => (n === undefined ? '' : n.toString()),
   decoder: (s: string) => {
     if (s === '') return undefined;
@@ -85,4 +83,4 @@ export const optionalNumberOpts = {
     return Number.isNaN(n) ? undefined : n;
   },
   omit: neverOmit,
-};
+});
