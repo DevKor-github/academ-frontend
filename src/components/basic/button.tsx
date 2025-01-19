@@ -55,6 +55,9 @@ function BlankButton({ className = '', disabled, ...rest }: ButtonProps) {
   );
 }
 
+/**
+ * @deprecated Use style/button instead
+ */
 export default function Button({ kind = 'filled', ...props }: ButtonProps) {
   switch (kind) {
     case 'filled':
