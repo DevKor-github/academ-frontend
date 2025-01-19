@@ -26,6 +26,9 @@ interface PopoverProps {
   keep?: boolean;
 }
 
+/**
+ * @deprecated Use Popover from @headlessui/react
+ */
 const Popover = React.memo<PopoverProps>(({ hide, children, style, className }) => {
   const settingsWindowRef = useRef<HTMLDivElement>(null);
 

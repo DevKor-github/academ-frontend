@@ -4,47 +4,15 @@ import { useState } from 'react';
 
 import Link from 'next/link';
 import Button from '@/components/basic/button';
-import Popover from '@/components/basic/popover';
+// import Popover from '@/components/basic/popover';
 import { HStack } from '@/components/basic/stack';
 
 import { LogoutIcon, ProfileIcon } from './icons';
 import { DownIcon } from '@/components/icon';
+import { logout } from '@/app/actions/logout.action';
 
-function ProfilePopover({ setOpenPopover }: { setOpenPopover: (b: boolean) => void }) {
-  return (
-    <Popover
-      hide={() => setOpenPopover(false)}
-      className={
-        'absolute rounded-xl overflow-hidden border bg-l bg-white dark:bg-base-1 right-2 md:right-8 top-14 shadow-lg '
-      }
-      style={{ zIndex: 100 }}
-    >
-      <HStack
-        className="justify-center items-center rounded-xl
-      *:flex *:flex-row *:min-h-6 *:gap-2 *:p-4 *:pb-2 *:w-full *:justify-center *:align-middle"
-      >
-        <Link
-          className="
-        hover:light:bg-light-base-30
-        hover:dark:bg-base-4"
-          href="/mypage"
-        >
-          <ProfileIcon />
-          <span>마이페이지</span>
-        </Link>
-        <Link
-          className="
-        hover:light:bg-base-30
-        hover:dark:bg-base-4"
-          href="/logout"
-        >
-          <LogoutIcon />
-          <span>로그아웃</span>
-        </Link>
-      </HStack>
-    </Popover>
-  );
-}
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
+import { blankButton } from '@/style/button';
 
 function LoginButton() {
   return (
@@ -61,8 +29,6 @@ interface Props {
 }
 
 export default function TopNavInnerRightClient({ loggedIn }: Props) {
-  const [open, setOpen] = useState<boolean>(false);
-
   if (
     // state.status !== 'SUCCESS'
     !loggedIn
@@ -70,11 +36,8 @@ export default function TopNavInnerRightClient({ loggedIn }: Props) {
     return <LoginButton />;
   } else {
     return (
-      <div>
-        <Button
-          className="rounded-full bg-primary-500 text-white p-2 pl-2 pr-2 w-32"
-          onClick={() => setOpen((v) => !v)}
-        >
+      <Popover>
+        <PopoverButton className="rounded-full bg-primary-500 text-white p-2 pl-2 pr-2 w-32">
           <span
             className="under-md:max-w-24"
             style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
@@ -83,9 +46,36 @@ export default function TopNavInnerRightClient({ loggedIn }: Props) {
               마이페이지 <DownIcon />
             </span>
           </span>
-        </Button>
-        {open && <ProfilePopover setOpenPopover={setOpen} />}
-      </div>
+        </PopoverButton>
+        {/* <PopoverButton className="block text-sm/6 font-semibold text-white/50 focus:outline-none data-[active]:text-white data-[hover]:text-white data-[focus]:outline-1 data-[focus]:outline-white">
+            Solutions
+          </PopoverButton> */}
+        <PopoverPanel
+          // transition
+          anchor="bottom"
+          className="z-[200] relative rounded-xl border bg-l mt-2 bg-white dark:bg-base-1 shadow-lg">
+          <HStack
+            className="justify-center items-center rounded-xl
+      *:flex *:flex-row *:min-h-6 *:gap-2 *:p-4 *:pb-2 *:w-full *:justify-center *:align-middle"
+          >
+            <Link
+              className={blankButton({ disabled: false, className: 'hover:light:bg-base-30 size-full hover:dark:bg-base-4' })}
+              href="/mypage"
+            >
+              <ProfileIcon />
+              <span>마이페이지</span>
+            </Link>
+            <button
+              type="submit"
+              className={blankButton({ disabled: false, className: 'hover:light:bg-base-30 size-full hover:dark:bg-base-4' })}
+              onClick={() => logout()}
+            >
+              <LogoutIcon />
+              <span>로그아웃</span>
+            </button>
+          </HStack>
+        </PopoverPanel>
+      </Popover>
     );
   }
 }
