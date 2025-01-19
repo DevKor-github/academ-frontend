@@ -1,13 +1,12 @@
-'use server';
 import { accessToken } from '@/auth/auth.util';
+import { fetchAuthAPI } from '@/auth/fetch.util';
 
 export async function checkUpdateComment(comment_id: number) {
   const token = accessToken();
 
-  const url = new URL('/api/course/start-update-comment', process.env.NEXT_PUBLIC_BACKEND_API_URL);
-  url.searchParams.append('comment_id', comment_id.toString());
+  const url = `/api/course/start-update-comment?commend_id=${comment_id}`;
 
-  return fetch(url, {
+  return fetch(new URL(url, process.env.NEXT_PUBLIC_BACKEND_API_URL), {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
