@@ -1,5 +1,4 @@
 import { accessToken } from '@/auth/auth.util';
-import { fetchAuthAPI } from '@/auth/fetch.util';
 
 export async function checkUpdateComment(comment_id: number) {
   const token = accessToken();

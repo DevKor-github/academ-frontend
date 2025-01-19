@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-
 import Link from 'next/link';
 import Button from '@/components/basic/button';
 // import Popover from '@/components/basic/popover';
