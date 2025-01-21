@@ -51,13 +51,17 @@ export default function TopNavInnerRightClient({ loggedIn }: Props) {
         <PopoverPanel
           // transition
           anchor="bottom"
-          className="z-[200] relative rounded-xl border bg-l mt-2 bg-white dark:bg-base-1 shadow-lg">
+          className="z-[200] relative rounded-xl border bg-l mt-2 bg-white dark:bg-base-1 shadow-lg"
+        >
           <HStack
             className="justify-center items-center rounded-xl
       *:flex *:flex-row *:min-h-6 *:gap-2 *:p-4 *:pb-2 *:w-full *:justify-center *:align-middle"
           >
             <Link
-              className={blankButton({ disabled: false, className: 'hover:light:bg-base-30 size-full hover:dark:bg-base-4' })}
+              className={blankButton({
+                disabled: false,
+                className: 'hover:light:bg-base-30 size-full hover:dark:bg-base-4',
+              })}
               href="/mypage"
             >
               <ProfileIcon />
@@ -65,7 +69,10 @@ export default function TopNavInnerRightClient({ loggedIn }: Props) {
             </Link>
             <button
               type="submit"
-              className={blankButton({ disabled: false, className: 'hover:light:bg-base-30 size-full hover:dark:bg-base-4' })}
+              className={blankButton({
+                disabled: false,
+                className: 'hover:light:bg-base-30 size-full hover:dark:bg-base-4',
+              })}
               onClick={() => logout()}
             >
               <LogoutIcon />

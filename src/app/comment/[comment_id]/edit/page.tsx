@@ -11,13 +11,13 @@ export default async function EditPage({ params }: Props) {
 
   const editable = await checkUpdateComment(comment_id);
 
-  return editable.status === 'SUCCESS' && editable.statusCode === 200 ? (
+  return editable.status === 'SUCCESS' ? (
     <EditComment courseName={editable.data.name} comment={editable.data} />
   ) : (
     <ErrorTemplate
       title={editable.statusCode.toString()}
       subtitle={`강의평을 작성할 수 없습니다.
-        ${editable.message}`}
+        ${JSON.stringify(editable)}`}
     />
   );
 }

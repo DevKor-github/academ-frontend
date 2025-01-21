@@ -9,6 +9,9 @@ const buildUrlWithParams = (baseUrl: string, req: Record<string, string | number
   return params !== '' ? `${baseUrl}?${params}` : baseUrl;
 };
 
+/**
+ * @deprecated
+ */
 export const GET =
   <Req, Res>(uri: string) =>
   async (req: Req) => {

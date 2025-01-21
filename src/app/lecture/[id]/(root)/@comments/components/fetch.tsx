@@ -61,7 +61,15 @@ function CommentsResults({ course_id, order, totalPage, setOrder, sessionUserID 
   );
 }
 
-export default function CommentsView({ course, totalPage, sessionUserID }: { course: Course | CourseOnly; totalPage: number, sessionUserID: number | undefined }) {
+export default function CommentsView({
+  course,
+  totalPage,
+  sessionUserID,
+}: {
+  course: Course | CourseOnly;
+  totalPage: number;
+  sessionUserID: number | undefined;
+}) {
   const [order, setOrder] = useState<CommentsOrdering>('NEWEST');
 
   function handleValue(e: React.FormEvent<HTMLInputElement>) {
@@ -69,6 +77,12 @@ export default function CommentsView({ course, totalPage, sessionUserID }: { cou
   }
 
   return course.count_comments === 0 && IsCourse(course) ? (
-    <CommentsResults course_id={course.course_id} order={order} totalPage={totalPage} sessionUserID={sessionUserID} setOrder={handleValue} />
+    <CommentsResults
+      course_id={course.course_id}
+      order={order}
+      totalPage={totalPage}
+      sessionUserID={sessionUserID}
+      setOrder={handleValue}
+    />
   ) : null;
 }

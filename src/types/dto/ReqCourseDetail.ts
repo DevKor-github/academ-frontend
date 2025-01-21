@@ -1,4 +1,4 @@
 interface ReqCourseDetail extends ReqCourseRelated {
-  order: unknown;
+  order: string;
   page: number;
 }

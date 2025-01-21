@@ -1,69 +1,30 @@
-'use server';
-
-import { accessToken } from '@/auth/auth.util';
-import { COOKIE_AUTH_TOKEN, COOKIE_REFRESH_TOKEN } from '@/data/constant';
-import { revalidatePath } from 'next/cache';
-import { cookies } from 'next/headers';
+import { fetchAPIAuth, GET, POST, searchParamString, withJsonBody, withStatusCode } from '@/util/fetch.util';
 
 export async function getMyPageBasics() {
-  const access = await accessToken();
-
-  return await fetch(new URL('api/mypage/info', process.env.NEXT_PUBLIC_BACKEND_API_URL), {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${access}`,
-    },
-  }).then((v) => v.json());
+  return await fetchAPIAuth('api/mypage/info').then((v) => v.json().then(withStatusCode(v.status)));
 }
 
 export async function getMyPageBookmarksCount() {
-  const token = await accessToken();
-
-  return await fetch(new URL('api/mypage/count-my-bookmarks', process.env.NEXT_PUBLIC_BACKEND_API_URL), {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((v) => v.json());
+  return await fetchAPIAuth('api/mypage/count-my-bookmarks', {}).then((v) => v.json().then(withStatusCode(v.status)));
 }
 
 export async function getMyPageCommentsCount() {
-  const token = await accessToken();
-
-  return await fetch(new URL('api/mypage/count-my-comments', process.env.NEXT_PUBLIC_BACKEND_API_URL), {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((v) => v.json());
+  return await fetchAPIAuth('api/mypage/count-my-comments').then((v) => v.json().then(withStatusCode(v.status)));
 }
 
 export async function MyPageBookmarks(page: number) {
-  const token = await accessToken();
-
-  const url = new URL('api/mypage/my-bookmarks', process.env.NEXT_PUBLIC_BACKEND_API_URL);
-  new URLSearchParams({ page: page.toString() }).forEach((v, k) => url.searchParams.append(k, v));
-  const json = await fetch(url, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((v) => v.json());
+  const json = await fetchAPIAuth(`api/mypage/my-bookmarks${searchParamString({ page }, '?')}`, await GET()).then((v) =>
+    v.json().then(withStatusCode(v.status)),
+  );
 
   json.cursor = page;
-
   return json;
 }
 
 export async function MyPageComments(page: number) {
-  const token = await accessToken();
-
-  const url = new URL('api/mypage/my-comments', process.env.NEXT_PUBLIC_BACKEND_API_URL);
-  new URLSearchParams({ page: page.toString() }).forEach((v, k) => url.searchParams.append(k, v));
-  const json = await fetch(url, {
-    method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((v) => v.json());
+  const json = await fetchAPIAuth(`api/mypage/my-comments${searchParamString({ page }, '?')}`).then((v) =>
+    v.json().then(withStatusCode(v.status)),
+  );
 
   json.cursor = page;
 
@@ -71,68 +32,30 @@ export async function MyPageComments(page: number) {
 }
 
 export async function MyPageBuyMembership(item: string) {
-  const token = await accessToken();
+  const ret = await fetchAPIAuth(`api/mypage/buy-access-authority`, await POST().then(withJsonBody({ item })));
 
-  const ret = await fetch(new URL('api/mypage/buy-access-authority', process.env.NEXT_PUBLIC_BACKEND_API_URL), {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ item: item }),
-  });
-
-  return ret.json();
+  return ret.json().then(withStatusCode(ret.status));
 }
 
 export async function MyPageUpdateBasic(req: UpdateProfileReq) {
-  const token = await accessToken();
-
-  const ret = await fetch(new URL('api/mypage/update-basic', process.env.NEXT_PUBLIC_BACKEND_API_URL), {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(req),
-  });
-
-  return ret.json();
+  const ret = await fetchAPIAuth('api/mypage/update-basic', await POST().then(withJsonBody(req)));
+  return ret.json().then(withStatusCode(ret.status));
 }
 
 export async function MyPageUpdatePW(req: UpdatePWReq) {
-  const token = await accessToken();
-
-  const ret = await fetch(new URL('api/mypage/update-password', process.env.NEXT_PUBLIC_BACKEND_API_URL), {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(req),
-  });
-
-  return ret.json();
+  const ret = await fetchAPIAuth('api/mypage/update-password', await POST().then(withJsonBody(req)));
+  return ret.json().then(withStatusCode(ret.status));
 }
 
 export async function MyPageDeleteAccount(req: { password: string }) {
-  const token = await accessToken();
+  const ret = await fetchAPIAuth('api/mypage/delete-profile', await POST().then(withJsonBody(req)));
 
-  const ret = await fetch(new URL('api/mypage/delete-profile', process.env.NEXT_PUBLIC_BACKEND_API_URL), {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(req),
-  });
-
-  const json = await ret.json();
+  const json = await ret.json().then(withStatusCode(ret.status));
 
   if (json.status === 'SUCCESS') {
-    (await cookies()).delete(COOKIE_AUTH_TOKEN);
-    (await cookies()).delete(COOKIE_REFRESH_TOKEN);
-    revalidatePath('/', 'layout');
+    // (await cookies()).delete(COOKIE_AUTH_TOKEN);
+    // (await cookies()).delete(COOKIE_REFRESH_TOKEN);
+    // revalidatePath('/', 'layout');
   }
 
   return json;

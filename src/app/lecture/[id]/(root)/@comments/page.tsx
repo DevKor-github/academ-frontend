@@ -1,7 +1,7 @@
 import { courseDetail } from '@/app/api/lecture.api';
 import { ELEM_PER_PAGE } from '@/data/constant';
 import CommentsView from './components/fetch';
-import { accessTokenDecoded } from '@/auth/auth.util';
+import { getAccessTokenDecoded } from '@/auth/auth.util';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -14,7 +14,7 @@ export default async function CommentsViewById({ params }: Props) {
   const course = await courseDetail(Number(course_id));
 
   // TODO refresh logic
-  const sessionUserID =  (await accessTokenDecoded())?.profile_id;
+  const sessionUserID = (await getAccessTokenDecoded())?.profile_id;
 
   const totalPage = Math.ceil(course.data.count_comments / ELEM_PER_PAGE);
 

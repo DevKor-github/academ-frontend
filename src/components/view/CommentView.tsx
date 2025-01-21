@@ -294,8 +294,13 @@ export function CommentViewLoading() {
   );
 }
 
-export default function CommentView({ comment, sessionUserID }: { comment: AcdComment, sessionUserID: number | undefined }) {
-
+export default function CommentView({
+  comment,
+  sessionUserID,
+}: {
+  comment: AcdComment;
+  sessionUserID: number | undefined;
+}) {
   const editable = comment.profile_id === sessionUserID;
 
   const [del, setDel] = useState<boolean>(false);

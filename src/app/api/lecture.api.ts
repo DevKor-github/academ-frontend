@@ -1,55 +1,36 @@
-'use server';
-
-import { accessToken } from '@/auth/auth.util';
 import { IsCourse } from '@/lib/type/IsCourse';
+import { fetchAPIAuth, GET, searchParamString, withStatusCode } from '@/util/fetch.util';
 
-function withSearchParams(url: URL | string, params: object): URL | string {
-  if (url instanceof URL) {
-    Object.entries(params).forEach(([name, value]) => url.searchParams.append(name, value));
-    return url;
-  }
-
-  const sp = new URLSearchParams();
-  Object.entries(params).forEach(([name, value]) => sp.append(name, value));
-  return sp.toString() !== '' ? `${url}?${sp.toString()}` : url;
-}
-
-export async function search(input: ReqSearchCourse) {
-  const json = await fetch(withSearchParams('/api/course/search', input), {
+export async function searchCourse(input: ReqSearchCourse) {
+  const json = await fetchAPIAuth(`/api/course/search${searchParamString({ ...input }, '?')}`, {
     method: 'GET',
-  }).then((v) => v.json() as Promise<ApiResponse<Course[] | CourseOnly[]> & { cursor: number }>);
+  }).then(
+    (v) =>
+      v.json().then(withStatusCode(v.status)) as Promise<ApiResponse<Course[] | CourseOnly[]> & { cursor: number }>,
+  );
 
   json.cursor = input.page;
+  return json;
+}
 
+export async function searchCourseCount(input: ReqSearch) {
+  const json = await fetchAPIAuth(`/api/course/search/count-result${searchParamString({ ...input }, '?')}`, {
+    method: 'GET',
+  }).then((v) => v.json().then(withStatusCode(v.status)) as Promise<ApiResponse<number>>);
   return json;
 }
 
 export async function courseDetail(course_id: number) {
-  const token = await accessToken();
-
   const input = { course_id, order: 'NEWEST', page: 1 } satisfies ReqCourseDetail;
-
-  const url = new URL('/api/course/detail', process.env.NEXT_PUBLIC_BACKEND_API_URL);
-  Object.entries(input).forEach(([k, v]) => url.searchParams.append(k, String(v)));
-
-  return fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((v) => v.json() as Promise<ApiResponse<CourseOnly | Course>>);
+  return fetchAPIAuth(`/api/course/detail${searchParamString(input, '?')}`, await GET()).then(
+    (v) => v.json().then(withStatusCode(v.status)) as Promise<ApiResponse<CourseOnly | Course>>,
+  );
 }
 
 export async function courseDetailWithComments(input: ReqCourseDetail) {
-  const token = await accessToken();
-
-  const url = new URL('/api/course/detail', process.env.NEXT_PUBLIC_BACKEND_API_URL);
-  Object.entries(input).forEach(([k, v]) => url.searchParams.append(k, String(v)));
-
-  const json = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((v) => v.json() as Promise<ApiResponse<CourseOnly | Course>>);
+  const json = await fetchAPIAuth(`/api/course/detail${searchParamString({ ...input }, '?')}`, {}).then(
+    (v) => v.json().then(withStatusCode(v.status)) as Promise<ApiResponse<CourseOnly | Course>>,
+  );
 
   if (json.status !== 'SUCCESS') {
     return Promise.reject({
@@ -78,15 +59,7 @@ export async function courseDetailWithComments(input: ReqCourseDetail) {
 }
 
 export async function toggleBookmark(input: ReqCourseRelated) {
-  const token = await accessToken();
-
-  const url = new URL('/api/course/bookmark', process.env.NEXT_PUBLIC_BACKEND_API_URL);
-  Object.entries(input).forEach(([k, v]) => url.searchParams.append(k, String(v)));
-
-  return fetch(url, {
+  return fetchAPIAuth(`/api/course/bookmark${searchParamString({ ...input }, '?')}`, {
     method: 'GET',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }).then((v) => v.json() as Promise<ApiResponse<string>>);
+  }).then((v) => v.json().then(withStatusCode(v.status)) as Promise<ApiResponse<string>>);
 }
