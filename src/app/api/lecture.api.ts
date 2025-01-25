@@ -1,7 +1,7 @@
 import { IsCourse } from '@/types/course.types';
 import type { AcdComment } from '@/types/comment.types';
 import type { Course, CourseOnly } from '@/types/course.types';
-import { fetchAPIAuth, GET, searchParamString, withStatusCode } from '@/util/fetch.util';
+import { fetchAPI, fetchAPIAuth, GET, searchParamString, withStatusCode } from '@/util/fetch.util';
 
 export async function searchCourse(input: ReqSearchCourse) {
   const json = await fetchAPIAuth(`/api/course/search${searchParamString({ ...input }, '?')}`, {
@@ -20,6 +20,14 @@ export async function searchCourseCount(input: ReqSearch) {
     method: 'GET',
   }).then((v) => v.json().then(withStatusCode(v.status)) as Promise<ApiResponse<number>>);
   return json;
+}
+
+export async function courseDetailWithNoAuth(course_id: number) {
+  const input = { course_id, order: 'NEWEST', page: 1 } satisfies ReqCourseDetail;
+  return fetchAPI(
+    `/api/course/detail${searchParamString(input, '?')}`,
+    await GET().then((i) => ({ ...i, next: { revalidate: 300, tags: ['course'] } })),
+  ).then((v) => v.json().then(withStatusCode(v.status)) as Promise<ApiResponse<CourseOnly | Course>>);
 }
 
 export async function courseDetail(course_id: number) {

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { IsCourse } from '@/types/course.types';
-import { courseDetail } from '@/app/api/lecture.api';
+import { courseDetailWithNoAuth } from '@/app/api/lecture.api';
 import { IssueIcon } from '@/components/icon';
 import CommentsSummaryView from '@/components/view/CommentsSummaryView';
 import { LoginRequiredView, NoMembershipView } from '@/components/composite/PermissionView';
@@ -13,7 +13,7 @@ export default async function SummaryPage({ params }: Props) {
   const { id: course_id } = await params;
 
   // XXX : this is just for showing basic information, order is **NOT** important - maybe api refactor?
-  const course = await courseDetail(Number(course_id));
+  const course = await courseDetailWithNoAuth(Number(course_id));
 
   return course.data.count_comments === 0 ? (
     <div className="flex h-full justify-center">

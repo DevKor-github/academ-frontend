@@ -7,6 +7,7 @@ import type {
 } from '@/types/comment.types';
 import type { Course } from '@/types/course.types';
 import { fetchAPIAuth, searchParamString, withStatusCode } from '@/util/fetch.util';
+import { revalidateTag } from 'next/cache';
 
 export async function checkUpdateComment(comment_id: number) {
   return fetchAPIAuth(`/api/course/start-update-comment${searchParamString({ comment_id }, '?')}`, {
@@ -67,5 +68,10 @@ export async function insertComment(input: AcdCommentNewReq) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(input),
-  }).then((v) => v.json().then(withStatusCode(v.status)) as Promise<ApiResponse<number>>);
+  })
+    .then((v) => v.json().then(withStatusCode(v.status)) as Promise<ApiResponse<number>>)
+    .then((v) => {
+      revalidateTag('course');
+      return v;
+    });
 }

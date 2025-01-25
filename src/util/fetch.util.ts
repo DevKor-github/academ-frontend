@@ -13,18 +13,18 @@ export async function fetchAPIAuth(input: string, init: RequestInit = {}) {
   const firstTry = await fetchAPI(input, initWithAccess);
 
   if (firstTry.status !== 401) {
-    console.log('first try success.');
+    console.log('first try success.', input);
     return firstTry;
   }
 
   const refresh = await getRefreshToken();
   if (refresh === undefined) {
-    console.log('no refresh token');
+    console.log('no refresh token', input);
     return firstTry;
   }
   const newAccess = await fetchAPI('/api/refresh-token', withToken(refresh)(init));
   if (newAccess.status !== 200) {
-    console.log('token refresh fail');
+    console.log('token refresh fail', input);
     return firstTry;
   }
 

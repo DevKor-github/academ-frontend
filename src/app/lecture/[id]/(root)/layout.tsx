@@ -1,8 +1,7 @@
 import type { ReactNode } from 'react';
 import type { Metadata, ResolvingMetadata } from 'next';
-import { GET } from '@/app/api/get';
 import { LectureIconPath } from '@/components/composite/lectureIcon';
-import type { Course, CourseOnly } from '@/types/course.types';
+import { courseDetailWithNoAuth } from '@/app/api/lecture.api';
 
 interface Props {
   basic: ReactNode;
@@ -27,11 +26,7 @@ export async function generateMetadata(
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const params = await props.params;
-  const course = await GET<ReqCourseDetail, CourseOnly | Course>('/api/course/detail')({
-    course_id: Number(params.id),
-    order: 'NEWEST',
-    page: 1,
-  });
+  const course = await courseDetailWithNoAuth(Number(params.id));
 
   if (course.status !== 'SUCCESS') {
     if (course.statusCode === 404) {

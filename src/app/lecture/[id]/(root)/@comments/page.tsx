@@ -1,4 +1,4 @@
-import { courseDetail } from '@/app/api/lecture.api';
+import { courseDetail, courseDetailWithNoAuth } from '@/app/api/lecture.api';
 import { ELEM_PER_PAGE } from '@/data/constant';
 import CommentsView from './components/fetch';
 import { getAccessTokenDecoded } from '@/util/auth.util';
@@ -11,7 +11,7 @@ export default async function CommentsViewById({ params }: Props) {
   const { id: course_id } = await params;
 
   // XXX : this is just for showing basic information, order is **NOT** important - maybe api refactor?
-  const course = await courseDetail(Number(course_id));
+  const course = await courseDetailWithNoAuth(Number(course_id));
 
   // TODO refresh logic
   const sessionUserID = (await getAccessTokenDecoded())?.profile_id;

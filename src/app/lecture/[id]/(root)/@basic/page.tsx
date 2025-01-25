@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
-import { GET } from '@/app/api/get';
 import CourseBasicsView from '@/components/view/CourseBasicsView';
-import type { Course, CourseOnly } from '@/types/course.types';
+import { courseDetailWithNoAuth } from '@/app/api/lecture.api';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -12,11 +11,7 @@ export default async function CourseBasicsViewById({ params }: Props) {
 
   // TODO refactor
   // XXX : this is just for showing basic information, order is **NOT** important - maybe api refactor?
-  const course = await GET<ReqCourseDetail, CourseOnly | Course>('/api/course/detail')({
-    course_id: Number(course_id),
-    order: 'NEWEST',
-    page: 1,
-  });
+  const course = await courseDetailWithNoAuth(Number(course_id));
 
   if (course.status !== 'SUCCESS') {
     notFound();
