@@ -62,7 +62,8 @@ export default function DeleteAccountForm() {
       <div className="flex flex-col *:w-full gap-8">
         <form.Field
           name='password'
-          children={(field) => (
+        >
+          {(field) => (
             <Input
               id="password"
               type="password"
@@ -71,7 +72,7 @@ export default function DeleteAccountForm() {
               onChange={e => field.handleChange(e.target.value)}
             />
           )}
-        />
+        </form.Field>
         <form.Field
           name='checked'
           validators={{
@@ -81,7 +82,8 @@ export default function DeleteAccountForm() {
               }
             }
           }}
-          children={(field) => (<>
+        >
+          {(field) => (<>
             <label htmlFor="checked">
               <input
                 id="checked"
@@ -95,7 +97,7 @@ export default function DeleteAccountForm() {
             {field.state.meta.errors && <ErrorLabel label={field.state.meta.errors.join(',')} />}
             </>
           )}
-        />
+        </form.Field>
         <Button
           type="submit"
         >

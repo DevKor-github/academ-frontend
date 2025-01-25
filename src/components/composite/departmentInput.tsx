@@ -11,7 +11,7 @@ interface Props {
   setValue: (next: string) => void;
 }
 
-export default function DepartmentInput<T extends { department: string }>({
+export default function DepartmentInput({
   value,
   setValue,
 }: Props) {

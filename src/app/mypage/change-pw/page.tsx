@@ -68,37 +68,38 @@ export default function ChangePWForm() {
 
         <form.Field
         name='old_password'
-          children={
-            (field) => (
-              <div className="relative w-full">
+      >
+        {
+          (field) => (
+            <div className="relative w-full">
               <Input
-              required
-              id="old_password"
-              type={showPw[0] ? 'text' : 'password'}
-              autoComplete="current-password"
-              placeholder="기존 비밀번호"
-              className="bg-base-32 dark:bg-base-2 p-4 rounded-2xl w-full"
-              name={field.name}
-              value={field.state.value}
-              onBlur={field.handleBlur}
-              onChange={(e) => field.handleChange(e.target.value)}
-              maxLength={24}
-            />
-            <div className="absolute top-4 right-4">
-              {showPw[0] ? (
-                <div onClick={() => onToggleShow(0)}>
-                  <EyeIcon />
-                </div>
-              ) : (
-                <div onClick={() => onToggleShow(0)}>
-                  <EyeOffIcon />
-                </div>
-              )}
+                required
+                id="old_password"
+                type={showPw[0] ? 'text' : 'password'}
+                autoComplete="current-password"
+                placeholder="기존 비밀번호"
+                className="bg-base-32 dark:bg-base-2 p-4 rounded-2xl w-full"
+                name={field.name}
+                value={field.state.value}
+                onBlur={field.handleBlur}
+                onChange={(e) => field.handleChange(e.target.value)}
+                maxLength={24}
+              />
+              <div className="absolute top-4 right-4">
+                {showPw[0] ? (
+                  <div onClick={() => onToggleShow(0)}>
+                    <EyeIcon />
+                  </div>
+                ) : (
+                  <div onClick={() => onToggleShow(0)}>
+                    <EyeOffIcon />
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-            )
-          }
-          />
+          )
+        }
+      </form.Field>
 
 
       {/* <ErrorLabel
@@ -115,7 +116,8 @@ export default function ChangePWForm() {
             }
           }
         }}
-        children={(field) => (<><div className="relative w-full">
+      >
+        {(field) => (<><div className="relative w-full">
           <Input
             required
             id="new_password"
@@ -142,7 +144,7 @@ export default function ChangePWForm() {
               {field.state.meta.errors ? (
                 <ErrorLabel label={field.state.meta.errors.join(', ')}/>
               ) : null}</>)}
-        />
+      </form.Field>
       
 
       <span className="text-xl mx-2 mt-4">새 비밀번호 확인</span>
@@ -156,35 +158,36 @@ export default function ChangePWForm() {
             }
           }
         }}
-      children={(field) => (<><div className="relative w-full">
-        <Input
-          required
-          type={showPw[2] ? 'text' : 'password'}
-          id="new_password_check"
-          autoComplete="new-password"
-          placeholder="새 비밀번호 확인"
-          value={field.state.value}
-          className="bg-base-32 dark:bg-base-2 p-4 rounded-2xl w-full"
-          onChange={(e) => field.handleChange(e.target.value)}
-          maxLength={24}
-        />
-        <div className="absolute top-4 right-4">
-          {showPw[2] ? (
-            <div onClick={() => onToggleShow(2)}>
-              <EyeIcon />
-            </div>
-          ) : (
-            <div onClick={() => onToggleShow(2)}>
-              <EyeOffIcon />
-            </div>
-          )}
+      >
+        {(field) => (<><div className="relative w-full">
+          <Input
+            required
+            type={showPw[2] ? 'text' : 'password'}
+            id="new_password_check"
+            autoComplete="new-password"
+            placeholder="새 비밀번호 확인"
+            value={field.state.value}
+            className="bg-base-32 dark:bg-base-2 p-4 rounded-2xl w-full"
+            onChange={(e) => field.handleChange(e.target.value)}
+            maxLength={24}
+          />
+          <div className="absolute top-4 right-4">
+            {showPw[2] ? (
+              <div onClick={() => onToggleShow(2)}>
+                <EyeIcon />
+              </div>
+            ) : (
+              <div onClick={() => onToggleShow(2)}>
+                <EyeOffIcon />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-      {field.state.meta.errors ? (
-        <ErrorLabel label={field.state.meta.errors.join(', ')} />
-      ) : null}
-      </>)}
-      />
+        {field.state.meta.errors ? (
+          <ErrorLabel label={field.state.meta.errors.join(', ')} />
+        ) : null}
+        </>)}
+      </form.Field>
 
       <Button
         className="w-full mt-4"

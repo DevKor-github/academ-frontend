@@ -53,8 +53,8 @@ export default function UpdateBasicForm({ profile }: Props) {
       </div>
 
       <span className="text-xl mx-2 mt-4">닉네임</span>
-      <form.Field name="username"
-        children={(field) => (
+      <form.Field name="username">
+        {(field) => (
           <Input
             id="username"
             placeholder="닉네임"
@@ -63,11 +63,11 @@ export default function UpdateBasicForm({ profile }: Props) {
             className="w-full"
           />
         )}
-      />
+      </form.Field>
       
       <span className="text-xl mx-2 mt-4">학번</span>
-      <form.Field name="student_id"
-        children={(field) => (
+      <form.Field name="student_id">
+      {(field) => (
           <Input
             id="student_id"
             placeholder="학번"
@@ -76,11 +76,13 @@ export default function UpdateBasicForm({ profile }: Props) {
             className="w-full"
           />
         )}
-      />
+
+      </form.Field>
       <span className="text-xl mx-2 mt-4">학기</span>
 
       <form.Field name="semester"
-        children={(field) => (
+      >
+        {(field) => (
           <Input
             id="semester"
             placeholder="학기"
@@ -89,19 +91,19 @@ export default function UpdateBasicForm({ profile }: Props) {
             className="w-full"
           />
         )}
-      />
+      </form.Field>
 
       <span className="text-xl mx-2 mt-4">학과</span>
-      <form.Field name="department"
-        children={(field) => (
+      <form.Field name="department">
+      {(field) => (
           <DepartmentInput value={field.state.value} setValue={field.handleChange}  />
         )}
-      />
+      </form.Field>
      
       <span className="text-xl mx-2 mt-4">학위 과정</span>
 
-      <form.Field name="degree"
-        children={(field) => (
+      <form.Field name="degree">
+      {(field) => (
           <Select
             name="degree"
             value={field.state.value}
@@ -114,7 +116,7 @@ export default function UpdateBasicForm({ profile }: Props) {
             ]}
           />
         )}
-      />
+      </form.Field>
 
       <Button className="w-full mt-4" kind="filled" type="submit">
         {form.state.isSubmitting ? (
