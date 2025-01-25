@@ -1,4 +1,5 @@
-import WarningIcon from '@/components/icon/warning';
+import { CircleAlertIcon } from 'lucide-react';
+import { twMerge } from 'tailwind-merge';
 
 export default function ErrorLabel({
   className = '',
@@ -10,14 +11,21 @@ export default function ErrorLabel({
   shake?: boolean;
 }) {
   return (
-    <div
-      className={`
-      ${className}
-      ${label === '' ? ' hidden ' : ''} 
-      ${shake ? ' animate-shake ' : ''}
-      inline-block flex-row items-start gap-1 text-red-600`}
+    label ?
+    <em
+      role="alert"
+      className={
+        twMerge(
+          'not-italic',
+          label === '' ? ' hidden ' : '',
+          shake ? ' animate-shake ' : '',
+          `inline-block flex-row items-start gap-1 text-red-600`,
+          className
+        )
+      }
     >
-      <WarningIcon /> {label}
-    </div>
+      <CircleAlertIcon /> {label}
+      </em>
+      : null
   );
 }
