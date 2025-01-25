@@ -23,6 +23,12 @@ function AcdApiErrorPage({ error, reset }: ErrorProps<Error>) {
   );
 }
 
+interface ErrorProps<E extends Error = Error> {
+  error: E & { digest?: string };
+  reset: () => void;
+}
+
+
 export default function ErrorPage({ error, reset }: ErrorProps) {
   return error instanceof Error ? <AcdApiErrorPage error={error} reset={reset} /> : <Box />;
 }
