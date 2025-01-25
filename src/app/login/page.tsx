@@ -8,51 +8,35 @@ import Radio from '@/components/basic/radio';
 import A from '@/components/basic/a';
 import Button from '@/components/basic/button';
 import Spinner from '@/components/basic/spinner';
-import { useCallback, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { EyeCloseIcon, EyeIcon } from '@/components/icon';
-import Form from 'next/form';
 import { handleLoginServer } from './action';
-import { useActionState } from 'react';
-import { newHandleInputBuilder } from '@/lib/form/handler';
+import { useQueryClient } from '@tanstack/react-query';
+import { useForm } from '@tanstack/react-form';
+
 export interface LoginFormState {
   error: string;
 }
 
-const formState: LoginFormState = {
-  error: '',
-};
-
-import { useAnimationTimeout } from '@/lib/hooks/timeout';
-import { useQueryClient } from '@tanstack/react-query';
-
 export default function LoginForm() {
-  const [showPw, setShowPw] = useState<boolean>(false);
-
-  const [input, setInput] = useState<LoginRequest>({
-    email: '',
-    password: '',
-    'remember-me': false,
-  });
 
   const qc = useQueryClient();
 
-  const handleLoginClient = useCallback(
-    async function (currentState: LoginFormState, fd: FormData) {
-      return handleLoginServer(currentState, fd).finally(() => {
+
+  const form = useForm<LoginRequest>({
+    defaultValues: {
+      email: '',
+      password: '',
+      'remember-me': false,
+    },
+    onSubmit: async (values) => {
+      handleLoginServer(values.value).finally(() => {
         qc.invalidateQueries({ queryKey: ['loggedIn'] });
       });
     },
-    [qc],
-  );
+  });
 
-  const [state, formAction, isPending] = useActionState(handleLoginClient, formState);
-  const [shake, resetShake] = useAnimationTimeout(600);
-
-  useEffect(() => {
-    if (state.error) {
-      resetShake();
-    }
-  }, [state, resetShake]);
+  const [showPw, setShowPw] = useState<boolean>(false);
 
   return (
     <span
@@ -70,66 +54,100 @@ export default function LoginForm() {
         <span className="text-4xl" style={{ textAlign: 'center' }}>
           로그인
         </span>
-        <Form action={formAction} disabled={isPending}>
+        <form onSubmit={e => {
+          e.preventDefault();
+          e.stopPropagation();
+          form.handleSubmit();
+        }}>
           <HStack className="gap-y-12">
             <HStack className="gap-y-4">
-              <Input
-                id="email"
+              <form.Field
                 name="email"
-                placeholder="이메일을 입력해주세요"
-                onChange={newHandleInputBuilder(setInput, 'STRING')}
-                value={input.email}
-                style={{ padding: '16px' }}
-              />
-              <div className="relative w-full">
-                <Input
-                  id="password"
-                  name="password"
-                  type={showPw ? 'text' : 'password'}
-                  placeholder="비밀번호를 입력해주세요"
-                  onChange={newHandleInputBuilder(setInput, 'STRING')}
-                  value={input.password}
-                  style={{ padding: '16px', width: '100%' }}
-                />
-                <div className="absolute top-4 right-4">
-                  {showPw ? (
-                    <div onClick={() => setShowPw(false)}>
-                      <EyeIcon />
+                validators={{
+                  onSubmit: (value) => {
+                    if (!value) {
+                      return '이메일을 입력해주세요';
+                    }
+                  }
+                }}
+              >
+                {(field) => (
+                  <Input
+                    id="email"
+                    name="email"
+                    placeholder="이메일을 입력해주세요"
+                    onChange={e => field.handleChange(e.target.value)}
+                    value={field.state.value}
+                    style={{ padding: '16px' }}
+                  />
+                )}
+              </form.Field>
+              
+              <form.Field
+                name="password"
+                validators={{
+                  onSubmit: (value) => {
+                    if (!value) {
+                      return '비밀번호를 입력해주세요';
+                    }
+                  }
+                }}
+              >
+                {(field) => (
+                  <div className="relative w-full">
+                    <Input
+                      id="password"
+                      name="password"
+                      type={showPw ? 'text' : 'password'}
+                      placeholder="비밀번호를 입력해주세요"
+                      onChange={e => field.handleChange(e.target.value)}
+                      value={field.state.value}
+                      style={{ padding: '16px', width: '100%' }}
+                    />
+                    <div className="absolute top-4 right-4">
+                      {showPw ? (
+                        <div onClick={() => setShowPw(false)}>
+                          <EyeIcon />
+                        </div>
+                      ) : (
+                        <div onClick={() => setShowPw(true)}>
+                          <EyeCloseIcon />
+                        </div>
+                      )}
                     </div>
-                  ) : (
-                    <div onClick={() => setShowPw(true)}>
-                      <EyeCloseIcon />
-                    </div>
-                  )}
-                </div>
-              </div>
-              <ErrorLabel className="text-primary-500" label={state.error} shake={shake} />
+                  </div>
+                )}
+              </form.Field>
+              {/* <ErrorLabel className="text-primary-500" label={state.error} shake={shake} /> */}
 
-              <VStack className="pt-4 pb-4 items-center justify-between">
-                <Radio
-                  id="remember-me"
-                  name="remember-me"
-                  readOnly={false}
-                  // readOnly={handleInput === undefined}
-                  value={input['remember-me']}
-                  onChange={newHandleInputBuilder(setInput, 'BOOLEAN')}
-                  label="로그인 정보 저장"
-                />
-                <A href="/login/reset-pw">비밀번호 초기화</A>
-              </VStack>
+              <form.Field name="remember-me">
+                {(field) => (
+                  <VStack className="pt-4 pb-4 items-center justify-between">
+                    <Radio
+                      id="remember-me"
+                      name="remember-me"
+                      readOnly={false}
+                      // readOnly={handleInput === undefined}
+                      value={field.state.value}
+                      onChange={e => field.handleChange(e.currentTarget.checked)}
+                      label="로그인 정보 저장"
+                    />
+                    <A href="/login/reset-pw">비밀번호 초기화</A>
+                  </VStack>
+                )}
+              </form.Field>
             </HStack>
 
             <HStack className="gap-y-5">
               <Button
                 type="submit"
                 kind="filled"
-                disabled={(input.email === '' && input.password === '') || isPending}
                 accnet="0"
                 variant="contained"
                 color="primary"
                 style={{ padding: '16px', width: '100%' }}
               >
-                {isPending ? (
+                {form.state.isSubmitting ? (
                   <span>
                     <Spinner /> 처리 중...
                   </span>
@@ -142,7 +160,7 @@ export default function LoginForm() {
               </span>
             </HStack>
           </HStack>
-        </Form>
+        </form>
       </HStack>
     </span>
   );

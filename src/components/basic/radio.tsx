@@ -3,7 +3,7 @@ interface RadioProps {
   name?: string;
   value: boolean;
   label: string;
-  onChange?: React.ChangeEventHandler;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
   readOnly: boolean;
 }
 

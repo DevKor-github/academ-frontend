@@ -8,15 +8,9 @@ import { IS_DEBUG } from '@/data/constant';
 import { COOKIE_AUTH_TOKEN, COOKIE_REFRESH_TOKEN } from '@/data/constant';
 import { LoginFormState } from './page';
 
-export async function handleLoginServer(currentState: LoginFormState, fd: FormData) {
+export async function handleLoginServer(input: LoginRequest) {
   try {
-    console.log('handleLoginServer', currentState, fd);
-
-    const body = new URLSearchParams({
-      email: fd.get('email') as string,
-      password: fd.get('password') as string,
-      'remember-me': String(fd.get('remember-me') === 'on') as string,
-    });
+    const body = new URLSearchParams({ ...input, 'remember-me': String(input['remember-me']) }).toString();
 
     console.log('body', body);
 
