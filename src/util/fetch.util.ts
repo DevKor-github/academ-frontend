@@ -1,4 +1,4 @@
-import { getAccessToken, getRefreshToken } from '@/auth/auth.util';
+import { getAccessToken, getRefreshToken } from '@/util/auth.util';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
 

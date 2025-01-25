@@ -1,7 +1,7 @@
 import { courseDetail } from '@/app/api/lecture.api';
 import { ELEM_PER_PAGE } from '@/data/constant';
 import CommentsView from './components/fetch';
-import { getAccessTokenDecoded } from '@/auth/auth.util';
+import { getAccessTokenDecoded } from '@/util/auth.util';
 
 interface Props {
   params: Promise<{ id: string }>;

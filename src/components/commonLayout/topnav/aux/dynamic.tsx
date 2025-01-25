@@ -11,7 +11,7 @@ import { logout } from '@/app/actions/logout.action';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { blankButton } from '@/style/button';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { isTokenExists } from '@/auth/auth.util';
+import { isTokenExists } from '@/util/auth.util';
 import Skeleton from '@/components/composite/skeleton';
 
 function LoginButton() {
