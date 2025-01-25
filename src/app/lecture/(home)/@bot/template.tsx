@@ -6,6 +6,7 @@ import Select from '@/components/basic/select';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import useSearchKeyword from '../util';
+import { searchParamString } from '@/util/fetch.util';
 
 interface Props {
   children: ReactNode;
@@ -29,7 +30,7 @@ export default function SearchPage({ children }: Props) {
 
   function handleValue(e: React.FormEvent<HTMLInputElement>) {
     const newOrder = (e.target as HTMLInputElement).value as SearchOrdering;
-    route.replace(`/lecture?q=${keyword}&s=${newOrder}`);
+    route.replace(`/lecture${searchParamString({q: keyword, s: newOrder}, '?')}`);
   }
 
   return (
