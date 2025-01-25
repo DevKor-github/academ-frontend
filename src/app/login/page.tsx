@@ -19,9 +19,7 @@ export interface LoginFormState {
 }
 
 export default function LoginForm() {
-
   const qc = useQueryClient();
-
 
   const form = useForm<LoginRequest>({
     defaultValues: {
@@ -54,11 +52,13 @@ export default function LoginForm() {
         <span className="text-4xl" style={{ textAlign: 'center' }}>
           로그인
         </span>
-        <form onSubmit={e => {
-          e.preventDefault();
-          e.stopPropagation();
-          form.handleSubmit();
-        }}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            form.handleSubmit();
+          }}
+        >
           <HStack className="gap-y-12">
             <HStack className="gap-y-4">
               <form.Field
@@ -68,7 +68,7 @@ export default function LoginForm() {
                     if (!value) {
                       return '이메일을 입력해주세요';
                     }
-                  }
+                  },
                 }}
               >
                 {(field) => (
@@ -76,13 +76,13 @@ export default function LoginForm() {
                     id="email"
                     name="email"
                     placeholder="이메일을 입력해주세요"
-                    onChange={e => field.handleChange(e.target.value)}
+                    onChange={(e) => field.handleChange(e.target.value)}
                     value={field.state.value}
                     style={{ padding: '16px' }}
                   />
                 )}
               </form.Field>
-              
+
               <form.Field
                 name="password"
                 validators={{
@@ -90,7 +90,7 @@ export default function LoginForm() {
                     if (!value) {
                       return '비밀번호를 입력해주세요';
                     }
-                  }
+                  },
                 }}
               >
                 {(field) => (
@@ -100,7 +100,7 @@ export default function LoginForm() {
                       name="password"
                       type={showPw ? 'text' : 'password'}
                       placeholder="비밀번호를 입력해주세요"
-                      onChange={e => field.handleChange(e.target.value)}
+                      onChange={(e) => field.handleChange(e.target.value)}
                       value={field.state.value}
                       style={{ padding: '16px', width: '100%' }}
                     />
@@ -129,7 +129,7 @@ export default function LoginForm() {
                       readOnly={false}
                       // readOnly={handleInput === undefined}
                       value={field.state.value}
-                      onChange={e => field.handleChange(e.currentTarget.checked)}
+                      onChange={(e) => field.handleChange(e.currentTarget.checked)}
                       label="로그인 정보 저장"
                     />
                     <A href="/login/reset-pw">비밀번호 초기화</A>
