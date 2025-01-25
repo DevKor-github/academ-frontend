@@ -1,5 +1,5 @@
 import { HStack } from '@/components/basic/stack';
-import FindPWForm from './client';
+import FindPWForm from './form/form';
 
 export default function LoginPage() {
   return (
