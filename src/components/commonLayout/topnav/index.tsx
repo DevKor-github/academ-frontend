@@ -6,11 +6,7 @@ import { TopNavInnerLeft, TopNavInnerMid } from './aux/static';
 import { twMerge } from 'tailwind-merge';
 import TopNavRightClient from './aux/dynamic';
 
-interface Props {
-  loggedIn: boolean;
-}
-
-export default function TopNav({ loggedIn }: Props) {
+export default function TopNav() {
   const path = usePathname() || '';
   const overlap = path === '/';
 
@@ -39,7 +35,7 @@ export default function TopNav({ loggedIn }: Props) {
             className="items-center justify-end flex text-black dark:text-white"
             style={{ height: '64px', width: '108px' }}
           >
-            <TopNavRightClient loggedIn={loggedIn} />
+            <TopNavRightClient />
           </div>
         </div>
       </div>

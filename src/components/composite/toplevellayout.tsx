@@ -3,7 +3,6 @@ import TopNav from '../commonLayout/topnav';
 import { IS_DEBUG } from '@/data/constant';
 import Link from 'next/link';
 import { LogoIconRich } from '@/components/icon';
-import { getAccessToken } from '@/auth/auth.util';
 
 function Footer() {
   return (
@@ -21,10 +20,10 @@ function Footer() {
   );
 }
 
-export default async function CommonLayout({ children }: React.PropsWithChildren<unknown>) {
+export default function CommonLayout({ children }: React.PropsWithChildren<unknown>) {
   return (
     <div className="flex flex-col min-h-full">
-      <TopNav loggedIn={(await getAccessToken()) !== undefined} />
+      <TopNav />
       <main className="flex flex-col flex-grow w-full">{children}</main>
       <Footer />
     </div>

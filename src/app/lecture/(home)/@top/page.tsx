@@ -10,7 +10,7 @@ export default function Page() {
 
   const { data: count } = useQuery({
     queryKey: ['searchCount', keyword],
-    queryFn: async () => (keyword === undefined ? undefined : await searchCourseCount({ keyword })),
+    queryFn: async () => (keyword === undefined ? null : await searchCourseCount({ keyword })),
   });
 
   return (
@@ -22,7 +22,7 @@ export default function Page() {
       {keyword && (
         <span className="text-2xl" style={{ wordBreak: 'break-word' }}>
           <span className="text-4xl">&quot;{keyword}&quot;</span> 강의 검색 결과{' '}
-          {count !== undefined && count.data >= 0 && <span className="text-base-20">{count.data}개</span>}
+          {count !== null && count !== undefined && count.data >= 0 && <span className="text-base-20">{count.data}개</span>}
         </span>
       )}
 

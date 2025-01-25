@@ -83,7 +83,7 @@ export default function SearchPage() {
 
   const { data: count } = useQuery({
     queryKey: ['searchCount', keyword],
-    queryFn: async () => (keyword === undefined ? undefined : await searchCourseCount({ keyword })),
+    queryFn: async () => (keyword === undefined ? null : await searchCourseCount({ keyword })),
   });
 
   if (keyword === undefined || keyword === '') {
@@ -94,8 +94,8 @@ export default function SearchPage() {
 
   if (count === undefined) return <Box />;
 
-  if (count.status !== 'SUCCESS') {
-    if (count.statusCode === 404) {
+  if (count === null || count.status !== 'SUCCESS') {
+    if (count === null || count.statusCode === 404) {
       return <span>결과가 없습니다.</span>;
     } else {
       return (

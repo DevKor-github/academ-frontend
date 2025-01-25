@@ -21,7 +21,7 @@ function FieldSetStar<Req>({
   return (
     <fieldset className="flex flex-row mt-4">
       {[1, 2, 3, 4, 5].flatMap((i) => (
-        <label>
+        <label key={i}>
           <input
             id={name}
             className="hidden"

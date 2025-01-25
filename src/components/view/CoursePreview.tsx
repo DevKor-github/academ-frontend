@@ -70,7 +70,7 @@ function Down({ course }: { course: Course | CourseOnly }) {
         {tags.length === 0 ? (
           <span className="text-base text-neutral-400">태그 없음</span>
         ) : (
-          tags.flatMap((v) => <Tag>{v}</Tag>)
+          tags.flatMap((v) => <Tag key={v}>{v}</Tag>)
         )}
       </div>
 

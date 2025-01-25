@@ -11,6 +11,9 @@ import { logout } from '@/app/actions/logout.action';
 
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { blankButton } from '@/style/button';
+import { useQuery } from '@tanstack/react-query';
+import { getAccessToken } from '@/auth/auth.util';
+import Skeleton from '@/components/composite/skeleton';
 
 function LoginButton() {
   return (
@@ -22,11 +25,20 @@ function LoginButton() {
   );
 }
 
-interface Props {
-  loggedIn: boolean;
-}
+export default function TopNavInnerRightClient() {
 
-export default function TopNavInnerRightClient({ loggedIn }: Props) {
+  const { data: loggedIn } = useQuery({
+    queryKey: ['loggedIn'],
+    queryFn: async () => (await getAccessToken()) !== undefined,
+  })
+
+  if (loggedIn === undefined) {
+    return <Button className="rounded-full px-5">
+    <span className="whitespace-nowrap"><Skeleton placeholder="로그인/회원가입" /></span>
+  </Button>
+  }
+
+
   if (
     // state.status !== 'SUCCESS'
     !loggedIn
