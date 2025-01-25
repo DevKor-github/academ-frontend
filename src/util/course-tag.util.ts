@@ -1,5 +1,6 @@
 import type { Course } from '@/types/course.types';
 
+/** Course 에서 해당 강의를 설명하는 태그를 추출합니다. */
 export function getTagFromCourse(course: Course) {
   const threshhold = 0.5;
 

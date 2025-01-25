@@ -2,7 +2,7 @@
 
 import { startNewComment } from '@/app/api/comment.api';
 import WriteComment from './fetch';
-import ErrorTemplate from '@/lib/template';
+import ErrorTemplate from '@/components/template';
 import { use } from 'react';
 import { useQuery } from '@tanstack/react-query';
 

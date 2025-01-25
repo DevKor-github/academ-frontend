@@ -4,7 +4,7 @@ import { MagnifyIcon, RightIcon } from '@/components/icon';
 import ErrorLabel from '../basic/errorlabel';
 
 import { useState } from 'react';
-import { useAnimationTimeout } from '@/lib/hooks/timeout';
+import { useAnimationTimeout } from '@/hooks/useTemporal';
 
 interface SearchFormProp {
   className?: string;

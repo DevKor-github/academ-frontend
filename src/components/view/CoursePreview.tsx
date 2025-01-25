@@ -7,7 +7,7 @@ import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
 
 import LectureIcon from '@/components/composite/lectureIcon';
 
-import { getTagFromCourse } from '@/lib/process/tag';
+import { getTagFromCourse } from '@/util/course-tag.util';
 import { IsCourse } from '@/types/course.types';
 import type { Course, CourseOnly } from '@/types/course.types';
 

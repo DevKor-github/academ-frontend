@@ -1,5 +1,5 @@
 import EditComment from './form';
-import ErrorTemplate from '@/lib/template';
+import ErrorTemplate from '@/components/template';
 import { checkUpdateComment } from '@/app/api/comment.api';
 
 interface Props {

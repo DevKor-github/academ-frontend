@@ -1,6 +1,6 @@
 import { getMyPageBasics } from '@/app/api/mypage.api';
 import MyPageEditBasicWithProfile from './form';
-import ErrorTemplate from '@/lib/template';
+import ErrorTemplate from '@/components/template';
 
 export default async function MyPageEditBasic() {
   const profile = await getMyPageBasics();

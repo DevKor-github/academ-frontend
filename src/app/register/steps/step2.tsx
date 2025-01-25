@@ -7,7 +7,7 @@ import Input from '@/components/basic/input';
 import Button from '@/components/basic/button';
 import ErrorLabel from '@/components/basic/errorlabel';
 
-import { useAnimationTimeout } from '@/lib/hooks/timeout';
+import { useAnimationTimeout } from '@/hooks/useTemporal';
 
 import { checkEmail } from '@/app/api/register.api';
 import type { SignupRequest } from '@/types/user.types';

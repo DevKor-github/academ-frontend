@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useActionState } from 'react';
 import { BookmarkIcon } from '@/components/icon';
-import { useAnimationTimeout } from '@/lib/hooks/timeout';
+import { useAnimationTimeout } from '@/hooks/useTemporal';
 import { toggleBookmark } from '@/app/api/lecture.api';
 import Form from 'next/form';
 // import { useQuery } from '@tanstack/react-query';

@@ -2,7 +2,7 @@ import Tag from '@/components/basic/tag';
 import { HStack, VStack } from '@/components/basic/stack';
 import Star5 from '@/components/composite/starIndicator';
 
-import { getTagFromCourse } from '@/lib/process/tag';
+import { getTagFromCourse } from '@/util/course-tag.util';
 import Skeleton from '@/components/composite/skeleton';
 import type { Course } from '@/types/course.types';
 
