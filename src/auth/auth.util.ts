@@ -11,6 +11,10 @@ export async function getRefreshToken() {
   return (await cookies()).get(COOKIE_REFRESH_TOKEN)?.value;
 }
 
+export async function isTokenExists() {
+  return (await getAccessToken()) ?? (await getRefreshToken());
+}
+
 export async function getAccessTokenDecoded() {
   const token = await getAccessToken();
 

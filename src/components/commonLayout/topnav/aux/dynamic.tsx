@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import Button from '@/components/basic/button';
-// import Popover from '@/components/basic/popover';
 import { HStack } from '@/components/basic/stack';
 
 import { LogoutIcon, ProfileIcon } from './icons';
@@ -12,7 +11,7 @@ import { logout } from '@/app/actions/logout.action';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { blankButton } from '@/style/button';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { getAccessToken } from '@/auth/auth.util';
+import { isTokenExists } from '@/auth/auth.util';
 import Skeleton from '@/components/composite/skeleton';
 
 function LoginButton() {
@@ -29,7 +28,7 @@ export default function TopNavInnerRightClient() {
 
   const { data: loggedIn } = useQuery({
     queryKey: ['loggedIn'],
-    queryFn: async () => (await getAccessToken()) !== undefined,
+    queryFn: async () => (await isTokenExists()) !== undefined,
   })
 
   const qc = useQueryClient();
