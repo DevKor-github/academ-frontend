@@ -8,7 +8,7 @@ import Radio from '@/components/basic/radio';
 import A from '@/components/basic/a';
 import Button from '@/components/basic/button';
 import Spinner from '@/components/basic/spinner';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { EyeCloseIcon, EyeIcon } from '@/components/icon';
 import Form from 'next/form';
 import { handleLoginServer } from './action';
@@ -23,6 +23,7 @@ const formState: LoginFormState = {
 };
 
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function LoginForm() {
   const [showPw, setShowPw] = useState<boolean>(false);
@@ -33,8 +34,17 @@ export default function LoginForm() {
     'remember-me': false,
   });
 
-  const [state, formAction, isPending] = useActionState(handleLoginServer, formState);
+  const qc = useQueryClient();
+
+  const handleLoginClient = useCallback(async function(currentState: LoginFormState, fd: FormData) {
+    return handleLoginServer(currentState, fd).finally(() => {
+      qc.invalidateQueries({queryKey: ['loggedIn']});
+    });
+  }, [qc]);
+
+  const [state, formAction, isPending] = useActionState(handleLoginClient, formState);
   const [shake, resetShake] = useAnimationTimeout(600);
+
 
   useEffect(() => {
     if (state.error) {

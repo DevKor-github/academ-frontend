@@ -11,7 +11,7 @@ import { logout } from '@/app/actions/logout.action';
 
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 import { blankButton } from '@/style/button';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getAccessToken } from '@/auth/auth.util';
 import Skeleton from '@/components/composite/skeleton';
 
@@ -31,6 +31,8 @@ export default function TopNavInnerRightClient() {
     queryKey: ['loggedIn'],
     queryFn: async () => (await getAccessToken()) !== undefined,
   })
+
+  const qc = useQueryClient();
 
   if (loggedIn === undefined) {
     return <Button className="rounded-full px-5">
@@ -85,7 +87,10 @@ export default function TopNavInnerRightClient() {
                 disabled: false,
                 className: 'hover:light:bg-base-30 size-full hover:dark:bg-base-4',
               })}
-              onClick={() => logout()}
+              onClick={() => {
+                logout();
+                qc.invalidateQueries({queryKey: ['loggedIn']});
+              }}
             >
               <LogoutIcon />
               <span>로그아웃</span>
