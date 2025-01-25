@@ -2,7 +2,6 @@
 
 import { HStack } from '@/components/basic/stack';
 import Input from '@/components/basic/input';
-import ErrorLabel from '@/components/basic/errorlabel';
 import { VStack } from '@/components/basic/stack';
 import Radio from '@/components/basic/radio';
 import A from '@/components/basic/a';
@@ -13,10 +12,6 @@ import { EyeCloseIcon, EyeIcon } from '@/components/icon';
 import { handleLoginServer } from './action';
 import { useQueryClient } from '@tanstack/react-query';
 import { useForm } from '@tanstack/react-form';
-
-export interface LoginFormState {
-  error: string;
-}
 
 export default function LoginForm() {
   const qc = useQueryClient();
