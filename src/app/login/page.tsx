@@ -36,15 +36,17 @@ export default function LoginForm() {
 
   const qc = useQueryClient();
 
-  const handleLoginClient = useCallback(async function(currentState: LoginFormState, fd: FormData) {
-    return handleLoginServer(currentState, fd).finally(() => {
-      qc.invalidateQueries({queryKey: ['loggedIn']});
-    });
-  }, [qc]);
+  const handleLoginClient = useCallback(
+    async function (currentState: LoginFormState, fd: FormData) {
+      return handleLoginServer(currentState, fd).finally(() => {
+        qc.invalidateQueries({ queryKey: ['loggedIn'] });
+      });
+    },
+    [qc],
+  );
 
   const [state, formAction, isPending] = useActionState(handleLoginClient, formState);
   const [shake, resetShake] = useAnimationTimeout(600);
-
 
   useEffect(() => {
     if (state.error) {

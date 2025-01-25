@@ -11,7 +11,6 @@ import { MyPageUpdatePW } from '@/app/api/mypage.api';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 
 export default function ChangePWForm() {
-
   const router = useRouter();
 
   const form = useForm<UpdatePWExtended>({
@@ -66,41 +65,36 @@ export default function ChangePWForm() {
 
       <span className="text-xl mx-2 mt-4">기존 비밀번호</span>
 
-        <form.Field
-        name='old_password'
-      >
-        {
-          (field) => (
-            <div className="relative w-full">
-              <Input
-                required
-                id="old_password"
-                type={showPw[0] ? 'text' : 'password'}
-                autoComplete="current-password"
-                placeholder="기존 비밀번호"
-                className="bg-base-32 dark:bg-base-2 p-4 rounded-2xl w-full"
-                name={field.name}
-                value={field.state.value}
-                onBlur={field.handleBlur}
-                onChange={(e) => field.handleChange(e.target.value)}
-                maxLength={24}
-              />
-              <div className="absolute top-4 right-4">
-                {showPw[0] ? (
-                  <div onClick={() => onToggleShow(0)}>
-                    <EyeIcon />
-                  </div>
-                ) : (
-                  <div onClick={() => onToggleShow(0)}>
-                    <EyeOffIcon />
-                  </div>
-                )}
-              </div>
+      <form.Field name="old_password">
+        {(field) => (
+          <div className="relative w-full">
+            <Input
+              required
+              id="old_password"
+              type={showPw[0] ? 'text' : 'password'}
+              autoComplete="current-password"
+              placeholder="기존 비밀번호"
+              className="bg-base-32 dark:bg-base-2 p-4 rounded-2xl w-full"
+              name={field.name}
+              value={field.state.value}
+              onBlur={field.handleBlur}
+              onChange={(e) => field.handleChange(e.target.value)}
+              maxLength={24}
+            />
+            <div className="absolute top-4 right-4">
+              {showPw[0] ? (
+                <div onClick={() => onToggleShow(0)}>
+                  <EyeIcon />
+                </div>
+              ) : (
+                <div onClick={() => onToggleShow(0)}>
+                  <EyeOffIcon />
+                </div>
+              )}
             </div>
-          )
-        }
+          </div>
+        )}
       </form.Field>
-
 
       {/* <ErrorLabel
         label={error ? '영문자, 숫자, 또는 특수문자로 이루어진 8 - 24 자리의 비밀번호를 입력해주세요.' : ''}
@@ -108,85 +102,87 @@ export default function ChangePWForm() {
 
       <span className="text-xl mx-2 mt-4">새 비밀번호</span>
       <form.Field
-        name='new_password'
+        name="new_password"
         validators={{
           onChange: (value) => {
             if (!validatePw(value.value)) {
               return '영문자, 숫자, 또는 특수문자로 이루어진 8 - 24 자리의 비밀번호를 입력해주세요.';
             }
-          }
+          },
         }}
       >
-        {(field) => (<><div className="relative w-full">
-          <Input
-            required
-            id="new_password"
-            autoComplete="new-password"
-            type={showPw[1] ? 'text' : 'password'}
-            placeholder="새 비밀번호"
-            value={field.state.value}
-            className="bg-base-32 dark:bg-base-2-back-2 p-4 rounded-2xl w-full"
-            onChange={(e) => field.handleChange(e.target.value)}
-            maxLength={24}
-          />
-          <div className="absolute top-4 right-4">
-            {showPw[1] ? (
-              <div onClick={() => onToggleShow(1)}>
-                <EyeIcon />
+        {(field) => (
+          <>
+            <div className="relative w-full">
+              <Input
+                required
+                id="new_password"
+                autoComplete="new-password"
+                type={showPw[1] ? 'text' : 'password'}
+                placeholder="새 비밀번호"
+                value={field.state.value}
+                className="bg-base-32 dark:bg-base-2-back-2 p-4 rounded-2xl w-full"
+                onChange={(e) => field.handleChange(e.target.value)}
+                maxLength={24}
+              />
+              <div className="absolute top-4 right-4">
+                {showPw[1] ? (
+                  <div onClick={() => onToggleShow(1)}>
+                    <EyeIcon />
+                  </div>
+                ) : (
+                  <div onClick={() => onToggleShow(1)}>
+                    <EyeOffIcon />
+                  </div>
+                )}
               </div>
-            ) : (
-              <div onClick={() => onToggleShow(1)}>
-                <EyeOffIcon />
-              </div>
-            )}
-          </div>
-        </div>
-              {field.state.meta.errors ? (
-                <ErrorLabel label={field.state.meta.errors.join(', ')}/>
-              ) : null}</>)}
+            </div>
+            {field.state.meta.errors ? <ErrorLabel label={field.state.meta.errors.join(', ')} /> : null}
+          </>
+        )}
       </form.Field>
-      
 
       <span className="text-xl mx-2 mt-4">새 비밀번호 확인</span>
 
       <form.Field
-        name='new_password_check'
+        name="new_password_check"
         validators={{
           onChange: (value) => {
             if (value.value !== value.fieldApi.form.getFieldValue('new_password')) {
               return '비밀번호와 비밀번호 확인이 일치하지 않습니다.';
             }
-          }
+          },
         }}
       >
-        {(field) => (<><div className="relative w-full">
-          <Input
-            required
-            type={showPw[2] ? 'text' : 'password'}
-            id="new_password_check"
-            autoComplete="new-password"
-            placeholder="새 비밀번호 확인"
-            value={field.state.value}
-            className="bg-base-32 dark:bg-base-2 p-4 rounded-2xl w-full"
-            onChange={(e) => field.handleChange(e.target.value)}
-            maxLength={24}
-          />
-          <div className="absolute top-4 right-4">
-            {showPw[2] ? (
-              <div onClick={() => onToggleShow(2)}>
-                <EyeIcon />
+        {(field) => (
+          <>
+            <div className="relative w-full">
+              <Input
+                required
+                type={showPw[2] ? 'text' : 'password'}
+                id="new_password_check"
+                autoComplete="new-password"
+                placeholder="새 비밀번호 확인"
+                value={field.state.value}
+                className="bg-base-32 dark:bg-base-2 p-4 rounded-2xl w-full"
+                onChange={(e) => field.handleChange(e.target.value)}
+                maxLength={24}
+              />
+              <div className="absolute top-4 right-4">
+                {showPw[2] ? (
+                  <div onClick={() => onToggleShow(2)}>
+                    <EyeIcon />
+                  </div>
+                ) : (
+                  <div onClick={() => onToggleShow(2)}>
+                    <EyeOffIcon />
+                  </div>
+                )}
               </div>
-            ) : (
-              <div onClick={() => onToggleShow(2)}>
-                <EyeOffIcon />
-              </div>
-            )}
-          </div>
-        </div>
-        {field.state.meta.errors ? (
-          <ErrorLabel label={field.state.meta.errors.join(', ')} />
-        ) : null}
-        </>)}
+            </div>
+            {field.state.meta.errors ? <ErrorLabel label={field.state.meta.errors.join(', ')} /> : null}
+          </>
+        )}
       </form.Field>
 
       <Button
@@ -203,7 +199,6 @@ export default function ChangePWForm() {
     </form>
   );
 }
-
 
 const validatePw = (pw: string) => {
   const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W]{8,24}$/;

@@ -28,7 +28,6 @@ interface ErrorProps<E extends Error = Error> {
   reset: () => void;
 }
 
-
 export default function ErrorPage({ error, reset }: ErrorProps) {
   return error instanceof Error ? <AcdApiErrorPage error={error} reset={reset} /> : <Box />;
 }

@@ -31,7 +31,7 @@ export default function SearchPage({ children }: Props) {
 
   function handleValue(e: React.FormEvent<HTMLInputElement>) {
     const newOrder = (e.target as HTMLInputElement).value as CourseSearchOrdering;
-    route.replace(`/lecture${searchParamString({q: keyword, s: newOrder}, '?')}`);
+    route.replace(`/lecture${searchParamString({ q: keyword, s: newOrder }, '?')}`);
   }
 
   return (

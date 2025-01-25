@@ -15,7 +15,6 @@ interface DeleteAccountInputExtended {
 }
 
 export default function DeleteAccountForm() {
-
   const router = useRouter();
 
   const form = useForm<DeleteAccountInputExtended>({
@@ -33,8 +32,8 @@ export default function DeleteAccountForm() {
           alert(`계정 삭제에 실패했습니다: ${s.message}`);
         }
       });
-  }});
-
+    },
+  });
 
   return (
     <form
@@ -60,49 +59,44 @@ export default function DeleteAccountForm() {
         </li>
       </div>
       <div className="flex flex-col *:w-full gap-8">
-        <form.Field
-          name='password'
-        >
+        <form.Field name="password">
           {(field) => (
             <Input
               id="password"
               type="password"
               placeholder="비밀번호 입력"
               value={field.state.value}
-              onChange={e => field.handleChange(e.target.value)}
+              onChange={(e) => field.handleChange(e.target.value)}
             />
           )}
         </form.Field>
         <form.Field
-          name='checked'
+          name="checked"
           validators={{
             onSubmit: (value) => {
               if (!value.value) {
                 return '유의 사항을 읽고 동의해야 계정을 삭제할 수 있습니다.';
               }
-            }
+            },
           }}
         >
-          {(field) => (<>
-            <label htmlFor="checked">
-              <input
-                id="checked"
-                type="checkbox"
-                onChange={e => field.handleChange(e.target.checked)}
-                className="accent-primary-500"
-                checked={field.state.value}
-              />
-              예, 계정을 삭제하면 삭제된 포인트를 다시 복구할 수 없으며 접근 권한을 잃어버림을 이해했습니다.
-            </label>
-            {field.state.meta.errors && <ErrorLabel label={field.state.meta.errors.join(',')} />}
+          {(field) => (
+            <>
+              <label htmlFor="checked">
+                <input
+                  id="checked"
+                  type="checkbox"
+                  onChange={(e) => field.handleChange(e.target.checked)}
+                  className="accent-primary-500"
+                  checked={field.state.value}
+                />
+                예, 계정을 삭제하면 삭제된 포인트를 다시 복구할 수 없으며 접근 권한을 잃어버림을 이해했습니다.
+              </label>
+              {field.state.meta.errors && <ErrorLabel label={field.state.meta.errors.join(',')} />}
             </>
           )}
         </form.Field>
-        <Button
-          type="submit"
-        >
-          {form.state.isSubmitting ? <Spinner /> : '탈퇴하기'}
-        </Button>
+        <Button type="submit">{form.state.isSubmitting ? <Spinner /> : '탈퇴하기'}</Button>
       </div>
     </form>
   );

@@ -25,20 +25,22 @@ function LoginButton() {
 }
 
 export default function TopNavInnerRightClient() {
-
   const { data: loggedIn } = useQuery({
     queryKey: ['loggedIn'],
     queryFn: async () => (await isTokenExists()) !== undefined,
-  })
+  });
 
   const qc = useQueryClient();
 
   if (loggedIn === undefined) {
-    return <Button className="rounded-full px-5">
-    <span className="whitespace-nowrap"><Skeleton placeholder="로그인/회원가입" /></span>
-  </Button>
+    return (
+      <Button className="rounded-full px-5">
+        <span className="whitespace-nowrap">
+          <Skeleton placeholder="로그인/회원가입" />
+        </span>
+      </Button>
+    );
   }
-
 
   if (
     // state.status !== 'SUCCESS'
@@ -88,7 +90,7 @@ export default function TopNavInnerRightClient() {
               })}
               onClick={() => {
                 logout();
-                qc.invalidateQueries({queryKey: ['loggedIn']});
+                qc.invalidateQueries({ queryKey: ['loggedIn'] });
               }}
             >
               <LogoutIcon />

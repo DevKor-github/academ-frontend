@@ -22,10 +22,7 @@ export const filterByFuzzy = <T>(
       const value = accessor(item);
       return {
         item,
-        score:
-          query.length > value.length
-            ? matches(value, query)
-            : matches(query, value),
+        score: query.length > value.length ? matches(value, query) : matches(query, value),
       };
     })
     .sort((a, b) => b.score - a.score)

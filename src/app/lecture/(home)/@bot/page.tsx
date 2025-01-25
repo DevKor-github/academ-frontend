@@ -72,13 +72,11 @@ const sortCriterias = [
 ] as const;
 
 export default function SearchPage() {
-
   const sCand = useSearchParams().get('s');
   const s = (Array.isArray(sCand) ? sCand[0] : sCand) || '';
   const sort: CourseSearchOrdering = sortCriterias.map(({ value }) => value).includes(s as CourseSearchOrdering)
     ? (s as CourseSearchOrdering)
     : 'NEWEST';
-
 
   const keyword = useSearchKeyword();
 

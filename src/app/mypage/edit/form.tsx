@@ -27,14 +27,14 @@ export default function UpdateBasicForm({ profile }: Props) {
           alert(`프로필 수정을 실패했습니다: ${s.message}`);
         }
       });
-    }
+    },
   });
 
   return (
     <form
       className="py-8 h-full transition-all self-center justify-center items-start pl-2 pr-2 flex flex-col gap-4 w-11/12 md:w-1/2"
       method="post"
-      onSubmit={e => {
+      onSubmit={(e) => {
         e.preventDefault();
         e.stopPropagation();
         form.handleSubmit();
@@ -59,35 +59,33 @@ export default function UpdateBasicForm({ profile }: Props) {
             id="username"
             placeholder="닉네임"
             value={field.state.value}
-            onChange={e => field.handleChange(e.target.value)}
+            onChange={(e) => field.handleChange(e.target.value)}
             className="w-full"
           />
         )}
       </form.Field>
-      
+
       <span className="text-xl mx-2 mt-4">학번</span>
       <form.Field name="student_id">
-      {(field) => (
+        {(field) => (
           <Input
             id="student_id"
             placeholder="학번"
             value={field.state.value}
-            onChange={e => field.handleChange(e.target.value)}
+            onChange={(e) => field.handleChange(e.target.value)}
             className="w-full"
           />
         )}
-
       </form.Field>
       <span className="text-xl mx-2 mt-4">학기</span>
 
-      <form.Field name="semester"
-      >
+      <form.Field name="semester">
         {(field) => (
           <Input
             id="semester"
             placeholder="학기"
             value={String(field.state.value)}
-            onChange={e => field.handleChange(Number(e.target.value))}
+            onChange={(e) => field.handleChange(Number(e.target.value))}
             className="w-full"
           />
         )}
@@ -95,20 +93,18 @@ export default function UpdateBasicForm({ profile }: Props) {
 
       <span className="text-xl mx-2 mt-4">학과</span>
       <form.Field name="department">
-      {(field) => (
-          <DepartmentInput value={field.state.value} setValue={field.handleChange}  />
-        )}
+        {(field) => <DepartmentInput value={field.state.value} setValue={field.handleChange} />}
       </form.Field>
-     
+
       <span className="text-xl mx-2 mt-4">학위 과정</span>
 
       <form.Field name="degree">
-      {(field) => (
+        {(field) => (
           <Select
             name="degree"
             value={field.state.value}
-            handleValue={e => {
-              field.handleChange(e.currentTarget.value as 'MASTER' | 'DOCTOR'); 
+            handleValue={(e) => {
+              field.handleChange(e.currentTarget.value as 'MASTER' | 'DOCTOR');
             }}
             items={[
               { value: 'MASTER', label: '석사' },
