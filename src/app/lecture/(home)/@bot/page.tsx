@@ -10,7 +10,7 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { searchCourse, searchCourseCount } from '@/app/api/lecture.api';
 import Link from 'next/link';
 import useSearchKeyword from '../util';
-import type { Course, CourseOnly, CourseSearchOrdering } from '@/types/course.type';
+import type { Course, CourseOnly, CourseSearchOrdering } from '@/types/course.types';
 
 function SearchResultsViewWithOrder({
   query,

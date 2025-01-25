@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import useSearchKeyword from '../util';
 import { searchParamString } from '@/util/fetch.util';
-import type { CourseSearchOrdering } from '@/types/course.type';
+import type { CourseSearchOrdering } from '@/types/course.types';
 
 interface Props {
   children: ReactNode;

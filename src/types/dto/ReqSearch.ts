@@ -1,3 +1,0 @@
-interface ReqSearch {
-  keyword: string;
-}

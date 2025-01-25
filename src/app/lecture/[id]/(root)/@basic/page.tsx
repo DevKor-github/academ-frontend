@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { GET } from '@/app/api/get';
 import CourseBasicsView from '@/components/view/CourseBasicsView';
-import type { Course, CourseOnly } from '@/types/course.type';
+import type { Course, CourseOnly } from '@/types/course.types';
 
 interface Props {
   params: Promise<{ id: string }>;

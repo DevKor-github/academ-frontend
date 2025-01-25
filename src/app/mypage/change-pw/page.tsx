@@ -9,11 +9,12 @@ import { useForm } from '@tanstack/react-form';
 import { useRouter } from 'next/navigation';
 import { MyPageUpdatePW } from '@/app/api/mypage.api';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
+import { conform, type UpdatePWForm } from './form.types';
 
 export default function ChangePWForm() {
   const router = useRouter();
 
-  const form = useForm<UpdatePWExtended>({
+  const form = useForm<UpdatePWForm>({
     defaultValues: {
       old_password: '',
       new_password: '',
@@ -21,10 +22,7 @@ export default function ChangePWForm() {
     },
     onSubmit: async ({ value }) => {
       // Do something with form data
-      await MyPageUpdatePW({
-        old_password: value.old_password,
-        new_password: value.new_password,
-      }).then((s) => {
+      await MyPageUpdatePW(conform(value)).then((s) => {
         if (s.status === 'SUCCESS') {
           alert(`비밀번호 변경에 성공했습니다.`);
           router.push('/mypage?pwchanged');

@@ -5,7 +5,7 @@ import { CommentsSummaryViewLoading } from '@/components/view/CommentsSummaryVie
 
 import { HStack, VStack } from '@/components/basic/stack';
 import Select from '@/components/basic/select';
-import type { AcdCommentOrdering } from '@/types/comment.type';
+import type { AcdCommentOrdering } from '@/types/comment.types';
 
 export function CommentsWrapper({
   children,

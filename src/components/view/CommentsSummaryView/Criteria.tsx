@@ -2,7 +2,7 @@ import { VStack, HStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
 import Progress, { ProgressLoading } from '@/components/basic/progress';
 import Skeleton from '@/components/composite/skeleton';
-import type { Course } from '@/types/course.type';
+import type { Course } from '@/types/course.types';
 
 interface CriteriaIndicatorProp {
   name: string;

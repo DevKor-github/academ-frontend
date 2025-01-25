@@ -2,7 +2,7 @@ import { HStack, VStack } from '@/components/basic/stack';
 import { twMerge } from 'tailwind-merge';
 import Criteria, { CriteriaLoading } from './CommentsSummaryView/Criteria';
 import RateSummary, { RateSummaryLoading } from './CommentsSummaryView/RateSummary';
-import type { Course } from '@/types/course.type';
+import type { Course } from '@/types/course.types';
 
 function CommentsSummaryBox({ children, className = '' }: React.PropsWithChildren<{ className?: string }>) {
   const tn = twMerge('pl-8 pr-8 pb-8', className);

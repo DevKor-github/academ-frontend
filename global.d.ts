@@ -9,7 +9,7 @@ import type {
   Empty as _Empty,
   VoidifyReturn as _VoidifyReturn,
   ReplaceValues as _ReplaceValues,
-} from '@/types/utility.type';
+} from '@/types/utility.types';
 
 declare global {
   type SetState<T> = React.Dispatch<React.SetStateAction<T>>;

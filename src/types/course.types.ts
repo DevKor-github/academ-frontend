@@ -1,5 +1,5 @@
 import z from 'zod';
-import { AcdCommentSchema } from './comment.type';
+import { AcdCommentSchema } from './comment.types';
 
 const CourseOnlySchema = z.object({
   course_id: z.number(),

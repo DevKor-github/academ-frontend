@@ -1,3 +1,4 @@
+import type { UpdatePWRequest } from '@/types/user.types';
 import { fetchAPIAuth, GET, POST, searchParamString, withJsonBody, withStatusCode } from '@/util/fetch.util';
 
 export async function getMyPageBasics() {
@@ -42,7 +43,7 @@ export async function MyPageUpdateBasic(req: UpdateProfileReq) {
   return ret.json().then(withStatusCode(ret.status));
 }
 
-export async function MyPageUpdatePW(req: UpdatePWReq) {
+export async function MyPageUpdatePW(req: UpdatePWRequest) {
   const ret = await fetchAPIAuth('api/mypage/update-password', await POST().then(withJsonBody(req)));
   return ret.json().then(withStatusCode(ret.status));
 }

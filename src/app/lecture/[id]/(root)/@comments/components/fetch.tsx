@@ -9,8 +9,8 @@ import CommentView from '@/components/view/CommentView';
 import { CommentLoadingItems } from '../aux';
 import { courseDetailWithComments } from '@/app/api/lecture.api';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import type { AcdComment, AcdCommentOrdering } from '@/types/comment.type';
-import type { Course, CourseOnly } from '@/types/course.type';
+import type { AcdComment, AcdCommentOrdering } from '@/types/comment.types';
+import type { Course, CourseOnly } from '@/types/course.types';
 
 interface Props extends ReqCourseRelated {
   totalPage: number;

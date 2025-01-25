@@ -1,3 +1,8 @@
+export interface SelectOpts<T> {
+  value: T;
+  label: string;
+}
+
 export default function Select<T extends string>({
   name,
   items,

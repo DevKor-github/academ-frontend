@@ -1,4 +1,4 @@
-import { Course, CourseOnly } from '@/types/course.type';
+import { Course, CourseOnly } from '@/types/course.types';
 
 export function IsCourse(course: Course | CourseOnly): course is Course {
   // @ts-expect-error intended access

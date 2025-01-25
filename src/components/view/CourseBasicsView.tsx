@@ -8,7 +8,7 @@ import { SkeletonDiv, SkeletonSlow } from '@/components/composite/skeleton';
 import { WriteIcon } from '@/components/icon';
 import Link from 'next/link';
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
-import type { CourseOnly } from '@/types/course.type';
+import type { CourseOnly } from '@/types/course.types';
 import { useQuery } from '@tanstack/react-query';
 import { courseDetail } from '@/app/api/lecture.api';
 

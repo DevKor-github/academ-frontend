@@ -7,7 +7,7 @@ import { MyCommentView } from '@/components/view/CommentView';
 import { ELEM_PER_PAGE } from '@/data/constant';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { MyPageComments } from '@/app/api/mypage.api';
-import type { AcdMyComment } from '@/types/comment.type';
+import type { AcdMyComment } from '@/types/comment.types';
 
 interface Props {
   totalCount: number;
