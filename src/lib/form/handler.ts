@@ -1,3 +1,4 @@
+/** @deprecated use tanstack form instead */
 export const handleInputBuilder = <State>(input: State, setInput: SetState<State>): InputHandler =>
   function handleInput(event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const newValue = ['checkbox' /* , 'radio' */].includes(event.target.type)
@@ -10,6 +11,7 @@ export const handleInputBuilder = <State>(input: State, setInput: SetState<State
     });
   };
 
+/** @deprecated use tanstack form instead */
 export const newHandleInputBuilder = <State>(
   setInput: SetState<State>,
   type: 'BOOLEAN' | 'STRING' | 'NUMBER',

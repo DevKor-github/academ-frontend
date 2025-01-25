@@ -1,6 +1,4 @@
-/**
- * Form Component를 위한 Prop입니다.
- */
+/** @deprecated use tanstack form instead */
 interface FormProps<T> {
   input: T;
   handleInput?: InputHandler;
