@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { CommentsWrapper } from '../aux';
 import Button from '@/components/basic/button';
 import { DownIcon } from '@/components/icon';
-import { IsCourse } from '@/lib/type/IsCourse';
+import { IsCourse } from '@/types/course.types';
 import CommentView from '@/components/view/CommentView';
 import { CommentLoadingItems } from '../aux';
 import { courseDetailWithComments } from '@/app/api/lecture.api';

@@ -1,3 +1,18 @@
+interface JWTDecoded {
+  profile_id: number;
+  email: string;
+  role: string;
+  iat: number;
+  exp: number;
+}
+
+interface MembershipData {
+  item: string;
+  day: number;
+  price: number;
+  iconLevel: 1 | 2 | 3;
+}
+
 interface MyPageBasicInfo {
   profile_id: number;
   email: string;
@@ -11,3 +26,5 @@ interface MyPageBasicInfo {
   created_at: string;
   role: string;
 }
+
+type UserProfile = MyPageBasicInfo;

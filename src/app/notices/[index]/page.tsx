@@ -2,6 +2,7 @@ import { HStack } from '@/components/basic/stack';
 import Link from 'next/link';
 import { ELEM_PER_PAGE } from '@/data/constant';
 import apiGetNotices from '@/app/api/notice.api';
+import type { Notice } from '@/types/notice.types';
 
 async function NoticeSingle({ notice }: { notice: Notice }) {
   return (

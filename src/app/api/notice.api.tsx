@@ -8,6 +8,7 @@ import fs from 'fs/promises';
 // import naturalCompare from 'natural-compare';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import path from 'path';
+import type { Notice, NoticeMetadata } from '@/types/notice.types';
 
 const fns: Promise<Notice[]> = fs
   .readdir(NOTICES_DIR)

@@ -1,4 +1,4 @@
-import { IsCourse } from '@/lib/type/IsCourse';
+import { IsCourse } from '@/types/course.types';
 import type { AcdComment } from '@/types/comment.types';
 import type { Course, CourseOnly } from '@/types/course.types';
 import { fetchAPIAuth, GET, searchParamString, withStatusCode } from '@/util/fetch.util';

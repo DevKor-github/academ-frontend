@@ -1,7 +1,7 @@
 import z from 'zod';
 import { AcdCommentSchema } from './comment.types';
 
-const CourseOnlySchema = z.object({
+export const CourseOnlySchema = z.object({
   course_id: z.number(),
   course_code: z.string(),
   class_number: z.string(),
@@ -20,7 +20,7 @@ const CourseOnlySchema = z.object({
 
 export type CourseOnly = z.infer<typeof CourseOnlySchema>;
 
-const CourseSchema = CourseOnlySchema.merge(
+export const CourseSchema = CourseOnlySchema.merge(
   z.object({
     avg_rating: z.number(),
     avg_r1_amount_of_studying: z.number(),
@@ -42,6 +42,13 @@ const CourseSchema = CourseOnlySchema.merge(
 
 export type Course = z.infer<typeof CourseSchema>;
 
-const CourseSearchOrderingSchema = z.enum(['NEWEST', 'RATING_DESC', 'RATING_ASC']);
+export const CourseSearchOrderingSchema = z.enum(['NEWEST', 'RATING_DESC', 'RATING_ASC']);
 
 export type CourseSearchOrdering = z.infer<typeof CourseSearchOrderingSchema>;
+
+/////////// type check utility ///////////
+
+export function IsCourse(course: Course | CourseOnly): course is Course {
+  // @ts-expect-error intended access
+  return course?.comments !== undefined || course?.avg_rating !== undefined;
+}

@@ -35,7 +35,7 @@ export const AcdCommentSchema = z.object({
 
 export type AcdComment = z.infer<typeof AcdCommentSchema>;
 
-const AcdMyCommentSchema = z.object({
+export const AcdMyCommentSchema = z.object({
   comment_id: z.number(),
   course_id: z.number(),
   course_code: z.string(),
@@ -74,7 +74,7 @@ export type AcdMyComment = z.infer<typeof AcdMyCommentSchema>;
 ////// create request //////////////////
 ////////////////////////////////////////
 
-const AcdCommentNewReqSchema = z.object({
+export const AcdCommentNewReqSchema = z.object({
   course_id: z.number(),
   rating: z.number(),
   r1_amount_of_studying: z.number(),
@@ -99,7 +99,7 @@ export type AcdCommentNewReq = z.infer<typeof AcdCommentNewReqSchema>;
 ////// edit request ////////////////////
 ////////////////////////////////////////
 
-const AcdCommentEditReqSchema = z.object({
+export const AcdCommentEditReqSchema = z.object({
   comment_id: z.number(),
   rating: z.number(),
   r1_amount_of_studying: z.number(),
@@ -124,7 +124,7 @@ export type AcdCommentEditReq = z.infer<typeof AcdCommentEditReqSchema>;
 ////// report request //////////////////
 ////////////////////////////////////////
 
-const AcdCommentReportReqSchema = z.object({
+export const AcdCommentReportReqSchema = z.object({
   comment_id: z.number(),
   reason: z.enum(['PROFANITY', 'INSINCERE', 'SEXUAL', 'PERSONAL', 'OTHER']),
   detail: z.string(),
@@ -139,6 +139,6 @@ export type AcdCommentReqJoin = AcdCommentEditReq | AcdCommentNewReq;
 ////////////////////////////////////////
 // (TODO) move somewhere else
 
-const AcdCommentOrderingSchema = z.enum(['NEWEST', 'RATING_DESC', 'RATING_ASC', 'LIKES_DESC', 'LIKES_ASC']);
+export const AcdCommentOrderingSchema = z.enum(['NEWEST', 'RATING_DESC', 'RATING_ASC', 'LIKES_DESC', 'LIKES_ASC']);
 
 export type AcdCommentOrdering = z.infer<typeof AcdCommentOrderingSchema>;

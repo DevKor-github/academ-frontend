@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { IsCourse } from '@/lib/type/IsCourse';
+import { IsCourse } from '@/types/course.types';
 import { courseDetail } from '@/app/api/lecture.api';
 import { IssueIcon } from '@/components/icon';
 import CommentsSummaryView from '@/components/view/CommentsSummaryView';
