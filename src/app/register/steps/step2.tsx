@@ -10,6 +10,7 @@ import ErrorLabel from '@/components/basic/errorlabel';
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 
 import { checkEmail } from '@/app/api/register.api';
+import type { SignupRequest } from '@/types/user.types';
 
 export default function Step2({
   nextStep,

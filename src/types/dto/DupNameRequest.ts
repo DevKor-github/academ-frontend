@@ -1,3 +1,0 @@
-interface DupNameRequest {
-  username: string;
-}

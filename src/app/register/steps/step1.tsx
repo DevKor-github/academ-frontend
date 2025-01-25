@@ -12,6 +12,7 @@ import Spinner from '@/components/basic/spinner';
 
 import { useAnimationTimeout } from '@/lib/hooks/timeout';
 import { sendEmail } from '@/app/api/register.api';
+import type { SignupRequest } from '@/types/user.types';
 
 const validateEmail = (email: string) => {
   const re = /^[^\s@]+@korea\.ac\.kr$/;

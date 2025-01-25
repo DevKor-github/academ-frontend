@@ -1,3 +1,4 @@
+import type { CheckEmailReqeust, DupNameRequest, ReqeustSendCode, ResetPwReq, SignupRequest } from '@/types/user.types';
 import { fetchAPIAuth, searchParamString, withStatusCode } from '@/util/fetch.util';
 
 export async function duplicateName(input: DupNameRequest) {

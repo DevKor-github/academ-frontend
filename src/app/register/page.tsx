@@ -1,5 +1,7 @@
 'use client';
 
+import type { SignupRequest } from '@/types/user.types';
+
 import { useState } from 'react';
 
 import { HStack } from '@/components/basic/stack';

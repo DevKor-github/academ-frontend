@@ -9,6 +9,7 @@ import DepartmentInput from '@/components/composite/departmentInput';
 import Select from '@/components/basic/select';
 import { MyPageUpdateBasic } from '@/app/api/mypage.api';
 import { useForm } from '@tanstack/react-form';
+import type { UpdateProfileReq } from '@/types/user.types';
 
 interface Props {
   profile: UserProfile;

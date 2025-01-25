@@ -1,4 +1,4 @@
-import { getMyPageCommentsCount } from '../../../api/mypage.api';
+import { getMyPageCommentsCount } from '@/app/api/mypage.api';
 import MyCommentsView from './components/MyCommentsView';
 
 export default async function MyPageCommentsPage() {

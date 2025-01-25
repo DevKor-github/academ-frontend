@@ -8,6 +8,7 @@ import { sendEmail } from '@/app/api/register.api';
 import ResetPwForm1 from './form1';
 import ResetPwForm2 from './form2';
 import { useForm } from '@tanstack/react-form';
+import type { ResetPwReq } from '@/types/user.types';
 
 export default function FindPWPageClient() {
   const router = useRouter();

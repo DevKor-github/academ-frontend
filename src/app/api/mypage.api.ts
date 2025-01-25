@@ -1,4 +1,4 @@
-import type { UpdatePWRequest } from '@/types/user.types';
+import type { UpdateProfileReq, UpdatePWRequest } from '@/types/user.types';
 import { fetchAPIAuth, GET, POST, searchParamString, withJsonBody, withStatusCode } from '@/util/fetch.util';
 
 export async function getMyPageBasics() {

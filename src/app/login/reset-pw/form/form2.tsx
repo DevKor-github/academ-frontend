@@ -4,6 +4,7 @@ import Input from '@/components/basic/input';
 import Button from '@/components/basic/button';
 import Spinner from '@/components/basic/spinner';
 import type { ReactFormExtendedApi } from '@tanstack/react-form';
+import type { ResetPwReq } from '@/types/user.types';
 
 interface Props {
   form: ReactFormExtendedApi<ResetPwReq, undefined>;

@@ -11,6 +11,7 @@ import ErrorLabel from '@/components/basic/errorlabel';
 
 import { departments } from '@/data/departments';
 import { EyeCloseIcon, EyeIcon } from '@/components/icon';
+import type { SignupRequest } from '@/types/user.types';
 
 const validatePw = (pw: string) => {
   const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W]{8,24}$/;

@@ -6,6 +6,7 @@ import { revalidatePath } from 'next/cache';
 
 import { IS_DEBUG } from '@/data/constant';
 import { COOKIE_AUTH_TOKEN, COOKIE_REFRESH_TOKEN } from '@/data/constant';
+import type { LoginRequest } from '@/types/user.types';
 
 export async function handleLoginServer(input: LoginRequest) {
   try {

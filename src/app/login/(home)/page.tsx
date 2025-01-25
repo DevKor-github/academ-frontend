@@ -12,6 +12,7 @@ import { EyeCloseIcon, EyeIcon } from '@/components/icon';
 import { handleLoginServer } from './action';
 import { useQueryClient } from '@tanstack/react-query';
 import { useForm } from '@tanstack/react-form';
+import type { LoginRequest } from '@/types/user.types';
 
 export default function LoginForm() {
   const qc = useQueryClient();
