@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 
 interface Props {
   top: ReactNode;
@@ -7,9 +7,11 @@ interface Props {
 
 export default function Layout({ top, bot }: Props) {
   return (
-    <div className="flex flex-col h-full">
-      {top}
-      {bot}
-    </div>
+    <Suspense>
+      <div className="flex flex-col h-full">
+        {top}
+        {bot}
+      </div>
+    </Suspense>
   );
 }
