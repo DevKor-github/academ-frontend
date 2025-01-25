@@ -6,6 +6,7 @@ import { useEffect, useRef } from 'react';
 
 import Popover from '../basic/popover';
 import { useState } from 'react';
+import { AcdCommentReqJoin } from '@/types/comment.type';
 
 function FieldSetStar<Req>({
   name,

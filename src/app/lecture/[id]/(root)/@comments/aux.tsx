@@ -5,12 +5,13 @@ import { CommentsSummaryViewLoading } from '@/components/view/CommentsSummaryVie
 
 import { HStack, VStack } from '@/components/basic/stack';
 import Select from '@/components/basic/select';
+import type { AcdCommentOrdering } from '@/types/comment.type';
 
 export function CommentsWrapper({
   children,
   order,
   handleValue,
-}: React.PropsWithChildren<{ order: CommentsOrdering; handleValue?: React.FormEventHandler }>) {
+}: React.PropsWithChildren<{ order: AcdCommentOrdering; handleValue?: React.FormEventHandler }>) {
   return (
     <HStack className="pl-2 pr-2 md:pl-8 md:pr-8 pt-12 pb-12 h-full transition-all light:bg-base-31 dark:bg-base-2 gap-6">
       <VStack className="items-center justify-between gap-2 mb-2">

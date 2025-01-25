@@ -1,4 +1,5 @@
 import Button from '@/components/basic/button';
+import type { AcdCommentReportReq } from '@/types/comment.type';
 
 const reasons = [
   { reason: 'PROFANITY', text: '욕설/비방/비하' },

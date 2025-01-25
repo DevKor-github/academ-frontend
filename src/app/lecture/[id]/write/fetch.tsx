@@ -8,6 +8,7 @@ import { insertComment } from '@/app/api/comment.api';
 import CommentEditor from '@/components/composite/commentEditor';
 import Button from '@/components/basic/button';
 import { FinishIcon } from '@/components/icon';
+import type { AcdCommentNewReq } from '@/types/comment.type';
 
 function NewCommentWithId(id: number) {
   return {

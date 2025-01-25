@@ -1,3 +1,10 @@
+import type {
+  AcdComment,
+  AcdCommentEditReq,
+  AcdCommentNewReq,
+  AcdCommentRelated,
+  AcdCommentReportReq,
+} from '@/types/comment.type';
 import { fetchAPIAuth, searchParamString, withStatusCode } from '@/util/fetch.util';
 
 export async function checkUpdateComment(comment_id: number) {

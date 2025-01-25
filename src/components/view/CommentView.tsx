@@ -9,6 +9,7 @@ import { deleteComment, likeComment } from '@/app/api/comment.api';
 import Link from 'next/link';
 import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/components/icon';
 import { twMerge } from 'tailwind-merge';
+import type { AcdComment, AcdMyComment } from '@/types/comment.type';
 
 function quaternary<T>(that: number, standard: number, gt: T, eq: T, lt: T) {
   if (that === standard) {

@@ -9,13 +9,14 @@ import CommentView from '@/components/view/CommentView';
 import { CommentLoadingItems } from '../aux';
 import { courseDetailWithComments } from '@/app/api/lecture.api';
 import { useInfiniteQuery } from '@tanstack/react-query';
+import type { AcdComment, AcdCommentOrdering } from '@/types/comment.type';
 
 interface Props extends ReqCourseRelated {
   totalPage: number;
 }
 
 interface CommentsViewProps extends Props {
-  order: CommentsOrdering;
+  order: AcdCommentOrdering;
   setOrder: React.FormEventHandler;
   sessionUserID: number | undefined;
 }
@@ -70,10 +71,10 @@ export default function CommentsView({
   totalPage: number;
   sessionUserID: number | undefined;
 }) {
-  const [order, setOrder] = useState<CommentsOrdering>('NEWEST');
+  const [order, setOrder] = useState<AcdCommentOrdering>('NEWEST');
 
   function handleValue(e: React.FormEvent<HTMLInputElement>) {
-    setOrder((e.target as HTMLInputElement).value as CommentsOrdering);
+    setOrder((e.target as HTMLInputElement).value as AcdCommentOrdering);
   }
 
   return course.count_comments === 0 && IsCourse(course) ? (

@@ -6,6 +6,7 @@ import Button from '@/components/basic/button';
 import { FinishIcon } from '@/components/icon';
 import Link from 'next/link';
 import { updateComment } from '@/app/api/comment.api';
+import type { AcdCommentEditReq } from '@/types/comment.type';
 
 function Submitted({ back }: { back: string }) {
   return (

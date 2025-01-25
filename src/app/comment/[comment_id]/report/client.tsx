@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Submitted from './inner/submitted';
 import ReportCommentForm from './inner/form';
 import { reportComment } from '@/app/api/comment.api';
+import { AcdCommentReportReq } from '@/types/comment.type';
 
 export default function ReportComment({ comment_id }: { comment_id: number }) {
   const [input, setInput] = useState<AcdCommentReportReq>({ comment_id, reason: 'PERSONAL', detail: '' });
