@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Button from '@/components/basic/button';
@@ -8,15 +7,38 @@ import Input from '@/components/basic/input';
 import Spinner from '@/components/basic/spinner';
 import DepartmentInput from '@/components/composite/departmentInput';
 import Select from '@/components/basic/select';
-import { handleInputBuilder } from '@/lib/form/handler';
 import { MyPageUpdateBasic } from '@/app/api/mypage.api';
+import { useForm } from '@tanstack/react-form';
 
-function UpdateBasicForm({ handleSubmit, input, handleInput, setInput, submitting }: FormProps<UpdateProfileReq>) {
+interface Props {
+  profile: UserProfile;
+}
+
+export default function UpdateBasicForm({ profile }: Props) {
+  const router = useRouter();
+  const form = useForm<UpdateProfileReq>({
+    defaultValues: profile,
+    onSubmit: async (value) => {
+      await MyPageUpdateBasic(value.value).then((s) => {
+        if (s.status === 'SUCCESS') {
+          alert('프로필 수정을 완료했습니다.');
+          router.push('/mypage?profilechanged');
+        } else {
+          alert(`프로필 수정을 실패했습니다: ${s.message}`);
+        }
+      });
+    }
+  });
+
   return (
     <form
       className="py-8 h-full transition-all self-center justify-center items-start pl-2 pr-2 flex flex-col gap-4 w-11/12 md:w-1/2"
       method="post"
-      onSubmit={handleSubmit}
+      onSubmit={e => {
+        e.preventDefault();
+        e.stopPropagation();
+        form.handleSubmit();
+      }}
       onKeyDown={(e) => {
         if (e.key === 'Enter') e.preventDefault();
       }}
@@ -31,49 +53,71 @@ function UpdateBasicForm({ handleSubmit, input, handleInput, setInput, submittin
       </div>
 
       <span className="text-xl mx-2 mt-4">닉네임</span>
-      <Input
-        id="username"
-        placeholder="닉네임"
-        value={input.username}
-        onChange={handleInput}
-        className="w-full"
-        readOnly={handleInput === undefined}
+      <form.Field name="username"
+        children={(field) => (
+          <Input
+            id="username"
+            placeholder="닉네임"
+            value={field.state.value}
+            onChange={e => field.handleChange(e.target.value)}
+            className="w-full"
+          />
+        )}
       />
+      
       <span className="text-xl mx-2 mt-4">학번</span>
-      <Input
-        id="student_id"
-        placeholder="학번"
-        value={input.student_id}
-        onChange={handleInput}
-        className="w-full"
-        readOnly={handleInput === undefined}
+      <form.Field name="student_id"
+        children={(field) => (
+          <Input
+            id="student_id"
+            placeholder="학번"
+            value={field.state.value}
+            onChange={e => field.handleChange(e.target.value)}
+            className="w-full"
+          />
+        )}
       />
       <span className="text-xl mx-2 mt-4">학기</span>
-      <Input
-        id="semester"
-        placeholder="학기"
-        value={String(input.semester)}
-        onChange={handleInput}
-        className="w-full"
-        readOnly={handleInput === undefined}
+
+      <form.Field name="semester"
+        children={(field) => (
+          <Input
+            id="semester"
+            placeholder="학기"
+            value={String(field.state.value)}
+            onChange={e => field.handleChange(Number(e.target.value))}
+            className="w-full"
+          />
+        )}
       />
 
       <span className="text-xl mx-2 mt-4">학과</span>
-      <DepartmentInput input={input} setInput={setInput}  />
-
+      <form.Field name="department"
+        children={(field) => (
+          <DepartmentInput value={field.state.value} setValue={field.handleChange}  />
+        )}
+      />
+     
       <span className="text-xl mx-2 mt-4">학위 과정</span>
-      <Select
-        name="degree"
-        value={input.degree}
-        handleValue={handleInput}
-        items={[
-          { value: 'MASTER', label: '석사' },
-          { value: 'DOCTOR', label: '박사' },
-        ]}
+
+      <form.Field name="degree"
+        children={(field) => (
+          <Select
+            name="degree"
+            value={field.state.value}
+            handleValue={e => {
+              field.handleChange(e.currentTarget.value as 'MASTER' | 'DOCTOR'); 
+            }}
+            items={[
+              { value: 'MASTER', label: '석사' },
+              { value: 'DOCTOR', label: '박사' },
+            ]}
+          />
+        )}
       />
 
       <Button className="w-full mt-4" kind="filled" type="submit">
-        {submitting ? (
+        {form.state.isSubmitting ? (
           <span>
             <Spinner /> 처리 중...
           </span>
@@ -82,40 +126,5 @@ function UpdateBasicForm({ handleSubmit, input, handleInput, setInput, submittin
         )}
       </Button>
     </form>
-  );
-}
-
-export default function MyPageEditBasicWithProfile({
-  profile: { username, student_id, degree, semester, department },
-}: {
-  profile: UserProfile;
-}) {
-  const router = useRouter();
-
-  const [input, setInput] = useState<UpdateProfileReq>({ username, student_id, degree, semester, department });
-  const [busy, setBusy] = useState<boolean>(false);
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setBusy(true);
-    MyPageUpdateBasic(input).then((s) => {
-      setBusy(false);
-      if (s.status === 'SUCCESS') {
-        alert('프로필 수정을 완료했습니다.');
-        router.push('/mypage?profilechanged');
-      } else {
-        alert(`프로필 수정을 실패했습니다: ${s.message}`);
-      }
-    });
-  }
-
-  return (
-    <UpdateBasicForm
-      handleSubmit={handleSubmit}
-      input={input}
-      handleInput={handleInputBuilder(input, setInput)}
-      setInput={setInput}
-      submitting={busy}
-    />
   );
 }

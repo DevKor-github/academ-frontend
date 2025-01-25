@@ -53,7 +53,7 @@ export default function TopNavInnerRightClient() {
             className="under-md:max-w-24"
             style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
           >
-            <span className="flex flex-row items-center gap-2">
+            <span className="flex flex-row items-center justify-center gap-2">
               마이페이지 <DownIcon />
             </span>
           </span>

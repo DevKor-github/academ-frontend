@@ -6,10 +6,15 @@ import { filterByFuzzy } from '@/util/fuzzy.util';
 import { useMemo } from 'react';
 import { useCallback } from 'react';
 
+interface Props {
+  value: string;
+  setValue: (next: string) => void;
+}
+
 export default function DepartmentInput<T extends { department: string }>({
-  input,
-  setInput,
-}: Pick<FormProps<T>, 'input' | 'setInput'>) {
+  value,
+  setValue,
+}: Props) {
   const [query, setQuery] = useState('');
   
   const candidates = useMemo(() => {
@@ -23,17 +28,12 @@ export default function DepartmentInput<T extends { department: string }>({
   }, [query]);
 
   const handleChange = useCallback((value: string | null) => {
-    if (setInput) {
-      setInput(req => ({
-        ...req,
-        department: value ?? '',
-      }))
-    }
-  }, [setInput]);
+    setValue(value ?? '');
+  }, [setValue]);
 
   return (
     <Combobox
-      value={input.department}
+      value={value}
       virtual={{ options: candidates }}
       onChange={handleChange}
       onClose={() => setQuery('')}
