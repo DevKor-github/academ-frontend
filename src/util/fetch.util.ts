@@ -29,7 +29,14 @@ export async function fetchAPIAuth(input: string, init: RequestInit = {}) {
   }
 
   const newAccessToken = await newAccess.json().then((v) => v.data);
-  return fetchAPI(input, withToken(newAccessToken)(init));
+
+  const last = await fetchAPI(input, withToken(newAccessToken)(init));
+
+  if (last.status === 401 && globalThis.window) {
+    globalThis.window.location.href = '/login';
+  }
+
+  return last;
 }
 
 ///////////////////// utilities /////////////////////
