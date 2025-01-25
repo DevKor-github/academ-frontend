@@ -21,7 +21,7 @@ const useInfiniteScroll = <TData, TError>(
     threshold = 1.0,
     onIntersect,
   }: {
-    target: React.RefObject<HTMLElement>;
+    target: React.RefObject<HTMLDivElement | null>;
     rootMargin?: string;
     threshold?: number;
     onIntersect: IntersectionObserverCallback;
