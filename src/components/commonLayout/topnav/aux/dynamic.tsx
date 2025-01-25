@@ -90,7 +90,7 @@ export default function TopNavInnerRightClient() {
               })}
               onClick={() => {
                 logout();
-                qc.invalidateQueries({ queryKey: ['loggedIn'] });
+                qc.resetQueries();
               }}
             >
               <LogoutIcon />

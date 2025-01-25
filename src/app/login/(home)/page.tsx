@@ -25,7 +25,7 @@ export default function LoginForm() {
     },
     onSubmit: async (values) => {
       handleLoginServer(values.value).finally(() => {
-        qc.invalidateQueries({ queryKey: ['loggedIn'] });
+        qc.resetQueries();
       });
     },
   });

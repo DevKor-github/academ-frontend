@@ -48,6 +48,7 @@ export async function handleLoginServer(input: LoginRequest) {
     });
 
     revalidatePath('/', 'layout');
+    revalidatePath('/mypage', 'layout');
   } catch (e) {
     console.log('error', JSON.stringify(e), e);
     return { error: '알 수 없는 오류로 실패했습니다. 잠시 후 다시 시도해주세요.' };

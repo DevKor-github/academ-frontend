@@ -11,5 +11,6 @@ export async function logout() {
   cookieStore.delete(COOKIE_REFRESH_TOKEN);
 
   revalidatePath('/', 'layout');
+  revalidatePath('/mypage', 'layout');
   redirect('/');
 }
