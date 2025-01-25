@@ -1,4 +1,5 @@
 interface ReqSearchCourse extends ReqSearch {
-  order: SearchOrdering;
+  // order: SearchOrdering;
+  order: string; // TODO
   page: number;
 }

@@ -1,3 +1,5 @@
+import type { Course } from '@/types/course.type';
+
 export function getTagFromCourse(course: Course) {
   const threshhold = 0.5;
 

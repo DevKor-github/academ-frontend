@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import type { Metadata, ResolvingMetadata } from 'next';
 import { GET } from '@/app/api/get';
 import { LectureIconPath } from '@/components/composite/lectureIcon';
+import type { Course, CourseOnly } from '@/types/course.type';
 
 interface Props {
   basic: ReactNode;

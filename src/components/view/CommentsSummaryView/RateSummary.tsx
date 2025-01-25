@@ -4,6 +4,7 @@ import Star5 from '@/components/composite/starIndicator';
 
 import { getTagFromCourse } from '@/lib/process/tag';
 import Skeleton from '@/components/composite/skeleton';
+import type { Course } from '@/types/course.type';
 
 function RateSummaryUnsafe(props: {
   avg_rating: React.ReactNode;

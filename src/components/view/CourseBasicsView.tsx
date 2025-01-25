@@ -6,6 +6,7 @@ import { SkeletonDiv, SkeletonSlow } from '@/components/composite/skeleton';
 import { WriteIcon } from '@/components/icon';
 import Link from 'next/link';
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
+import type { CourseOnly } from '@/types/course.type';
 
 function CourseBasicsViewUnsafe(props: {
   fade: boolean;

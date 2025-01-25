@@ -7,6 +7,7 @@ import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import useSearchKeyword from '../util';
 import { searchParamString } from '@/util/fetch.util';
+import type { CourseSearchOrdering } from '@/types/course.type';
 
 interface Props {
   children: ReactNode;
@@ -24,12 +25,12 @@ export default function SearchPage({ children }: Props) {
 
   const sCand = useSearchParams().get('s');
   const s = (Array.isArray(sCand) ? sCand[0] : sCand) || '';
-  const sort: SearchOrdering = sortCriterias.map(({ value }) => value).includes(s as SearchOrdering)
-    ? (s as SearchOrdering)
+  const sort: CourseSearchOrdering = sortCriterias.map(({ value }) => value).includes(s as CourseSearchOrdering)
+    ? (s as CourseSearchOrdering)
     : 'NEWEST';
 
   function handleValue(e: React.FormEvent<HTMLInputElement>) {
-    const newOrder = (e.target as HTMLInputElement).value as SearchOrdering;
+    const newOrder = (e.target as HTMLInputElement).value as CourseSearchOrdering;
     route.replace(`/lecture${searchParamString({q: keyword, s: newOrder}, '?')}`);
   }
 

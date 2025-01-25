@@ -1,5 +1,6 @@
 import { IsCourse } from '@/lib/type/IsCourse';
 import type { AcdComment } from '@/types/comment.type';
+import type { Course, CourseOnly } from '@/types/course.type';
 import { fetchAPIAuth, GET, searchParamString, withStatusCode } from '@/util/fetch.util';
 
 export async function searchCourse(input: ReqSearchCourse) {

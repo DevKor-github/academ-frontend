@@ -9,6 +9,7 @@ import LectureIcon from '@/components/composite/lectureIcon';
 
 import { getTagFromCourse } from '@/lib/process/tag';
 import { IsCourse } from '@/lib/type/IsCourse';
+import type { Course, CourseOnly } from '@/types/course.type';
 
 function Up({ course }: { course: Course | CourseOnly }) {
   return (

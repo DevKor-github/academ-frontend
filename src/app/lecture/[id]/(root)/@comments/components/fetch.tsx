@@ -10,6 +10,7 @@ import { CommentLoadingItems } from '../aux';
 import { courseDetailWithComments } from '@/app/api/lecture.api';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import type { AcdComment, AcdCommentOrdering } from '@/types/comment.type';
+import type { Course, CourseOnly } from '@/types/course.type';
 
 interface Props extends ReqCourseRelated {
   totalPage: number;

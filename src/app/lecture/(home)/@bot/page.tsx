@@ -10,6 +10,7 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { searchCourse, searchCourseCount } from '@/app/api/lecture.api';
 import Link from 'next/link';
 import useSearchKeyword from '../util';
+import type { Course, CourseOnly, CourseSearchOrdering } from '@/types/course.type';
 
 function SearchResultsViewWithOrder({
   query,
@@ -17,7 +18,7 @@ function SearchResultsViewWithOrder({
   totalPage,
 }: {
   query: string;
-  order: SearchOrdering;
+  order: CourseSearchOrdering;
   totalPage: number;
 }) {
   const {
@@ -74,8 +75,8 @@ export default function SearchPage() {
 
   const sCand = useSearchParams().get('s');
   const s = (Array.isArray(sCand) ? sCand[0] : sCand) || '';
-  const sort: SearchOrdering = sortCriterias.map(({ value }) => value).includes(s as SearchOrdering)
-    ? (s as SearchOrdering)
+  const sort: CourseSearchOrdering = sortCriterias.map(({ value }) => value).includes(s as CourseSearchOrdering)
+    ? (s as CourseSearchOrdering)
     : 'NEWEST';
 
 

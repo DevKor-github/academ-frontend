@@ -6,7 +6,8 @@ import { ELEM_PER_PAGE } from '@/data/constant';
 import CoursePreview from '@/components/view/CoursePreview';
 import { CourseLoadingItems } from '@/app/lecture/(home)/aux';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { MyPageBookmarks } from '../../../../api/mypage.api';
+import { MyPageBookmarks } from '@/app/api/mypage.api';
+import type { Course } from '@/types/course.type';
 interface Props {
   totalCount: number;
 }
