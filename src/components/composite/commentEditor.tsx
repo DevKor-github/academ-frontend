@@ -20,7 +20,7 @@ function FieldSetStar<Req>({
 
   return (
     <fieldset className="flex flex-row mt-4">
-      {[1, 2, 3, 4, 5].flatMap((i) => (
+      {[1, 2, 3, 4, 5].map((i) => (
         <label key={i}>
           <input
             id={name}
@@ -60,8 +60,8 @@ function FieldSet<Req>({
       <legend className="mb-4">
         <span className="font-bold">{label}</span> 어땠나요?
       </legend>
-      {[1, 2, 3, 4, 5].flatMap((i) => (
-        <label>
+      {[1, 2, 3, 4, 5].map((i) => (
+        <label key={i}>
           <input
             id={name}
             className="hidden"
