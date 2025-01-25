@@ -1,3 +1,5 @@
+'use client';
+
 import Button from '@/components/basic/button';
 import { VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
@@ -7,6 +9,8 @@ import { WriteIcon } from '@/components/icon';
 import Link from 'next/link';
 import BookmarkToggleButton from '@/components/composite/bookmarkToggleButton';
 import type { CourseOnly } from '@/types/course.type';
+import { useQuery } from '@tanstack/react-query';
+import { courseDetail } from '@/app/api/lecture.api';
 
 function CourseBasicsViewUnsafe(props: {
   fade: boolean;
@@ -95,6 +99,13 @@ export function CourseBasicsViewLoading() {
 }
 
 export default function CourseBasicsView({ course }: { course: CourseOnly }) {
+
+  // TODO use 'service' to keep queryKey consistent
+  const { data: courseFromUser } = useQuery({
+    queryKey: ['courseDetail', course.course_id],
+    queryFn: () => courseDetail(course.course_id),
+  });
+
   return (
     <CourseBasicsViewUnsafe
       fade={true}
@@ -119,7 +130,9 @@ export default function CourseBasicsView({ course }: { course: CourseOnly }) {
       course_code={course.course_code}
       class_number={course.class_number}
       course_id={course.course_id}
-      bookmarkToggle={<BookmarkToggleButton id={course.course_id} initialValue={course.isBookmark} />}
+      bookmarkToggle={courseFromUser === undefined ? null :
+        <BookmarkToggleButton id={course.course_id} initialValue={courseFromUser?.data.isBookmark} />
+      }
     />
   );
 }
