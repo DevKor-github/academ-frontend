@@ -34,13 +34,13 @@ export default function MyCommentsView({ totalCount }: Props) {
   });
 
   const nextButton = hasNextPage ? (
-    <div className="self-center">모두 불러왔습니다.</div>
-  ) : (
     <div className="w-full pt-6 flex flex-col justify-center items-center">
       <Button onClick={() => fetchNextPage()}>
         <DownIcon />
       </Button>
     </div>
+  ) : (
+    <div className="self-center">모두 불러왔습니다.</div>
   );
 
   if (totalPage <= 0) {
