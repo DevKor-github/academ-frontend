@@ -1,90 +1,72 @@
-import Input from '../basic/input';
+import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/react';
+import { inputVariant } from '@/style/input';
+import { useState } from 'react';
+import { departments } from '@/data/departments';
+import { filterByFuzzy } from '@/util/fuzzy.util';
+import { useMemo } from 'react';
+import { useCallback } from 'react';
 
-export default function DepartmentInput({
+export default function DepartmentInput<T extends { department: string }>({
   input,
-  department,
-}: {
-  input: UpdateProfileReq;
-  department: DepartmentInputProps;
-}) {
-  const changeInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    department.setInput({
-      ...input,
-      [event.target.id]: value,
-    });
-    department.setDropDownItemIndex(-1);
-    department.setIsDropDown(true);
-  };
+  setInput,
+}: Pick<FormProps<T>, 'input' | 'setInput'>) {
+  const [query, setQuery] = useState('');
+  
+  const candidates = useMemo(() => {
+    const arr = filterByFuzzy(
+      departments,
+      query,
+      (department) => department,
+    );
+    console.assert(Array.isArray(arr));
+    return arr;
+  }, [query]);
 
-  const clickDropDownItem = (clickedItem: string) => {
-    department.setInput({
-      ...input,
-      department: clickedItem,
-    });
-  };
-
-  const handleDropDownKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (department.isDropDown) {
-      if (event.key === 'ArrowDown' && department.dropDownList.length - 1 > department.dropDownItemIndex) {
-        department.setDropDownItemIndex(department.dropDownItemIndex + 1);
-      }
-
-      if (event.key === 'ArrowUp' && department.dropDownItemIndex > 0) {
-        department.setDropDownItemIndex(department.dropDownItemIndex - 1);
-      }
-
-      if (event.key === 'Enter' && department.dropDownItemIndex >= 0) {
-        event.preventDefault();
-        clickDropDownItem(department.dropDownList[department.dropDownItemIndex]);
-        department.setDropDownItemIndex(-1);
-        department.setIsDropDown(false);
-      }
+  const handleChange = useCallback((value: string | null) => {
+    if (setInput) {
+      setInput(req => ({
+        ...req,
+        department: value ?? '',
+      }))
     }
-  };
+  }, [setInput]);
 
   return (
-    <div
-      onBlur={() => {
-        department.setDropDownItemIndex(-1);
-        department.setIsDropDown(false);
-      }}
-      className="w-full"
+    <Combobox
+      value={input.department}
+      virtual={{ options: candidates }}
+      onChange={handleChange}
+      onClose={() => setQuery('')}
     >
-      <Input
+      <ComboboxInput className={inputVariant({
+        className: 'w-full',
+      })}
         required
         type="text"
         id="department"
         placeholder="학과"
         autoComplete="off"
-        value={input.department}
-        onChange={changeInputValue}
-        onKeyDown={handleDropDownKey}
-        onFocus={() => {
-          department.setIsDropDown(true);
-        }}
-        style={department.isDropDown ? { borderRadius: '0.5rem 0.5rem 0 0' } : { borderRadius: '0.5rem' }}
-        className="w-full"
+        // value={query}
+        onChange={(event) => setQuery(event.target.value)}
       />
-      {department.isDropDown && (
-        <ul className="block m-0 p-2 light:bg-white border light:border-base-30 dark:bg-neutral-900 dark:border-base-2 rounded-b-lg z-10">
-          {department.dropDownList.length === 0 && <li className="p-2 text-gray-500">해당하는 단어가 없습니다</li>}
-          {department.dropDownList.map((dropDownItem, dropDownIndex) => (
-            <li
-              key={dropDownIndex}
-              onMouseDown={() => {
-                clickDropDownItem(dropDownItem);
-                department.setDropDownItemIndex(-1);
-                department.setIsDropDown(false);
-              }}
-              onMouseOver={() => department.setDropDownItemIndex(dropDownIndex)}
-              className={`p-2 cursor-pointer ${dropDownIndex === department.dropDownItemIndex ? 'light:bg-gray-300 dark:bg-gray-700' : ''}`}
-            >
-              {dropDownItem}
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+      {
+        candidates.length > 0 ?
+        <ComboboxOptions
+        anchor="bottom"
+        className="w-[var(--input-width)] block m-0 p-2 light:bg-white border light:border-base-30 dark:bg-neutral-900 dark:border-base-2 rounded-lg z-10">
+        {({ option: dropDownItem }) => (
+          <ComboboxOption
+          key={dropDownItem}
+          className="p-2 cursor-pointer data-[focus]:light:bg-gray-300 data-[focus]:dark:bg-gray-700 w-full"
+          value={dropDownItem}
+          >
+            {dropDownItem}
+          </ComboboxOption>
+        )}
+          </ComboboxOptions>
+          :
+          <p className="p-2 text-gray-500">해당하는 단어가 없습니다</p>
+      }
+    </Combobox>
   );
 }

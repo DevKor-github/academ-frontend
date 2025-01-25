@@ -1,6 +1,6 @@
 import { tv } from 'tailwind-variants';
 
-export const input = tv({
+export const inputVariant = tv({
   base: [
     'p-3',
     'accent-primary-500',
