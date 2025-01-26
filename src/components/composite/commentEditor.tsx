@@ -1,5 +1,3 @@
-import Button from '@/components/basic/button';
-
 import { StarIcon } from '@/components/icon';
 import { VStack } from '../basic/stack';
 import { useEffect, useRef } from 'react';
@@ -7,6 +5,7 @@ import { useEffect, useRef } from 'react';
 import { useState } from 'react';
 import { AcdCommentReqJoin } from '@/types/comment.types';
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
+import { filledButton } from '@/styles/button';
 
 function FieldSetStar<Req>({
   name,
@@ -171,8 +170,6 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
     } else alert('태그는 최대 3개까지 선택 가능합니다.');
   }
 
-  const [open, setOpen] = useState(false);
-
   const textarea = useRef<HTMLTextAreaElement>(null);
   const handleResizeHeight = () => {
     if (textarea.current) {
@@ -287,7 +284,7 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
       <div className="pt-8 pb-8 border-b border-b-neutral-500">
         <span className="text-lg inline-block mb-10">
           강의평 작성{' '}
-          <Popover className="relative">
+          <Popover className="inline relative">
             <PopoverButton
               className="bg-none border border-primary-500 text-primary-500 aspect-square pl-2 pr-2 ml-2 text-sm rounded-full"
               type="button"
@@ -331,9 +328,9 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
       </div>
 
       <div className="flex flex-row justify-center items-center mt-8">
-        <Button kind="filled" type="submit" className="px-20" disabled={input.review.length < 50}>
+        <button type="submit" className={filledButton({className: "px-20", disabled: input.review.length < 50})} disabled={input.review.length < 50}>
           강의평 제출하기
-        </Button>
+        </button>
       </div>
     </form>
   );
