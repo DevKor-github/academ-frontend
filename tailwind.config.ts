@@ -29,11 +29,7 @@ const animationDelayPlugin: PluginCreator = ({ matchUtilities }) => {
 };
 
 const config: Config = {
-  content: [
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/markdown/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
+  content: ['./src/**/*.{js,ts,jsx,tsx,mdx}'],
   darkMode: 'class', // set 'media' to turn on : TODO: edit addVariant('light', ...) also
   theme: {
     extend: {
@@ -176,4 +172,5 @@ const config: Config = {
   },
   plugins: [plugin(containerPlugin), plugin(animationDelayPlugin)],
 };
+
 export default config;
