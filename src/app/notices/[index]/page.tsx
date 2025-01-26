@@ -1,7 +1,7 @@
 import { HStack } from '@/components/basic/stack';
 import Link from 'next/link';
 import { ELEM_PER_PAGE } from '@/data/constant';
-import apiGetNotices from '@/app/api/notice.api';
+import readNotices from '@/app/api/notice.api';
 import type { Notice } from '@/types/notice.types';
 
 async function NoticeSingle({ notice }: { notice: Notice }) {
@@ -21,7 +21,7 @@ async function NoticeSingle({ notice }: { notice: Notice }) {
 }
 
 export async function generateStaticParams() {
-  const ns = await apiGetNotices();
+  const ns = await readNotices();
   const countNotice = ns.length;
   const countPages = Math.ceil(countNotice / ELEM_PER_PAGE);
 
@@ -75,7 +75,7 @@ export default async function NoticeView(props: { params: Promise<{ index: strin
     return Promise.reject('index not number');
   }
 
-  const ns = await apiGetNotices();
+  const ns = await readNotices();
   const countNotice = ns.length;
   const countPages = Math.ceil(countNotice / ELEM_PER_PAGE);
 

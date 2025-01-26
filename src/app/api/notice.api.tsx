@@ -6,10 +6,9 @@ const MARKDOWN_EXTENSION = '.mdx';
 
 import fs from 'fs/promises';
 // import naturalCompare from 'natural-compare';
-import { compileMDX } from 'next-mdx-remote/rsc';
+import { compile } from '@/util/mdx.util';
 import path from 'path';
 import type { Notice, NoticeMetadata } from '@/types/notice.types';
-import remarkGfm from 'remark-gfm';
 
 const fns: Promise<Notice[]> = fs
   .readdir(NOTICES_DIR)
@@ -21,18 +20,9 @@ const fns: Promise<Notice[]> = fs
           const pullpath = path.resolve(NOTICES_DIR, fne);
           const fn = fne.slice(0, -MARKDOWN_EXTENSION.length);
 
-          const { content, frontmatter } = await compileMDX<NoticeMetadata<string>>({
-            source: await fs.readFile(pullpath),
-            // XXX don't use this - it has bug..
-            // components: noticeMDXComponents,
-            options: {
-              parseFrontmatter: true,
-              mdxOptions: {
-                remarkPlugins: [],
-                rehypePlugins: [remarkGfm],
-              },
-            },
-          });
+          const { content, frontmatter } = await compile<NoticeMetadata<string>>(
+            (await fs.readFile(pullpath))
+          );
 
           const created_at = new Date(frontmatter.created_at);
 
@@ -56,6 +46,6 @@ const fns: Promise<Notice[]> = fs
     (arr) => arr.sort((a, b) => b.created_at.getTime() - a.created_at.getTime()),
   );
 
-export default async function apiGetNotices() {
+export default async function readNotices() {
   return fns;
 }
