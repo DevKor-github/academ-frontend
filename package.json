@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "private": true,
   "scripts": {
-    "format": "prettier --write \"**/*.ts\" \"**/*.tsx\"",
+    "format": "prettier --write \"**/*.ts\" \"**/*.tsx\" | grep -v '(unchanged)$'",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
