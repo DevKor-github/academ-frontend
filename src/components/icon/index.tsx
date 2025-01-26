@@ -136,25 +136,6 @@ export const IssueIcon = () => (
   </svg>
 );
 
-export const BookIcon = () => (
-  <svg width="1em" height="1em" viewBox="0 0 30 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path
-      d="M1 1H9.4C10.8852 1 12.3096 1.60873 13.3598 2.69227C14.41 3.77582 15 5.24542 15 6.77778V27C15 25.8507 14.5575 24.7485 13.7698 23.9359C12.9822 23.1232 11.9139 22.6667 10.8 22.6667H1V1Z"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <path
-      d="M29 1H20.6C19.1148 1 17.6904 1.60873 16.6402 2.69227C15.59 3.77582 15 5.24542 15 6.77778V27C15 25.8507 15.4425 24.7485 16.2302 23.9359C17.0178 23.1232 18.0861 22.6667 19.2 22.6667H29V1Z"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
 export const ThumbUpIcon = () => (
   <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path

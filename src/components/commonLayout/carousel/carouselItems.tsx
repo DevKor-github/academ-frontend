@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { HStack, VStack } from '@/components/basic/stack';
-import { BookIcon, RightIcon } from '@/components/icon';
+import { BookOpenIcon, ChevronRightIcon } from 'lucide-react';
 
 export function CarouselItem({ url, children }: { url: string; children?: React.ReactNode }) {
   return (
@@ -46,7 +46,7 @@ const carouselItems = [
         </span>
         <Link href="/about">
           <button className="rounded-full border border-white items-center py-2 px-4">
-            <span className="mr-4">자세히보기</span> <RightIcon />
+            <span className="mr-4">자세히보기</span> <ChevronRightIcon />
           </button>
         </Link>
       </VStack>
@@ -62,7 +62,7 @@ const carouselItems = [
       </span>
       <span className="text-4xl">어떤 강의가 나의 연구에 도움이 될까?</span>
       <span className="text-lg mt-6">
-        <BookIcon /> <span className="ml-2">강의 간의 비교를 통해 나의 학업에 도움이 되는 강의를 선택하세요.</span>
+        <BookOpenIcon /> <span className="ml-2">강의 간의 비교를 통해 나의 학업에 도움이 되는 강의를 선택하세요.</span>
       </span>
     </HStack>
   </CarouselItem>,
@@ -75,7 +75,7 @@ const carouselItems = [
         <span className="font-bold">문제 출제 유형</span>과 <span className="font-bold">기출</span>을 한눈에
       </span>
       <span className="text-lg">
-        <BookIcon /> <span className="ml-2">수업 및 시험 방식에 대한 정보를 얻고 </span>
+        <BookOpenIcon /> <span className="ml-2">수업 및 시험 방식에 대한 정보를 얻고 </span>
         <span className="font-bold">효율적으로 시험을 준비</span>할 수 있어요.
       </span>
     </HStack>
