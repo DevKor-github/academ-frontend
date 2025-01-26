@@ -1,19 +1,35 @@
+'use client';
+
 import Link from 'next/link';
 import { IsCourse } from '@/types/course.types';
-import { courseDetailWithNoAuth } from '@/app/api/lecture.api';
+import { courseDetail } from '@/app/api/lecture.api';
 import { IssueIcon } from '@/components/icon';
 import CommentsSummaryView from '@/components/view/CommentsSummaryView';
 import { LoginRequiredView, NoMembershipView } from '@/components/composite/PermissionView';
+import { useQuery } from '@tanstack/react-query';
+import { IsLoggedIn } from '@/app/api/mypage.api';
 
 interface Props {
-  params: Promise<{ id: string }>;
+  course_id: string;
 }
 
-export default async function SummaryPage({ params }: Props) {
-  const { id: course_id } = await params;
+export default function SummaryPage({ course_id }: Props) {
 
   // XXX : this is just for showing basic information, order is **NOT** important - maybe api refactor?
-  const course = await courseDetailWithNoAuth(Number(course_id));
+  // TODO use centralized service for query key management
+  const { data: course } = useQuery({
+    queryKey: ['course_detail_without_comments', course_id],
+    queryFn: () => courseDetail(Number(course_id)),
+  })
+
+  const { data: isLoggedIn } = useQuery({
+    queryKey: ['isLoggedIn'],
+    queryFn: async () => IsLoggedIn(),
+  });
+
+  if (course === undefined || isLoggedIn === undefined) {
+    return null;
+  }
 
   return course.data.count_comments === 0 ? (
     <div className="flex h-full justify-center">
@@ -32,7 +48,7 @@ export default async function SummaryPage({ params }: Props) {
       <div className="flex flex-col p-4 mt-16">
         {
           // TODO check login using cookie
-          true ? <LoginRequiredView /> : <NoMembershipView />
+          isLoggedIn ?  <NoMembershipView /> : <LoginRequiredView /> 
         }
       </div>
     </div>

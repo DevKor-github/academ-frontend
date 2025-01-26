@@ -5,17 +5,15 @@ import { courseDetailWithNoAuth } from '@/app/api/lecture.api';
 
 interface Props {
   basic: ReactNode;
-  summary: ReactNode;
-  comments: ReactNode;
+  client: ReactNode;
   write: ReactNode;
 }
 
-export default async function Layout({ basic, summary, comments, write }: Props) {
+export default async function Layout({ basic, client, write }: Props) {
   return (
     <div className="flex flex-col w-full h-full">
       {basic}
-      {summary}
-      {comments}
+      {client}
       {write}
     </div>
   );

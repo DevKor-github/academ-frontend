@@ -5,7 +5,6 @@ const NOTICES_DIR = path.resolve(REPOSITORY_ROOT, './src/markdown/notices');
 const MARKDOWN_EXTENSION = '.mdx';
 
 import fs from 'fs/promises';
-// import naturalCompare from 'natural-compare';
 import { compile } from '@/util/mdx.util';
 import path from 'path';
 import type { Notice, NoticeMetadata } from '@/types/notice.types';
@@ -20,9 +19,7 @@ const fns: Promise<Notice[]> = fs
           const pullpath = path.resolve(NOTICES_DIR, fne);
           const fn = fne.slice(0, -MARKDOWN_EXTENSION.length);
 
-          const { content, frontmatter } = await compile<NoticeMetadata<string>>(
-            (await fs.readFile(pullpath))
-          );
+          const { content, frontmatter } = await compile<NoticeMetadata<string>>(await fs.readFile(pullpath));
 
           const created_at = new Date(frontmatter.created_at);
 
@@ -41,10 +38,7 @@ const fns: Promise<Notice[]> = fs
         }),
     ),
   )
-  .then(
-    // use descending order
-    (arr) => arr.sort((a, b) => b.created_at.getTime() - a.created_at.getTime()),
-  );
+  .then((arr) => arr.sort((a, b) => b.created_at.getTime() - a.created_at.getTime()));
 
 export default async function readNotices() {
   return fns;

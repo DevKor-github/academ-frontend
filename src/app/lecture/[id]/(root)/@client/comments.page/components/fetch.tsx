@@ -19,7 +19,7 @@ interface Props extends ReqCourseRelated {
 interface CommentsViewProps extends Props {
   order: AcdCommentOrdering;
   setOrder: React.FormEventHandler;
-  sessionUserID: number | undefined;
+  sessionUserID: number | undefined | null;
 }
 
 function CommentsResults({ course_id, order, totalPage, setOrder, sessionUserID }: CommentsViewProps) {
@@ -70,7 +70,7 @@ export default function CommentsView({
 }: {
   course: Course | CourseOnly;
   totalPage: number;
-  sessionUserID: number | undefined;
+  sessionUserID: number | undefined | null;
 }) {
   const [order, setOrder] = useState<AcdCommentOrdering>('NEWEST');
 

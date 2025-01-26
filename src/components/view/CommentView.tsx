@@ -301,7 +301,7 @@ export default function CommentView({
   sessionUserID,
 }: {
   comment: AcdComment;
-  sessionUserID: number | undefined;
+  sessionUserID: number | undefined | null;
 }) {
   const editable = comment.profile_id === sessionUserID;
 
