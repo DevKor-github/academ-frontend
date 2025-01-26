@@ -36,8 +36,11 @@ const nextConfig: NextConfig = {
   },
 };
 
+import remarkGfm from 'remark-gfm';
+
 const withMDX = createMDX({
   // Add markdown plugins here, as desired
+  options: { remarkPlugins: [remarkGfm] },
 });
 
 export default withMDX(nextConfig);

@@ -9,6 +9,7 @@ import fs from 'fs/promises';
 import { compileMDX } from 'next-mdx-remote/rsc';
 import path from 'path';
 import type { Notice, NoticeMetadata } from '@/types/notice.types';
+import remarkGfm from 'remark-gfm';
 
 const fns: Promise<Notice[]> = fs
   .readdir(NOTICES_DIR)
@@ -28,7 +29,7 @@ const fns: Promise<Notice[]> = fs
               parseFrontmatter: true,
               mdxOptions: {
                 remarkPlugins: [],
-                rehypePlugins: [],
+                rehypePlugins: [remarkGfm],
               },
             },
           });
