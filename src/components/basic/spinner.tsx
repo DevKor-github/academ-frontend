@@ -1,8 +1,5 @@
 import styles from './spinner.module.css';
 
-//  border: 16px solid #f3f3f3;
-//border-top: 16px solid #3498db;
-
 export default function Spinner() {
   return (
     <svg

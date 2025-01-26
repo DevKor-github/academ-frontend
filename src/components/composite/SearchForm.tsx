@@ -1,10 +1,10 @@
 'use client';
 
-import { MagnifyIcon, RightIcon } from '@/components/icon';
 import ErrorLabel from '../basic/errorlabel';
 
 import { useState } from 'react';
 import { useAnimationTimeout } from '@/hooks/useTemporal';
+import { ChevronRightIcon, SearchIcon } from 'lucide-react';
 
 interface SearchFormProp {
   className?: string;
@@ -37,7 +37,7 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
         className="flex flex-row gap-2 transition-all justify-center items-center light:bg-neutral-100 dark:bg-neutral-900
        px-5 border border-neutral-200 dark:border-neutral-800 rounded-3xl focus-within:shadow-xl dark:shadow-base-6"
       >
-        <MagnifyIcon />
+        <SearchIcon />
         <input
           // required
           autoFocus={autoFocus}
@@ -55,7 +55,7 @@ export default function SearchForm({ autoFocus, className, defaultValue, style }
           }}
         />
         <button type="submit">
-          <RightIcon />
+          <ChevronRightIcon />
         </button>
       </div>
       <ErrorLabel className="mt-4" label={error} shake={isAnimation} />

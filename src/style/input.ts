@@ -2,7 +2,7 @@ import { tv } from 'tailwind-variants';
 
 export const inputVariant = tv({
   base: [
-    'p-3',
+    'p-4',
     'accent-primary-500',
     'focus:border-primary-500',
     'transition-all',

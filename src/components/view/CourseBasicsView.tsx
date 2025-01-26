@@ -99,7 +99,6 @@ export function CourseBasicsViewLoading() {
 }
 
 export default function CourseBasicsView({ course }: { course: CourseOnly }) {
-
   // TODO use 'service' to keep queryKey consistent
   const { data: courseFromUser } = useQuery({
     queryKey: ['courseDetail', course.course_id],
@@ -130,8 +129,10 @@ export default function CourseBasicsView({ course }: { course: CourseOnly }) {
       course_code={course.course_code}
       class_number={course.class_number}
       course_id={course.course_id}
-      bookmarkToggle={courseFromUser === undefined ? null :
-        <BookmarkToggleButton id={course.course_id} initialValue={courseFromUser?.data.isBookmark} />
+      bookmarkToggle={
+        courseFromUser === undefined ? null : (
+          <BookmarkToggleButton id={course.course_id} initialValue={courseFromUser?.data.isBookmark} />
+        )
       }
     />
   );

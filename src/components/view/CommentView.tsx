@@ -7,7 +7,8 @@ import { useEffect, useState } from 'react';
 import { deleteComment, createLikeComment } from '@/app/api/comment.api';
 // import { decode } from '@/lib/jwt';
 import Link from 'next/link';
-import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/components/icon';
+import { SelectedThumbUpIcon, ThumbUpIcon } from '@/components/icon';
+import { PenLineIcon } from 'lucide-react';
 import { twMerge } from 'tailwind-merge';
 import type { AcdComment, AcdMyComment } from '@/types/comment.types';
 
@@ -180,7 +181,7 @@ function Right({
         <VStack className="self-end items-center gap-x-3">
           <Link href={`/comment/${comment.comment_id}/edit`}>
             <button className="flex justify-center items-center gap-2 px-4 py-1 border rounded-full border-neutral-400 text-neutral-400">
-              <EditIcon />
+              <PenLineIcon />
               수정
             </button>
           </Link>
@@ -250,7 +251,7 @@ function MyRight({ comment, setDel }: { comment: AcdMyComment; setDel: React.Dis
       <VStack className="self-end items-center gap-4">
         <Link href={`/comment/${comment.comment_id}/edit`}>
           <button className="flex justify-center items-center gap-2 px-4 py-1 border rounded-full border-neutral-400 text-neutral-400">
-            <EditIcon />
+            <PenLineIcon />
             수정
           </button>
         </Link>

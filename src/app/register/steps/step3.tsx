@@ -10,8 +10,8 @@ import Input from '@/components/basic/input';
 import ErrorLabel from '@/components/basic/errorlabel';
 
 import { departments } from '@/data/departments';
-import { EyeCloseIcon, EyeIcon } from '@/components/icon';
 import type { SignupRequest } from '@/types/user.types';
+import PWInput from '@/components/input/pw-input';
 
 const validatePw = (pw: string) => {
   const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W]{8,24}$/;
@@ -52,33 +52,14 @@ export default function Step3({
     setIsNumValid(validateNum(input.student_id));
   }, [input.student_id]);
 
-  function handlepwCheck(event: React.ChangeEvent<HTMLInputElement>) {
-    const { value } = event.target;
-    setpwCheck(value);
-  }
-
   function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
     const { value } = event.target;
+
     setInput({
       ...input,
       [event.target.id]: value,
     });
   }
-
-  const inputFields = [
-    { label: '비밀번호', name: 'password' },
-    { label: '비밀번호 확인', name: 'passwordConfirm' },
-  ];
-
-  const [showPw, setShowPw] = useState<boolean[]>(inputFields.map(() => false));
-
-  const onToggleShow = (index: number) => {
-    setShowPw((prev) => {
-      const newHide = [...prev];
-      newHide[index] = !newHide[index];
-      return newHide;
-    });
-  };
 
   async function handleDuplicateName() {
     const response = await duplicateName({ username: input.username });
@@ -196,30 +177,17 @@ export default function Step3({
           style={{ width: '100%' }}
         />
         <span className="text-xl">비밀번호</span>
-        <div className="relative w-full">
-          <Input
-            required
-            type={showPw[0] ? 'text' : 'password'}
-            id="password"
-            autoComplete="new-password"
-            placeholder="비밀번호를 입력해주세요"
-            onChange={handleInput}
-            autoFocus
-            style={{ width: '100%' }}
-            maxLength={24}
-          />
-          <div className="absolute top-3 right-4">
-            {showPw[0] ? (
-              <div onClick={() => onToggleShow(0)}>
-                <EyeIcon />
-              </div>
-            ) : (
-              <div onClick={() => onToggleShow(0)}>
-                <EyeCloseIcon />
-              </div>
-            )}
-          </div>
-        </div>
+        <PWInput
+          value={pwcheck}
+          setValue={setpwCheck}
+          inputProps={{
+            id: 'password',
+            autoComplete: 'new-password',
+            placeholder: '비밀번호를 입력해주세요',
+            className: 'w-full',
+            maxLength: 24,
+          }}
+        />
         <ErrorLabel
           label={
             !isPwValid && input.password !== ''
@@ -228,30 +196,17 @@ export default function Step3({
           }
         />
         <span className="text-xl">비밀번호 확인</span>
-        <div className="relative w-full">
-          <Input
-            required
-            type={showPw[1] ? 'text' : 'password'}
-            id="pwcheck"
-            autoComplete="new-password"
-            value={pwcheck}
-            placeholder="비밀번호를 다시 입력해주세요"
-            onChange={handlepwCheck}
-            style={{ width: '100%' }}
-            maxLength={24}
-          />
-          <div className="absolute top-3 right-4">
-            {showPw[1] ? (
-              <div onClick={() => onToggleShow(1)}>
-                <EyeIcon />
-              </div>
-            ) : (
-              <div onClick={() => onToggleShow(1)}>
-                <EyeCloseIcon />
-              </div>
-            )}
-          </div>
-        </div>
+        <PWInput
+          value={pwcheck}
+          setValue={setpwCheck}
+          inputProps={{
+            id: 'pwcheck',
+            autoComplete: 'new-password',
+            placeholder: '비밀번호를 다시 입력해주세요',
+            className: 'w-full',
+            maxLength: 24,
+          }}
+        />
         <ErrorLabel label={input.password !== pwcheck && pwcheck !== '' ? '비밀번호가 일치하지 않습니다.' : ''} />
         <span className="text-xl" style={{ marginTop: '10px' }}>
           닉네임

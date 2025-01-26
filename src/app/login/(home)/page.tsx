@@ -3,16 +3,16 @@
 import { HStack } from '@/components/basic/stack';
 import Input from '@/components/basic/input';
 import { VStack } from '@/components/basic/stack';
-import Radio from '@/components/basic/radio';
-import A from '@/components/basic/a';
 import Button from '@/components/basic/button';
 import Spinner from '@/components/basic/spinner';
-import { useState } from 'react';
-import { EyeCloseIcon, EyeIcon } from '@/components/icon';
 import { handleLoginServer } from './action';
 import { useQueryClient } from '@tanstack/react-query';
 import { useForm } from '@tanstack/react-form';
 import type { LoginRequest } from '@/types/user.types';
+import Link from 'next/link';
+import { a } from '@/style/a';
+import PWInput from '@/components/input/pw-input';
+import Checkbox from '@/components/input/checkbox';
 
 export default function LoginForm() {
   const qc = useQueryClient();
@@ -29,8 +29,6 @@ export default function LoginForm() {
       });
     },
   });
-
-  const [showPw, setShowPw] = useState<boolean>(false);
 
   return (
     <span
@@ -89,46 +87,17 @@ export default function LoginForm() {
                   },
                 }}
               >
-                {(field) => (
-                  <div className="relative w-full">
-                    <Input
-                      id="password"
-                      name="password"
-                      type={showPw ? 'text' : 'password'}
-                      placeholder="비밀번호를 입력해주세요"
-                      onChange={(e) => field.handleChange(e.target.value)}
-                      value={field.state.value}
-                      style={{ padding: '16px', width: '100%' }}
-                    />
-                    <div className="absolute top-4 right-4">
-                      {showPw ? (
-                        <div onClick={() => setShowPw(false)}>
-                          <EyeIcon />
-                        </div>
-                      ) : (
-                        <div onClick={() => setShowPw(true)}>
-                          <EyeCloseIcon />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
+                {(field) => <PWInput value={field.state.value} setValue={field.handleChange} />}
               </form.Field>
               {/* <ErrorLabel className="text-primary-500" label={state.error} shake={shake} /> */}
 
               <form.Field name="remember-me">
                 {(field) => (
                   <VStack className="pt-4 pb-4 items-center justify-between">
-                    <Radio
-                      id="remember-me"
-                      name="remember-me"
-                      readOnly={false}
-                      // readOnly={handleInput === undefined}
-                      value={field.state.value}
-                      onChange={(e) => field.handleChange(e.currentTarget.checked)}
-                      label="로그인 정보 저장"
-                    />
-                    <A href="/login/reset-pw">비밀번호 초기화</A>
+                    <Checkbox label="로그인 정보 저장" value={field.state.value} setValue={field.handleChange} />
+                    <Link className={a({ style: 'accent' })} href="/login/reset-pw">
+                      비밀번호 초기화
+                    </Link>
                   </VStack>
                 )}
               </form.Field>
@@ -152,7 +121,10 @@ export default function LoginForm() {
                 )}
               </Button>
               <span style={{ textAlign: 'center' }}>
-                계정이 없으신가요? <A href="/register">회원가입</A>
+                계정이 없으신가요?{' '}
+                <Link className={a({ style: 'accent' })} href="/register">
+                  회원가입
+                </Link>
               </span>
             </HStack>
           </HStack>
