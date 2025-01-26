@@ -2,13 +2,10 @@
 
 import Link from 'next/link';
 import Button from '@/components/basic/button';
-import { HStack } from '@/components/basic/stack';
-
-import { LogoutIcon, ProfileIcon } from './icons';
 import { DownIcon } from '@/components/icon';
 import { logout } from '@/app/actions/logout.action';
-
-import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems, Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
+import { LogOutIcon, UserIcon } from 'lucide-react';
 import { blankButton } from '@/style/button';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { isTokenExists } from '@/util/auth.util';
@@ -49,8 +46,8 @@ export default function TopNavInnerRightClient() {
     return <LoginButton />;
   } else {
     return (
-      <Popover>
-        <PopoverButton className="rounded-full bg-primary-500 text-white p-2 pl-2 pr-2 w-32">
+      <Menu>
+        <MenuButton className="rounded-full bg-primary-500 text-white p-2 pl-2 pr-2 w-32">
           <span
             className="under-md:max-w-24"
             style={{ textWrap: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}
@@ -59,19 +56,17 @@ export default function TopNavInnerRightClient() {
               마이페이지 <DownIcon />
             </span>
           </span>
-        </PopoverButton>
+        </MenuButton>
         {/* <PopoverButton className="block text-sm/6 font-semibold text-white/50 focus:outline-none data-[active]:text-white data-[hover]:text-white data-[focus]:outline-1 data-[focus]:outline-white">
             Solutions
           </PopoverButton> */}
-        <PopoverPanel
+        <MenuItems
           // transition
           anchor="bottom"
-          className="z-[200] relative rounded-xl border bg-l mt-2 bg-white dark:bg-base-1 shadow-lg"
-        >
-          <HStack
-            className="justify-center items-center rounded-xl
+          className="z-[200] relative rounded-xl border bg-l mt-2 bg-white dark:bg-base-1 shadow-lg justify-center items-center
       *:flex *:flex-row *:min-h-6 *:gap-2 *:p-4 *:pb-2 *:w-full *:justify-center *:align-middle"
-          >
+        >
+          <MenuItem>
             <Link
               className={blankButton({
                 disabled: false,
@@ -79,9 +74,11 @@ export default function TopNavInnerRightClient() {
               })}
               href="/mypage"
             >
-              <ProfileIcon />
+              <UserIcon size={18} />
               <span>마이페이지</span>
             </Link>
+          </MenuItem>
+          <MenuItem>
             <button
               type="submit"
               className={blankButton({
@@ -93,12 +90,12 @@ export default function TopNavInnerRightClient() {
                 qc.resetQueries();
               }}
             >
-              <LogoutIcon />
+              <LogOutIcon size={18} />
               <span>로그아웃</span>
             </button>
-          </HStack>
-        </PopoverPanel>
-      </Popover>
+          </MenuItem>
+        </MenuItems>
+      </Menu>
     );
   }
 }

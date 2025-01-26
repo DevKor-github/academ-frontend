@@ -1,5 +1,5 @@
 import React from 'react';
-import { twMerge } from 'tailwind-merge';
+import { blankButton, buttonBase, filledButton, outlineButton } from '@/style/button';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -10,49 +10,19 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const CommonButton = ({ disabled, className, ...rest }: ButtonProps) => (
-  <button
-    className={twMerge(
-      `flex justify-center items-center rounded-lg transition-all p-2 whitespace-nowrap ${disabled ? 'cursor-not-allowed' : 'cursor-pointer'}`,
-      className,
-    )}
-    disabled={disabled}
-    {...rest}
-  />
+  <button className={buttonBase({ disabled, className })} disabled={disabled} {...rest} />
 );
 
 function FilledButton({ className = '', disabled, ...rest }: ButtonProps) {
-  return disabled ? (
-    <CommonButton
-      disabled={true}
-      className={twMerge(' bg-gray-300 dark:bg-gray-700 border-none opacity-25 ', className)}
-      {...rest}
-    />
-  ) : (
-    <CommonButton
-      className={twMerge('bg-primary-500 cursor-pointer border-none text-white dark:text-white ', className)}
-      {...rest}
-    />
-  );
+  return <CommonButton disabled={disabled} className={filledButton({ disabled, className })} {...rest} />;
 }
 
 function OutlineButton({ className = '', disabled, ...rest }: ButtonProps) {
-  return disabled ? (
-    <CommonButton
-      disabled
-      className={'border-gray-300 dark:border-gray-700 border opacity-25 ' + className}
-      {...rest}
-    />
-  ) : (
-    <CommonButton className={'border-primary-500 border ' + className} {...rest} />
-  );
+  return <CommonButton disabled={disabled} className={outlineButton({ disabled, className })} {...rest} />;
 }
 
 function BlankButton({ className = '', disabled, ...rest }: ButtonProps) {
-  return disabled ? (
-    <CommonButton disabled className={'border-none opacity-25 ' + className} {...rest} />
-  ) : (
-    <CommonButton className={'border-none hover:opacity-50' + className} {...rest} />
-  );
+  return <CommonButton disabled={disabled} className={blankButton({ disabled, className })} {...rest} />;
 }
 
 /**

@@ -4,9 +4,9 @@ import { StarIcon } from '@/components/icon';
 import { VStack } from '../basic/stack';
 import { useEffect, useRef } from 'react';
 
-import Popover from '../basic/popover';
 import { useState } from 'react';
 import { AcdCommentReqJoin } from '@/types/comment.types';
+import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
 
 function FieldSetStar<Req>({
   name,
@@ -287,15 +287,14 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
       <div className="pt-8 pb-8 border-b border-b-neutral-500">
         <span className="text-lg inline-block mb-10">
           강의평 작성{' '}
-          <button
-            className="bg-none border border-primary-500 text-primary-500 aspect-square pl-2 pr-2 ml-2 text-sm rounded-full"
-            type="button"
-            onClick={() => setOpen((b) => !b)}
-          >
-            ?
-          </button>
-          {open && (
-            <Popover hide={() => setOpen(false)}>
+          <Popover className="relative">
+            <PopoverButton
+              className="bg-none border border-primary-500 text-primary-500 aspect-square pl-2 pr-2 ml-2 text-sm rounded-full"
+              type="button"
+            >
+              ?
+            </PopoverButton>
+            <PopoverPanel>
               <div className="border border-neutral-200 rounded-md p-4 mt-4 text-neutral-600">
                 <div className="text-sm pb-2">질문 리스트</div>
                 <ul className="grid grid-cols-1 sm:grid-cols-2 auto-cols-max list-disc list-inside gap-x-4">
@@ -307,8 +306,8 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
                   <li className="text-xs">시험은 어떻게 준비하면 좋을까요?</li>
                 </ul>
               </div>
-            </Popover>
-          )}
+            </PopoverPanel>
+          </Popover>
         </span>
 
         <div className="light:bg-base-31 dark:bg-base-6">
