@@ -1,4 +1,4 @@
-import { courseDetail, courseDetailWithNoAuth } from '@/app/api/lecture.api';
+import { courseDetailWithNoAuth } from '@/app/api/lecture.api';
 import { ELEM_PER_PAGE } from '@/data/constant';
 import CommentsView from './components/fetch';
 import { getAccessTokenDecoded } from '@/util/auth.util';

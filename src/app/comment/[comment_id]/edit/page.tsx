@@ -1,6 +1,6 @@
 import EditComment from './form';
 import ErrorTemplate from '@/components/template';
-import { checkUpdateComment } from '@/app/api/comment.api';
+import { updateCommentPrepare } from '@/app/api/comment.api';
 
 interface Props {
   params: Promise<{ comment_id: number }>;
@@ -9,7 +9,7 @@ interface Props {
 export default async function EditPage({ params }: Props) {
   const { comment_id } = await params;
 
-  const editable = await checkUpdateComment(comment_id);
+  const editable = await updateCommentPrepare(comment_id);
 
   return editable.status === 'SUCCESS' ? (
     <EditComment courseName={editable.data.name} comment={editable.data} />

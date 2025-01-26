@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Submitted from './inner/submitted';
 import ReportCommentForm from './inner/form';
-import { reportComment } from '@/app/api/comment.api';
+import { createReportComment } from '@/app/api/comment.api';
 import { AcdCommentReportReq } from '@/types/comment.types';
 
 export default function ReportComment({ comment_id }: { comment_id: number }) {
@@ -12,7 +12,7 @@ export default function ReportComment({ comment_id }: { comment_id: number }) {
   const [submitted, setSubmitted] = useState<boolean | null>(null);
 
   function handleSubmit(finalInput: AcdCommentReportReq) {
-    reportComment(finalInput).then((s) => {
+    createReportComment(finalInput).then((s) => {
       setSubmitted(s.status === 'SUCCESS');
     });
   }

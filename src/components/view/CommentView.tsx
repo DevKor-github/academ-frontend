@@ -4,7 +4,7 @@ import { Star1 } from '@/components/composite/starIndicator';
 import { HStack, VStack } from '@/components/basic/stack';
 import Tag from '@/components/basic/tag';
 import { useEffect, useState } from 'react';
-import { deleteComment, likeComment } from '@/app/api/comment.api';
+import { deleteComment, createLikeComment } from '@/app/api/comment.api';
 // import { decode } from '@/lib/jwt';
 import Link from 'next/link';
 import { EditIcon, SelectedThumbUpIcon, ThumbUpIcon } from '@/components/icon';
@@ -140,7 +140,7 @@ function Right({
         <button
           className={`flex flex-row justify-center items-center px-4 py-1 border rounded-full gap-2 ${textColorClass}`}
           onClick={() => {
-            likeComment({ comment_id: comment.comment_id }).then((s) => {
+            createLikeComment({ comment_id: comment.comment_id }).then((s) => {
               if (s.status === 'SUCCESS') {
                 setNewLike(!newLike);
               } else {

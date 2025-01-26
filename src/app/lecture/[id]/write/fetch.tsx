@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-import { insertComment } from '@/app/api/comment.api';
+import { createComment } from '@/app/api/comment.api';
 
 import CommentEditor from '@/components/composite/commentEditor';
 import Button from '@/components/basic/button';
@@ -64,7 +64,7 @@ export default function WriteComment({ course }: { course: Course }) {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (confirm('작성 완료하시겠습니까?') == true) {
-      insertComment(input).then((s) => {
+      createComment(input).then((s) => {
         if (s.status === 'SUCCESS') {
           setSubmitted(s.data);
         } else {

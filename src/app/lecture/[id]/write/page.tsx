@@ -1,6 +1,6 @@
 'use client';
 
-import { startNewComment } from '@/app/api/comment.api';
+import { createCommentPrepare } from '@/app/api/comment.api';
 import WriteComment from './fetch';
 import ErrorTemplate from '@/components/template';
 import { use } from 'react';
@@ -16,7 +16,7 @@ export default function WritePage({ params }: Props) {
 
   const { data: writable } = useQuery({
     queryKey: ['asdfasdfasdf'],
-    queryFn: () => startNewComment({ course_id: Number(id) }),
+    queryFn: () => createCommentPrepare({ course_id: Number(id) }),
   });
 
   if (!writable) return null;
