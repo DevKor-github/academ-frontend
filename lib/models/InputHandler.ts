@@ -1,1 +1,0 @@
-type InputHandler = React.FormEventHandler;
