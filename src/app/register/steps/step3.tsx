@@ -263,7 +263,7 @@ export default function Step3({ nextStep, form }: Props) {
             )}
           </form.Field>
         </VStack>
-        <ErrorLabel label={form.state.errors.join(',')} />
+        <form.Subscribe>{(state) => <ErrorLabel label={state.errors.join(',')} />}</form.Subscribe>
         <Button kind="filled" type="submit" variant="contained" color="primary">
           <span className="text-xl">완료</span>
         </Button>

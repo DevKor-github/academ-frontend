@@ -8,7 +8,7 @@ import Button from '@/components/basic/button';
 import ErrorLabel from '@/components/basic/errorlabel';
 import { checkEmail } from '@/app/api/register.api';
 
-import type { ReactFormExtendedApi } from '@tanstack/react-form';
+import { type ReactFormExtendedApi } from '@tanstack/react-form';
 import type { SignupRequestForm } from '../types/form.types';
 
 interface Props {
@@ -19,7 +19,8 @@ interface Props {
 export default function Step2({ nextStep, form }: Props) {
   const handleStep = useCallback(
     async function () {
-      const response = await checkEmail({ email: form.getFieldValue('email'), code: form.getFieldValue('code') });
+      const request = { email: form.getFieldValue('email'), code: form.getFieldValue('code') };
+      const response = await checkEmail(request);
 
       if (response.status === 'SUCCESS') {
         nextStep();
@@ -62,19 +63,27 @@ export default function Step2({ nextStep, form }: Props) {
             </>
           )}
         </form.Field>
-        <VStack className="w-full h-fit justify-end gap-x-9">
-          <Button
-            kind="outline"
-            type="submit"
-            className="flex flex-row justify-around items-center text-xl gap-x-4 px-4"
-            variant="contained"
-            color="primary"
-            disabled={form.getFieldValue('code') === ''}
-          >
-            <span>다음</span>
-            <RightIcon />
-          </Button>
-        </VStack>
+
+        <form.Subscribe>
+          {(state) => (
+            <>
+              <ErrorLabel label={state.errors.join(',')} />
+              <VStack className="w-full h-fit justify-end gap-x-9">
+                <Button
+                  kind="outline"
+                  type="submit"
+                  className="flex flex-row justify-around items-center text-xl gap-x-4 px-4"
+                  variant="contained"
+                  color="primary"
+                  disabled={state.values.code === ''}
+                >
+                  <span>다음</span>
+                  <RightIcon />
+                </Button>
+              </VStack>
+            </>
+          )}
+        </form.Subscribe>
       </form>
     </HStack>
   );

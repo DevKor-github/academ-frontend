@@ -1,30 +1,26 @@
 import type { CheckEmailReqeust, DupNameRequest, ReqeustSendCode, ResetPwReq, SignupRequest } from '@/types/user.types';
-import { fetchAPIAuth, searchParamString, withStatusCode } from '@/util/fetch.util';
+import { fetchAPI, fetchAPIAuth, POST, searchParamString, withJsonBody, withStatusCode } from '@/util/fetch.util';
 
 export async function duplicateName(input: DupNameRequest) {
-  return await fetchAPIAuth(`api/signup/check-username${searchParamString({ ...input }, '?')}`, {
+  return await fetchAPI(`api/signup/check-username${searchParamString({ ...input }, '?')}`, {
     method: 'GET',
   }).then((v) => v.json().then(withStatusCode(v.status)) as Promise<ApiResponse<unknown>>);
 }
 
 export async function signUp(input: SignupRequest) {
-  return await fetchAPIAuth('api/signup', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(input),
-  }).then((v) => v.json().then(withStatusCode(v.status)) as Promise<ApiResponse<string>>);
+  return await fetchAPI('api/signup', await POST().then(withJsonBody(input))).then(
+    (v) => v.json().then(withStatusCode(v.status)) as Promise<ApiResponse<string>>,
+  );
 }
 
 export async function checkEmail(input: CheckEmailReqeust) {
-  return await fetchAPIAuth(`api/signup/check-email${searchParamString({ ...input }, '?')}`, {
+  return await fetchAPI(`api/signup/check-email${searchParamString({ ...input }, '?')}`, {
     method: 'GET',
   }).then((v) => v.json().then(withStatusCode(v.status)) as Promise<ApiResponse<unknown>>);
 }
 
 export async function sendEmail(input: ReqeustSendCode) {
-  return await fetchAPIAuth(`api/signup/send-email${searchParamString({ ...input }, '?')}`, {
+  return await fetchAPI(`api/signup/send-email${searchParamString({ ...input }, '?')}`, {
     method: 'GET',
   }).then((v) => v.json().then(withStatusCode(v.status)) as Promise<ApiResponse<unknown>>);
 }

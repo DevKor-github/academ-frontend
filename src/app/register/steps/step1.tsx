@@ -26,9 +26,9 @@ export default function Step1({ nextStep, form }: Props) {
     try {
       // Validate the 'email' field
       const isValid = await form.validateField('email', 'change');
-      if (isValid) {
-        // If valid, go to the next step
-        nextStep();
+
+      if (!isValid) {
+        return;
       }
 
       const response = await sendEmail({ email: form.getFieldValue('email'), purpose: 'SIGN_UP' });
