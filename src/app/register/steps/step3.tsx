@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback } from 'react';
 
 import { HStack, VStack } from '@/components/basic/stack';
 import { duplicateName, signUp } from '@/app/api/register.api';
@@ -10,145 +10,40 @@ import Input from '@/components/basic/input';
 import ErrorLabel from '@/components/basic/errorlabel';
 
 import { departments } from '@/data/departments';
-import type { SignupRequest } from '@/types/user.types';
 import PWInput from '@/components/input/pw-input';
+import DepartmentInput from '@/components/input/department-Input';
+import type { ReactFormExtendedApi } from '@tanstack/react-form';
+import { conform, type SignupRequestForm } from '../types/form.types';
 
-const validatePw = (pw: string) => {
-  const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W]{8,24}$/;
-  return re.test(String(pw));
-};
-
-const validateNum = (num: string) => {
-  const re = /^[A-Za-z\d]{7}$/;
-  return re.test(String(num));
-};
-
-export default function Step3({
-  nextStep,
-  setInput,
-  input,
-}: {
+interface Props {
   nextStep: () => void;
-  setInput: React.Dispatch<React.SetStateAction<SignupRequest>>;
-  input: SignupRequest;
-}) {
-  const [isPwValid, setIsPwValid] = useState<boolean>(false);
-  const [pwcheck, setpwCheck] = useState('');
-  const [isNumValid, setIsNumValid] = useState<boolean>(false);
+  form: ReactFormExtendedApi<SignupRequestForm, undefined>;
+}
 
-  interface NameState {
-    username: string;
-    isChecked: string;
-    error: boolean;
-  }
+export default function Step3({ nextStep, form }: Props) {
+  const handleNextStep = useCallback(
+    async function () {
+      const valid = (await form.validateAllFields('change')) && (await form.validateAllFields('submit'));
 
-  const [nameCheck, setNameCheck] = useState<NameState>({ username: '', isChecked: '', error: false });
-
-  useEffect(() => {
-    setIsPwValid(validatePw(input.password));
-  }, [input.password]);
-
-  useEffect(() => {
-    setIsNumValid(validateNum(input.student_id));
-  }, [input.student_id]);
-
-  function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
-    const { value } = event.target;
-
-    setInput({
-      ...input,
-      [event.target.id]: value,
-    });
-  }
-
-  async function handleDuplicateName() {
-    const response = await duplicateName({ username: input.username });
-
-    if (response.status === 'SUCCESS') {
-      setNameCheck({ ...nameCheck, username: input.username, isChecked: response.status, error: false });
-      window.alert('사용가능한 닉네임입니다.');
-    } else {
-      setNameCheck({ ...nameCheck, username: input.username, isChecked: response.status, error: true });
-      window.alert('해당 닉네임은 이미 사용 중입니다.');
-    }
-  }
-
-  async function handleRegister() {
-    if (pwcheck !== input.password || !isPwValid) return window.alert('비밀번호를 확인해주세요.');
-    if (nameCheck.isChecked !== 'SUCCESS' || nameCheck.username !== input.username) {
-      const response = await duplicateName({ username: input.username });
-
-      if (response.status !== 'SUCCESS') {
-        setNameCheck({ ...nameCheck, username: input.username, isChecked: response.status, error: true });
-        return window.alert('해당 닉네임은 이미 사용 중입니다.');
+      if (!valid) {
+        form.setErrorMap({
+          onSubmit: `회원가입에 실패했습니다. 입력값을 확인해주세요.`,
+        });
+        return;
       }
-    }
-    if (!isNumValid) return window.alert('학번 앞 7자를 입력해주세요.');
-    if (!departments.includes(input.department)) return window.alert('유효한 학과명을 입력해주세요.');
-    if (input.semester == 0) return window.alert('학기를 입력해주세요.');
-    else {
-      const response = await signUp({ ...input } as SignupRequest);
+
+      const response = await signUp(conform(form.state.values));
 
       if (response.status === 'SUCCESS') {
         nextStep();
       } else {
-        window.alert(`회원가입에 실패했습니다.
-        ${response.message}`);
+        form.setErrorMap({
+          onSubmit: `회원가입에 실패했습니다. ${response.message}`,
+        });
       }
-    }
-  }
-
-  const [dropDownList, setDropDownList] = useState<string[]>(departments);
-  const [dropDownItemIndex, setDropDownItemIndex] = useState<number>(-1);
-  const [isDropDown, setIsDropDown] = useState<boolean>(false);
-
-  const showDropDownList = () => {
-    if (input.department === '') {
-      setIsDropDown(false);
-      setDropDownList([]);
-    } else {
-      const choosenTextList = departments.filter((textItem) => textItem.includes(input.department));
-      setDropDownList(choosenTextList);
-    }
-  };
-
-  const changeInputValue = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target;
-    setInput({
-      ...input,
-      [event.target.id]: value,
-    });
-    setDropDownItemIndex(-1);
-    setIsDropDown(true);
-  };
-
-  const clickDropDownItem = (clickedItem: string) => {
-    setInput({
-      ...input,
-      department: clickedItem,
-    });
-  };
-
-  const handleDropDownKey = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (isDropDown) {
-      if (event.key === 'ArrowDown' && dropDownList.length - 1 > dropDownItemIndex) {
-        setDropDownItemIndex(dropDownItemIndex + 1);
-      }
-
-      if (event.key === 'ArrowUp' && dropDownItemIndex >= 0) {
-        setDropDownItemIndex(dropDownItemIndex - 1);
-      }
-
-      if (event.key === 'Enter' && dropDownItemIndex >= 0) {
-        event.preventDefault();
-        clickDropDownItem(dropDownList[dropDownItemIndex]);
-        setDropDownItemIndex(-1);
-        setIsDropDown(false);
-      }
-    }
-  };
-
-  useEffect(showDropDownList, [input.department]);
+    },
+    [form, nextStep],
+  );
 
   return (
     <HStack className="gap-y-5">
@@ -162,173 +57,213 @@ export default function Step3({
         className="flex flex-col gap-5"
         onSubmit={(e) => {
           e.preventDefault();
-          handleRegister();
+          e.stopPropagation();
+          handleNextStep();
         }}
       >
         <span className="text-xl">아이디</span>
-        <Input
-          required
-          type="email"
-          id="email"
-          autoComplete="username"
-          placeholder={input.email}
-          onChange={handleInput}
-          disabled={true}
-          style={{ width: '100%' }}
-        />
+        <form.Field name="email">
+          {(field) => (
+            <Input
+              required
+              type="email"
+              id="email"
+              autoComplete="username"
+              value={field.state.value}
+              onChange={() => console.warn('changing email is not allowed here')}
+              disabled={true}
+              style={{ width: '100%' }}
+            />
+          )}
+        </form.Field>
         <span className="text-xl">비밀번호</span>
-        <PWInput
-          value={pwcheck}
-          setValue={setpwCheck}
-          inputProps={{
-            id: 'password',
-            autoComplete: 'new-password',
-            placeholder: '비밀번호를 입력해주세요',
-            className: 'w-full',
-            maxLength: 24,
+        <form.Field
+          name="password"
+          validators={{
+            onChange: (value) => {
+              if (value.value === '') return '비밀번호를 입력해주세요.';
+              return validatePw(value.value)
+                ? undefined
+                : '영문자, 숫자, 또는 특수문자로 이루어진 8 - 24 자리의 비밀번호를 입력해주세요.';
+            },
           }}
-        />
-        <ErrorLabel
-          label={
-            !isPwValid && input.password !== ''
-              ? '영문자, 숫자, 또는 특수문자로 이루어진 8 - 24 자리의 비밀번호를 입력해주세요.'
-              : ''
-          }
-        />
+        >
+          {(field) => (
+            <>
+              <PWInput
+                value={field.state.value}
+                setValue={field.handleChange}
+                inputProps={{
+                  id: 'password',
+                  autoComplete: 'new-password',
+                  placeholder: '비밀번호를 입력해주세요',
+                  className: 'w-full',
+                  maxLength: 24,
+                }}
+              />
+              <ErrorLabel label={field.state.meta.errors.join(', ')} />
+            </>
+          )}
+        </form.Field>
         <span className="text-xl">비밀번호 확인</span>
-        <PWInput
-          value={pwcheck}
-          setValue={setpwCheck}
-          inputProps={{
-            id: 'pwcheck',
-            autoComplete: 'new-password',
-            placeholder: '비밀번호를 다시 입력해주세요',
-            className: 'w-full',
-            maxLength: 24,
+        <form.Field
+          name="passwordCheck"
+          validators={{
+            onChange: (value) => {
+              return value.value === form.getFieldValue('password') ? undefined : '비밀번호가 일치하지 않습니다.';
+            },
           }}
-        />
-        <ErrorLabel label={input.password !== pwcheck && pwcheck !== '' ? '비밀번호가 일치하지 않습니다.' : ''} />
+        >
+          {(field) => (
+            <>
+              <PWInput
+                value={field.state.value}
+                setValue={field.handleChange}
+                inputProps={{
+                  id: 'pwcheck',
+                  autoComplete: 'new-password',
+                  placeholder: '비밀번호를 다시 입력해주세요',
+                  className: 'w-full',
+                  maxLength: 24,
+                }}
+              />
+              <ErrorLabel label={field.state.meta.errors.join(',')} />
+            </>
+          )}
+        </form.Field>
         <span className="text-xl" style={{ marginTop: '10px' }}>
           닉네임
         </span>
-        <VStack className="gap-x-5 w-100% justify-between">
-          <div className="grow">
-            <Input
-              required
-              type="text"
-              id="username"
-              autoComplete={undefined}
-              placeholder="닉네임 (1-10자)"
-              onChange={handleInput}
-              maxLength={10}
-              className="w-full"
-            />
-          </div>
-          <Button kind="filled" type="button" className="px-4 grow-0" onClick={handleDuplicateName}>
-            중복 확인
-          </Button>
-        </VStack>
-        <ErrorLabel label={nameCheck.error ? '닉네임이 중복되었습니다. 다른 닉네임을 입력해주세요.' : ''} />
-        <span className="text-xl">학번</span>
-        <Input
-          required
-          type="text"
-          id="student_id"
-          placeholder="학번"
-          maxLength={7}
-          onChange={handleInput}
-          style={{ width: '100%' }}
-        />
-        <ErrorLabel label={!isNumValid && input.student_id !== '' ? '학번 앞 7자를 입력해주세요.' : ''} />
-        <span className="text-xl">학과</span>
-        <div
-          onBlur={() => {
-            setDropDownItemIndex(-1);
-            setIsDropDown(false);
+        <form.Field
+          name="username"
+          validators={{
+            onSubmitAsync: async (value) => {
+              return validateDuplicateUsername(value.value).then((result) => {
+                if (result) {
+                  alert(result);
+                }
+                return result;
+              });
+            },
           }}
         >
-          <Input
-            required
-            type="text"
-            id="department"
-            placeholder="학과"
-            autoComplete="off"
-            value={input.department}
-            onChange={changeInputValue}
-            onKeyDown={handleDropDownKey}
-            onFocus={() => {
-              setIsDropDown(true);
-            }}
-            style={isDropDown ? { borderRadius: '0.5rem 0.5rem 0 0' } : { borderRadius: '0.5rem' }}
-            className="w-full"
-          />
-          {isDropDown && (
-            <ul className="block m-0 p-2 light:bg-white border light:border-base-30 dark:bg-neutral-900 dark:border-base-2 rounded-b-lg z-10">
-              {dropDownList.length === 0 && <li className="p-2 text-gray-500">해당하는 단어가 없습니다</li>}
-              {dropDownList.map((dropDownItem, dropDownIndex) => (
-                <li
-                  key={dropDownIndex}
-                  onMouseDown={() => {
-                    clickDropDownItem(dropDownItem);
-                    setDropDownItemIndex(-1);
-                    setIsDropDown(false);
-                  }}
-                  onMouseOver={() => setDropDownItemIndex(dropDownIndex)}
-                  className={`p-2 cursor-pointer ${dropDownItemIndex === dropDownIndex ? 'light:bg-gray-300 dark:bg-gray-700' : ''}`}
-                >
-                  {dropDownItem}
-                </li>
-              ))}
-            </ul>
+          {(field) => (
+            <>
+              <VStack className="gap-x-5 w-100% justify-between">
+                <div className="grow">
+                  <Input
+                    required
+                    type="text"
+                    id="username"
+                    autoComplete={undefined}
+                    placeholder="닉네임 (1-10자)"
+                    value={field.state.value}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                    maxLength={10}
+                    className="w-full"
+                  />
+                </div>
+              </VStack>
+              <ErrorLabel label={field.state.meta.errors.join(',')} />
+            </>
           )}
-        </div>
+        </form.Field>
+        <span className="text-xl">학번</span>
+        <form.Field
+          name="student_id"
+          validators={{
+            onChange: (value) => {
+              return validateStudentNum(value.value) ? undefined : '학번 앞 7자를 입력해주세요.';
+            },
+          }}
+        >
+          {(field) => (
+            <>
+              <Input
+                required
+                type="text"
+                id="student_id"
+                placeholder="학번"
+                maxLength={7}
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                style={{ width: '100%' }}
+              />
+              <ErrorLabel label={field.state.meta.errors.join(',')} />
+            </>
+          )}
+        </form.Field>
+        <span className="text-xl">학과</span>
+        <form.Field
+          name="department"
+          validators={{
+            onChange: (value) => {
+              return departments.includes(value.value) ? undefined : '유효한 학과명을 입력해주세요.';
+            },
+          }}
+        >
+          {(field) => (
+            <>
+              <DepartmentInput value={field.state.value} setValue={field.handleChange} />
+            </>
+          )}
+        </form.Field>
         <span className="text-xl">학위 / 학기</span>
         <VStack style={{ justifyContent: 'space-between', marginBottom: '40px' }}>
-          <VStack className="gap-x-3">
-            <Button
-              id="degree"
-              type="button"
-              kind={input.degree === 'MASTER' ? 'filled' : 'outline'}
-              variant="contained"
-              color="primary"
-              onClick={() =>
-                setInput((input: SignupRequest) => {
-                  return { ...input, degree: 'MASTER' };
-                })
-              }
-            >
-              <span className="text-xl" style={{ margin: '5px 30px' }}>
-                석사
-              </span>
-            </Button>
-            <Button
-              id="degree"
-              type="button"
-              kind={input.degree === 'DOCTOR' ? 'filled' : 'outline'}
-              variant="contained"
-              color="primary"
-              onClick={() =>
-                setInput((input: SignupRequest) => {
-                  return { ...input, degree: 'DOCTOR' };
-                })
-              }
-            >
-              <span className="text-xl" style={{ margin: '5px 30px' }}>
-                박사
-              </span>
-            </Button>
-          </VStack>
-          <VStack className="gap-x-3 items-center">
-            <Input
-              required
-              type="number"
-              id="semester"
-              style={{ width: '60px', textAlign: 'center' }}
-              onChange={handleInput}
-            />
-            <span className="text-xl">학기</span>
-          </VStack>
+          <form.Field name="degree">
+            {(field) => (
+              <VStack className="gap-x-3">
+                <Button
+                  id="degree"
+                  type="button"
+                  kind={field.state.value === 'MASTER' ? 'filled' : 'outline'}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => field.handleChange('MASTER')}
+                >
+                  <span className="text-xl" style={{ margin: '5px 30px' }}>
+                    석사
+                  </span>
+                </Button>
+                <Button
+                  id="degree"
+                  type="button"
+                  kind={field.state.value === 'DOCTOR' ? 'filled' : 'outline'}
+                  variant="contained"
+                  color="primary"
+                  onClick={() => field.handleChange('DOCTOR')}
+                >
+                  <span className="text-xl" style={{ margin: '5px 30px' }}>
+                    박사
+                  </span>
+                </Button>
+              </VStack>
+            )}
+          </form.Field>
+          <form.Field
+            name="semester"
+            validators={{
+              onChange: (value) => {
+                return value.value !== 0 ? undefined : '학기를 입력해주세요.';
+              },
+            }}
+          >
+            {(field) => (
+              <VStack className="gap-x-3 items-center">
+                <Input
+                  required
+                  type="number"
+                  id="semester"
+                  style={{ width: '60px', textAlign: 'center' }}
+                  value={field.state.value}
+                  onChange={(e) => field.handleChange(Number(e.target.value))}
+                />
+                <span className="text-xl">학기</span>
+              </VStack>
+            )}
+          </form.Field>
         </VStack>
+        <ErrorLabel label={form.state.errors.join(',')} />
         <Button kind="filled" type="submit" variant="contained" color="primary">
           <span className="text-xl">완료</span>
         </Button>
@@ -336,3 +271,23 @@ export default function Step3({
     </HStack>
   );
 }
+
+async function validateDuplicateUsername(username: string) {
+  const response = await duplicateName({ username });
+
+  if (response.status === 'SUCCESS') {
+    return undefined;
+  } else {
+    return '해당 닉네임은 이미 사용 중입니다.';
+  }
+}
+
+const validatePw = (pw: string) => {
+  const re = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\W]{8,24}$/;
+  return re.test(String(pw));
+};
+
+const validateStudentNum = (num: string) => {
+  const re = /^[A-Za-z\d]{7}$/;
+  return re.test(String(num));
+};

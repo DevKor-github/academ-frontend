@@ -48,20 +48,6 @@ export async function MyPageUpdatePW(req: UpdatePWRequest) {
   return ret.json().then(withStatusCode(ret.status));
 }
 
-export async function MyPageDeleteAccount(req: { password: string }) {
-  const ret = await fetchAPIAuth('api/mypage/delete-profile', await POST().then(withJsonBody(req)));
-
-  const json = await ret.json().then(withStatusCode(ret.status));
-
-  if (json.status === 'SUCCESS') {
-    // (await cookies()).delete(COOKIE_AUTH_TOKEN);
-    // (await cookies()).delete(COOKIE_REFRESH_TOKEN);
-    // revalidatePath('/', 'layout');
-  }
-
-  return json;
-}
-
 /**
  * 현재 백엔드 api가 응답할 때 멤버십 정보가 어떻게 적용된건지 딱히 말을 안 해주기 때문에 일단 임시로 이 가짜(?) api를 만들어놓음
  */

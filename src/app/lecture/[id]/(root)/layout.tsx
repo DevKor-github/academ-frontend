@@ -20,10 +20,7 @@ export default async function Layout({ basic, client, write }: Props) {
   );
 }
 
-export async function generateMetadata(
-  props: Props,
-  parent: ResolvingMetadata,
-): Promise<Metadata> {
+export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const params = await props.params;
   const course = await courseDetailWithNoAuth(Number(params.id));
 

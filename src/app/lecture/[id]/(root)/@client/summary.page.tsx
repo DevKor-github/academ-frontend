@@ -14,13 +14,12 @@ interface Props {
 }
 
 export default function SummaryPage({ course_id }: Props) {
-
   // XXX : this is just for showing basic information, order is **NOT** important - maybe api refactor?
   // TODO use centralized service for query key management
   const { data: course } = useQuery({
     queryKey: ['course_detail_without_comments', course_id],
     queryFn: () => courseDetail(Number(course_id)),
-  })
+  });
 
   const { data: isLoggedIn } = useQuery({
     queryKey: ['isLoggedIn'],
@@ -48,7 +47,7 @@ export default function SummaryPage({ course_id }: Props) {
       <div className="flex flex-col p-4 mt-16">
         {
           // TODO check login using cookie
-          isLoggedIn ?  <NoMembershipView /> : <LoginRequiredView /> 
+          isLoggedIn ? <NoMembershipView /> : <LoginRequiredView />
         }
       </div>
     </div>

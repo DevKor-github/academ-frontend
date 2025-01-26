@@ -1,7 +1,6 @@
 'use server';
 
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 import { revalidatePath } from 'next/cache';
 
 import { IS_DEBUG } from '@/data/constant';
@@ -24,14 +23,6 @@ export async function handleLoginServer(input: LoginRequest) {
 
     const json = await result.json();
 
-    if (json.status === 'SUCCESS') {
-      console.log('login success');
-    } else {
-      return { error: json.message };
-    }
-
-    console.log('json', json);
-
     const cookieStore = await cookies();
 
     cookieStore.set(COOKIE_AUTH_TOKEN, json.data?.accessToken, {
@@ -49,9 +40,9 @@ export async function handleLoginServer(input: LoginRequest) {
 
     revalidatePath('/', 'layout');
     revalidatePath('/mypage', 'layout');
+    return json;
   } catch (e) {
     console.log('error', JSON.stringify(e), e);
     return { error: '알 수 없는 오류로 실패했습니다. 잠시 후 다시 시도해주세요.' };
   }
-  redirect('/');
 }

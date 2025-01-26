@@ -328,7 +328,11 @@ export default function CommentEditor<Req extends AcdCommentReqJoin>({
       </div>
 
       <div className="flex flex-row justify-center items-center mt-8">
-        <button type="submit" className={filledButton({className: "px-20", disabled: input.review.length < 50})} disabled={input.review.length < 50}>
+        <button
+          type="submit"
+          className={filledButton({ className: 'px-20', disabled: input.review.length < 50 })}
+          disabled={input.review.length < 50}
+        >
           강의평 제출하기
         </button>
       </div>

@@ -1,5 +1,5 @@
-import SummaryPage from "./summary.page"
-import CommentsViewById from "./comments.page/comments.page"
+import SummaryPage from './summary.page';
+import CommentsViewById from './comments.page/comments.page';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -12,5 +12,5 @@ export default async function Page({ params }: Props) {
       <SummaryPage course_id={course_id} />
       <CommentsViewById course_id={course_id} />
     </>
-  )
+  );
 }

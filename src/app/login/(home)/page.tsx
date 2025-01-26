@@ -13,8 +13,11 @@ import { a } from '@/styles/a';
 import PWInput from '@/components/input/pw-input';
 import Checkbox from '@/components/input/checkbox';
 import { filledButton } from '@/styles/button';
+import ErrorLabel from '@/components/basic/errorlabel';
+import { useRouter } from 'next/navigation';
 
 export default function LoginForm() {
+  const router = useRouter();
   const qc = useQueryClient();
 
   const form = useForm<LoginRequest>({
@@ -24,9 +27,17 @@ export default function LoginForm() {
       'remember-me': false,
     },
     onSubmit: async (values) => {
-      handleLoginServer(values.value).finally(() => {
-        qc.resetQueries();
-      });
+      handleLoginServer(values.value)
+        .then((v) => {
+          if (v.status === 'SUCCESS') {
+            router.push('/');
+          } else {
+            form.setErrorMap({ onSubmit: v.message });
+          }
+        })
+        .finally(() => {
+          qc.resetQueries();
+        });
     },
   });
 
@@ -103,8 +114,10 @@ export default function LoginForm() {
               </form.Field>
             </HStack>
 
+            <ErrorLabel label={form.state.errors.join(',')} />
+
             <HStack className="gap-y-5">
-              <button type="submit" className={filledButton({ disabled: false })} >
+              <button type="submit" className={filledButton({ disabled: false })}>
                 {form.state.isSubmitting ? (
                   <span>
                     <Spinner /> 처리 중...

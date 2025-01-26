@@ -16,7 +16,7 @@ export default function CommentsViewById({ course_id }: Props) {
   const { data: course } = useQuery({
     queryKey: ['course_detail_without_comments', course_id],
     queryFn: () => courseDetail(Number(course_id)),
-  })
+  });
 
   // TODO refresh logic
   const { data: sessionUserID } = useQuery({

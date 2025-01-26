@@ -1,48 +1,36 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback } from 'react';
 import { HStack, VStack } from '@/components/basic/stack';
 import { RightIcon } from '@/components/icon';
 import Input from '@/components/basic/input';
 import Button from '@/components/basic/button';
 import ErrorLabel from '@/components/basic/errorlabel';
-
-import { useAnimationTimeout } from '@/hooks/useTemporal';
-
 import { checkEmail } from '@/app/api/register.api';
-import type { SignupRequest } from '@/types/user.types';
 
-export default function Step2({
-  nextStep,
-  input,
-  setInput,
-}: {
+import type { ReactFormExtendedApi } from '@tanstack/react-form';
+import type { SignupRequestForm } from '../types/form.types';
+
+interface Props {
   nextStep: () => void;
-  input: SignupRequest;
-  setInput: React.Dispatch<SignupRequest>;
-}) {
-  const [error, setError] = useState<string>('');
-  const [timeout, resetTimeout] = useAnimationTimeout(200);
+  form: ReactFormExtendedApi<SignupRequestForm, undefined>;
+}
 
-  function handleInput(event: React.ChangeEvent<HTMLInputElement>) {
-    const { value } = event.target;
-    setInput({ ...input, code: value });
-  }
+export default function Step2({ nextStep, form }: Props) {
+  const handleStep = useCallback(
+    async function () {
+      const response = await checkEmail({ email: form.getFieldValue('email'), code: form.getFieldValue('code') });
 
-  async function handleCode() {
-    const response = await checkEmail({ email: input.email, code: input.code });
-
-    if (response.status === 'SUCCESS') {
-      nextStep();
-    } else if (response.status === 'ERROR' && response.statusCode === 400) {
-      setError(response.message);
-      resetTimeout();
-    } else {
-      alert(response.message);
-      setError('인증번호 처리에 실패하였습니다.');
-      resetTimeout();
-    }
-  }
+      if (response.status === 'SUCCESS') {
+        nextStep();
+      } else if (response.status === 'ERROR' && response.statusCode === 400) {
+        form.setErrorMap({ onSubmit: response.message });
+      } else {
+        form.setErrorMap({ onSubmit: response.message });
+      }
+    },
+    [form, nextStep],
+  );
 
   return (
     <HStack className="justify-center gap-y-5">
@@ -51,22 +39,29 @@ export default function Step2({
         className="flex flex-col gap-5"
         onSubmit={(e) => {
           e.preventDefault();
-          handleCode();
+          e.stopPropagation();
+          handleStep();
         }}
       >
-        <Input
-          required
-          type="text"
-          id="code"
-          autoComplete="one-time-code"
-          inputMode="numeric"
-          maxLength={8}
-          placeholder="인증번호를 입력해주세요"
-          value={input.code}
-          onChange={handleInput}
-          autoFocus
-        />
-        <ErrorLabel className={'text-primary-500 '} label={error} shake={timeout} />
+        <form.Field name="code">
+          {(field) => (
+            <>
+              <Input
+                required
+                type="text"
+                id="code"
+                autoComplete="one-time-code"
+                inputMode="numeric"
+                maxLength={8}
+                placeholder="인증번호를 입력해주세요"
+                value={field.state.value}
+                onChange={(e) => field.handleChange(e.target.value)}
+                autoFocus
+              />
+              <ErrorLabel className={'text-primary-500 '} label={field.state.meta.errors.join(',')} />
+            </>
+          )}
+        </form.Field>
         <VStack className="w-full h-fit justify-end gap-x-9">
           <Button
             kind="outline"
@@ -74,7 +69,7 @@ export default function Step2({
             className="flex flex-row justify-around items-center text-xl gap-x-4 px-4"
             variant="contained"
             color="primary"
-            disabled={input.code === ''}
+            disabled={form.getFieldValue('code') === ''}
           >
             <span>다음</span>
             <RightIcon />

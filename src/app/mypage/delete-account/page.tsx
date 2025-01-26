@@ -5,8 +5,7 @@ import Button from '@/components/basic/button';
 import Spinner from '@/components/basic/spinner';
 import { useForm } from '@tanstack/react-form';
 import { useRouter } from 'next/navigation';
-import { revalidatePath } from 'next/cache';
-import { MyPageDeleteAccount } from '@/app/api/mypage.api';
+import { MyPageDeleteAccount } from '@/app/api/mypage.action';
 import ErrorLabel from '@/components/basic/errorlabel';
 
 interface DeleteAccountInputExtended {
@@ -26,7 +25,6 @@ export default function DeleteAccountForm() {
       await MyPageDeleteAccount({ password: value.password }).then((s) => {
         if (s.status === 'SUCCESS') {
           alert('계정이 성공적으로 삭제되었습니다.');
-          revalidatePath('/', 'layout');
           router.push('/');
         } else {
           alert(`계정 삭제에 실패했습니다: ${s.message}`);

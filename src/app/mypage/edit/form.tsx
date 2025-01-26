@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Button from '@/components/basic/button';
 import Input from '@/components/basic/input';
 import Spinner from '@/components/basic/spinner';
-import DepartmentInput from '@/components/composite/departmentInput';
+import DepartmentInput from '@/components/input/department-Input';
 import Select from '@/components/basic/select';
 import { MyPageUpdateBasic } from '@/app/api/mypage.api';
 import { useForm } from '@tanstack/react-form';
