@@ -1,4 +1,4 @@
-import { inputVariant } from '@/style/input';
+import { inputVariant } from '@/styles/input';
 
 type InputProp = React.InputHTMLAttributes<HTMLInputElement>;
 

@@ -1,5 +1,5 @@
 import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/react';
-import { inputVariant } from '@/style/input';
+import { inputVariant } from '@/styles/input';
 import { useState } from 'react';
 import { departments } from '@/data/departments';
 import { filterByFuzzy } from '@/util/fuzzy.util';

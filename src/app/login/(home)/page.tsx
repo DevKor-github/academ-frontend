@@ -10,9 +10,10 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useForm } from '@tanstack/react-form';
 import type { LoginRequest } from '@/types/user.types';
 import Link from 'next/link';
-import { a } from '@/style/a';
+import { a } from '@/styles/a';
 import PWInput from '@/components/input/pw-input';
 import Checkbox from '@/components/input/checkbox';
+import { filledButton } from '@/styles/button';
 
 export default function LoginForm() {
   const qc = useQueryClient();
@@ -104,14 +105,7 @@ export default function LoginForm() {
             </HStack>
 
             <HStack className="gap-y-5">
-              <Button
-                type="submit"
-                kind="filled"
-                accnet="0"
-                variant="contained"
-                color="primary"
-                style={{ padding: '16px', width: '100%' }}
-              >
+              <button type="submit" className={filledButton({ disabled: false })} >
                 {form.state.isSubmitting ? (
                   <span>
                     <Spinner /> 처리 중...
@@ -119,7 +113,7 @@ export default function LoginForm() {
                 ) : (
                   <div>로그인</div>
                 )}
-              </Button>
+              </button>
               <span style={{ textAlign: 'center' }}>
                 계정이 없으신가요?{' '}
                 <Link className={a({ style: 'accent' })} href="/register">
