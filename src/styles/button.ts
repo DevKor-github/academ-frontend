@@ -1,6 +1,6 @@
 import { tv } from 'tailwind-variants';
 
-export const buttonBase = tv({
+const buttonBase = tv({
   base: [
     'flex',
     'justify-center',

@@ -1,5 +1,5 @@
 import React from 'react';
-import { blankButton, buttonBase, filledButton, outlineButton } from '@/styles/button';
+import { blankButton, filledButton, outlineButton } from '@/styles/button';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
