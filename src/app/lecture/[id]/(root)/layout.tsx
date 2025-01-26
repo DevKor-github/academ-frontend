@@ -7,6 +7,7 @@ interface Props {
   basic: ReactNode;
   client: ReactNode;
   write: ReactNode;
+  params: Promise<{ id: string }>;
 }
 
 export default async function Layout({ basic, client, write }: Props) {
@@ -20,7 +21,7 @@ export default async function Layout({ basic, client, write }: Props) {
 }
 
 export async function generateMetadata(
-  props: { params: Promise<{ id: string }> },
+  props: Props,
   parent: ResolvingMetadata,
 ): Promise<Metadata> {
   const params = await props.params;
