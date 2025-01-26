@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Button from '@/components/basic/button';
 import { DownIcon } from '@/components/icon';
 import { logout } from '@/app/actions/logout.action';
-import { Menu, MenuButton, MenuItem, MenuItems, Popover, PopoverButton, PopoverPanel } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { LogOutIcon, UserIcon } from 'lucide-react';
 import { blankButton } from '@/styles/button';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
