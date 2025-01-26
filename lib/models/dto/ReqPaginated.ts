@@ -1,3 +1,0 @@
-interface ReqPaginated {
-  page: number;
-}
