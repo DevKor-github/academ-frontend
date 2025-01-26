@@ -78,7 +78,7 @@ export default function CommentsView({
     setOrder((e.target as HTMLInputElement).value as AcdCommentOrdering);
   }
 
-  return course.count_comments === 0 && IsCourse(course) ? (
+  return course.count_comments > 0 && IsCourse(course) ? (
     <CommentsResults
       course_id={course.course_id}
       order={order}
