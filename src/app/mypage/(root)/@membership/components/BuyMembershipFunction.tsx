@@ -36,7 +36,7 @@ export default function BuyMembershipButton({ membershipData }: { membershipData
       <button
         type="submit"
         className={twMerge(
-          `transition-all flex flex-row gap-16 p-8 rounded-xl border
+          `transition-all flex flex-row gap-16 px-8 py-4 rounded-3xl border
           cursor-pointer
         w-max
         hover:-translate-y-2 hover:light:shadow-xl
@@ -47,9 +47,9 @@ export default function BuyMembershipButton({ membershipData }: { membershipData
         )}
       >
         <input className="hidden" name="membership" value={membershipData.item} readOnly />
-        <div className="flex flex-col items-start">
-          <span className="text-2xl font-bold">강의 열람권 ({membershipData.day}일)</span>
-          <span>{membershipData.price}포인트</span>
+        <div className="flex flex-col items-start self-center">
+          <span className="text-xl font-semibold">강의 열람권 ({membershipData.day}일)</span>
+          <span className="text-base-13">{membershipData.price}포인트</span>
         </div>
         <div className="ml-auto">
           <MembershipIcon level={membershipData.iconLevel} />
