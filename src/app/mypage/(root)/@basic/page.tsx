@@ -23,16 +23,17 @@ function MyProfileBasicsUnsafe({
       </div>
       <div className="flex flex-col gap-4">
         <div>
-          <span className="font-bold text-3xl">{username}</span> 님
+          <span className="font-semibold text-3xl">{username}</span> 님
         </div>
         <div className="flex flex-col gap-1">
-          <div className="flex flex-row gap-8">
-            <span className="font-bold">{department}</span>
+          <div className="flex flex-row gap-8 text-base-14">
+            <span>{department}</span>
             <span>{degree}</span>
-            <span className="font-bold">{semester}학기</span>
+            <span>{semester}학기</span>
           </div>
-          <div>
-            <span className="font-bold">잔여 포인트</span> {point}
+          <div className="flex flex-row gap-4">
+            <span className="text-base-14">잔여 포인트</span>
+            <span className="text-primary-400 font-semibold">{point}</span>
           </div>
         </div>
       </div>
