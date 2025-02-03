@@ -15,7 +15,7 @@ export default function WritePage({ params }: Props) {
   // const writable = use();
 
   const { data: writable } = useQuery({
-    queryKey: ['asdfasdfasdf'],
+    queryKey: ['writableComment'],
     queryFn: () => createCommentPrepare({ course_id: Number(id) }),
   });
 
