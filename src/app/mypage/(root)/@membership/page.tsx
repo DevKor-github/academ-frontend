@@ -1,5 +1,6 @@
 import { SkeletonSlow } from '@/components/composite/skeleton';
 import BuyMembershipButton from './components/BuyMembershipFunction';
+import { getMyPageBasics } from '@/app/api/mypage.api';
 
 const memberships: Array<MembershipData> = [
   { item: '30DAYS', day: 30, price: 100, iconLevel: 1 },
@@ -45,7 +46,10 @@ export function MyProfileMembershipsLoading() {
   return <MyProfileMembershipsUnsafe expireLabel={<SkeletonSlow placeholder="D-???" />} />;
 }
 
-export default function MyProfileMemberships({ access_expiration_date }: Pick<UserProfile, 'access_expiration_date'>) {
+export default async function MyProfileMemberships() {
+  const mypagebasics = await getMyPageBasics();
+  const { access_expiration_date } = mypagebasics.data;
+
   const expireLabel: string = (() => {
     const now = new Date();
     const expire = new Date(access_expiration_date);
