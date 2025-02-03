@@ -18,7 +18,7 @@ export default function ErrorTemplate({
       <ErrorIllust />
       <HStack className="pb-16 gap-y-4">
         {/* <span className="text-6xl font-bold">{title}</span> */}
-        <span className="text-2xl whitespace-pre-line text-balance">{subtitle}</span>
+        <span className="text-2xl font-semibold whitespace-pre-line text-balance">{subtitle}</span>
       </HStack>
       <VStack className="pb-8 justify-center gap-x-4">
         <BackButton />
@@ -51,8 +51,7 @@ export function ErrorLogintemplate({
       <ErrorIllust />
       <HStack className="pb-16 gap-y-4">
         {/* <span className="text-6xl font-bold">{title}</span> */}
-        <span className="text-2xl whitespace-pre-line text-balance">{subtitle}</span>
-        <span className="text-2xl whitespace-pre-line text-balance">로그인 후 사용해주십시오.</span>
+        <span className="text-2xl font-semibold whitespace-pre-line text-balance">{subtitle}</span>
       </HStack>
       <VStack className="pb-8 justify-center gap-x-4">
         <BackButton />
