@@ -22,16 +22,24 @@ function MyProfileMembershipsUnsafe({ expireLabel }: { expireLabel: React.ReactN
           </span>
         </div>
       </div>
-      <div className="border border-primary-500 bg-opacity-5 bg-primary-400 p-8 mt-8 mb-8 rounded-2xl">
-        <div>
-          강의평 작성 시 100 포인트, 작성한 강의평이 좋아요를 10개 이상 받을 시 50 포인트를 얻을 수 있습니다.
+      <div className="border border-primary-500 bg-opacity-5 bg-primary-400 p-8 mt-8 mb-8 rounded-2xl text-base-10">
+        <span>강의평 작성 시 </span>
+        <span className="text-primary-400">100 포인트</span>
+        <span>, 작성한 강의평이 좋아요를 10개 이상 받을 시 </span>
+        <span className="text-primary-400">50 포인트</span>
+        <span>
+          를 얻을 수 있습니다.
           <br />
-          강의평 삭제 시 100 포인트가 차감됩니다.
+          강의평 삭제 시{' '}
+        </span>
+        <span className="text-primary-400">100 포인트</span>
+        <span>
+          가 차감됩니다.
           <br />
           <br />
           신규가입자는 한 달 동안 자유롭게 열람이 가능하며, 이후 열람하기 위해서는 강의평을 작성하여 포인트를
           받아야합니다
-        </div>
+        </span>
       </div>
       <div className="flex flex-row mt-4 gap-x-4 flex-wrap gap-y-2">
         {memberships.flatMap((v) => (
