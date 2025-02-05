@@ -30,7 +30,7 @@ function MyProfileMembershipsUnsafe({ expireLabel }: { expireLabel: React.ReactN
         <span>
           를 얻을 수 있습니다.
           <br />
-          강의평 삭제 시{' '}
+          강의평 삭제 시
         </span>
         <span className="text-primary-400">100 포인트</span>
         <span>
