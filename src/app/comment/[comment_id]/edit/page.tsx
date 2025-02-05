@@ -15,7 +15,7 @@ export default async function EditPage({ params }: Props) {
     <EditComment courseName={editable.data.name} comment={editable.data} />
   ) : (
     <ErrorTemplate
-      title={editable.statusCode.toString()}
+      // title={editable.statusCode.toString()}
       subtitle={`강의평을 작성할 수 없습니다.
         ${JSON.stringify(editable)}`}
     />
