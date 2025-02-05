@@ -5,11 +5,11 @@ import BackButton from './backbutton';
 import ErrorIllust from './inner/erroricon';
 
 export default function ErrorTemplate({
-  // title,
+  title,
   subtitle,
   // back
 }: {
-  // title: string;
+  title?: string;
   subtitle: string;
   back?: string;
 }) {
@@ -17,7 +17,7 @@ export default function ErrorTemplate({
     <HStack className="pt-24 pb-24 pl-8 pr-8 text-center items-center justify-center">
       <ErrorIllust />
       <HStack className="pb-16 gap-y-4">
-        {/* <span className="text-6xl font-bold">{title}</span> */}
+        <span className="text-6xl font-bold">{title}</span>
         <span className="text-2xl font-semibold whitespace-pre-line text-balance">{subtitle}</span>
       </HStack>
       <VStack className="pb-8 justify-center gap-x-4">
@@ -38,11 +38,11 @@ export default function ErrorTemplate({
 }
 
 export function ErrorLogintemplate({
-  // title,
+  title,
   subtitle,
   // back
 }: {
-  // title: string;
+  title?: string;
   subtitle: string;
   back?: string;
 }) {
@@ -50,7 +50,7 @@ export function ErrorLogintemplate({
     <HStack className="pt-24 pb-24 pl-8 pr-8 text-center items-center justify-center">
       <ErrorIllust />
       <HStack className="pb-16 gap-y-4">
-        {/* <span className="text-6xl font-bold">{title}</span> */}
+        <span className="text-6xl font-bold">{title}</span>
         <span className="text-2xl font-semibold whitespace-pre-line text-balance">{subtitle}</span>
       </HStack>
       <VStack className="pb-8 justify-center gap-x-4">
