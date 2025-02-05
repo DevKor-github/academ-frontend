@@ -5,11 +5,11 @@ import BackButton from './backbutton';
 import ErrorIllust from './inner/erroricon';
 
 export default function ErrorTemplate({
-  title,
+  // title,
   subtitle,
   // back
 }: {
-  title: string;
+  // title: string;
   subtitle: string;
   back?: string;
 }) {
@@ -38,11 +38,11 @@ export default function ErrorTemplate({
 }
 
 export function ErrorLogintemplate({
-  title,
+  // title,
   subtitle,
   // back
 }: {
-  title: string;
+  // title: string;
   subtitle: string;
   back?: string;
 }) {

@@ -26,14 +26,14 @@ export default function WritePage({ params }: Props) {
     <WriteComment course={writable.data} />
   ) : writable.code === 'UNAUTHORIZED' ? (
     <ErrorLogintemplate
-      title={JSON.stringify(writable)}
+      // title={JSON.stringify(writable)}
       subtitle={`강의평을 작성할 수 없습니다.
         로그인 후 사용해주십시오.`}
     />
   ) : (
     <ErrorTemplate
       // TODO
-      title={JSON.stringify(writable)}
+      // title={JSON.stringify(writable)}
       subtitle={`강의평을 작성할 수 없습니다.
         ${writable.message}`}
     />
