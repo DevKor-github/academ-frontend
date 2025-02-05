@@ -22,7 +22,7 @@ function Footer() {
 
 export default function CommonLayout({ children }: React.PropsWithChildren<unknown>) {
   return (
-    <div className="flex flex-col min-h-full">
+    <div className="flex flex-col min-h-[110%]">
       <TopNav />
       <main className="flex flex-col flex-grow w-full">{children}</main>
       <Footer />
