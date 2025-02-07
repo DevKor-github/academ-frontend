@@ -4,7 +4,6 @@ import { SkeletonSlow } from '@/components/composite/skeleton';
 import { getMyPageBasics } from '../../../api/mypage.api';
 import TempAlert from './components/TempAlert';
 import { CloseIcon } from '@/components/icon';
-import { redirect } from 'next/navigation';
 
 function MyProfileBasicsUnsafe({
   degree,
