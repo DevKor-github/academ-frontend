@@ -75,11 +75,6 @@ export default async function MyProfileBasics({ searchParams }: Props) {
   );
 
   const mypagebasics = await getMyPageBasics();
-
-  if (mypagebasics.status !== 'SUCCESS') {
-    redirect('/login');
-  }
-
   const userprofile = mypagebasics.data;
 
   const degreePrint =
